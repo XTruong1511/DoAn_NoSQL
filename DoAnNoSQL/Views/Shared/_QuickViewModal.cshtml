@@ -1,0 +1,533 @@
+<!-- Quick View Modal -->
+<div id="quickViewModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-3 sm:p-6 opacity-0 pointer-events-none transition-all duration-300">
+    <div id="quickViewDialog" class="bg-white rounded-3xl shadow-2xl border border-slate-100 max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-all duration-300 relative flex flex-col">
+        
+        <!-- Close Button -->
+        <button type="button" onclick="closeQuickView()" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-slate-100 hover:bg-red-50 hover:text-red-600 text-slate-500 flex items-center justify-center transition-all duration-200 focus:outline-none shadow-xs">
+            <i class="fas fa-times text-lg"></i>
+        </button>
+
+        <!-- Loading State -->
+        <div id="qv-loading" class="p-16 flex flex-col items-center justify-center text-teal-600 space-y-4">
+            <div class="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin"></div>
+            <p class="text-sm font-semibold text-slate-600">Đang tải thông tin sản phẩm...</p>
+        </div>
+
+        <!-- Content Container (Hidden initially) -->
+        <div id="qv-content" class="hidden p-6 sm:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                
+                <!-- Left Column: Gallery -->
+                <div class="space-y-4">
+                    <div class="relative bg-slate-50 rounded-2xl p-4 border border-slate-100 overflow-hidden group flex items-center justify-center h-64 sm:h-80">
+                        <img id="qv-main-img" src="" alt="Hình sản phẩm" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
+                        <span id="qv-discount-badge" class="hidden absolute top-3 left-3 bg-gradient-to-r from-red-600 to-rose-500 text-white text-xs font-extrabold px-3 py-1 rounded-full shadow-md">
+                            -20%
+                        </span>
+                    </div>
+                    <!-- Thumbnails -->
+                    <div id="qv-thumbnails" class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-thin">
+                        <!-- Thumbnails will be injected here -->
+                    </div>
+
+                    <!-- Nút Xem 3D trong QuickView -->
+                    <button type="button" 
+                            onclick="var title = $('#qv-title').text().trim(); var img = $('#qv-main-img').attr('src'); Web3DExperience.openStudioModal(title, img);" 
+                            class="btn-launch-3d w-full py-2.5 px-3 rounded-xl text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md">
+                        <i class="fas fa-cube text-teal-300"></i>
+                        <span>Xem mô hình 3D (360° Studio)</span>
+                    </button>
+                </div>
+
+                <!-- Right Column: Product Details -->
+                <div class="flex flex-col justify-between space-y-5">
+                    <div>
+                        <!-- Category Badge -->
+                        <span id="qv-category" class="inline-block bg-teal-50 text-teal-700 text-xs font-bold px-3 py-1 rounded-full mb-2">
+                            Danh mục
+                        </span>
+
+                        <!-- Title -->
+                        <h2 id="qv-title" class="text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
+                            Tên sản phẩm
+                        </h2>
+
+                        <!-- Rating Stars -->
+                        <div class="flex items-center space-x-2 mt-2">
+                            <div id="qv-stars" class="flex text-amber-400 text-sm space-x-0.5">
+                                <!-- Stars -->
+                            </div>
+                            <span id="qv-rating-text" class="text-xs text-slate-500 font-medium">(0 đánh giá)</span>
+                        </div>
+
+                        <!-- Price Section -->
+                        <div id="qv-price-container" class="mt-4 flex items-baseline space-x-3">
+                            <span id="qv-price-final" class="text-2xl sm:text-3xl font-black text-red-600">0đ</span>
+                            <span id="qv-price-old" class="text-base text-slate-400 line-through hidden">0đ</span>
+                        </div>
+
+                        <!-- Stock Status -->
+                        <div class="mt-3">
+                            <span id="qv-stock-badge" class="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <i class="fas fa-check-circle mr-1.5"></i> Còn hàng
+                            </span>
+                        </div>
+
+                        <!-- Description Snippet -->
+                        <div class="mt-4 text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed border-t border-b border-slate-100 py-3" id="qv-description">
+                            Mô tả sản phẩm...
+                        </div>
+
+                        <!-- Color Swatches Section (Chọn màu sắc) -->
+                        <div id="qv-color-section" class="mt-4 pt-1">
+                            <div class="flex items-center justify-between mb-2.5">
+                                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fas fa-palette text-teal-600"></i>
+                                    <span>Chọn màu sắc:</span>
+                                </span>
+                                <span id="qv-selected-color-name" class="text-xs font-bold text-teal-800 bg-teal-50 border border-teal-200 px-3 py-0.5 rounded-full shadow-2xs transition-all">
+                                    Xám Titanium
+                                </span>
+                            </div>
+                            <div id="qv-colors-container" class="flex flex-wrap items-center gap-3">
+                                <!-- Swatches injected dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity & Add to Cart Action -->
+                    <div class="space-y-4 pt-2">
+                        <!-- Quantity Stepper -->
+                        <div class="flex items-center space-x-4">
+                            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Số lượng:</span>
+                            <div class="inline-flex items-center border border-slate-300 rounded-xl bg-slate-50 overflow-hidden">
+                                <button type="button" onclick="changeQvQty(-1)" class="px-3 py-1.5 text-slate-600 hover:bg-slate-200 transition-colors font-bold text-base focus:outline-none">-</button>
+                                <input type="number" id="qv-qty-input" value="1" min="1" max="99" class="w-12 text-center bg-transparent text-sm font-bold text-slate-800 border-none focus:outline-none" readonly>
+                                <button type="button" onclick="changeQvQty(1)" class="px-3 py-1.5 text-slate-600 hover:bg-slate-200 transition-colors font-bold text-base focus:outline-none">+</button>
+                            </div>
+                        </div>
+
+                        <!-- CTA Buttons -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button type="button" id="qv-btn-add-cart" onclick="addQvToCart()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 text-sm cursor-pointer active:scale-95">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Thêm vào giỏ</span>
+                            </button>
+                            <button type="button" id="qv-btn-buy-now" onclick="buyNowQv()" class="w-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold py-3 px-4 rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 text-sm uppercase tracking-wide cursor-pointer active:scale-95">
+                                <i class="fas fa-bolt"></i>
+                                <span>Mua ngay</span>
+                            </button>
+                        </div>
+
+                        <!-- Full Detail Link -->
+                        <div class="text-right pt-1">
+                            <a id="qv-detail-link" href="#" class="text-teal-600 hover:text-teal-700 font-semibold text-xs sm:text-sm inline-flex items-center hover:underline transition-colors">
+                                <span>Xem chi tiết đầy đủ sản phẩm</span>
+                                <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let currentQvProduct = null;
+    let selectedQvColor = null;
+
+    // Danh sách màu sắc đồng bộ với Chi Tiết Sản Phẩm
+    const QV_AVAILABLE_COLORS = [
+        { id: 'gray', name: 'Xám Titanium', bgClass: 'bg-slate-500', isDark: true },
+        { id: 'silver', name: 'Bạc Ánh Kim', bgClass: 'bg-slate-200', isDark: false },
+        { id: 'black', name: 'Đen Huyền Bí', bgClass: 'bg-slate-900', isDark: true },
+        { id: 'gold', name: 'Vàng Sa Mạc', bgClass: 'bg-amber-300', isDark: false },
+        { id: 'blue', name: 'Xanh Đại Dương', bgClass: 'bg-blue-600', isDark: true }
+    ];
+
+    function openQuickView(productId) {
+        const modal = document.getElementById('quickViewModal');
+        const dialog = document.getElementById('quickViewDialog');
+        const loading = document.getElementById('qv-loading');
+        const content = document.getElementById('qv-content');
+
+        if (!modal || !dialog) return;
+
+        // Reset state
+        document.getElementById('qv-qty-input').value = 1;
+        loading.classList.remove('hidden');
+        content.classList.add('hidden');
+
+        // Show modal
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+        dialog.classList.remove('scale-95');
+        dialog.classList.add('scale-100');
+
+        // Fetch product data
+        $.ajax({
+            url: '/SanPham/GetQuickView/' + productId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (res) {
+                if (res && res.success) {
+                    currentQvProduct = res;
+                    populateQuickView(res);
+                    loading.classList.add('hidden');
+                    content.classList.remove('hidden');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Thông báo',
+                        text: res.message || 'Không thể tải thông tin sản phẩm',
+                        confirmColor: '#0d9488'
+                    });
+                    closeQuickView();
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Có lỗi xảy ra khi kết nối máy chủ',
+                    confirmColor: '#0d9488'
+                });
+                closeQuickView();
+            }
+        });
+    }
+
+    function closeQuickView() {
+        const modal = document.getElementById('quickViewModal');
+        const dialog = document.getElementById('quickViewDialog');
+        if (!modal || !dialog) return;
+
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        dialog.classList.remove('scale-100');
+        dialog.classList.add('scale-95');
+    }
+
+    // Dismiss modal on backdrop click
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('quickViewModal');
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeQuickView();
+                }
+            });
+        }
+    });
+
+    function populateQuickView(data) {
+        document.getElementById('qv-category').innerText = data.danhMuc;
+        document.getElementById('qv-title').innerText = data.tenSanPham;
+        document.getElementById('qv-detail-link').href = data.urlDetail;
+
+        // Rating
+        const starsContainer = document.getElementById('qv-stars');
+        starsContainer.innerHTML = '';
+        const fullStars = Math.floor(data.saoTrungBinh);
+        const hasHalf = data.saoTrungBinh - fullStars >= 0.5;
+        for (let i = 1; i <= 5; i++) {
+            if (i <= fullStars) {
+                starsContainer.innerHTML += '<i class="fas fa-star text-amber-400"></i>';
+            } else if (i === fullStars + 1 && hasHalf) {
+                starsContainer.innerHTML += '<i class="fas fa-star-half-alt text-amber-400"></i>';
+            } else {
+                starsContainer.innerHTML += '<i class="far fa-star text-slate-300"></i>';
+            }
+        }
+        document.getElementById('qv-rating-text').innerText = `(${data.soLuotDanhGia} đánh giá)`;
+
+        // Price & Discount
+        const priceFinal = document.getElementById('qv-price-final');
+        const priceOld = document.getElementById('qv-price-old');
+        const discountBadge = document.getElementById('qv-discount-badge');
+
+        if (data.hasDiscount && data.giaKhuyenMai) {
+            priceFinal.innerText = data.giaKhuyenMai;
+            priceOld.innerText = data.gia;
+            priceOld.classList.remove('hidden');
+            discountBadge.innerText = `-${data.giamGiaPercent}%`;
+            discountBadge.classList.remove('hidden');
+        } else {
+            priceFinal.innerText = data.gia;
+            priceOld.classList.add('hidden');
+            discountBadge.classList.add('hidden');
+        }
+
+        // Stock badge
+        const stockBadge = document.getElementById('qv-stock-badge');
+        if (data.conHang) {
+            stockBadge.className = 'inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200';
+            stockBadge.innerHTML = '<i class="fas fa-check-circle mr-1.5"></i> Còn hàng (' + data.soLuong + ')';
+            document.getElementById('qv-btn-add-cart').disabled = false;
+            document.getElementById('qv-btn-buy-now').disabled = false;
+        } else {
+            stockBadge.className = 'inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-md bg-red-50 text-red-700 border border-red-200';
+            stockBadge.innerHTML = '<i class="fas fa-times-circle mr-1.5"></i> Hết hàng';
+            document.getElementById('qv-btn-add-cart').disabled = true;
+            document.getElementById('qv-btn-buy-now').disabled = true;
+        }
+
+        // Description
+        const desc = document.getElementById('qv-description');
+        desc.innerText = data.moTa || data.thongSoKyThuat || 'Chưa có thông tin mô tả chi tiết.';
+
+        // Images Gallery
+        const mainImg = document.getElementById('qv-main-img');
+        const thumbsContainer = document.getElementById('qv-thumbnails');
+        thumbsContainer.innerHTML = '';
+
+        if (data.images && data.images.length > 0) {
+            const firstImgSrc = data.images[0].startsWith('http') ? data.images[0] : '/Content/Images/' + data.images[0];
+            mainImg.src = firstImgSrc;
+
+            data.images.forEach((img, idx) => {
+                const imgSrc = img.startsWith('http') ? img : '/Content/Images/' + img;
+                const thumb = document.createElement('button');
+                thumb.type = 'button';
+                thumb.className = `w-14 h-14 rounded-lg border-2 p-1 flex-shrink-0 bg-white overflow-hidden transition-all ${idx === 0 ? 'border-teal-500 scale-105' : 'border-slate-200 opacity-70 hover:opacity-100'}`;
+                thumb.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-contain">`;
+                thumb.onclick = function () {
+                    mainImg.src = imgSrc;
+                    Array.from(thumbsContainer.children).forEach(c => c.className = 'w-14 h-14 rounded-lg border-2 p-1 flex-shrink-0 bg-white overflow-hidden transition-all border-slate-200 opacity-70 hover:opacity-100');
+                    thumb.className = 'w-14 h-14 rounded-lg border-2 p-1 flex-shrink-0 bg-white overflow-hidden transition-all border-teal-500 scale-105';
+                };
+                thumbsContainer.appendChild(thumb);
+            });
+        } else {
+            mainImg.src = 'https://placehold.co/800x600';
+        }
+
+        // Color Swatches Initialization
+        const colorSection = document.getElementById('qv-color-section');
+        if (data.danhMuc && data.danhMuc.toLowerCase().includes('phụ kiện')) {
+            if (colorSection) colorSection.classList.add('hidden');
+        } else {
+            if (colorSection) colorSection.classList.remove('hidden');
+            initQuickViewColors(data);
+        }
+    }
+
+    function initQuickViewColors(data) {
+        const container = document.getElementById('qv-colors-container');
+        if (!container) return;
+        container.innerHTML = '';
+
+        // Default to first color
+        selectedQvColor = QV_AVAILABLE_COLORS[0];
+        document.getElementById('qv-selected-color-name').innerText = selectedQvColor.name;
+
+        QV_AVAILABLE_COLORS.forEach((color, idx) => {
+            const isSelected = idx === 0;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.id = 'qv-color-' + color.id;
+            btn.setAttribute('data-color-id', color.id);
+            btn.setAttribute('data-color-name', color.name);
+            btn.setAttribute('title', color.name);
+            btn.className = `qv-color-btn relative p-0.5 rounded-full transition-all duration-200 focus:outline-none hover:scale-110 ${isSelected ? 'ring-2 ring-teal-600 ring-offset-2 scale-105' : 'hover:ring-1 hover:ring-slate-300'}`;
+
+            const checkColor = color.isDark ? 'text-white' : 'text-slate-800';
+            btn.innerHTML = `
+                <div class="w-9 h-9 rounded-full ${color.bgClass} border-2 border-white shadow-xs flex items-center justify-center transition-all">
+                    <i class="fas fa-check text-[11px] ${checkColor} ${isSelected ? 'opacity-100' : 'opacity-0'} transition-opacity"></i>
+                </div>
+            `;
+
+            btn.onclick = function () {
+                selectQvColor(color.id, color.name, idx);
+            };
+
+            container.appendChild(btn);
+        });
+    }
+
+    function selectQvColor(colorId, colorName, colorIdx) {
+        const found = QV_AVAILABLE_COLORS.find(c => c.id === colorId);
+        if (!found) return;
+
+        selectedQvColor = found;
+
+        // Cập nhật tên màu hiển thị
+        const nameLabel = document.getElementById('qv-selected-color-name');
+        if (nameLabel) {
+            nameLabel.innerText = colorName;
+            nameLabel.classList.add('scale-105');
+            setTimeout(() => nameLabel.classList.remove('scale-105'), 200);
+        }
+
+        // Cập nhật trạng thái vòng chọn (ring & checkmark)
+        const buttons = document.querySelectorAll('.qv-color-btn');
+        buttons.forEach(btn => {
+            const isCurrent = btn.getAttribute('data-color-id') === colorId;
+            if (isCurrent) {
+                btn.className = 'qv-color-btn relative p-0.5 rounded-full transition-all duration-200 focus:outline-none ring-2 ring-teal-600 ring-offset-2 scale-105';
+                const icon = btn.querySelector('i');
+                if (icon) icon.className = icon.className.replace('opacity-0', 'opacity-100');
+            } else {
+                btn.className = 'qv-color-btn relative p-0.5 rounded-full transition-all duration-200 focus:outline-none hover:scale-110 hover:ring-1 hover:ring-slate-300';
+                const icon = btn.querySelector('i');
+                if (icon) icon.className = icon.className.replace('opacity-100', 'opacity-0');
+            }
+        });
+
+        // Nếu sản phẩm có nhiều ảnh, chuyển ảnh tương ứng với vị trí màu sắc
+        if (typeof colorIdx === 'number' && currentQvProduct && currentQvProduct.images && currentQvProduct.images.length > colorIdx) {
+            const targetImg = currentQvProduct.images[colorIdx];
+            const imgSrc = targetImg.startsWith('http') ? targetImg : '/Content/Images/' + targetImg;
+            const mainImg = document.getElementById('qv-main-img');
+            if (mainImg) {
+                mainImg.src = imgSrc;
+            }
+            const thumbs = document.querySelectorAll('#qv-thumbnails button');
+            if (thumbs && thumbs[colorIdx]) {
+                thumbs.forEach(t => t.className = 'w-14 h-14 rounded-lg border-2 p-1 flex-shrink-0 bg-white overflow-hidden transition-all border-slate-200 opacity-70 hover:opacity-100');
+                thumbs[colorIdx].className = 'w-14 h-14 rounded-lg border-2 p-1 flex-shrink-0 bg-white overflow-hidden transition-all border-teal-500 scale-105';
+            }
+        }
+    }
+
+    function changeQvQty(delta) {
+        const input = document.getElementById('qv-qty-input');
+        if (!input) return;
+        let val = parseInt(input.value) || 1;
+        val += delta;
+        if (val < 1) val = 1;
+        if (currentQvProduct && currentQvProduct.soLuong && val > currentQvProduct.soLuong) {
+            val = currentQvProduct.soLuong;
+            Swal.fire({
+                icon: 'info',
+                title: 'Số lượng tối đa',
+                text: `Sản phẩm hiện chỉ còn ${currentQvProduct.soLuong} sản phẩm trong kho`,
+                toast: true,
+                position: 'top-end',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+        input.value = val;
+    }
+
+    function addQvToCart() {
+        if (!currentQvProduct) return;
+        const qty = parseInt(document.getElementById('qv-qty-input').value) || 1;
+        const colorName = (selectedQvColor && selectedQvColor.name) ? selectedQvColor.name : 'Xám Titanium';
+
+        const btn = document.getElementById('qv-btn-add-cart');
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-circle-notch animate-spin"></i><span>Đang thêm...</span>';
+
+        $.ajax({
+            url: '/GioHang/AddToCart',
+            type: 'POST',
+            data: {
+                productId: currentQvProduct.id,
+                quantity: qty,
+                color: colorName
+            },
+            success: function (res) {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+
+                if (res && res.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đã thêm vào giỏ hàng!',
+                        html: `<div class="text-sm"><strong>${currentQvProduct.tenSanPham}</strong><br><span class="text-xs text-slate-500 mt-1 inline-block">Màu: <span class="font-bold text-teal-700">${colorName}</span> • Số lượng: <strong>${qty}</strong></span></div>`,
+                        timer: 2500,
+                        showConfirmButton: false,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                    if (typeof updateCartCount === 'function') {
+                        updateCartCount(res.cartCount);
+                    }
+                    closeQuickView();
+                } else if (res && res.requireLogin) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Vui lòng đăng nhập!',
+                        text: res.message || 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng',
+                        showCancelButton: true,
+                        confirmButtonText: 'Đăng nhập',
+                        cancelButtonText: 'Hủy',
+                        confirmButtonColor: '#0d9488'
+                    }).then((r) => {
+                        if (r.isConfirmed) {
+                            window.location.href = '/Account/Login?returnUrl=' + encodeURIComponent(window.location.pathname);
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Thông báo',
+                        text: res.message || 'Không thể thêm vào giỏ hàng',
+                        confirmColor: '#0d9488'
+                    });
+                }
+            },
+            error: function () {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Không thể kết nối đến máy chủ. Vui lòng thử lại sau.',
+                    confirmColor: '#0d9488'
+                });
+            }
+        });
+    }
+
+    function buyNowQv() {
+        if (!currentQvProduct) return;
+        const qty = parseInt(document.getElementById('qv-qty-input').value) || 1;
+        const colorName = (selectedQvColor && selectedQvColor.name) ? selectedQvColor.name : 'Xám Titanium';
+
+        const btn = document.getElementById('qv-btn-buy-now');
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-circle-notch animate-spin"></i><span>Đang xử lý...</span>';
+
+        $.ajax({
+            url: '/GioHang/AddToCart',
+            type: 'POST',
+            data: {
+                productId: currentQvProduct.id,
+                quantity: qty,
+                color: colorName
+            },
+            success: function (res) {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+
+                if (res && res.success) {
+                    window.location.href = '/ThanhToan/Index';
+                } else if (res && res.requireLogin) {
+                    $('#authModal').modal('show');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Thông báo',
+                        text: res.message || 'Không thể thực hiện',
+                        confirmColor: '#0d9488'
+                    });
+                }
+            },
+            error: function () {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+                window.location.href = currentQvProduct.urlDetail;
+            }
+        });
+    }
+</script>

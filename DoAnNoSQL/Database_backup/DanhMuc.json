@@ -1,0 +1,82 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330827"
+    },
+    "SqlId": 1,
+    "TenDanhMuc": "Điện thoại",
+    "BiDanh": "dien-thoai",
+    "Icon": "fas fa-mobile-alt",
+    "MoTa": null,
+    "SEO": {
+      "TieuDeSeo": null,
+      "MoTaSeo": null,
+      "TuKhoaSeo": null
+    },
+    "ThuTu": 1,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.957Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330828"
+    },
+    "SqlId": 2,
+    "TenDanhMuc": "Laptop",
+    "BiDanh": "laptop",
+    "Icon": "fas fa-laptop",
+    "MoTa": null,
+    "SEO": {
+      "TieuDeSeo": null,
+      "MoTaSeo": null,
+      "TuKhoaSeo": null
+    },
+    "ThuTu": 1,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.957Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330829"
+    },
+    "SqlId": 3,
+    "TenDanhMuc": "Tablet",
+    "BiDanh": "tablet",
+    "Icon": "fas fa-tablet-alt",
+    "MoTa": null,
+    "SEO": {
+      "TieuDeSeo": null,
+      "MoTaSeo": null,
+      "TuKhoaSeo": null
+    },
+    "ThuTu": 1,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.957Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533082a"
+    },
+    "SqlId": 4,
+    "TenDanhMuc": "Phụ kiện",
+    "BiDanh": "phu-kien",
+    "Icon": "fas fa-headphones",
+    "MoTa": null,
+    "SEO": {
+      "TieuDeSeo": null,
+      "MoTaSeo": null,
+      "TuKhoaSeo": null
+    },
+    "ThuTu": 1,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.957Z"
+    }
+  }
+]

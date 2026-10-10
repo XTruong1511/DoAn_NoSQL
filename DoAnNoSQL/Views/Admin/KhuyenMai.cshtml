@@ -1,0 +1,173 @@
+@model List<tb_MaGiamGia>
+
+@{
+    ViewBag.Title = "KhuyenMai";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string TuKhoa = ViewBag.TuKhoa;
+}
+
+<div id="promotions" class="tab-content active">
+    <h1 class="mb-4"><i class="fas fa-percent text-primary me-2"></i>Quản lý khuyến mãi & mã giảm giá</h1>
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <form action="TimKhuyenMai" method="get" class="input-group w-50">
+                <input type="text" class="form-control" id="timkm" name="timkm" placeholder="Tìm kiếm mã giảm giá...">
+                <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="d-flex gap-2">
+                <button class="btn btn-success btn-icon" onclick="exportTableToExcel('promotionTable', 'DanhSachKhuyenMai_' + new Date().toISOString().slice(0,10) + '.xlsx')" title="Xuất Excel">
+                    <i class="fas fa-file-excel"></i>
+                </button>
+                <button class="btn btn-secondary btn-icon" onclick="printPage()" title="In danh sách">
+                    <i class="fas fa-print"></i>
+                </button>
+                @if (Session["Role"] != null && Convert.ToInt32(Session["Role"]) == 1)
+                {
+                    <a href="@Url.Action("formThemKM", "Admin")" class="btn btn-primary btn-icon" title="Thêm khuyến mãi">
+                    <i class="fas fa-plus"></i>
+                </a>
+                }
+            </div>
+        </div>
+        <table class="table table-bordered table-hover" id="promotionTable">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th>Mã giảm giá</th>
+                    <th>Số tiền giảm</th>
+                    <th>Phần trăm giảm</th>
+                    <th>Ngày tạo</th>
+                    <th>Ngày kết thúc</th>
+                    <th>Số lượng</th>
+                    <th>Hiển thị</th>
+                    @if (Session["Role"] != null && Convert.ToInt32(Session["Role"]) == 1)
+                    {
+                        <th class="text-center">Hành động</th>
+                    }
+                </tr>
+            </thead>
+            <tbody id="promotionTableBody">
+                @foreach (var item in Model)
+                {
+                    <tr id="promo-@item.Id">
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td>@item.MaCode</td>
+                        <td class="text-end align-middle">@item.SoTienGiam</td>
+                        <td class="text-center align-middle">@item.PhanTramGiam</td>
+                        <td class="text-center align-middle">@item.NgayTao</td>
+                        <td class="text-center align-middle">@item.NgayKetThuc</td>
+                        <td class="text-center align-middle">@item.SoLuong</td>
+                        <td>
+                            <div class="form-check form-switch d-flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" @(item.HienThi == true ? "checked" : "") disabled>
+                            </div>
+                        </td>
+                        @if (Session["Role"] != null && Convert.ToInt32(Session["Role"]) == 1)
+                        {
+                            <td class="text-center">
+                                <div class="btn-group justify-content-center" role="group">
+                                    <a href="@Url.Action("formSuaKM", "Admin", new { id = item.Id })" class="btn btn-sm btn-warning" title="Sửa khuyến mãi">
+                                        <i class="fas fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDeletePromo(@item.Id, '@item.MaCode')" title="Xóa khuyến mãi">
+                                        <i class="fas fa-trash-can"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+        function confirmDeletePromo(id, promoCode) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                html: `Bạn có chắc chắn muốn xóa mã <strong>${promoCode}</strong>?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fas fa-trash-can"></i> Xóa',
+                cancelButtonText: '<i class="fas fa-times"></i> Hủy',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Show loading
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    
+                    $.ajax({
+                        url: '@Url.Action("XoaKM", "Admin")',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function(res) {
+                            if (res.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công!',
+                                    text: res.message,
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    location.reload(); // Reload to update table
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi!',
+                                    text: res.message,
+                                    confirmButtonColor: '#d33'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: 'Có lỗi xảy ra khi gọi server.',
+                                confirmButtonColor: '#d33'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+        </script>
+        
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "KhuyenMai" : "TimKhuyenMai",
+                    new { timkm = ViewBag.TuKhoa, page = currentPage - 1 })">Trước</a>
+                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action(
+                        String.IsNullOrEmpty(ViewBag.TuKhoa) ? "KhuyenMai" : "TimKhuyenMai",
+                        new { timkm = ViewBag.TuKhoa, page = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "KhuyenMai" : "TimKhuyenMai",
+                    new { timkm = ViewBag.TuKhoa, page = currentPage + 1 })">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+

@@ -1,0 +1,214 @@
+@model DoAnNoSQL.Models.BaoHanhFormViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    bool isUpdate = Model.Id > 0;
+}
+
+<div class="container-fluid p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1 text-gray-800">
+                <i class="fas fa-shield-alt text-primary me-2"></i>@ViewBag.Title
+            </h1>
+            <p class="text-muted mb-0">@(isUpdate ? "Cập nhật thông tin phiếu bảo hành" : "Nhập thông tin phiếu bảo hành mới")</p>
+        </div>
+        <div>
+            <a href="@Url.Action("BaoHanh", "Admin")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Quay lại
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <form id="formBaoHanh" onsubmit="submitFormBaoHanh(event)">
+                <input type="hidden" id="bh_Id" name="Id" value="@Model.Id" />
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Sản phẩm <span class="text-danger">*</span></label>
+                        <select class="form-select" id="bh_SanPhamId" name="SanPhamId" required onchange="onSelectSanPham(this)">
+                            <option value="">-- Chọn sản phẩm --</option>
+                            @if (ViewBag.DanhSachSanPhamDropdown != null)
+                            {
+                                foreach (var sp in (List<DoAnNoSQL.Models.SanPhamDropdownViewModel>)ViewBag.DanhSachSanPhamDropdown)
+                                {
+                                    <option value="@sp.Id" data-thoihan="@sp.ThoiGianBaoHanh" data-masp="@sp.MaSanPham" @(Model.SanPhamId == sp.Id ? "selected" : "")>@sp.TenSanPham (@sp.MaSanPham)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Mã Serial / IMEI</label>
+                        <input type="text" class="form-control" id="bh_MaSeri" name="MaSeri" value="@Model.MaSeri" placeholder="Ví dụ: IP15PM-240901-01 hoặc IMEI 15 số" />
+                        <small class="text-muted">Để trống hệ thống sẽ tự sinh theo mã sản phẩm</small>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Tên khách hàng <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="bh_TenKhachHang" name="TenKhachHang" value="@Model.TenKhachHang" required placeholder="Họ và tên khách hàng" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Số điện thoại <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" id="bh_SoDienThoai" name="SoDienThoai" value="@Model.SoDienThoai" required placeholder="09xxxxxxx" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="bh_Email" name="Email" value="@Model.Email" placeholder="example@gmail.com" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Địa chỉ</label>
+                        <input type="text" class="form-control" id="bh_DiaChi" name="DiaChi" value="@Model.DiaChi" placeholder="Địa chỉ khách hàng" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Ngày kích hoạt / Mua</label>
+                        <input type="date" class="form-control" id="bh_NgayKichHoat" name="NgayKichHoat" value="@(Model.NgayKichHoat != default(DateTime) ? Model.NgayKichHoat.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" onchange="calculateExpiryDate()" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Thời hạn bảo hành (Tháng)</label>
+                        <input type="number" class="form-control" id="bh_ThoiHanBaoHanh" name="ThoiHanBaoHanh" value="@Model.ThoiHanBaoHanh" min="1" max="120" oninput="calculateExpiryDate()" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Ngày hết hạn dự kiến</label>
+                        <input type="text" class="form-control bg-light fw-bold text-success" id="bh_NgayHetHanPreview" readonly />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Ghi chú</label>
+                        <textarea class="form-control" id="bh_GhiChu" name="GhiChu" rows="2" placeholder="Ghi chú về tình trạng bán, chính sách bảo hành riêng...">@Model.GhiChu</textarea>
+                    </div>
+
+                    <!-- Thuộc tính bổ sung động NoSQL MongoDB -->
+                    <div class="col-12 mt-3">
+                        <div class="card p-3 bg-light border-0 rounded-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <h6 class="fw-bold mb-0 text-primary"><i class="fas fa-layer-group me-2"></i>Thông tin bổ sung (Đặc trưng mở rộng NoSQL MongoDB)</h6>
+                                    <small class="text-muted">Thêm các trường linh hoạt (Gói BH VIP, Phụ kiện kèm theo, TTBH ủy quyền, IMEI 2, Tình trạng ngoại quan...).</small>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-primary fw-bold" onclick="addBhCustomFieldRow()">
+                                    <i class="fas fa-plus me-1"></i> Thêm thông tin
+                                </button>
+                            </div>
+                            <div id="bhCustomFieldsContainer">
+                                @if (Model.ThongTinBoSung != null && Model.ThongTinBoSung.Any())
+                                {
+                                    foreach (var t in Model.ThongTinBoSung)
+                                    {
+                                        <div class="row g-2 mb-2 align-items-center bh-custom-field-row">
+                                            <div class="col-md-5">
+                                                <input type="text" name="CustomFieldName" class="form-control" placeholder="Tên thông tin (VD: Gói BH VIP, TTBH...)" value="@t.TenTruong">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="CustomFieldValue" class="form-control" placeholder="Nội dung giá trị..." value="@t.GiaTri">
+                                            </div>
+                                            <div class="col-md-1 text-center">
+                                                <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.bh-custom-field-row').remove()" title="Xóa dòng này">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-top text-end">
+                    <button type="button" class="btn btn-secondary me-2" onclick="location.href='@Url.Action("BaoHanh", "Admin")'">Hủy</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveBaoHanh"><i class="fas fa-save me-1"></i> @(isUpdate ? "Lưu thay đổi" : "Lưu phiếu bảo hành")</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function calculateExpiryDate() {
+            const startDateVal = document.getElementById('bh_NgayKichHoat').value;
+            const months = parseInt(document.getElementById('bh_ThoiHanBaoHanh').value) || 0;
+            if (startDateVal && months > 0) {
+                const startDate = new Date(startDateVal);
+                startDate.setMonth(startDate.getMonth() + months);
+                const dd = String(startDate.getDate()).padStart(2, '0');
+                const mm = String(startDate.getMonth() + 1).padStart(2, '0');
+                const yyyy = startDate.getFullYear();
+                document.getElementById('bh_NgayHetHanPreview').value = dd + '/' + mm + '/' + yyyy;
+            } else {
+                document.getElementById('bh_NgayHetHanPreview').value = '';
+            }
+        }
+
+        function onSelectSanPham(selectElem) {
+            const selectedOption = selectElem.options[selectElem.selectedIndex];
+            if (selectedOption && selectedOption.dataset.thoihan) {
+                document.getElementById('bh_ThoiHanBaoHanh').value = selectedOption.dataset.thoihan;
+                const masp = selectedOption.dataset.masp || "SP";
+                if (!document.getElementById('bh_MaSeri').value) {
+                    const now = new Date();
+                    const yy = String(now.getFullYear()).slice(-2);
+                    const mm = String(now.getMonth() + 1).padStart(2, '0');
+                    const dd = String(now.getDate()).padStart(2, '0');
+                    const hh = String(now.getHours()).padStart(2, '0');
+                    const min = String(now.getMinutes()).padStart(2, '0');
+                    document.getElementById('bh_MaSeri').value = `${masp}-${yy}${mm}${dd}${hh}${min}`;
+                }
+                calculateExpiryDate();
+            }
+        }
+
+        function addBhCustomFieldRow(name = '', val = '') {
+            const container = document.getElementById('bhCustomFieldsContainer');
+            const div = document.createElement('div');
+            div.className = 'row g-2 mb-2 align-items-center bh-custom-field-row';
+            div.innerHTML = `
+                <div class="col-md-5">
+                    <input type="text" name="CustomFieldName" class="form-control" placeholder="Tên thông tin (VD: Gói BH VIP, TTBH...)" value="${name}">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="CustomFieldValue" class="form-control" placeholder="Nội dung giá trị..." value="${val}">
+                </div>
+                <div class="col-md-1 text-center">
+                    <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.bh-custom-field-row').remove()" title="Xóa dòng này">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function submitFormBaoHanh(e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById('bh_Id').value) || 0;
+            const url = id > 0 ? '@Url.Action("SuaBaoHanh", "Admin")' : '@Url.Action("ThemBaoHanh", "Admin")';
+
+            const form = document.getElementById('formBaoHanh');
+            const formData = new FormData(form);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Thành công', data.message, 'success').then(() => {
+                        window.location.href = '@Url.Action("BaoHanh", "Admin")';
+                    });
+                } else {
+                    Swal.fire('Lỗi', data.message, 'error');
+                }
+            })
+            .catch(err => Swal.fire('Lỗi', err.message, 'error'));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateExpiryDate();
+        });
+    </script>
+}

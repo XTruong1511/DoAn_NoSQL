@@ -1,0 +1,322 @@
+@model List<DoAnNoSQL.tb_SanPham>
+
+@{
+    ViewBag.Title = "Khuyến Mãi & Giảm Giá Sốc";
+    var danhMucList = ViewBag.DanhMucList as List<DoAnNoSQL.tb_DanhMuc> ?? new List<DoAnNoSQL.tb_DanhMuc>();
+    int currentDmId = ViewBag.DanhMucId != null ? (int)ViewBag.DanhMucId : 0;
+    string currentSort = ViewBag.SortBy as string ?? "discount_desc";
+    int totalProducts = ViewBag.TotalProducts != null ? (int)ViewBag.TotalProducts : Model.Count;
+    int currentPage = ViewBag.CurrentPage != null ? (int)ViewBag.CurrentPage : 1;
+    int totalPages = ViewBag.TotalPages != null ? (int)ViewBag.TotalPages : 1;
+    decimal totalSavings = ViewBag.TotalSavings != null ? (decimal)ViewBag.TotalSavings : 0;
+}
+
+<div class="max-w-7xl mx-auto pb-12">
+    <!-- Breadcrumb tiêu chuẩn đồng bộ -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                    <i class="fas fa-home mr-2"></i>
+                    Trang chủ
+                </a>
+            </li>
+            @if (currentDmId > 0)
+            {
+                var currentDm = danhMucList.FirstOrDefault(d => d.Id == currentDmId);
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="@Url.Action("Index", "KhuyenMai")" class="text-sm font-medium text-gray-700 hover:text-blue-600">
+                            Khuyến mãi
+                        </a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500">@(currentDm?.TenDanhMuc ?? "Danh mục")</span>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500">Khuyến mãi</span>
+                    </div>
+                </li>
+            }
+        </ol>
+    </nav>
+
+    <!-- Hero Header Flash Sale & Khuyến Mãi (3D Banner) -->
+    <div class="page-header-3d border-beam-3d mb-8" data-aos="fade-down">
+        <!-- Vầng sáng trang trí neon -->
+        <div class="absolute -top-16 -right-16 w-64 h-64 bg-rose-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-16 -left-16 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30 mb-3 backdrop-blur-sm">
+                    <i class="fas fa-bolt text-yellow-300 animate-pulse"></i>
+                    Siêu Sale Giảm Đến 50%
+                </div>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-heading text-white leading-tight mb-2">
+                    DEAL CÔNG NGHỆ GIÁ SỐC
+                </h1>
+                <p class="text-sm sm:text-base text-slate-300">
+                    Săn ngay điện thoại, laptop và phụ kiện chính hãng với mức giảm giá cực khủng kèm bảo hành toàn diện.
+                </p>
+            </div>
+
+            <!-- Stats Boxes -->
+            <div class="flex flex-wrap sm:flex-nowrap items-center gap-3">
+                <div class="bg-white/10 backdrop-blur-md px-5 py-3.5 rounded-2xl border border-white/10">
+                    <div class="text-xs text-rose-300 font-semibold mb-0.5">Sản phẩm đang sale</div>
+                    <div class="text-2xl font-extrabold font-heading text-white">@totalProducts</div>
+                </div>
+                @if (totalSavings > 0)
+                {
+                    <div class="bg-gradient-to-r from-rose-500/30 to-amber-500/20 backdrop-blur-md px-5 py-3.5 rounded-2xl border border-rose-500/30">
+                        <div class="text-xs text-amber-300 font-semibold mb-0.5">Tổng giá trị tiết kiệm</div>
+                        <div class="text-2xl font-extrabold font-heading text-amber-300">
+                            @String.Format("{0:0,0}", totalSavings) đ
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Filter Pills & Sorting Toolbar -->
+    <div class="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-soft mb-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            
+            <!-- Category Pills (Cuộn ngang tiện dụng) -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none text-xs">
+                <a href="@Url.Action("Index", "KhuyenMai", new { danhMucId = 0, sortBy = currentSort })" 
+                   class="px-4 py-2 rounded-xl font-semibold transition-all whitespace-nowrap @(currentDmId == 0 ? "bg-rose-600 text-white shadow-sm shadow-rose-600/30" : "bg-slate-100 text-slate-700 hover:bg-slate-200")">
+                    Tất cả danh mục (@totalProducts)
+                </a>
+                @foreach (var dm in danhMucList)
+                {
+                    <a href="@Url.Action("Index", "KhuyenMai", new { danhMucId = dm.Id, sortBy = currentSort })" 
+                       class="px-4 py-2 rounded-xl font-semibold transition-all whitespace-nowrap @(currentDmId == dm.Id ? "bg-rose-600 text-white shadow-sm shadow-rose-600/30" : "bg-slate-100 text-slate-700 hover:bg-slate-200")">
+                        @dm.TenDanhMuc
+                    </a>
+                }
+            </div>
+
+            <!-- Sort dropdown -->
+            <div class="flex items-center gap-2 self-end sm:self-auto flex-shrink-0">
+                <label for="sortBy" class="text-xs font-semibold text-slate-500 whitespace-nowrap flex items-center gap-1">
+                    <i class="fas fa-sort-amount-down text-rose-600"></i> Sắp xếp:
+                </label>
+                <select id="sortBy" class="px-3.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-500/50 cursor-pointer">
+                    <option value="discount_desc" @(currentSort == "discount_desc" ? "selected" : "")>Giảm nhiều nhất</option>
+                    <option value="discount_asc" @(currentSort == "discount_asc" ? "selected" : "")>Giảm ít nhất</option>
+                    <option value="price_asc" @(currentSort == "price_asc" ? "selected" : "")>Giá thấp → cao</option>
+                    <option value="price_desc" @(currentSort == "price_desc" ? "selected" : "")>Giá cao → thấp</option>
+                    <option value="newest" @(currentSort == "newest" ? "selected" : "")>Mới nhất</option>
+                    <option value="popular" @(currentSort == "popular" ? "selected" : "")>Xem nhiều nhất</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    @if (Model.Any())
+    {
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 mb-8">
+            @foreach (var sp in Model)
+            {
+                var giaGoc = sp.Gia ?? 0;
+                var giaKm = sp.GiaKhuyenMai ?? giaGoc;
+                var discountPercent = giaGoc > 0 ? Math.Round((decimal)(1 - (giaKm / giaGoc)) * 100) : 0;
+                var savings = giaGoc - giaKm;
+                var stock = sp.SoLuong ?? 0;
+                var soldPercentage = Math.Min(90, Math.Max(25, 100 - (stock * 5)));
+
+                <article class="product-card-3d bg-white rounded-[24px] border border-slate-100/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(225,29,72,0.15)] hover:border-rose-300 transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between overflow-hidden group relative backdrop-blur-xl">
+                    
+                    <!-- Phần đầu Card: Hình ảnh & Badge -->
+                    <div>
+                        <div class="product-img-wrap aspect-square overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100/50 relative p-3 flex items-center justify-center group-hover:bg-rose-50/30 transition-colors duration-500">
+                            
+                            <!-- Discount Badge Pill -->
+                            <div class="absolute top-3 left-3 z-10 badge-3d">
+                                <span class="inline-flex items-center gap-1 px-2 py-1 rounded-xl text-[10px] font-black bg-gradient-to-tr from-rose-600 via-pink-600 to-rose-500 text-white shadow-[0_2px_8px_rgba(225,29,72,0.3)] backdrop-blur-md border border-white/20">
+                                    <i class="fas fa-bolt text-yellow-300 text-[9px] animate-pulse"></i> -@discountPercent%
+                                </span>
+                            </div>
+
+                            <!-- Hot Badge -->
+                            @if (sp.CacCo?.LaSanPhamBanChay == true || sp.LaSanPhamBanChay == true)
+                            {
+                                <div class="absolute top-3 right-3 z-10 badge-3d">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500 text-white shadow-xs">
+                                        <i class="fas fa-fire"></i> HOT
+                                    </span>
+                                </div>
+                            }
+
+                            <!-- Product Image -->
+                            <a href="@Url.Action("ChiTietSP", "SanPham", new { id = sp.Id })" class="w-full h-full flex items-center justify-center">
+                                @if (!string.IsNullOrEmpty(sp.HinhAnh))
+                                {
+                                    <img src="@Url.Content("~/Content/Images/" + sp.HinhAnh)" 
+                                         alt="@sp.TenSanPham" 
+                                         class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" 
+                                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80';" />
+                                }
+                                else
+                                {
+                                    <div class="w-full h-full flex items-center justify-center text-slate-300">
+                                        <i class="fas fa-image text-5xl"></i>
+                                    </div>
+                                }
+                            </a>
+
+                            <!-- Nút Khám Phá 3D (360 Studio) -->
+                            <button type="button" 
+                                    onclick="event.preventDefault(); Web3DExperience.openStudioModal('@sp.TenSanPham.Replace("'", "\\'")' , '@Url.Content("~/Content/Images/" + (sp.HinhAnh ?? "no-image.png"))'); return false;" 
+                                    title="Khám phá 3D (360° Studio)" 
+                                    class="absolute bottom-3 right-14 w-9 h-9 bg-slate-900/90 hover:bg-rose-600 text-rose-300 hover:text-white rounded-full shadow-md backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-90 group-hover:scale-100 z-20">
+                                <i class="fas fa-cube text-xs"></i>
+                            </button>
+
+                            <!-- Quick View Action Button -->
+                            <button type="button" onclick="openQuickView(@sp.Id); return false;" title="Xem nhanh sản phẩm" 
+                                    class="absolute bottom-3 right-3 w-9 h-9 bg-white/90 hover:bg-rose-600 text-slate-700 hover:text-white rounded-full shadow-md backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-90 group-hover:scale-100 z-20">
+                                <i class="fas fa-eye text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-3.5 flex-1 flex flex-col">
+                            
+                            <!-- Product Name -->
+                            <h2 class="text-[14px] font-bold font-heading text-slate-800 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-rose-600 group-hover:to-pink-600 transition-all duration-300 line-clamp-2 leading-tight mb-2 h-10 tracking-tight">
+                                <a href="@Url.Action("ChiTietSP", "SanPham", new { id = sp.Id })">
+                                    @sp.TenSanPham
+                                </a>
+                            </h2>
+
+                            <!-- Pricing -->
+                            <div class="space-y-1 mb-3">
+                                <div class="flex items-baseline gap-1.5">
+                                    <span class="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-red-500 font-heading tracking-tight drop-shadow-sm whitespace-nowrap">
+                                        @String.Format("{0:0,0}", giaKm) đ
+                                    </span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                                    <span class="text-slate-400 font-semibold line-through decoration-slate-300 whitespace-nowrap">
+                                        @String.Format("{0:0,0}", giaGoc) đ
+                                    </span>
+                                    @if (savings > 0)
+                                    {
+                                        <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 text-[10px] font-bold border border-emerald-100 shadow-sm flex items-center gap-1 whitespace-nowrap">
+                                            <i class="fas fa-tag text-[8px]"></i> Tiết kiệm @String.Format("{0:0,0}", savings) đ
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Flash Sale Progress Bar -->
+                            <div class="mt-auto bg-gradient-to-b from-rose-50/50 to-orange-50/30 p-2 rounded-xl border border-rose-100/50 relative overflow-hidden group/bar">
+                                <div class="absolute inset-0 bg-white/40 blur-md scale-150 opacity-0 group-hover/bar:opacity-100 transition-opacity duration-700"></div>
+                                <div class="flex items-center justify-between text-[10px] text-slate-600 mb-1.5 font-medium relative z-10">
+                                    <span class="flex items-center gap-1 text-rose-600 font-bold">
+                                        <i class="fas fa-fire-alt animate-pulse"></i> Sắp cháy hàng
+                                    </span>
+                                    <span class="font-semibold text-[10px]">Còn: <strong class="text-rose-600">@stock</strong></span>
+                                </div>
+                                <div class="w-full bg-rose-100/50 rounded-full h-1.5 overflow-hidden shadow-inner relative z-10">
+                                    <div class="bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 h-1.5 rounded-full relative shadow-[0_0_8px_rgba(244,63,94,0.4)]" style="width: @soldPercentage%"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Card Footer -->
+                    <div class="px-3.5 py-3 border-t border-slate-100/80 bg-gradient-to-b from-white to-slate-50 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center text-xs text-amber-500 font-bold bg-amber-50 px-1.5 py-0.5 rounded">
+                                <i class="fas fa-star text-[10px] mr-1"></i> 5.0
+                            </div>
+                            <span class="text-[11px] font-medium text-slate-400 flex items-center gap-1"><i class="far fa-eye"></i> @(sp.LuotXem ?? 0)</span>
+                        </div>
+                        <a href="@Url.Action("ChiTietSP", "SanPham", new { id = sp.Id })" 
+                           class="inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-slate-900 group-hover:bg-rose-600 group-hover:shadow-[0_4px_12px_rgba(225,29,72,0.3)] transition-all duration-300 transform group-hover:-translate-y-0.5 whitespace-nowrap">
+                            Săn ngay <i class="fas fa-arrow-right text-[9px] group-hover:translate-x-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+
+                </article>
+            }
+        </div>
+
+        <!-- Pagination -->
+        if (totalPages > 1)
+        {
+            <div class="flex justify-center items-center gap-2 pt-6">
+                @if (currentPage > 1)
+                {
+                    <a href="?danhMucId=@currentDmId&sortBy=@currentSort&page=@(currentPage - 1)" 
+                       class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-rose-50 hover:text-rose-700 hover:border-rose-300 transition shadow-xs">
+                        <i class="fas fa-chevron-left text-xs"></i>
+                    </a>
+                }
+
+                @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(totalPages, currentPage + 2); i++)
+                {
+                    <a href="?danhMucId=@currentDmId&sortBy=@currentSort&page=@i" 
+                       class="w-10 h-10 flex items-center justify-center rounded-xl font-bold text-sm transition-all @(i == currentPage ? "bg-rose-600 text-white shadow-md shadow-rose-600/30" : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100")">
+                        @i
+                    </a>
+                }
+
+                @if (currentPage < totalPages)
+                {
+                    <a href="?danhMucId=@currentDmId&sortBy=@currentSort&page=@(currentPage + 1)" 
+                       class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-rose-50 hover:text-rose-700 hover:border-rose-300 transition shadow-xs">
+                        <i class="fas fa-chevron-right text-xs"></i>
+                    </a>
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <!-- Empty State -->
+        <div class="bg-white rounded-3xl p-12 text-center border border-slate-200/90 shadow-soft">
+            <div class="w-16 h-16 rounded-full bg-rose-50 flex items-center justify-center text-rose-500 mx-auto mb-4 text-2xl">
+                <i class="fas fa-tags"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading mb-2">Chưa có sản phẩm khuyến mãi</h3>
+            <p class="text-sm text-slate-500 max-w-md mx-auto mb-6">
+                Hiện tại danh mục này chưa có chương trình giảm giá. Vui lòng quay lại sau hoặc khám phá các sản phẩm khác!
+            </p>
+            <a href="@Url.Action("Index", "SanPham")" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition shadow-md">
+                <i class="fas fa-shopping-bag"></i> Khám phá tất cả sản phẩm
+            </a>
+        </div>
+    }
+
+</div>
+
+@section scripts {
+<script>
+    $(document).ready(function() {
+        $('#sortBy').on('change', function() {
+            var danhMucId = '@currentDmId';
+            var sortBy = $(this).val();
+            window.location.href = '@Url.Action("Index", "KhuyenMai")' + '?danhMucId=' + danhMucId + '&sortBy=' + sortBy;
+        });
+    });
+</script>
+}

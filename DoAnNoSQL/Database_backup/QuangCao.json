@@ -1,0 +1,50 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d4"
+    },
+    "SqlId": 1,
+    "TieuDe": "Khuyến mãi hè 2025",
+    "HinhAnh": "banner1.jpg",
+    "LienKet": "/khuyen-mai",
+    "ViTri": null,
+    "ThuTu": 1,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d5"
+    },
+    "SqlId": 2,
+    "TieuDe": "Giảm giá cuối năm",
+    "HinhAnh": "banner2.jpg",
+    "LienKet": "/sale-cuoi-nam",
+    "ViTri": null,
+    "ThuTu": 2,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d6"
+    },
+    "SqlId": 3,
+    "TieuDe": "Flash Sale",
+    "HinhAnh": "banner3.jpg",
+    "LienKet": "/flash-sale",
+    "ViTri": null,
+    "ThuTu": 3,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d7"
+    },
+    "SqlId": 5,
+    "TieuDe": "12/12",
+    "HinhAnh": "banner5.jpg",
+    "LienKet": "/SanPham",
+    "ViTri": null,
+    "ThuTu": 5,
+    "HienThi": true
+  }
+]

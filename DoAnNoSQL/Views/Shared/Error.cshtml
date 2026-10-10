@@ -1,0 +1,82 @@
+@{
+    Layout = null;
+    string tenCuaHang = DoAnNoSQL.Helpers.SettingsHelper.GetValue("TenCuaHang", "TECH SHOP 3D");
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đã xảy ra lỗi - @tenCuaHang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/Content/web-3d.css")">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            background: #020617;
+            background-image: 
+                radial-gradient(ellipse 80% 60% at 50% -20%, rgba(225, 29, 72, 0.25), transparent 70%),
+                radial-gradient(circle at 10% 90%, rgba(13, 148, 136, 0.2), transparent 50%),
+                linear-gradient(to bottom, #090d16, #020617);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(20, 184, 166, 0.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(20, 184, 166, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="relative z-10 w-full max-w-lg">
+        <div class="card-glass-3d border-beam-3d p-8 sm:p-12 text-center relative overflow-hidden bg-white/95">
+            <!-- Icon 3D -->
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 text-white flex items-center justify-center mx-auto mb-5 shadow-xl shadow-rose-500/25">
+                <i class="fas fa-triangle-exclamation text-3xl"></i>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 border border-rose-500/20 text-xs font-bold uppercase tracking-wider mb-3">
+                <span>HỆ THỐNG XỬ LÝ SỰ CỐ</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black font-heading text-slate-900 mb-2">
+                Đã Xảy Ra Gián Đoạn
+            </h1>
+
+            <p class="text-xs sm:text-sm text-slate-500 mb-8 max-w-sm mx-auto leading-relaxed">
+                Hệ thống gặp sự cố không mong muốn trong khi xử lý yêu cầu của bạn. Đội ngũ kỹ thuật đã ghi nhận và đang tối ưu lại.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <button onclick="window.location.reload()" 
+                        class="px-6 py-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs inline-flex items-center gap-2 transition-all shadow-sm hover:scale-105 active:scale-95">
+                    <i class="fas fa-rotate-right"></i>
+                    Thử tải lại
+                </button>
+                <a href="@Url.Action("Index", "Home")" 
+                    class="btn-3d px-6 py-3 rounded-xl font-bold text-xs inline-flex items-center gap-2 shadow-md shadow-teal-600/30">
+                    <i class="fas fa-home"></i>
+                    Về trang chủ
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

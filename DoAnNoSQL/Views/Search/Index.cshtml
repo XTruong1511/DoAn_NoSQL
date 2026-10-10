@@ -1,0 +1,276 @@
+@model List<DoAnNoSQL.tb_SanPham>
+
+@{
+    ViewBag.Title = "Tìm kiếm: " + ViewBag.SearchKeyword;
+}
+
+<!-- Breadcrumb -->
+<nav class="flex mb-6" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+            <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                <i class="fas fa-home mr-2"></i>
+                Trang chủ
+            </a>
+        </li>
+        <li aria-current="page">
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                <span class="text-sm font-medium text-gray-500">Tìm kiếm</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+
+<!-- 3D Search Header -->
+<div class="page-header-3d border-beam-3d" data-aos="fade-down">
+    <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-teal-500/20 border border-teal-400/40 text-teal-300 flex items-center justify-center shadow-lg shadow-teal-500/20">
+                <i class="fas fa-magnifying-glass text-2xl"></i>
+            </div>
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-teal-400/20 border border-teal-400/30 text-teal-200 text-[11px] font-bold tracking-wider uppercase mb-1">
+                    <span>KẾT QUẢ TÌM KIẾM CÔNG NGHỆ</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black font-heading text-white">
+                    Từ khóa: <span class="text-teal-300">"@ViewBag.SearchKeyword"</span>
+                </h1>
+                <p class="text-xs text-slate-300 mt-1">Tìm thấy <strong class="text-teal-300">@ViewBag.TotalResults</strong> sản phẩm phù hợp</p>
+            </div>
+        </div>
+
+        <!-- Sort Options -->
+        <div class="flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15">
+            <label class="text-xs text-slate-200 font-bold whitespace-nowrap">Sắp xếp:</label>
+            <select id="sortBy" class="bg-slate-900/80 text-white text-xs font-semibold px-3 py-1.5 rounded-xl border border-teal-400/40 focus:ring-2 focus:ring-teal-400 focus:outline-none">
+                <option value="newest" @(ViewBag.SortBy == "newest" ? "selected" : "")>Mới nhất</option>
+                <option value="popular" @(ViewBag.SortBy == "popular" ? "selected" : "")>Phổ biến</option>
+                <option value="price_asc" @(ViewBag.SortBy == "price_asc" ? "selected" : "")>Giá thấp đến cao</option>
+                <option value="price_desc" @(ViewBag.SortBy == "price_desc" ? "selected" : "")>Giá cao đến thấp</option>
+                <option value="name_asc" @(ViewBag.SortBy == "name_asc" ? "selected" : "")>Tên A đến Z</option>
+                <option value="name_desc" @(ViewBag.SortBy == "name_desc" ? "selected" : "")>Tên Z đến A</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <!-- Filters Sidebar (1/4 width) -->
+    <div class="lg:col-span-1">
+        <div class="card-glass-3d p-6 space-y-6">
+            <h2 class="text-lg font-black text-slate-900 pb-3 border-b border-slate-100 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-sliders text-teal-600"></i>
+                    Bộ lọc tìm kiếm
+                </span>
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">Lọc nhanh</span>
+            </h2>
+
+            <!-- Category Filter -->
+            <div>
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-2">
+                    <i class="fas fa-layer-group text-teal-500 text-xs"></i>
+                    Danh mục
+                </h3>
+                <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                    <label class="flex items-center cursor-pointer hover:bg-teal-50/60 p-2 rounded-xl transition-colors">
+                        <input type="radio" name="danhMucId" value="" @(ViewBag.DanhMucId == 0 ? "checked" : "") class="text-teal-600 focus:ring-teal-500 mr-2.5">
+                        <span class="text-xs font-semibold text-slate-700">Tất cả danh mục</span>
+                    </label>
+                    @if (ViewBag.DanhMucList != null)
+                    {
+                        foreach (var dm in (List<DoAnNoSQL.tb_DanhMuc>)ViewBag.DanhMucList)
+                        {
+                            <label class="flex items-center cursor-pointer hover:bg-teal-50/60 p-2 rounded-xl transition-colors">
+                                <input type="radio" name="danhMucId" value="@dm.Id" @(ViewBag.DanhMucId == dm.Id ? "checked" : "") class="text-teal-600 focus:ring-teal-500 mr-2.5">
+                                <span class="text-xs font-semibold text-slate-700">@dm.TenDanhMuc</span>
+                            </label>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Brand Filter -->
+            <div class="pt-3 border-t border-slate-100">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-2">
+                    <i class="fas fa-certificate text-teal-500 text-xs"></i>
+                    Thương hiệu
+                </h3>
+                <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                    <label class="flex items-center cursor-pointer hover:bg-teal-50/60 p-2 rounded-xl transition-colors">
+                        <input type="radio" name="thuongHieuId" value="" @(ViewBag.ThuongHieuId == 0 ? "checked" : "") class="text-teal-600 focus:ring-teal-500 mr-2.5">
+                        <span class="text-xs font-semibold text-slate-700">Tất cả thương hiệu</span>
+                    </label>
+                    @if (ViewBag.ThuongHieuList != null)
+                    {
+                        foreach (var th in (List<DoAnNoSQL.tb_ThuongHieu>)ViewBag.ThuongHieuList)
+                        {
+                            <label class="flex items-center cursor-pointer hover:bg-teal-50/60 p-2 rounded-xl transition-colors">
+                                <input type="radio" name="thuongHieuId" value="@th.Id" @(ViewBag.ThuongHieuId == th.Id ? "checked" : "") class="text-teal-600 focus:ring-teal-500 mr-2.5">
+                                <span class="text-xs font-semibold text-slate-700">@th.TenThuongHieu</span>
+                            </label>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="pt-3 border-t border-slate-100">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-2">
+                    <i class="fas fa-coins text-amber-500 text-xs"></i>
+                    Khoảng giá (VNĐ)
+                </h3>
+                <div class="space-y-2">
+                    <div>
+                        <label class="text-[11px] font-medium text-slate-500 mb-1 block">Từ giá:</label>
+                        <input type="number" id="minPrice" value="@ViewBag.MinPrice" placeholder="0" class="w-full input-3d text-xs font-bold text-slate-800">
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-medium text-slate-500 mb-1 block">Đến giá:</label>
+                        <input type="number" id="maxPrice" value="@ViewBag.MaxPrice" placeholder="100,000,000" class="w-full input-3d text-xs font-bold text-slate-800">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="applyFilters()" class="btn-3d btn-3d-primary w-full py-3 text-xs font-black tracking-wider uppercase flex items-center justify-center gap-2">
+                <i class="fas fa-check-circle"></i>
+                Áp dụng bộ lọc
+            </button>
+        </div>
+    </div>
+
+    <!-- Products Grid (3/4 width) -->
+    <div class="lg:col-span-3">
+        @if (Model.Any())
+        {
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach (var sp in Model)
+                {
+                    <div class="product-card-3d group relative flex flex-col justify-between" data-aos="fade-up">
+                        <a href="@Url.Action("ChiTietSP", "SanPham", new { id = sp.Id })" class="block">
+                            <!-- Product Image Wrap -->
+                            <div class="product-img-wrap aspect-square overflow-hidden bg-slate-50/80 relative rounded-2xl p-4 flex items-center justify-center">
+                                @if (!string.IsNullOrEmpty(sp.HinhAnh))
+                                {
+                                    <img src="@Url.Content("~/Content/Images/" + sp.HinhAnh)"
+                                         alt="@sp.TenSanPham"
+                                         class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/no-image.png")"
+                                         alt="No Image"
+                                         class="w-full h-full object-contain" />
+                                }
+
+                                @if (sp.GiaKhuyenMai.HasValue && sp.GiaKhuyenMai < sp.Gia)
+                                {
+                                    <span class="absolute top-3 left-3 bg-gradient-to-r from-rose-500 to-red-600 text-white text-[11px] font-black px-2.5 py-1 rounded-full shadow-md z-10">
+                                        -@Math.Round((decimal)(1 - (sp.GiaKhuyenMai.Value / sp.Gia.Value)) * 100)%
+                                    </span>
+                                }
+
+                                <!-- Floating Action Buttons (Quick View + 3D Studio) -->
+                                <div class="absolute top-3 right-3 flex flex-col gap-2 z-20">
+                                    <button type="button" 
+                                            onclick="event.preventDefault(); event.stopPropagation(); openQuickView(@sp.Id); return false;" 
+                                            title="Xem nhanh" 
+                                            class="w-9 h-9 bg-white/90 hover:bg-teal-600 text-slate-700 hover:text-white rounded-full shadow-lg backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100 hover:rotate-6">
+                                        <i class="fas fa-eye text-xs"></i>
+                                    </button>
+                                    <button type="button" 
+                                            onclick="event.preventDefault(); event.stopPropagation(); if(window.Web3DExperience) { Web3DExperience.openStudioModal('@sp.TenSanPham', '@(string.IsNullOrEmpty(sp.HinhAnh) ? "" : Url.Content("~/Content/Images/" + sp.HinhAnh))', '@String.Format("{0:0,0} đ", sp.GiaKhuyenMai ?? sp.Gia ?? 0)'); } return false;" 
+                                            title="Trải nghiệm 3D Studio (360°)" 
+                                            class="w-9 h-9 bg-gradient-to-tr from-teal-500 to-emerald-400 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100 hover:rotate-12">
+                                        <i class="fas fa-cube text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Product Info -->
+                            <div class="pt-4 pb-2 px-1">
+                                <h3 class="text-sm font-bold text-slate-800 mb-2 line-clamp-2 min-h-[2.5rem] group-hover:text-teal-600 transition-colors">
+                                    @sp.TenSanPham
+                                </h3>
+
+                                <!-- Price -->
+                                @if (sp.GiaKhuyenMai.HasValue && sp.GiaKhuyenMai < sp.Gia)
+                                {
+                                    <div class="space-y-0.5">
+                                        <div class="text-base sm:text-lg font-black text-rose-600">
+                                            @String.Format("{0:0,0}", sp.GiaKhuyenMai.Value) đ
+                                        </div>
+                                        <div class="text-xs text-slate-400 line-through">
+                                            @String.Format("{0:0,0}", sp.Gia ?? 0) đ
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-base sm:text-lg font-black text-teal-600">
+                                        @String.Format("{0:0,0}", sp.Gia ?? 0) đ
+                                    </div>
+                                }
+                            </div>
+                        </a>
+
+                        <!-- Footer stats & 3D Interactive trigger -->
+                        <div class="pt-3 mt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <div class="flex items-center gap-1 text-amber-500 font-bold">
+                                <i class="fas fa-star text-xs"></i>
+                                <span>5.0</span>
+                            </div>
+                            <button type="button" 
+                                    onclick="if(window.Web3DExperience) { Web3DExperience.openStudioModal('@sp.TenSanPham', '@(string.IsNullOrEmpty(sp.HinhAnh) ? "" : Url.Content("~/Content/Images/" + sp.HinhAnh))', '@String.Format("{0:0,0} đ", sp.GiaKhuyenMai ?? sp.Gia ?? 0)'); }" 
+                                    class="text-[11px] font-bold text-teal-600 hover:text-teal-700 flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-teal-50 transition-colors">
+                                <i class="fas fa-cube text-teal-500"></i>
+                                <span>3D Orbit</span>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <!-- Empty State 3D Glass -->
+            <div class="card-glass-3d p-12 text-center" data-aos="fade-up">
+                <div class="w-20 h-20 mx-auto rounded-3xl bg-slate-100 text-slate-400 flex items-center justify-center mb-5 shadow-inner">
+                    <i class="fas fa-search-minus text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-slate-900 mb-2">Không tìm thấy sản phẩm</h3>
+                <p class="text-slate-500 text-sm mb-6 max-w-md mx-auto">Không tìm thấy sản phẩm nào khớp với từ khóa "<strong>@ViewBag.SearchKeyword</strong>". Hãy thử dùng từ khóa khác hoặc xóa bớt tiêu chí lọc.</p>
+                <a href="@Url.Action("Index", "SanPham")" class="btn-3d btn-3d-primary inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase rounded-xl">
+                    <i class="fas fa-arrow-left"></i>
+                    Khám phá tất cả sản phẩm
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script>
+    // Sort change handler
+    $('#sortBy').on('change', function() {
+        applyFilters();
+    });
+
+    // Apply filters
+    function applyFilters() {
+        var params = {
+            q: '@ViewBag.SearchKeyword',
+            sortBy: $('#sortBy').val(),
+            danhMucId: $('input[name="danhMucId"]:checked').val() || null,
+            thuongHieuId: $('input[name="thuongHieuId"]:checked').val() || null,
+            minPrice: $('#minPrice').val() || null,
+            maxPrice: $('#maxPrice').val() || null
+        };
+
+        // Build URL
+        var url = '@Url.Action("Index", "Search")?' + $.param(params);
+        window.location.href = url;
+    }
+    </script>
+}

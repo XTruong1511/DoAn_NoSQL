@@ -1,0 +1,363 @@
+@model DoAnNoSQL.Models.QLSP
+@{
+    ViewBag.Title = "Thêm Sản Phẩm Mới";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .form-section-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .sticky-actions {
+        padding: 1rem 0;
+        margin-top: 1rem;
+    }
+    .file-upload-wrapper {
+        border: 2px dashed #cbd5e1;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        background: #f8fafc;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .file-upload-wrapper:hover {
+        border-color: #3b82f6;
+        background: #eff6ff;
+    }
+    .spec-group {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid #f1f5f9;
+    }
+</style>
+
+@using (Html.BeginForm("ThemSP", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "formAddProduct" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3 mb-0 text-gray-800 fw-bold"><i class="fas fa-box-open text-primary me-2"></i>Thêm Sản Phẩm Mới</h2>
+        <div class="d-flex align-items-center gap-2">
+            <a href="@Url.Action("QLSP", "Admin")" class="btn btn-outline-secondary rounded-pill px-4 py-2 d-inline-flex align-items-center shadow-sm">
+                <i class="fas fa-arrow-left me-2"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center shadow-sm fw-bold">
+                <i class="fas fa-save me-2"></i> Lưu sản phẩm
+            </button>
+        </div>
+    </div>
+    
+    if (ViewBag.ThongBao != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i> @ViewBag.ThongBao
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger rounded-3 shadow-sm" })
+
+    <div class="row g-4">
+        <!-- Cột trái: Thông tin cơ bản & Thông số kỹ thuật -->
+        <div class="col-lg-8">
+            
+            <!-- Thông tin chung -->
+            <div class="card shadow-sm border-0 mb-4 rounded-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-info-circle text-primary me-2"></i>Thông tin cơ bản</h5>
+                    
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating mb-2">
+                                @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Nhập tên sản phẩm..." } })
+                                @Html.Label("TenSanPham", "Tên sản phẩm *")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger small" })
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-2">
+                                @Html.EditorFor(model => model.MaSanPham, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Nhập mã..." } })
+                                @Html.Label("MaSanPham", "Mã sản phẩm *")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.MaSanPham, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-2">
+                                @Html.EditorFor(model => model.BiDanh, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Bí danh URL..." } })
+                                @Html.Label("BiDanh", "Bí danh (URL)")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BiDanh, "", new { @class = "text-danger small" })
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-bold mb-1">Danh mục *</label>
+                            @Html.DropDownListFor(model => model.DanhMucId, (SelectList)ViewBag.lstDMSP, "Chọn danh mục", new { @class = "form-select form-select-lg rounded-3", required = "required" })
+                            @Html.ValidationMessageFor(model => model.DanhMucId, "", new { @class = "text-danger small" })
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small fw-bold mb-1">Thương hiệu *</label>
+                            @Html.DropDownListFor(model => model.ThuongHieuId, (SelectList)ViewBag.lstTH, "Chọn thương hiệu", new { @class = "form-select form-select-lg rounded-3", required = "required" })
+                            @Html.ValidationMessageFor(model => model.ThuongHieuId, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <label class="form-label fw-bold">Mô tả ngắn</label>
+                            @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control rounded-3", rows = "3", placeholder = "Mô tả ngắn gọn về sản phẩm..." })
+                            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger small" })
+                        </div>
+                        
+                        <div class="col-12 mt-3">
+                            <label class="form-label fw-bold">Mô tả chi tiết</label>
+                            @Html.TextAreaFor(model => model.ChiTiet, new { @class = "form-control rounded-3", rows = "6", placeholder = "Bài viết chi tiết sản phẩm...", id = "editor" })
+                            @Html.ValidationMessageFor(model => model.ChiTiet, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thông số kỹ thuật -->
+            <div class="card shadow-sm border-0 mb-4 rounded-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-cogs text-success me-2"></i>Thông số kỹ thuật</h5>
+                    
+                    <div class="spec-group">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.ManHinh, new { htmlAttributes = new { @class = "form-control", placeholder = "Màn hình" } })
+                                    @Html.Label("ManHinh", "Màn hình")
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.HeDieuHanh, new { htmlAttributes = new { @class = "form-control", placeholder = "Hệ điều hành" } })
+                                    @Html.Label("HeDieuHanh", "Hệ điều hành")
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.BoNhoRAM, new { htmlAttributes = new { @class = "form-control", placeholder = "RAM" } })
+                                    @Html.Label("BoNhoRAM", "RAM")
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.BoNhoTrong, new { htmlAttributes = new { @class = "form-control", placeholder = "Bộ nhớ trong (ROM)" } })
+                                    @Html.Label("BoNhoTrong", "Bộ nhớ trong (ROM)")
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.Camera, new { htmlAttributes = new { @class = "form-control", placeholder = "Camera" } })
+                                    @Html.Label("Camera", "Camera")
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.DungLuongPin, new { htmlAttributes = new { @class = "form-control", placeholder = "Pin" } })
+                                    @Html.Label("DungLuongPin", "Dung lượng Pin")
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.CongKetNoi, new { htmlAttributes = new { @class = "form-control", placeholder = "Cổng kết nối" } })
+                                    @Html.Label("CongKetNoi", "Cổng kết nối")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NoSQL Custom Specs -->
+                    <div class="mt-4 p-3 bg-white border rounded-3 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h6 class="fw-bold mb-0 text-primary"><i class="fas fa-plus-square me-2"></i>Thuộc tính tùy chỉnh</h6>
+                                <small class="text-muted">Đặc trưng mở rộng của NoSQL</small>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-primary rounded-pill px-3" onclick="addCustomSpecRow()">
+                                <i class="fas fa-plus"></i> Thêm
+                            </button>
+                        </div>
+                        <div id="customSpecContainer"></div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Cột phải: Giá, Tồn kho, Hình ảnh -->
+        <div class="col-lg-4">
+            
+            <!-- Giá & Tồn kho -->
+            <div class="card shadow-sm border-0 mb-4 rounded-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-tag text-warning me-2"></i>Giá & Kho</h5>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Giá bán (VNĐ) *</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light"><i class="fas fa-money-bill-wave text-success"></i></span>
+                            @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control fw-bold text-danger", type = "number", step = "1000", min = "0", required = "required" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger small" })
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Số lượng trong kho *</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-cubes text-info"></i></span>
+                            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control fw-bold", type = "number", min = "0", required = "required" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger small" })
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hình ảnh -->
+            <div class="card shadow-sm border-0 mb-4 rounded-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-image text-info me-2"></i>Hình ảnh</h5>
+                    
+                    <div class="file-upload-wrapper mb-3" onclick="document.getElementById('productImages').click()">
+                        <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                        <h6 class="fw-bold">Kéo thả hoặc click để chọn ảnh</h6>
+                        <p class="text-muted small mb-0">Hỗ trợ JPG, PNG, WEBP (Max: 5MB)</p>
+                        <input type="file" class="d-none" id="productImages" name="fileupload" accept="image/*" multiple required>
+                    </div>
+                    <div class="form-text text-center text-primary fw-medium mb-3"><i class="fas fa-hand-pointer me-1"></i>Click vào ảnh bên dưới để chọn làm ảnh đại diện</div>
+                    
+                    <input type="hidden" id="defaultImageIndex" name="defaultImageIndex" value="0">
+                    <div id="imagePreviewContainer" style="display: none;">
+                        <div id="imagePreview" class="d-flex flex-wrap gap-2 justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.ckeditor.com/4.25.1/standard/ckeditor.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof CKEDITOR !== 'undefined') {
+                CKEDITOR.replace('editor', {
+                    height: 380,
+                    removeButtons: 'About',
+                    toolbarGroups: [
+                        { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                        { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                        { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
+                        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                        { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ] },
+                        { name: 'links' },
+                        { name: 'insert' },
+                        { name: 'styles' },
+                        { name: 'colors' }
+                    ]
+                });
+            }
+        });
+
+        // Custom Specs Logic
+        function addCustomSpecRow(name, val) {
+            name = name || '';
+            val = val || '';
+            var container = $('#customSpecContainer');
+            var rowHtml = `
+                <div class="row g-2 mb-2 align-items-center custom-spec-row animate__animated animate__fadeIn">
+                    <div class="col-md-5">
+                        <input type="text" name="CustomSpecName" class="form-control rounded-3" placeholder="Tên thuộc tính..." value="${name}">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="CustomSpecValue" class="form-control rounded-3" placeholder="Giá trị..." value="${val}">
+                    </div>
+                    <div class="col-md-1 text-center">
+                        <button type="button" class="btn btn-outline-danger btn-sm rounded-circle" onclick="$(this).closest('.custom-spec-row').remove()" title="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.append(rowHtml);
+        }
+
+        // Image Upload Preview Logic
+        $(document).ready(function() {
+            $('#productImages').on('change', function(e) {
+                var files = e.target.files;
+                var previewContainer = $('#imagePreview');
+                var containerWrapper = $('#imagePreviewContainer');
+                
+                previewContainer.empty(); 
+                
+                if (files.length > 0) {
+                    containerWrapper.fadeIn();
+                    
+                    Array.from(files).forEach(function(file, index) {
+                        if (file.type.match('image.*')) {
+                            var reader = new FileReader();
+                            
+                            reader.onload = function(event) {
+                                var isDefault = index === 0;
+                                var borderColor = isDefault ? '#0d9488' : '#e2e8f0';
+                                var badgeClass = isDefault ? 'bg-primary' : 'bg-secondary';
+                                var badgeText = isDefault ? 'Đại diện' : 'Ảnh ' + (index + 1);
+                                
+                                var html = `
+                                    <div class="image-preview-card position-relative shadow-sm" data-index="${index}" style="cursor: pointer; border: 3px solid ${borderColor}; border-radius: 12px; overflow: hidden; width: 100px; height: 100px; transition: all 0.3s;">
+                                        <img src="${event.target.result}" class="w-100 h-100" style="object-fit: cover;">
+                                        <span class="badge ${badgeClass} position-absolute top-0 start-0 m-1 shadow-sm" style="font-size: 10px;">${badgeText}</span>
+                                        ${isDefault ? '<i class="fas fa-check-circle position-absolute bottom-0 end-0 m-1 text-primary bg-white rounded-circle shadow"></i>' : ''}
+                                    </div>
+                                `;
+                                
+                                var $card = $(html);
+                                
+                                $card.on('click', function() {
+                                    var selectedIndex = $(this).data('index');
+                                    
+                                    $('.image-preview-card').each(function() {
+                                        var cardIndex = $(this).data('index');
+                                        if (cardIndex === selectedIndex) {
+                                            $(this).css('border-color', '#0d9488');
+                                            $(this).find('.badge').text('Đại diện').removeClass('bg-secondary').addClass('bg-primary');
+                                            if($(this).find('.fa-check-circle').length === 0) {
+                                                $(this).append('<i class="fas fa-check-circle position-absolute bottom-0 end-0 m-1 text-primary bg-white rounded-circle shadow"></i>');
+                                            }
+                                        } else {
+                                            $(this).css('border-color', '#e2e8f0');
+                                            $(this).find('.badge').text('Ảnh ' + (cardIndex + 1)).removeClass('bg-primary').addClass('bg-secondary');
+                                            $(this).find('.fa-check-circle').remove();
+                                        }
+                                    });
+                                    
+                                    $('#defaultImageIndex').val(selectedIndex);
+                                });
+                                
+                                previewContainer.append($card);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                } else {
+                    containerWrapper.hide();
+                }
+            });
+        });
+    </script>
+}
+

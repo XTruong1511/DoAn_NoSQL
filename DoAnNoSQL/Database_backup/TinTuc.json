@@ -1,0 +1,74 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c5"
+    },
+    "SqlId": 2,
+    "TieuDe": "Đánh giá Samsung S25 Ultra",
+    "BiDanh": "danh-gia-s25-ultra",
+    "DanhMucTin": {
+      "Id": 2,
+      "TenDanhMuc": "Đánh giá sản phẩm"
+    },
+    "MoTa": "Bài đánh giá chi tiết Samsung S25 Ultra.",
+    "ChiTiet": "Nội dung đánh giá thiết bị...",
+    "HinhAnh": "news_2_639008053657706840.png",
+    "SEO": {
+      "TieuDeSeo": "Đánh giá Samsung S25 Ultra",
+      "MoTaSeo": "Thông tin review mới nhất",
+      "TuKhoaSeo": "Samsung S25 Ultra, review smartphone"
+    },
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c6"
+    },
+    "SqlId": 3,
+    "TieuDe": "Giảm giá tháng 12 – Sale khủng",
+    "BiDanh": "khuyen-mai-thang-12",
+    "DanhMucTin": {
+      "Id": 3,
+      "TenDanhMuc": "Khuyến mãi"
+    },
+    "MoTa": "Chương trình giảm giá lớn nhất trong năm.",
+    "ChiTiet": "Thông tin chi tiết chương trình khuyến mãi...",
+    "HinhAnh": "news_3_639008053965992387.png",
+    "SEO": {
+      "TieuDeSeo": "Sale tháng 12",
+      "MoTaSeo": "Giảm giá mạnh cuối năm",
+      "TuKhoaSeo": "khuyến mãi, sale tháng 12"
+    },
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c7"
+    },
+    "SqlId": 4,
+    "TieuDe": "Hướng dẫn sử dụng iPhone hiệu quả",
+    "BiDanh": "huong-dan-su-dung-iphone",
+    "DanhMucTin": {
+      "Id": 4,
+      "TenDanhMuc": "Hướng dẫn sử dụng"
+    },
+    "MoTa": "Tips và mẹo dùng iPhone cho người mới.",
+    "ChiTiet": "Nội dung hướng dẫn chi tiết...",
+    "HinhAnh": "news_4_639008054155958595.png",
+    "SEO": {
+      "TieuDeSeo": "Mẹo dùng iPhone",
+      "MoTaSeo": "Các thủ thuật hữu ích cho người dùng iPhone",
+      "TuKhoaSeo": "iphone, hướng dẫn sử dụng, mẹo iphone"
+    },
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
+  }
+]

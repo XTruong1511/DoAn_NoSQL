@@ -1,0 +1,999 @@
+@model DoAnNoSQL.Models.HomeViewModel
+@{
+    ViewBag.Title = "Trang Chủ";
+}
+
+
+
+<!-- ===================================================================
+     WEB 3D INTERACTIVE TECH SHOWCASE SECTION
+     =================================================================== -->
+<div class="mb-12" data-aos="fade-up">
+    <div class="hero-3d-stage rounded-3xl lg:rounded-[36px] overflow-hidden p-6 sm:p-10 relative border-beam-3d" style="border-radius: 32px;">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <!-- Left Info & CTA (5 cols) -->
+            <div class="lg:col-span-5 text-white space-y-4">
+
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black font-heading leading-tight tracking-tight">
+                    Mua Sắm Đa Chiều <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-cyan-200 to-indigo-300">
+                        Chuẩn Không Gian 3D
+                    </span>
+                </h2>
+
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Khám phá sản phẩm bằng công nghệ mô phỏng thời gian thực (WebGL & Three.js). Tự do xoay 360 độ, kiểm tra chi tiết góc cạnh và đổi màu sắc vỏ Titanium cao cấp.
+                </p>
+
+                <!-- 3D Model Switcher Tabs on Hero -->
+                <div class="pt-1">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Chọn mô hình 3D trải nghiệm:</p>
+                    <div class="flex items-center gap-2">
+                        <button type="button" 
+                                data-hero-model="phone" 
+                                class="active px-3 py-1.5 rounded-xl border border-teal-400 bg-teal-500/20 text-teal-300 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Điện Thoại</span>
+                        </button>
+                        <button type="button" 
+                                data-hero-model="laptop" 
+                                class="px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-slate-400 hover:text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fas fa-laptop"></i>
+                            <span>Laptop M3</span>
+                        </button>
+                        <button type="button" 
+                                data-hero-model="audio" 
+                                class="px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-slate-400 hover:text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fas fa-headphones"></i>
+                            <span>Tai Nghe</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Floating 3D Spec Badges -->
+                <div class="grid grid-cols-2 gap-3 pt-1">
+                    <div class="floating-3d-badge p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-300">
+                            <i class="fas fa-sync-alt text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-white">Xoay 360°</p>
+                            <p class="text-[11px] text-slate-400">Tương tác tự do</p>
+                        </div>
+                    </div>
+                    <div class="floating-3d-badge delay-1 p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-300">
+                            <i class="fas fa-palette text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-white">Titanium Shell</p>
+                            <p class="text-[11px] text-slate-400">Đổi màu tức thì</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Action Buttons -->
+                <div class="pt-3 flex flex-wrap items-center gap-3">
+                    <button type="button" 
+                            class="btn-3d btn-3d-primary px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2.5 cursor-pointer"
+                            data-action="open-3d-studio"
+                            data-title="Titanium Flagship 3D"
+                            data-image="">
+                        <i class="fas fa-cube text-base"></i>
+                        <span>MỞ STUDIO 360°</span>
+                    </button>
+                    <a href="@Url.Action("Index", "SanPham", new { loc = "moinhat" })" 
+                       class="px-5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center gap-2">
+                        <span>Duyệt Sản Phẩm</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right 3D Interactive Canvas Stage (7 cols) -->
+            <div class="lg:col-span-7 relative">
+                <div class="relative w-full h-[360px] sm:h-[420px] rounded-2xl overflow-hidden bg-slate-950/60 border border-white/10 shadow-2xl">
+                    <div id="hero-3d-canvas" class="hero-3d-canvas-wrap">
+                        <!-- Three.js Canvas will be inserted here -->
+                    </div>
+
+                    <!-- 3D HUD Controller Overlay -->
+                    <div class="hero-3d-hud">
+                        <button type="button" id="hero-toggle-spin" class="hero-3d-hud-btn active" title="Tự động quay">
+                            <i class="fas fa-sync-alt"></i> <span>Quay 360°</span>
+                        </button>
+                        <button type="button" id="hero-reset-view" class="hero-3d-hud-btn" title="Góc nhìn mặc định">
+                            <i class="fas fa-crosshairs"></i> <span>Đặt lại</span>
+                        </button>
+                        <button type="button" class="hero-3d-hud-btn" data-action="open-3d-studio" title="Toàn màn hình">
+                            <i class="fas fa-expand"></i> <span>Studio</span>
+                        </button>
+                    </div>
+
+                    <!-- Floating Badges in Canvas -->
+                    <div class="absolute top-4 left-4 pointer-events-none hidden sm:block">
+                        <div class="floating-3d-badge delay-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-teal-400/40 text-teal-300 text-[11px] font-bold shadow-lg flex items-center gap-2">
+                            <i class="fas fa-microchip"></i>
+                            <span>Chip Bionic 3nm PBR</span>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 pointer-events-none hidden sm:block">
+                        <div class="floating-3d-badge px-3 py-1.5 rounded-xl bg-slate-900/80 border border-indigo-400/40 text-indigo-300 text-[11px] font-bold shadow-lg flex items-center gap-2">
+                            <i class="fas fa-bolt"></i>
+                            <span>Tương Tác Chuột & Cảm Ứng</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================
+     DANH MỤC SẢN PHẨM NGANG (HORIZONTAL CATEGORIES BAR)
+     =================================================================== -->
+<div class="mb-10" data-aos="fade-down" data-aos-duration="600">
+    <div class="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-soft p-4 sm:p-5">
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-3 sm:gap-4" id="danhMucList">
+            @if (Model.DanhMuc != null && Model.DanhMuc.Any())
+            {
+                foreach (var danhMuc in Model.DanhMuc)
+                {
+                    <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })"
+                       data-id="@danhMuc.Id" 
+                       data-ten="@danhMuc.TenDanhMuc"
+                       data-url="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })"
+                       class="danh-muc-item product-card-3d group relative flex items-center gap-3.5 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-br from-slate-50 to-white hover:from-teal-500 hover:to-teal-600 border border-slate-200/80 hover:border-teal-500 shadow-2xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden">
+                        
+                        <!-- 3D Category Icon Box -->
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white group-hover:bg-white/20 border border-slate-200/90 group-hover:border-white/30 flex items-center justify-center flex-shrink-0 shadow-2xs group-hover:shadow-md transition-all duration-300 group-hover:scale-110">
+                            @if (!string.IsNullOrEmpty(danhMuc.Icon))
+                            {
+                                if (danhMuc.Icon.StartsWith("fa-") || danhMuc.Icon.Contains("fa-"))
+                                {
+                                    <i class="@danhMuc.Icon text-teal-600 group-hover:text-white text-xl sm:text-2xl transition-colors"></i>
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/" + danhMuc.Icon)" alt="@danhMuc.TenDanhMuc" class="w-7 h-7 sm:w-8 sm:h-8 object-contain group-hover:brightness-200 transition-all">
+                                }
+                            }
+                            else
+                            {
+                                <i class="fas fa-layer-group text-teal-600 group-hover:text-white text-xl sm:text-2xl transition-colors"></i>
+                            }
+                        </div>
+
+                        <!-- Category Meta -->
+                        <div class="flex-1 min-w-0">
+                            <span class="block font-black text-sm sm:text-base text-slate-900 group-hover:text-white truncate transition-colors font-heading leading-tight">
+                                @danhMuc.TenDanhMuc
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-[11px] sm:text-xs text-slate-500 group-hover:text-teal-100 font-medium transition-colors mt-0.5">
+                                <span>Khám phá ngay</span>
+                                <i class="fas fa-arrow-right text-[9px] transform group-hover:translate-x-1 transition-transform"></i>
+                            </span>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <div class="col-span-full py-6 text-center text-sm text-slate-400 italic">Chưa có danh mục sản phẩm</div>
+            }
+        </div>
+    </div>
+
+    <!-- Mega menu flyout panel (shared) -->
+    <div id="megaMenuPanel"
+         style="display:none; position:absolute; z-index:9999;
+                background:#fff; border-radius:16px;
+                box-shadow:0 16px 45px rgba(0,0,0,0.2);
+                border:1px solid #e2e8f0;
+                width:560px; padding:0; overflow:hidden;
+                flex-direction:column;">
+        <!-- Header -->
+        <div style="background:#f8fafc; border-bottom:1px solid #e2e8f0; padding:12px 18px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+            <span id="megaMenuTitle" style="font-weight:700; font-size:14px; color:#0f766e;"></span>
+            <a id="megaMenuViewAll" href="#" style="font-size:12px; color:#0d9488; text-decoration:none; font-weight:600;">
+                Xem tất cả sản phẩm <i class="fas fa-arrow-right" style="font-size:10px;"></i>
+            </a>
+        </div>
+        <!-- Body: 2 columns -->
+        <div style="display:flex; gap:0; flex:1; overflow:hidden;">
+            <!-- Col 1: Thương hiệu -->
+            <div style="flex:1; border-right:1px solid #f1f5f9; padding:14px 16px;">
+                <p style="font-size:10px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px;">Thương hiệu</p>
+                <div id="megaMenuBrands" style="display:flex; flex-direction:column; gap:2px;">
+                    <div style="text-align:center; padding:16px 0; color:#94a3b8; font-size:12px;">
+                        <i class="fas fa-spinner fa-spin"></i> Đang tải...
+                    </div>
+                </div>
+            </div>
+            <!-- Col 2: Mức giá -->
+            <div style="width:200px; padding:14px 16px;">
+                <p style="font-size:10px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px;">Mức giá</p>
+                <div id="megaMenuPrices" style="display:flex; flex-direction:column; gap:2px;">
+                    <div style="text-align:center; padding:16px 0; color:#94a3b8; font-size:12px;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Sản phẩm nổi bật (Sản phẩm mới) -->
+@if (Model.SanPhamMoi != null && Model.SanPhamMoi.Any())
+{
+    <div class="mb-14" data-aos="fade-up">
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-blue-600 text-white flex items-center justify-center shadow-md shadow-teal-500/25">
+                    <i class="fas fa-fire text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-heading">
+                            Sản Phẩm Nổi Bật
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "SanPham")" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 hover:text-teal-700 transition">
+                <span>Xem tất cả sản phẩm</span>
+                <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+        </div>
+        <div class="grid grid-cols-5 gap-2 sm:gap-4">
+            @foreach (var sanPham in Model.SanPhamMoi)
+            {
+                <a href="@Url.Action("ChiTietSP", "SanPham", new { id = sanPham.Id })" class="product-card group bg-white rounded-lg shadow overflow-hidden transition duration-300 hover:shadow-2xl transform hover:-translate-y-1 block w-full">
+                    <div class="relative">
+                        @if (!string.IsNullOrEmpty(sanPham.HinhAnh))
+                        {
+                            <img src="@Url.Content("~/Content/Images/" + sanPham.HinhAnh)"
+                                 alt="@sanPham.TenSanPham"
+                                 class="w-full h-24 sm:h-48 object-contain bg-gray-100 p-2 sm:p-4">
+                        }
+                        else
+                        {
+                            <img src="https://placehold.co/800x600"
+                                 alt="Không có hình ảnh"
+                                 class="w-full h-24 sm:h-48 object-contain bg-gray-100 p-2 sm:p-4">
+                        }
+
+                        @if (sanPham.GiaKhuyenMai.HasValue && sanPham.GiaKhuyenMai.Value > 0 && sanPham.GiaKhuyenMai.Value < sanPham.Gia)
+                        {
+                            var giaGoc = sanPham.Gia ?? 0;
+                            var giamGia = ((giaGoc - sanPham.GiaKhuyenMai.Value) / giaGoc * 100);
+                            <div class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">
+                                -@string.Format("{0:0}%", giamGia)
+                            </div>
+                        }
+                        else if (sanPham.LaSanPhamMoi == true)
+                        {
+                            <div class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">Mới</div>
+                        }
+
+                        <!-- Nút Khám Phá 3D (360 Studio) -->
+                        <button type="button" 
+                                onclick="event.preventDefault(); event.stopPropagation(); Web3DExperience.openStudioModal('@sanPham.TenSanPham.Replace("'", "\\'")' , '@Url.Content("~/Content/Images/" + (sanPham.HinhAnh ?? "no-image.png"))'); return false;" 
+                                title="Khám phá 3D (360° Studio)" 
+                                class="absolute top-2 right-11 sm:right-12 w-8 h-8 sm:w-9 sm:h-9 bg-slate-900/90 hover:bg-teal-500 text-teal-300 hover:text-white rounded-full shadow-md backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-90 group-hover:scale-100 z-20">
+                            <i class="fas fa-cube text-xs sm:text-sm"></i>
+                        </button>
+
+                        <button type="button" onclick="openQuickView(@sanPham.Id); return false;" title="Xem nhanh" class="absolute top-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white/90 hover:bg-teal-600 text-slate-700 hover:text-white rounded-full shadow-md backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-90 group-hover:scale-100 z-20">
+                            <i class="fas fa-eye text-xs sm:text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="p-2 sm:p-4">
+                        <h3 class="font-semibold text-gray-800 line-clamp-2 mb-1 sm:mb-2 text-[10px] sm:text-base">@sanPham.TenSanPham</h3>
+                        <div class="mt-2">
+                            @if (sanPham.GiaKhuyenMai.HasValue && sanPham.GiaKhuyenMai.Value > 0 && sanPham.GiaKhuyenMai.Value < sanPham.Gia)
+                            {
+                                <span class="text-red-600 font-bold text-xs sm:text-lg">@string.Format("{0:N0}đ", sanPham.GiaKhuyenMai)</span>
+                                <span class="text-gray-500 text-[8px] sm:text-sm line-through ml-1 sm:ml-2">@string.Format("{0:N0}đ", sanPham.Gia)</span>
+                            }
+                            else
+                            {
+                                <span class="text-red-600 font-bold text-xs sm:text-lg">@string.Format("{0:N0}đ", sanPham.Gia ?? 0)</span>
+                            }
+                        </div>
+                        <div class="mt-3 flex justify-between items-center">
+                            @if (sanPham.SoLuong.HasValue)
+                            {
+                                <span class="text-[8px] sm:text-xs text-gray-500">Còn @sanPham.SoLuong sp</span>
+                            }
+                            else
+                            {
+                                <span class="text-[8px] sm:text-xs text-gray-500">Trả góp 0%</span>
+                            }
+                            <button onclick="event.preventDefault(); event.stopPropagation(); addToCart(@sanPham.Id, '@sanPham.TenSanPham', @((sanPham.GiaKhuyenMai ?? sanPham.Gia) ?? 0), '@Url.Content("~/Content/Images/" + sanPham.HinhAnh)');" class="text-white bg-blue-600 hover:bg-blue-700 rounded px-1 sm:px-3 py-0.5 sm:py-1 text-[8px] sm:text-sm transition btn-add-to-cart">
+                                <i class="fas fa-shopping-cart mr-1"></i> Thêm
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+}
+
+<!-- Banner quảng cáo giữa -->
+@if (Model.QuangCao != null && Model.QuangCao.Count > 1)
+{
+    var promoBanner = Model.QuangCao.Skip(1).FirstOrDefault();
+    if (promoBanner != null)
+    {
+        <div class="mb-10 bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 text-white" data-aos="zoom-in">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-4 md:mb-0">
+                    <h2 class="text-2xl font-bold mb-2">@(promoBanner.TieuDe ?? "Mua sắm ngay hôm nay!")</h2>
+                    <p class="mb-4">Khám phá các ưu đãi hấp dẫn dành riêng cho bạn</p>
+                    @if (!string.IsNullOrEmpty(promoBanner.LienKet))
+                    {
+                        <a href="@promoBanner.LienKet" class="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg font-bold hover:bg-yellow-300 transition inline-block">Mua ngay</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", "SanPham", new { loc = "khuyenmai" })" class="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg font-bold hover:bg-yellow-300 transition inline-block">Mua ngay</a>
+                    }
+                </div>
+                <div class="md:w-1/2">
+                    @if (!string.IsNullOrEmpty(promoBanner.HinhAnh))
+                    {
+                        <img src="@Url.Content("~/Content/Images/" + promoBanner.HinhAnh)" alt="@promoBanner.TieuDe" class="w-full h-40 md:h-48 object-cover rounded-lg">
+                    }
+                    else
+                    {
+                        <img src="https://placehold.co/600x300" alt="Banner khuyến mãi" class="w-full h-40 md:h-48 object-cover rounded-lg">
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Fallback nếu không có banner thứ 2 -->
+        <div class="mb-10 bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 text-white">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-4 md:mb-0">
+                    <h2 class="text-2xl font-bold mb-2">Mua sắm ngay hôm nay!</h2>
+                    <p class="mb-4">Nhập mã <span class="font-bold">DMX500K</span> để được giảm thêm 500.000đ cho đơn hàng từ 10 triệu</p>
+                    <a href="@Url.Action("Index", "SanPham", new { loc = "khuyenmai" })" class="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg font-bold hover:bg-yellow-300 transition inline-block">Mua ngay</a>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://placehold.co/600x300" alt="Banner khuyến mãi" class="w-full h-40 md:h-48 object-cover rounded-lg">
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <!-- Fallback nếu không có đủ quảng cáo -->
+    <div class="mb-10 bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 text-white">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-4 md:mb-0">
+                <h2 class="text-2xl font-bold mb-2">Mua sắm ngay hôm nay!</h2>
+                <p class="mb-4">Nhập mã <span class="font-bold">DMX500K</span> để được giảm thêm 500.000đ cho đơn hàng từ 10 triệu</p>
+                <a href="@Url.Action("Index", "SanPham", new { loc = "khuyenmai" })" class="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg font-bold hover:bg-yellow-300 transition inline-block">Mua ngay</a>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://placehold.co/600x300" alt="Banner khuyến mãi" class="w-full h-40 md:h-48 object-cover rounded-lg">
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Sản phẩm bán chạy -->
+@if (Model.SanPhamBanChay != null && Model.SanPhamBanChay.Any())
+{
+    <div class="mb-10" data-aos="fade-up">
+        <div class="mb-8 relative flex flex-col md:block">
+            <h2 class="text-2xl md:text-3xl font-black flex justify-center items-center text-center tracking-wide">
+                <i class="fas fa-bolt text-red-500 mr-3"></i> Sản phẩm bán chạy
+            </h2>
+        </div>
+
+        <!-- Phần slider cho sản phẩm bán chạy -->
+        <div class="product-slider">
+            <button class="slider-btn prev-btn"><i class="fas fa-angle-left"></i></button>
+            <div class="product-slides gap-4">
+                @foreach (var sanPham in Model.SanPhamBanChay)
+                {
+                    <a href="@Url.Action("ChiTietSP", "SanPham", new { id = sanPham.Id })" class="product-card group bg-white rounded-lg shadow overflow-hidden transition duration-300 hover:shadow-2xl transform hover:-translate-y-1 block">
+                        <div class="relative">
+                            @if (!string.IsNullOrEmpty(sanPham.HinhAnh))
+                            {
+                                <img src="@Url.Content("~/Content/Images/" + sanPham.HinhAnh)"
+                                     alt="@sanPham.TenSanPham"
+                                     class="w-full h-48 object-contain bg-gray-100 p-4">
+                            }
+                            else
+                            {
+                                <img src="https://placehold.co/800x600"
+                                     alt="Không có hình ảnh"
+                                     class="w-full h-48 object-contain bg-gray-100 p-4">
+                            }
+
+                            @if (sanPham.GiaKhuyenMai.HasValue && sanPham.GiaKhuyenMai.Value > 0 && sanPham.GiaKhuyenMai.Value < sanPham.Gia)
+                            {
+                                var giaGoc = sanPham.Gia ?? 0;
+                                var giamGia = ((giaGoc - sanPham.GiaKhuyenMai.Value) / giaGoc);
+                                <div class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded z-10">
+                                    Giảm @string.Format("{0:N0}đ", giaGoc - sanPham.GiaKhuyenMai.Value)
+                                </div>
+                            }
+                            else if (sanPham.LaSanPhamBanChay == true)
+                            {
+                                <div class="absolute top-2 left-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded z-10">TOP</div>
+                            }
+
+                            <!-- Nút Khám Phá 3D (360 Studio) -->
+                            <button type="button" 
+                                    onclick="event.preventDefault(); event.stopPropagation(); Web3DExperience.openStudioModal('@sanPham.TenSanPham.Replace("'", "\\'")' , '@Url.Content("~/Content/Images/" + (sanPham.HinhAnh ?? "no-image.png"))'); return false;" 
+                                    title="Khám phá 3D (360° Studio)" 
+                                    class="absolute top-2 right-11 sm:right-12 w-8 h-8 sm:w-9 sm:h-9 bg-slate-900/90 hover:bg-teal-500 text-teal-300 hover:text-white rounded-full shadow-md backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-90 group-hover:scale-100 z-20">
+                                <i class="fas fa-cube text-xs sm:text-sm"></i>
+                            </button>
+
+                            <button type="button" onclick="openQuickView(@sanPham.Id); return false;" title="Xem nhanh" class="absolute top-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white/90 hover:bg-teal-600 text-slate-700 hover:text-white rounded-full shadow-md backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform scale-90 group-hover:scale-100 z-20">
+                                <i class="fas fa-eye text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 line-clamp-2 mb-2">@sanPham.TenSanPham</h3>
+                            <div class="mt-2">
+                                @if (sanPham.GiaKhuyenMai.HasValue && sanPham.GiaKhuyenMai.Value > 0 && sanPham.GiaKhuyenMai.Value < sanPham.Gia)
+                                {
+                                    <span class="text-red-600 font-bold text-lg">@string.Format("{0:N0}đ", sanPham.GiaKhuyenMai)</span>
+                                    <span class="text-gray-500 text-sm line-through ml-2">@string.Format("{0:N0}đ", sanPham.Gia)</span>
+                                }
+                                else
+                                {
+                                    <span class="text-red-600 font-bold text-lg">@string.Format("{0:N0}đ", sanPham.Gia ?? 0)</span>
+                                }
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-gray-500">Bảo hành 12 tháng</span>
+                                <button onclick="event.preventDefault(); event.stopPropagation(); addToCart(@sanPham.Id, '@sanPham.TenSanPham', @((sanPham.GiaKhuyenMai ?? sanPham.Gia) ?? 0), '@Url.Content("~/Content/Images/" + sanPham.HinhAnh)')" class="text-white bg-blue-600 hover:bg-blue-700 rounded px-3 py-1 text-sm transition btn-add-to-cart">
+                                    <i class="fas fa-shopping-cart mr-1"></i> Thêm
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+            <button class="slider-btn next-btn"><i class="fas fa-angle-right"></i></button>
+        </div>
+    </div>
+}
+
+<!-- Thương hiệu nổi bật -->
+@if (Model.ThuongHieu != null && Model.ThuongHieu.Any())
+{
+    <div class="mb-10" data-aos="fade-right">
+        <h2 class="text-2xl md:text-3xl font-black mb-8 flex justify-center items-center text-center tracking-wide">
+            Thương hiệu nổi bật
+        </h2>
+        <div class="flex flex-nowrap justify-between items-center gap-2 sm:gap-4 overflow-hidden w-full">
+            @foreach (var thuongHieu in Model.ThuongHieu)
+            {
+                <a href="@Url.Action("Index", "SanPham", new { thuongHieuId = thuongHieu.Id })"
+                   class="brand-card flex-1 min-w-0 flex flex-col items-center justify-center transition-all duration-300 transform hover:-translate-y-1 group"
+                   title="Xem sản phẩm của @thuongHieu.TenThuongHieu">
+                    @if (!string.IsNullOrEmpty(thuongHieu.HinhAnh))
+                    {
+                        <img src="@Url.Content("~/Content/Images/" + thuongHieu.HinhAnh)"
+                             alt="@thuongHieu.TenThuongHieu"
+                             class="h-10 sm:h-14 md:h-20 w-auto max-w-full object-contain group-hover:scale-110 transition-transform duration-300">
+                    }
+                    else
+                    {
+                        <div class="h-10 sm:h-14 md:h-20 flex items-center justify-center">
+                            <span class="text-xs sm:text-sm md:text-lg font-bold text-gray-700 group-hover:text-blue-600 transition-colors truncate w-full text-center">
+                                @thuongHieu.TenThuongHieu
+                            </span>
+                        </div>
+                    }
+                    <p class="text-[10px] sm:text-xs text-gray-500 mt-2 group-hover:text-blue-600 transition-colors truncate w-full text-center">
+                        @thuongHieu.TenThuongHieu
+                    </p>
+                </a>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <!-- Fallback nếu không có thương hiệu -->
+    <div class="mb-10">
+        <h2 class="text-2xl md:text-3xl font-black mb-8 flex justify-center items-center text-center uppercase tracking-wide">
+            Thương hiệu nổi bật
+        </h2>
+        <div class="flex flex-nowrap justify-between items-center gap-2 sm:gap-4 overflow-hidden w-full">
+            <div class="flex-1 min-w-0 flex flex-col items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+                <img src="https://placehold.co/120x60" alt="Thương hiệu" class="h-10 sm:h-14 md:h-20 w-auto max-w-full object-contain">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+                <img src="https://placehold.co/120x60" alt="Thương hiệu" class="h-10 sm:h-14 md:h-20 w-auto max-w-full object-contain">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+                <img src="https://placehold.co/120x60" alt="Thương hiệu" class="h-10 sm:h-14 md:h-20 w-auto max-w-full object-contain">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+                <img src="https://placehold.co/120x60" alt="Thương hiệu" class="h-10 sm:h-14 md:h-20 w-auto max-w-full object-contain">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+                <img src="https://placehold.co/120x60" alt="Thương hiệu" class="h-10 sm:h-14 md:h-20 w-auto max-w-full object-contain">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+                <img src="https://placehold.co/120x60" alt="Thương hiệu" class="h-10 sm:h-14 md:h-20 w-auto max-w-full object-contain">
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<!-- Tin tức & Mẹo hay -->
+@if (Model.TinTuc != null && Model.TinTuc.Any())
+{
+    <div class="mb-10" data-aos="fade-up">
+        <div class="mb-8 relative">
+            <h2 class="text-2xl md:text-3xl font-black flex justify-center items-center text-center tracking-wide">
+                Tin tức & Mẹo hay
+            </h2>
+            <div class="flex justify-end mt-2 md:mt-0 md:absolute md:right-0 md:top-1/2 md:transform md:-translate-y-1/2">
+                <a href="@Url.Action("Index", "TinTuc")" class="text-blue-600 hover:underline font-semibold">Xem tất cả <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 sm:gap-6">
+            @foreach (var tin in Model.TinTuc)
+            {
+                <a href="@Url.Action("ChiTiet", "TinTuc", new { id = tin.Id })" class="bg-white rounded-lg shadow overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-1 block w-full">
+                    @if (!string.IsNullOrEmpty(tin.HinhAnh))
+                    {
+                        <img src="@Url.Content("~/Content/Images/" + tin.HinhAnh)" alt="@tin.TieuDe" class="w-full h-48 object-cover">
+                    }
+                    else
+                    {
+                        <img src="https://placehold.co/800x450" alt="@tin.TieuDe" class="w-full h-48 object-cover">
+                    }
+                    <div class="p-2 sm:p-4">
+                        @if (tin.tb_DanhMucTin != null)
+                        {
+                            <span class="text-[8px] sm:text-sm text-blue-600">@tin.tb_DanhMucTin.TenDanhMuc</span>
+                        }
+                        else
+                        {
+                            <span class="text-[8px] sm:text-sm text-blue-600">Tin tức</span>
+                        }
+                        <h3 class="font-bold text-xs sm:text-lg text-gray-800 mt-1 mb-1 sm:mb-2 line-clamp-2">@tin.TieuDe</h3>
+                        @if (!string.IsNullOrEmpty(tin.MoTa))
+                        {
+                            <p class="text-gray-600 text-[8px] sm:text-sm line-clamp-2">@tin.MoTa</p>
+                        }
+                        <div class="flex items-center justify-between mt-1 sm:mt-3 text-[8px] sm:text-xs text-gray-500">
+                            <span>
+                                <i class="far fa-calendar mr-1"></i>
+                                @(tin.NgayTao?.ToString("dd/MM/yyyy") ?? "N/A")
+                            </span>
+                            <span class="text-blue-600 hover:underline">Xem thêm →</span>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <!-- Fallback content nếu không có tin tức -->
+    <div class="mb-10">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-newspaper text-blue-500 mr-3"></i> Tin tức & Mẹo hay
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow overflow-hidden hover:shadow-xl transition">
+                <img src="https://placehold.co/800x450" alt="Bài viết" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <span class="text-sm text-blue-600">Tư vấn mua sắm</span>
+                    <h3 class="font-bold text-lg text-gray-800 mt-1 mb-2">Top 10 điện thoại đáng mua nhất 2024</h3>
+                    <p class="text-gray-600 text-sm line-clamp-2">Khám phá những chiếc điện thoại hot nhất với cấu hình mạnh mẽ...</p>
+                    <a href="#" class="inline-block text-blue-600 text-sm mt-3 hover:underline">Xem thêm</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow overflow-hidden hover:shadow-xl transition">
+                <img src="https://placehold.co/800x450" alt="Bài viết" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <span class="text-sm text-blue-600">Mẹo hay</span>
+                    <h3 class="font-bold text-lg text-gray-800 mt-1 mb-2">Cách chọn laptop phù hợp với nhu cầu</h3>
+                    <p class="text-gray-600 text-sm line-clamp-2">Hướng dẫn chi tiết giúp bạn chọn được chiếc laptop ưng ý...</p>
+                    <a href="#" class="inline-block text-blue-600 text-sm mt-3 hover:underline">Xem thêm</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow overflow-hidden hover:shadow-xl transition">
+                <img src="https://placehold.co/800x450" alt="Bài viết" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <span class="text-sm text-blue-600">Công nghệ</span>
+                    <h3 class="font-bold text-lg text-gray-800 mt-1 mb-2">Xu hướng công nghệ 2024</h3>
+                    <p class="text-gray-600 text-sm line-clamp-2">Những công nghệ mới sẽ làm thay đổi cuộc sống của chúng ta...</p>
+                    <a href="#" class="inline-block text-blue-600 text-sm mt-3 hover:underline">Xem thêm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Dịch vụ & Ưu đãi (3D Trust Showcase) -->
+<div class="mb-14 bg-gradient-to-br from-white/90 via-slate-50/80 to-white/90 backdrop-blur-xl rounded-3xl p-5 sm:p-7 border border-slate-200/80 shadow-soft border-beam-3d" data-aos="fade-up">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+        <div class="trust-card-3d bg-white/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 border border-slate-200/70 cursor-pointer">
+            <div class="trust-icon-box w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/25">
+                <i class="fas fa-truck-fast text-lg sm:text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="font-extrabold text-slate-900 text-xs sm:text-sm font-heading">Giao hàng siêu tốc</h3>
+                <p class="text-[11px] sm:text-xs text-slate-500 line-clamp-1">Nội thành 2 - 4 giờ</p>
+            </div>
+        </div>
+        <div class="trust-card-3d bg-white/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 border border-slate-200/70 cursor-pointer">
+            <div class="trust-icon-box w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/25">
+                <i class="fas fa-percentage text-lg sm:text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="font-extrabold text-slate-900 text-xs sm:text-sm font-heading">Trả góp 0% lãi suất</h3>
+                <p class="text-[11px] sm:text-xs text-slate-500 line-clamp-1">Duyệt nhanh 5 phút</p>
+            </div>
+        </div>
+        <div class="trust-card-3d bg-white/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 border border-slate-200/70 cursor-pointer">
+            <div class="trust-icon-box w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/25">
+                <i class="fas fa-shield-halved text-lg sm:text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="font-extrabold text-slate-900 text-xs sm:text-sm font-heading">Bảo hành chính hãng</h3>
+                <p class="text-[11px] sm:text-xs text-slate-500 line-clamp-1">12 - 24 tháng</p>
+            </div>
+        </div>
+        <div class="trust-card-3d bg-white/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 border border-slate-200/70 cursor-pointer">
+            <div class="trust-icon-box w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/25">
+                <i class="fas fa-arrows-rotate text-lg sm:text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="font-extrabold text-slate-900 text-xs sm:text-sm font-heading">Đổi mới trong 30 ngày</h3>
+                <p class="text-[11px] sm:text-xs text-slate-500 line-clamp-1">Lỗi NSX là đổi ngay</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+@section scripts {
+    <script>
+    // ========== AUTHENTICATION CHECK ==========
+    var isUserAuthenticated = '@(Request.IsAuthenticated ? "true" : "false")' === 'true';
+
+    function checkLogin() {
+        if (!isUserAuthenticated) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Vui lòng đăng nhập!',
+                text: 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng',
+                showCancelButton: true,
+                confirmButtonText: '<i class="fas fa-sign-in-alt mr-2"></i>Đăng nhập',
+                cancelButtonText: 'Hủy',
+                confirmButtonColor: '#3b82f6',
+                cancelButtonColor: '#6b7280'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#authModal').modal('show');
+                }
+            });
+            return false;
+        }
+        return true;
+    }
+
+    // ========== ADD TO CART FUNCTION ==========
+    function addToCart(productId, productName, price, image) {
+        // Show loading (không check frontend nữa, để backend handle)
+        Swal.fire({
+            title: 'Đang xử lý...',
+            html: 'Vui lòng đợi trong giây lát',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("AddToCart", "GioHang")',
+            type: 'POST',
+            data: {
+                productId: productId,
+                quantity: 1,
+                color: ''
+            },
+            success: function(response) {
+                Swal.close();
+
+                if (response.success) {
+                    // Show success with product info
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công!',
+                        html: `
+                            <div class="text-left">
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg mb-4">
+                                    <img src="${image}" alt="${productName}" class="w-20 h-20 object-contain rounded border">
+                                    <div>
+                                        <p class="font-semibold text-gray-900">${productName}</p>
+                                        <p class="text-sm text-gray-600">Giá: ${formatCurrency(price)}</p>
+                                        <p class="text-sm text-blue-600">Số lượng: 1</p>
+                                    </div>
+                                </div>
+                                <p class="text-center text-gray-700">Sản phẩm đã được thêm vào giỏ hàng!</p>
+                                <p class="text-center text-sm text-gray-500 mt-2">Tổng: <strong>${response.cartCount}</strong> sản phẩm - <strong>${formatCurrency(response.cartTotal)}</strong></p>
+                            </div>
+                        `,
+                        showCancelButton: true,
+                        confirmButtonText: '<i class="fas fa-shopping-cart mr-2"></i>Xem giỏ hàng',
+                        cancelButtonText: '<i class="fas fa-shopping-bag mr-2"></i>Tiếp tục mua',
+                        confirmButtonColor: '#3b82f6',
+                        cancelButtonColor: '#6b7280',
+                        customClass: {
+                            popup: 'rounded-xl',
+                            confirmButton: 'px-6 py-3 rounded-lg font-bold',
+                            cancelButton: 'px-6 py-3 rounded-lg font-bold'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            if (typeof openSideCart === 'function') {
+                                openSideCart();
+                            } else {
+                                window.location.href = '@Url.Action("Index", "GioHang")';
+                            }
+                        }
+                    });
+
+                    // Update cart count in header (if exists)
+                    updateCartCount(response.cartCount);
+                } else if (response.requireLogin) {
+                    // User not logged in (backend check)
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Vui lòng đăng nhập!',
+                        text: response.message,
+                        showCancelButton: true,
+                        confirmButtonText: '<i class="fas fa-sign-in-alt mr-2"></i>Đăng nhập',
+                        cancelButtonText: 'Hủy',
+                        confirmButtonColor: '#3b82f6',
+                        cancelButtonColor: '#6b7280'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#authModal').modal('show');
+                        }
+                    });
+                } else {
+                    // Other errors
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: response.message,
+                        confirmButtonText: 'Đóng',
+                        confirmButtonColor: '#ef4444'
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra. Vui lòng thử lại sau.',
+                    confirmButtonText: 'Đóng',
+                    confirmButtonColor: '#ef4444'
+                });
+            }
+        });
+    }
+
+    // ========== HELPER FUNCTIONS ==========
+
+    // Format currency
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
+    }
+
+    // Update cart count in header
+    function updateCartCount(count) {
+        $('.cart-count').text(count);
+        $('.cart-badge').text(count);
+
+        // Add animation
+        $('.cart-count, .cart-badge').addClass('animate-pulse');
+        setTimeout(function() {
+            $('.cart-count, .cart-badge').removeClass('animate-pulse');
+        }, 1000);
+    }
+
+    // ========== PAGE LOAD ==========
+    $(document).ready(function() {
+        // Product slider
+        $('.product-slider').each(function() {
+            var slider = $(this);
+            var slides = slider.find('.product-slides');
+            var prevBtn = slider.find('.prev-btn');
+            var nextBtn = slider.find('.next-btn');
+            var scrollAmount = 300;
+
+            prevBtn.click(function() {
+                slides.animate({scrollLeft: '-=' + scrollAmount}, 300);
+            });
+
+            nextBtn.click(function() {
+                slides.animate({scrollLeft: '+=' + scrollAmount}, 300);
+            });
+        });
+
+        // ========== MEGA MENU DANH MỤC NGANG ==========
+        var megaTimer = null;
+        var megaCache = {};
+        var imgBase = '@Url.Content("~/Content/Images/")';
+
+        // Di chuyển panel ra ngoài body để tọa độ absolute luôn chính xác tuyệt đối
+        $('#megaMenuPanel').appendTo('body');
+
+        var $panel = $('#megaMenuPanel');
+        var $panelTitle = $('#megaMenuTitle');
+        var $panelViewAll = $('#megaMenuViewAll');
+        var $panelBrands = $('#megaMenuBrands');
+        var $panelProducts = $('#megaMenuProducts');
+
+        function positionPanel($item) {
+            var rect = $item[0].getBoundingClientRect();
+            var panelW = 560; // based on width
+            var left = rect.left;
+
+            // Nếu tràn mép phải màn hình thì dịch sang trái
+            if (left + panelW > window.innerWidth - 20) {
+                left = window.innerWidth - panelW - 20;
+            }
+            if (left < 16) left = 16;
+
+            // Căn top ngay bên dưới mục danh mục
+            $panel.css({
+                top: rect.bottom + window.scrollY + 8,
+                left: left,
+                height: 'auto',
+                maxHeight: '420px'
+            });
+        }
+
+        var $panelPrices = $('#megaMenuPrices');
+        var currentDmUrl = '#';
+
+        function renderMegaMenu(data) {
+            // --- Thương hiệu: list dọc với logo + tên + (số lượng) ---
+            if (!data.thuongHieu || data.thuongHieu.length === 0) {
+                $panelBrands.html('<div style="color:#9ca3af;font-size:12px;padding:8px 0;">Không có dữ liệu hãng</div>');
+            } else {
+                var bHtml = '';
+                $.each(data.thuongHieu, function(i, th) {
+                    var logoHtml = th.hinhAnh
+                        ? '<img src="' + imgBase + th.hinhAnh + '" alt="' + th.ten + '" style="width:20px;height:20px;object-fit:contain;margin-right:8px;flex-shrink:0;">'
+                        : '<span style="width:20px;height:20px;margin-right:8px;flex-shrink:0;"></span>';
+                    var href = currentDmUrl + (currentDmUrl.indexOf('?') > -1 ? '&' : '?') + 'thuongHieuId=' + th.id;
+                    // build proper URL
+                    var dmIdVal = currentDmUrl.match(/danhMucId=(\d+)/);
+                    if (dmIdVal) {
+                        href = '@Url.Action("Index", "SanPham")' + '?danhMucId=' + dmIdVal[1] + '&thuongHieuId=' + th.id;
+                    } else {
+                        href = '@Url.Action("Index", "SanPham")' + '?thuongHieuId=' + th.id;
+                    }
+                    bHtml += '<a href="' + href + '" ' +
+                        'style="display:flex;align-items:center;padding:6px 8px;border-radius:7px;text-decoration:none;color:#374151;transition:background .12s;"' +
+                        ' onmouseenter="this.style.background=\'#eff6ff\';this.style.color=\'#2563eb\';"' +
+                        ' onmouseleave="this.style.background=\'\';this.style.color=\'#374151\';">' +
+                        logoHtml +
+                        '<span style="font-size:13px;font-weight:500;flex:1;">' + th.ten + '</span>' +
+                        '</a>';
+                });
+                $panelBrands.html(bHtml);
+            }
+
+            // --- Mức giá ---
+            if (!data.mucGia || data.mucGia.length === 0) {
+                $panelPrices.html('');
+            } else {
+                var pHtml = '';
+                var dmIdVal2 = currentDmUrl.match(/danhMucId=(\d+)/);
+                $.each(data.mucGia, function(i, mg) {
+                    var params = dmIdVal2 ? 'danhMucId=' + dmIdVal2[1] : '';
+                    if (mg.giaMin != null) params += (params ? '&' : '') + 'giaMin=' + mg.giaMin;
+                    if (mg.giaMax != null) params += (params ? '&' : '') + 'giaMax=' + mg.giaMax;
+                    var href = '@Url.Action("Index", "SanPham")' + (params ? '?' + params : '');
+                    pHtml += '<a href="' + href + '" ' +
+                        'style="display:flex;align-items:center;padding:6px 8px;border-radius:7px;text-decoration:none;color:#374151;transition:background .12s;"' +
+                        ' onmouseenter="this.style.background=\'#eff6ff\';this.style.color=\'#2563eb\';"' +
+                        ' onmouseleave="this.style.background=\'\';this.style.color=\'#374151\';">' +
+                        '<i class="fas fa-dollar-sign" style="color:#3b82f6;margin-right:8px;font-size:12px;width:14px;"></i>' +
+                        '<span style="font-size:13px;">' + mg.nhan + '</span>' +
+                        '</a>';
+                });
+                $panelPrices.html(pHtml);
+            }
+        }
+
+        function showMegaMenu($item) {
+            var dmId   = $item.data('id');
+            var dmTen  = $item.data('ten');
+            var dmUrl  = $item.data('url');
+
+            // Cập nhật header
+            currentDmUrl = dmUrl;
+            $panelTitle.text(dmTen);
+            $panelViewAll.attr('href', dmUrl);
+
+            // Position
+            positionPanel($item);
+
+            // Highlight row
+            $('.danh-muc-item .dm-row').css({ background: '', color: '' });
+            $item.find('.dm-row').css({ background: '#eff6ff', color: '#2563eb' });
+
+            // Đã cache?
+            if (megaCache[dmId]) {
+                $panel.stop(true, true).css('display', 'flex').hide().fadeIn(150);
+                renderMegaMenu(megaCache[dmId]);
+                return;
+            }
+
+            // Hiện loading
+            $panel.stop(true, true).css('display', 'flex').hide().fadeIn(150);
+            $panelBrands.html('<div style="text-align:center;padding:20px 0;color:#9ca3af;font-size:12px;"><i class="fas fa-spinner fa-spin"></i> Đang tải...</div>');
+            $panelPrices.html('<div style="text-align:center;padding:20px 0;color:#9ca3af;font-size:12px;"><i class="fas fa-spinner fa-spin"></i></div>');
+
+            $.ajax({
+                url: '@Url.Action("GetSanPhamTheoDanhMuc", "Home")',
+                data: { danhMucId: dmId },
+                type: 'GET',
+                success: function(data) {
+                    megaCache[dmId] = data;
+                    renderMegaMenu(data);
+                },
+                error: function() {
+                    $panelBrands.html('<div style="color:#ef4444;font-size:12px;padding:8px;">Lỗi tải dữ liệu</div>');
+                    $panelPrices.html('');
+                }
+            });
+        }
+
+        function hideMegaMenu() {
+            $panel.stop(true, true).fadeOut(150);
+            $('.danh-muc-item .dm-row').css({ background: '', color: '' });
+        }
+
+        $('#danhMucList .danh-muc-item').on('mouseenter', function() {
+            clearTimeout(megaTimer);
+            showMegaMenu($(this));
+        }).on('mouseleave', function() {
+            megaTimer = setTimeout(hideMegaMenu, 120);
+        });
+
+        $panel.on('mouseenter', function() {
+            clearTimeout(megaTimer);
+        }).on('mouseleave', function() {
+            megaTimer = setTimeout(hideMegaMenu, 120);
+        });
+
+    });
+    </script>
+}

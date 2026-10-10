@@ -1,0 +1,377 @@
+@model List<DoAnNoSQL.tb_DonHang>
+
+@{
+    ViewBag.Title = "Đơn hàng của tôi";
+}
+
+<!-- Breadcrumb -->
+<nav class="flex mb-6" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+            <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-xs font-bold text-slate-500 hover:text-teal-600 transition-colors">
+                <i class="fas fa-home mr-2 text-slate-400"></i>
+                Trang chủ
+            </a>
+        </li>
+        <li>
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-slate-300 mx-2 text-xs"></i>
+                <a href="@Url.Action("Index", "TaiKhoan")" class="text-xs font-bold text-slate-500 hover:text-teal-600 transition-colors">
+                    Tài khoản
+                </a>
+            </div>
+        </li>
+        <li aria-current="page">
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-slate-300 mx-2 text-xs"></i>
+                <span class="text-xs font-bold text-teal-600">Đơn hàng</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+
+@* Anti-Forgery Token for AJAX requests *@
+@Html.AntiForgeryToken()
+
+<!-- 3D Header -->
+<div class="page-header-3d border-beam-3d mb-8" data-aos="fade-down">
+    <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-teal-500/20 border border-teal-400/40 text-teal-300 flex items-center justify-center shadow-lg shadow-teal-500/20">
+                <i class="fas fa-boxes-packing text-2xl"></i>
+            </div>
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-teal-400/20 text-teal-200 border border-teal-400/30 text-[11px] font-bold uppercase tracking-wider mb-1">
+                    <span>LỊCH SỬ GIAO DỊCH</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black font-heading text-white">
+                    Đơn hàng của tôi
+                </h1>
+                <p class="text-xs text-slate-300 mt-0.5">Tổng số <strong class="text-teal-300">@(ViewBag.TotalOrders ?? Model.Count)</strong> đơn hàng trong hệ thống</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <!-- Sidebar Menu 3D (1/4) -->
+    <div class="lg:col-span-1">
+        <div class="card-glass-3d p-5 sticky top-4" data-aos="fade-right">
+            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
+                <i class="fas fa-bars-staggered text-teal-600"></i>
+                Quản lý tài khoản
+            </h3>
+            <nav class="space-y-2">
+                <a href="@Url.Action("Index", "TaiKhoan")" class="flex items-center px-4 py-3 text-slate-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl font-bold text-xs transition-colors">
+                    <i class="fas fa-user-circle w-5 mr-3 text-sm text-slate-400"></i>
+                    Thông tin tài khoản
+                </a>
+                <a href="@Url.Action("DoiMatKhau", "TaiKhoan")" class="flex items-center px-4 py-3 text-slate-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl font-bold text-xs transition-colors">
+                    <i class="fas fa-key w-5 mr-3 text-sm text-slate-400"></i>
+                    Đổi mật khẩu
+                </a>
+                <a href="@Url.Action("DonHang", "TaiKhoan")" class="flex items-center px-4 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-xl font-bold text-xs shadow-md shadow-teal-600/30">
+                    <i class="fas fa-shopping-bag w-5 mr-3 text-sm"></i>
+                    Đơn hàng của tôi
+                </a>
+                <a href="@Url.Action("Logout", "Account")" class="flex items-center px-4 py-3 text-rose-600 hover:bg-rose-50 rounded-xl font-bold text-xs transition-colors mt-4 pt-3 border-t border-slate-100">
+                    <i class="fas fa-sign-out-alt w-5 mr-3 text-sm"></i>
+                    Đăng xuất
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content 3D (3/4) -->
+    <div class="lg:col-span-3">
+        <div class="card-glass-3d border-beam-3d p-6 sm:p-8" data-aos="fade-left">
+            <h2 class="text-lg sm:text-xl font-black text-slate-900 mb-6 pb-4 border-b border-slate-100 flex items-center justify-between">
+                <span class="flex items-center gap-2.5">
+                    <i class="fas fa-cubes text-teal-600"></i>
+                    Đơn hàng của tôi (@(ViewBag.TotalOrders ?? Model.Count) đơn)
+                </span>
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-200">Đồng bộ trực tiếp</span>
+            </h2>
+
+            @if (Model.Any())
+            {
+                <div class="space-y-5">
+                    @foreach (var donHang in Model)
+                    {
+                        var statusClass = "";
+                        var statusText = "";
+                        var statusIcon = "";
+
+                        switch (donHang.TrangThai)
+                        {
+                            case 1: // Chờ xác nhận
+                                statusClass = "bg-amber-500/10 text-amber-700 border border-amber-300";
+                                statusText = "Chờ xác nhận";
+                                statusIcon = "fa-clock";
+                                break;
+                            case 2: // Đã xác nhận
+                                statusClass = "bg-blue-500/10 text-blue-700 border border-blue-300";
+                                statusText = "Đã xác nhận";
+                                statusIcon = "fa-check-circle";
+                                break;
+                            case 3: // Đang giao
+                                statusClass = "bg-purple-500/10 text-purple-700 border border-purple-300";
+                                statusText = "Đang giao hàng";
+                                statusIcon = "fa-shipping-fast";
+                                break;
+                            case 4: // Đã giao
+                                statusClass = "bg-emerald-500/10 text-emerald-700 border border-emerald-300";
+                                statusText = "Đã giao hàng";
+                                statusIcon = "fa-check-double";
+                                break;
+                            case 5: // Hoàn thành
+                                statusClass = "bg-teal-500/10 text-teal-700 border border-teal-300";
+                                statusText = "Hoàn thành";
+                                statusIcon = "fa-check-double";
+                                break;
+                            case -1: // Đã hủy
+                                statusClass = "bg-rose-500/10 text-rose-700 border border-rose-300";
+                                statusText = "Đã hủy";
+                                statusIcon = "fa-times-circle";
+                                break;
+                            case 6: // Yêu cầu trả hàng
+                                statusClass = "bg-yellow-500/10 text-yellow-700 border border-yellow-300";
+                                statusText = "Yêu cầu trả hàng";
+                                statusIcon = "fa-undo";
+                                break;
+                            case 7: // Đã trả hàng
+                                statusClass = "bg-slate-500/10 text-slate-700 border border-slate-300";
+                                statusText = "Đã trả hàng";
+                                statusIcon = "fa-undo-alt";
+                                break;
+                            default:
+                                statusClass = "bg-slate-500/10 text-slate-700 border border-slate-300";
+                                statusText = "Không xác định";
+                                statusIcon = "fa-question-circle";
+                                break;
+                        }
+
+                        <div class="card-glass-3d p-6 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-teal-400/50">
+                            <!-- Order Header -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-4 border-b border-slate-100">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+                                        <h3 class="text-base font-black text-slate-900 tracking-tight">
+                                            Mã đơn: <span class="text-teal-700 font-mono">#@donHang.MaDonHang</span>
+                                        </h3>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
+                                        <i class="far fa-calendar-alt text-teal-600"></i>
+                                        @(donHang.NgayTao?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")
+                                    </p>
+                                </div>
+                                <span class="@statusClass px-3.5 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-sm">
+                                    <i class="fas @statusIcon text-[11px]"></i>
+                                    @statusText
+                                </span>
+                            </div>
+
+                            <!-- Order Summary -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5 p-4 rounded-xl bg-slate-50/80 border border-slate-100 text-xs">
+                                <div>
+                                    <p class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 mb-1">Tổng thanh toán</p>
+                                    <p class="text-lg font-black text-teal-700">@String.Format("{0:0,0}", donHang.TongTien) <span class="text-xs font-bold">₫</span></p>
+                                </div>
+                                <div>
+                                    <p class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 mb-1">Số lượng mặt hàng</p>
+                                    <p class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                                        <i class="fas fa-box text-slate-400"></i>
+                                        @donHang.SoLuongSanPham sản phẩm
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 mb-1">Phương thức</p>
+                                    <p class="text-xs font-bold text-slate-700">
+                                        @switch (donHang.LoaiThanhToan)
+                                        {
+                                            case "1": <text><i class="fas fa-truck text-emerald-500 mr-1"></i> COD khi nhận hàng</text> break;
+                                            case "2": <text><i class="fas fa-university text-blue-500 mr-1"></i> Chuyển khoản ngân hàng</text> break;
+                                            case "3": <text><i class="fas fa-wallet text-pink-500 mr-1"></i> Ví điện tử MoMo</text> break;
+                                            case "4": <text><i class="fas fa-wallet text-sky-500 mr-1"></i> Ví điện tử ZaloPay</text> break;
+                                            case "5": <text><i class="fas fa-credit-card text-purple-500 mr-1"></i> Thẻ tín dụng</text> break;
+                                            default: <text>Không xác định</text> break;
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Order Actions -->
+                            <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                                <a href="@Url.Action("ChiTietDonHang", "TaiKhoan", new { id = donHang.Id })" 
+                                   class="btn-3d flex-1 py-2.5 px-4 rounded-xl text-center text-xs font-bold inline-flex items-center justify-center gap-2 shadow-sm">
+                                    <i class="fas fa-eye text-xs"></i>
+                                    Chi tiết đơn hàng
+                                </a>
+                                @if (donHang.TrangThai == 1 || donHang.TrangThai == 2)
+                                {
+                                    <button onclick="huyDonHang(@donHang.Id)" 
+                                            class="flex-1 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-md shadow-rose-600/30 active:scale-95 inline-flex items-center justify-center gap-2">
+                                        <i class="fas fa-times-circle text-xs"></i>
+                                        Hủy đơn hàng
+                                    </button>
+                                }
+                                @if (donHang.TrangThai == -1)
+                                {
+                                    <button onclick="xoaDonHang(@donHang.Id, this)" 
+                                            class="flex-1 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-500 hover:to-slate-600 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-md shadow-slate-600/30 active:scale-95 inline-flex items-center justify-center gap-2">
+                                        <i class="fas fa-trash-alt text-xs"></i>
+                                        Xóa đơn hàng
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Pagination 3D -->
+                if (ViewBag.TotalPages > 1)
+                {
+                    <div class="flex justify-center items-center gap-2 mt-8 pt-6 border-t border-slate-100">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <a href="?page=@(ViewBag.CurrentPage - 1)" 
+                               class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-teal-50 hover:text-teal-700 flex items-center justify-center text-xs font-bold shadow-sm transition-all hover:scale-105">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        }
+
+                        @for (int i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+                        {
+                            <a href="?page=@i" 
+                               class="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold transition-all @(i == ViewBag.CurrentPage ? "bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-600/30 scale-105" : "bg-white border border-slate-200 text-slate-700 hover:bg-teal-50 hover:text-teal-700 shadow-sm")">
+                                @i
+                            </a>
+                        }
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <a href="?page=@(ViewBag.CurrentPage + 1)" 
+                               class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-teal-50 hover:text-teal-700 flex items-center justify-center text-xs font-bold shadow-sm transition-all hover:scale-105">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Empty State 3D -->
+                <div class="text-center py-16">
+                    <div class="w-20 h-20 rounded-3xl bg-teal-500/10 border border-teal-500/20 text-teal-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-teal-500/10">
+                        <i class="fas fa-shopping-bag text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg font-black text-slate-900 mb-2">Chưa có đơn hàng nào</h3>
+                    <a href="@Url.Action("Index", "SanPham")" 
+                       class="btn-3d inline-flex items-center gap-2 py-3 px-6 rounded-xl font-bold text-xs shadow-md shadow-teal-600/30">
+                        <i class="fas fa-compass"></i>
+                        Khám phá sản phẩm ngay
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script>
+    // Hủy đơn hàng
+    function huyDonHang(orderId) {
+        Swal.fire({
+            title: 'Xác nhận hủy đơn hàng?',
+            text: 'Bạn có chắc chắn muốn hủy đơn hàng này không?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Hủy đơn hàng',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '@Url.Action("HuyDonHang", "TaiKhoan")',
+                    type: 'POST',
+                    data: {
+                        id: orderId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire('Thành công!', response.message, 'success')
+                            .then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    // Xóa đơn hàng đã hủy
+    function xoaDonHang(orderId, btnElement) {
+        Swal.fire({
+            title: 'Xác nhận xóa đơn hàng?',
+            text: 'Đơn hàng sẽ bị xóa vĩnh viễn và không thể khôi phục!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#475569',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: '<i class="fas fa-trash-alt mr-1"></i> Xóa vĩnh viễn',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '@Url.Action("XoaDonHang", "TaiKhoan")',
+                    type: 'POST',
+                    data: {
+                        id: orderId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Animate the card out then remove
+                            var card = $(btnElement).closest('.card-glass-3d');
+                            card.css({
+                                'transition': 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                'opacity': '0',
+                                'transform': 'translateX(40px) scale(0.95)',
+                                'max-height': card.outerHeight() + 'px',
+                                'overflow': 'hidden'
+                            });
+                            setTimeout(function() {
+                                card.css({ 'max-height': '0', 'margin': '0', 'padding': '0', 'border': 'none' });
+                            }, 200);
+                            setTimeout(function() {
+                                card.remove();
+                                Swal.fire({
+                                    title: 'Đã xóa!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                            }, 500);
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra', 'error');
+                    }
+                });
+            }
+        });
+    }
+</script>
+}

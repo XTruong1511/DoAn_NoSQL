@@ -1,0 +1,628 @@
+@model DoAnNoSQL.tb_DonHang
+@{
+    ViewBag.Title = "Chi tiết đơn hàng #" + Model.MaDonHang;
+    var chiTiet = ViewBag.ChiTiet as List<DoAnNoSQL.Models.ChiTietDonHangViewModel>;
+}
+
+@* Display Error Message *@
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mb-4">
+        <i class="fas fa-exclamation-triangle mr-2"></i>
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<!-- Breadcrumb -->
+<nav class="flex mb-6" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+            <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                <i class="fas fa-home mr-2"></i>
+                Trang chủ
+            </a>
+        </li>
+        <li>
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                <a href="@Url.Action("Index", "TaiKhoan")" class="text-sm font-medium text-gray-700 hover:text-blue-600">
+                    Tài khoản
+                </a>
+            </div>
+        </li>
+        <li>
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                <a href="@Url.Action("DonHang", "TaiKhoan")" class="text-sm font-medium text-gray-700 hover:text-blue-600">
+                    Đơn hàng
+                </a>
+            </div>
+        </li>
+        <li aria-current="page">
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                <span class="text-sm font-medium text-gray-500">Chi tiết</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+
+@{
+    string statusClass = "bg-amber-50 text-amber-700 border border-amber-200";
+    string statusText = "Chờ xác nhận";
+    string statusIcon = "fa-clock";
+    
+    switch (Model.TrangThai)
+    {
+        case 7:
+            statusClass = "bg-slate-100 text-slate-700 border border-slate-200";
+            statusText = "Đã trả hàng";
+            statusIcon = "fa-box-open";
+            break;
+        case 1:
+            statusClass = "bg-amber-50 text-amber-700 border border-amber-200";
+            statusText = "Chờ xác nhận";
+            statusIcon = "fa-clock";
+            break;
+        case 2:
+            statusClass = "bg-sky-50 text-sky-700 border border-sky-200";
+            statusText = "Đã xác nhận";
+            statusIcon = "fa-check-circle";
+            break;
+        case 3:
+            statusClass = "bg-indigo-50 text-indigo-700 border border-indigo-200";
+            statusText = "Đang giao hàng";
+            statusIcon = "fa-truck-fast";
+            break;
+        case 4:
+            statusClass = "bg-emerald-50 text-emerald-700 border border-emerald-200";
+            statusText = "Đã giao hàng";
+            statusIcon = "fa-check-double";
+            break;
+        case 5:
+            statusClass = "bg-emerald-50 text-emerald-700 border border-emerald-200";
+            statusText = "Đã hoàn thành";
+            statusIcon = "fa-circle-check";
+            break;
+        case 6:
+            statusClass = "bg-amber-50 text-amber-700 border border-amber-200";
+            statusText = "Từ chối nhận hàng";
+            statusIcon = "fa-undo";
+            break;
+    }
+}
+
+<!-- 3D Page Title Banner -->
+<div class="page-header-3d border-beam-3d mb-8" data-aos="fade-down">
+    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+            <a href="@Url.Action("DonHang", "TaiKhoan")" class="w-12 h-12 rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/15 transition shadow-md" title="Quay lại">
+                <i class="fas fa-arrow-left text-sm"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-black font-heading text-white">
+                    Đơn hàng #@Model.MaDonHang
+                </h1>
+                <p class="text-xs text-slate-300 mt-0.5">Khởi tạo: @(Model.NgayTao.HasValue ? Model.NgayTao.Value.ToString("HH:mm - dd/MM/yyyy") : "N/A")</p>
+            </div>
+        </div>
+        
+        <span class="@statusClass px-4 py-2 rounded-2xl text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-sm self-start sm:self-auto">
+            <i class="fas @statusIcon"></i>
+            @statusText
+        </span>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content (2/3 width) -->
+    <div class="lg:col-span-2 space-y-6">
+        <!-- Order Items 3D -->
+        <div class="card-glass-3d p-6" data-aos="fade-up">
+            <h2 class="text-base font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2.5 uppercase tracking-wider">
+                <i class="fas fa-boxes-stacked text-teal-600"></i>
+                Sản phẩm trong đơn hàng
+            </h2>
+
+            <div class="space-y-4">
+                @if (chiTiet != null && chiTiet.Any())
+                {
+                    foreach (var item in chiTiet)
+                    {
+                        <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                            @if (!string.IsNullOrEmpty(item.HinhAnh))
+                            {
+                                <img src="@Url.Content("~/Content/Images/" + item.HinhAnh)" 
+                                     alt="@item.TenSanPham" 
+                                     class="w-20 h-20 object-contain rounded border border-gray-200" />
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/Content/Images/no-image.png")" 
+                                     alt="No Image" 
+                                     class="w-20 h-20 object-contain rounded border border-gray-200" />
+                            }
+
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 mb-1">@item.TenSanPham</h3>
+                                <div class="flex items-center justify-between mt-2">
+                                    <p class="text-sm text-gray-700">
+                                        <span class="font-semibold">@String.Format("{0:0,0}", item.Gia) đ</span>
+                                        <span class="text-gray-500"> x @item.SoLuong</span>
+                                    </p>
+                                    <p class="text-lg font-bold text-blue-600">
+                                        @String.Format("{0:0,0}", item.ThanhTien) đ
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-inbox text-4xl mb-2"></i>
+                        <p>Không có sản phẩm nào</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Order Timeline 3D -->
+        <div class="card-glass-3d p-6" data-aos="fade-up">
+            <div class="space-y-4">
+                <!-- Created -->
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 bg-teal-500/15 border border-teal-400/30 text-teal-600 rounded-2xl flex items-center justify-center shadow-md">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <p class="font-bold text-slate-900 text-sm">Đơn hàng đã được tạo</p>
+                        <p class="text-xs text-slate-400 mt-0.5">@(Model.NgayTao.HasValue ? Model.NgayTao.Value.ToString("HH:mm:ss - dd/MM/yyyy") : "N/A")</p>
+                    </div>
+                </div>
+
+                <!-- Processing -->
+                @if (Model.TrangThai >= 2)
+                {
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-sky-500/15 border border-sky-400/30 text-sky-600 rounded-2xl flex items-center justify-center shadow-md">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="font-bold text-slate-900 text-sm">Đơn hàng đã được xác nhận</p>
+                            <p class="text-xs text-slate-400 mt-0.5">@(Model.NgayCapNhat?.ToString("HH:mm:ss - dd/MM/yyyy") ?? "Đang cập nhật...")</p>
+                        </div>
+                    </div>
+                }
+
+                <!-- Shipping -->
+                @if (Model.TrangThai >= 3)
+                {
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-indigo-500/15 border border-indigo-400/30 text-indigo-600 rounded-2xl flex items-center justify-center shadow-md">
+                                <i class="fas fa-truck-fast"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="font-bold text-slate-900 text-sm">Đơn hàng đang được giao</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Bưu tá đang vận chuyển đến bạn...</p>
+                        </div>
+                    </div>
+                }
+
+                <!-- Delivered -->
+                @if (Model.TrangThai == 4)
+                {
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-emerald-500/15 border border-emerald-400/30 text-emerald-600 rounded-2xl flex items-center justify-center shadow-md">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="font-bold text-slate-900 text-sm">Đã nhận hàng thành công</p>
+                            <p class="text-xs text-slate-400 mt-0.5">@(Model.NgayCapNhat?.ToString("HH:mm:ss - dd/MM/yyyy") ?? "Hoàn tất")</p>
+                        </div>
+                    </div>
+                }
+
+                <!-- Completed -->
+                @if (Model.TrangThai == 5)
+                {
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-emerald-500/20 border border-emerald-400/40 text-emerald-600 rounded-2xl flex items-center justify-center shadow-md">
+                                <i class="fas fa-circle-check"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="font-bold text-slate-900 text-sm">Đơn hàng đã hoàn thành</p>
+                            <p class="text-xs text-slate-400 mt-0.5">@(Model.NgayCapNhat?.ToString("HH:mm:ss - dd/MM/yyyy") ?? "N/A")</p>
+                        </div>
+                    </div>
+                }
+
+                <!-- Return Request -->
+                @if (Model.TrangThai == 6)
+                {
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-amber-500/15 border border-amber-400/30 text-amber-600 rounded-2xl flex items-center justify-center shadow-md">
+                                <i class="fas fa-undo"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="font-bold text-slate-900 text-sm">Khách hàng từ chối nhận hàng</p>
+                            <p class="text-xs text-slate-400 mt-0.5">@(Model.NgayCapNhat?.ToString("HH:mm:ss - dd/MM/yyyy") ?? "N/A")</p>
+                            <p class="text-xs text-amber-600 mt-1 font-semibold">Chờ admin xác nhận nhận hàng trả lại...</p>
+                        </div>
+                    </div>
+                }
+
+                <!-- Returned -->
+                @if (Model.TrangThai == 7)
+                {
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-slate-200 text-slate-600 rounded-2xl flex items-center justify-center shadow-md">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="font-bold text-slate-900 text-sm">Đã trả hàng thành công</p>
+                            <p class="text-xs text-slate-400 mt-0.5">@(Model.NgayCapNhat?.ToString("HH:mm:ss - dd/MM/yyyy") ?? "N/A")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar 3D (1/3 width) -->
+    <div class="space-y-6">
+        <!-- Customer Information 3D -->
+        <div class="card-glass-3d p-6" data-aos="fade-left">
+            <h2 class="text-base font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2.5 uppercase tracking-wider">
+                <i class="fas fa-address-card text-teal-600"></i>
+                Thông tin nhận hàng
+            </h2>
+
+            <div class="space-y-3.5 text-xs">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0">
+                        <i class="fas fa-user text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 font-medium">Người nhận</p>
+                        <p class="font-bold text-slate-800 text-sm">@Model.TenKhachHang</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0">
+                        <i class="fas fa-phone text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 font-medium">Số điện thoại</p>
+                        <p class="font-bold text-slate-800">@Model.SoDienThoai</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0">
+                        <i class="fas fa-envelope text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 font-medium">Email</p>
+                        <p class="font-bold text-slate-800 break-all">@Model.Email</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0">
+                        <i class="fas fa-location-dot text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 font-medium">Địa chỉ giao hàng</p>
+                        <p class="font-bold text-slate-800 leading-relaxed">@Model.DiaChi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary 3D -->
+        <div class="card-glass-3d border-beam-3d p-6" data-aos="fade-left" data-aos-delay="100">
+            <h2 class="text-base font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2.5 uppercase tracking-wider">
+                <i class="fas fa-receipt text-teal-600"></i>
+                Tổng thanh toán
+            </h2>
+
+            <div class="space-y-3">
+                <div class="flex justify-between text-gray-700">
+                    <span>Tạm tính:</span>
+                    <span class="font-semibold">@String.Format("{0:0,0}", Model.TongTien) đ</span>
+                </div>
+
+                <div class="flex justify-between text-gray-700">
+                    <span>Phí vận chuyển:</span>
+                    <span class="font-semibold text-green-600">Miễn phí</span>
+                </div>
+
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-gray-900">Tổng cộng:</span>
+                        <span class="text-2xl font-bold text-red-600">
+                            @String.Format("{0:0,0}", Model.TongTien) đ
+                        </span>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t">
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-wallet mr-2 text-blue-600"></i>
+                        <strong>Phương thức thanh toán:</strong><br>
+                        <span class="ml-6">
+                            @{
+                                var paymentMethod = "Thanh toán khi nhận hàng";
+                                switch (Model.LoaiThanhToan)
+                                {
+                                    case "1": paymentMethod = "Thanh toán khi nhận hàng (COD)"; break;
+                                    case "2": paymentMethod = "Chuyển khoản ngân hàng"; break;
+                                    case "3": paymentMethod = "Ví điện tử MoMo"; break;
+                                    case "4": paymentMethod = "Ví điện tử ZaloPay"; break;
+                                    case "5": paymentMethod = "Thẻ tín dụng/Ghi nợ"; break;
+                                }
+                            }
+                            @paymentMethod
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        @if (Model.TrangThai <= 2)
+        {
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p class="text-sm text-yellow-800 mb-3">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Bạn có thể hủy đơn hàng nếu chưa được giao
+                </p>
+                <button onclick="huyDonHang(@Model.Id)" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                    <i class="fas fa-times-circle mr-2"></i>
+                    Hủy đơn hàng
+                </button>
+            </div>
+        }
+        
+        @if (Model.TrangThai == 3)
+        {
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                <p class="text-sm text-purple-800 mb-3">
+                    <i class="fas fa-shipping-fast mr-2"></i>
+                    <strong>Shipper đang giao hàng đến bạn</strong>
+                </p>
+                
+                <div class="space-y-2">
+                    <button onclick="xacNhanDaNhan(@Model.Id)" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Nhận hàng
+                    </button>
+                    
+                    <button onclick="yeuCauTraHang(@Model.Id)" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                        <i class="fas fa-times-circle mr-2"></i>
+                        Từ chối nhận hàng
+                    </button>
+                </div>
+                
+                <p class="text-xs text-gray-600 mt-3 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Bạn có quyền từ chối nếu sản phẩm không đúng mô tả
+                </p>
+            </div>
+        }
+        
+        @if (Model.TrangThai == 4)
+        {
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                <p class="text-sm text-green-800">
+                    <i class="fas fa-check-double mr-2"></i>
+                    <strong>Đơn hàng đã được giao thành công</strong><br>
+                    Cảm ơn bạn đã mua hàng!
+                </p>
+            </div>
+        }
+        
+                @if (Model.TrangThai == 6)
+                {
+                    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                        <p class="text-sm text-orange-800">
+                            <i class="fas fa-clock mr-2"></i>
+                            <strong>Yêu cầu trả hàng đang được xử lý</strong><br>
+                            Admin sẽ xem xét và liên hệ với bạn sớm nhất có thể.
+                        </p>
+                    </div>
+                }
+                
+                @if (Model.TrangThai == 7)
+                {
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <p class="text-sm text-gray-800">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <strong>Đã trả hàng thành công</strong><br>
+                            Đơn hàng đã được xử lý hoàn tất.
+                        </p>
+                    </div>
+                }
+
+        <div class="bg-white rounded-lg shadow-md p-4">
+            <a href="@Url.Action("DonHang", "TaiKhoan")" class="flex items-center justify-center text-blue-600 hover:text-blue-700 font-semibold">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Quay lại danh sách đơn hàng
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden form for AntiForgeryToken -->
+<form id="hiddenTokenForm" style="display:none;">
+    @Html.AntiForgeryToken()
+</form>
+
+@section scripts {
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Debug: Check if jQuery loaded
+    console.log('jQuery loaded:', typeof $ !== 'undefined');
+    console.log('Order ID:', @Model.Id);
+    console.log('Order Status:', @Model.TrangThai);
+    
+    function huyDonHang(orderId) {
+        Swal.fire({
+            title: 'Xác nhận hủy đơn hàng?',
+            text: 'Bạn có chắc chắn muốn hủy đơn hàng này không?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Hủy đơn hàng',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '@Url.Action("HuyDonHang", "TaiKhoan")',
+                    type: 'POST',
+                    data: {
+                        id: orderId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire('Thành công!', response.message, 'success')
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi hủy đơn hàng', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    function xacNhanDaNhan(orderId) {
+        console.log('xacNhanDaNhan called with ID:', orderId);
+        
+        Swal.fire({
+            title: 'Xác nhận đã nhận hàng?',
+            text: 'Bạn xác nhận đã nhận được hàng và hài lòng với sản phẩm?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Đã nhận hàng',
+            cancelButtonText: 'Chưa'
+        }).then((result) => {
+            console.log('SweetAlert result:', result);
+            
+            if (result.isConfirmed) {
+                console.log('User confirmed, sending AJAX...');
+                
+                // Get token properly
+                var tokenInput = $('input[name="__RequestVerificationToken"]');
+                var tokenValue = tokenInput.val();
+                
+                console.log('Token input found:', tokenInput.length);
+                console.log('Token value:', tokenValue);
+                
+                $.ajax({
+                    url: '@Url.Action("XacNhanDaNhan", "TaiKhoan")',
+                    type: 'POST',
+                    data: {
+                        id: orderId,
+                        __RequestVerificationToken: tokenValue
+                    },
+                    success: function (response) {
+                        console.log('AJAX success:', response);
+                        
+                        if (response.success) {
+                            Swal.fire('Thành công!', response.message, 'success')
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX error:', {
+                            status: status,
+                            error: error,
+                            response: xhr.responseText
+                        });
+                        
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi xác nhận đơn hàng: ' + error, 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    function yeuCauTraHang(orderId) {
+        Swal.fire({
+            title: 'Yêu cầu trả hàng?',
+            html: '<textarea id="lyDoTraHang" class="swal2-textarea" placeholder="Nhập lý do trả hàng (tối thiểu 10 ký tự)"></textarea>',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#f97316',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Gửi yêu cầu',
+            cancelButtonText: 'Hủy',
+            preConfirm: () => {
+                const lyDo = document.getElementById('lyDoTraHang').value;
+                if (!lyDo || lyDo.trim().length < 10) {
+                    Swal.showValidationMessage('Vui lòng nhập lý do trả hàng (tối thiểu 10 ký tự)');
+                    return false;
+                }
+                return lyDo;
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '@Url.Action("YeuCauTraHang", "TaiKhoan")',
+                    type: 'POST',
+                    data: {
+                        id: orderId,
+                        lyDo: result.value,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire('Đã gửi yêu cầu!', response.message, 'success')
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi gửi yêu cầu trả hàng', 'error');
+                    }
+                });
+            }
+        });
+    }
+</script>
+}

@@ -1,0 +1,233 @@
+﻿@model List<DoAnNoSQL.tb_TinTuc>
+
+@{
+    ViewBag.Title = "Kết quả tìm kiếm: " + ViewBag.SearchKeyword;
+}
+
+<!-- Breadcrumb -->
+<nav class="flex mb-6" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+            <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                <i class="fas fa-home mr-2"></i>
+                Trang chủ
+            </a>
+        </li>
+        <li>
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                <a href="@Url.Action("Index", "TinTuc")" class="text-sm font-medium text-gray-700 hover:text-blue-600">
+                    Tin tức
+                </a>
+            </div>
+        </li>
+        <li aria-current="page">
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                <span class="text-sm font-medium text-gray-500">Tìm kiếm</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+
+<!-- Search Result Header -->
+<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="flex items-center justify-between flex-wrap gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2 flex items-center">
+                <i class="fas fa-search mr-3 text-blue-600"></i>
+                Kết quả tìm kiếm
+            </h1>
+            <p class="text-gray-600">
+                Tìm thấy <strong class="text-blue-600">@ViewBag.TotalResults</strong> kết quả cho 
+                "<strong class="text-gray-900">@ViewBag.SearchKeyword</strong>"
+            </p>
+        </div>
+        
+        <!-- Back to News -->
+        <a href="@Url.Action("Index", "TinTuc")" 
+           class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Quay lại danh sách
+        </a>
+    </div>
+    
+    <!-- Search Again -->
+    <div class="mt-6 pt-6 border-t border-gray-200">
+        <form action="@Url.Action("TimKiem", "TinTuc")" method="get" class="flex gap-3">
+            <div class="flex-1 relative">
+                <input type="text" 
+                       name="q" 
+                       value="@ViewBag.SearchKeyword"
+                       placeholder="Tìm kiếm tin tức..." 
+                       class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" 
+                       required>
+                <i class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <button type="submit" 
+                    class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors">
+                <i class="fas fa-search mr-2"></i>
+                Tìm
+            </button>
+        </form>
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <!-- Results Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        @foreach (var tin in Model)
+        {
+            <a href="@Url.Action("ChiTiet", "TinTuc", new { id = tin.Id })" 
+               class="group block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                
+                <!-- Image -->
+                <div class="aspect-video overflow-hidden bg-gray-100 relative">
+                    @if (!string.IsNullOrEmpty(tin.HinhAnh))
+                    {
+                        <img src="@Url.Content("~/Content/Images/" + tin.HinhAnh)" 
+                             alt="@tin.TieuDe" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/Content/Images/no-image.png")" 
+                             alt="No Image" 
+                             class="w-full h-full object-contain opacity-30" />
+                    }
+                    
+                    <!-- Category Badge -->
+                    @if (tin.tb_DanhMucTin != null)
+                    {
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                @tin.tb_DanhMucTin.TenDanhMuc
+                            </span>
+                        </div>
+                    }
+                </div>
+
+                <!-- Content -->
+                <div class="p-5">
+                    <!-- Date -->
+                    <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+                        <span>
+                            <i class="far fa-calendar mr-1"></i>
+                            @(tin.NgayTao?.ToString("dd/MM/yyyy") ?? "N/A")
+                        </span>
+                        <span>
+                            <i class="far fa-user mr-1"></i>
+                            @(tin.NguoiTao ?? "Admin")
+                        </span>
+                    </div>
+
+                    <!-- Title with Highlight -->
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                        @Html.Raw(HighlightKeyword(tin.TieuDe, ViewBag.SearchKeyword))
+                    </h3>
+
+                    <!-- Summary with Highlight -->
+                    @if (!string.IsNullOrEmpty(tin.MoTa))
+                    {
+                        <p class="text-sm text-gray-600 line-clamp-3 mb-4">
+                            @Html.Raw(HighlightKeyword(tin.MoTa, ViewBag.SearchKeyword))
+                        </p>
+                    }
+
+                    <!-- Read More -->
+                    <div class="flex items-center text-blue-600 font-semibold text-sm">
+                        <span class="group-hover:mr-2 transition-all">Đọc thêm</span>
+                        <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+    <!-- Pagination -->
+    if (ViewBag.TotalPages > 1)
+    {
+        <div class="flex justify-center items-center space-x-2">
+            <!-- Previous -->
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <a href="?q=@ViewBag.SearchKeyword&page=@(ViewBag.CurrentPage - 1)" 
+                   class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-blue-50 hover:border-blue-500">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            }
+
+            <!-- Page Numbers -->
+            @for (int i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+            {
+                <a href="?q=@ViewBag.SearchKeyword&page=@i" 
+                   class="px-4 py-2 rounded-lg @(i == ViewBag.CurrentPage ? "bg-blue-500 text-white" : "bg-white border border-gray-300 hover:bg-blue-50")">
+                    @i
+                </a>
+            }
+
+            <!-- Next -->
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <a href="?q=@ViewBag.SearchKeyword&page=@(ViewBag.CurrentPage + 1)" 
+                   class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-blue-50 hover:border-blue-500">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            }
+        </div>
+    }
+}
+else
+{
+    <!-- No Results -->
+    <div class="bg-white rounded-lg shadow-md p-12 text-center">
+        <i class="fas fa-search text-gray-300 text-6xl mb-4"></i>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Không tìm thấy kết quả</h3>
+        <p class="text-gray-600 mb-6">
+            Không có tin tức nào khớp với từ khóa "<strong>@ViewBag.SearchKeyword</strong>"
+        </p>
+        
+        <!-- Suggestions -->
+        <div class="max-w-md mx-auto text-left">
+            <p class="text-sm font-semibold text-gray-700 mb-2">Gợi ý:</p>
+            <ul class="text-sm text-gray-600 space-y-1">
+                <li><i class="fas fa-check text-green-500 mr-2"></i>Kiểm tra lại chính tả từ khóa</li>
+                <li><i class="fas fa-check text-green-500 mr-2"></i>Thử sử dụng từ khóa ngắn gọn hơn</li>
+                <li><i class="fas fa-check text-green-500 mr-2"></i>Sử dụng từ khóa khác có ý nghĩa tương tự</li>
+            </ul>
+        </div>
+        
+        <div class="mt-8">
+            <a href="@Url.Action("Index", "TinTuc")" 
+               class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Quay lại danh sách tin tức
+            </a>
+        </div>
+    </div>
+}
+
+@functions {
+    public static MvcHtmlString HighlightKeyword(string text, string keyword)
+    {
+        if (string.IsNullOrWhiteSpace(text) || string.IsNullOrWhiteSpace(keyword))
+        {
+            return MvcHtmlString.Create(HttpUtility.HtmlEncode(text));
+        }
+
+        // HTML encode trước để tránh XSS
+        text = HttpUtility.HtmlEncode(text);
+        keyword = HttpUtility.HtmlEncode(keyword);
+
+        // Highlight keyword (case-insensitive)
+        var highlightedText = System.Text.RegularExpressions.Regex.Replace(
+            text,
+            keyword,
+            match => $"<mark class='bg-yellow-200 font-semibold'>{match.Value}</mark>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        return MvcHtmlString.Create(highlightedText);
+    }
+}

@@ -1,0 +1,80 @@
+﻿@model DoAnNoSQL.Models.MenuDanhMucViewModel
+
+@* Partial View: Menu Điện thoại - Submenu thương hiệu động từ database *@
+
+@{
+  var danhMuc = Model.DanhMuc;
+}
+
+<!-- Danh mục Điện thoại -->
+<a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })" class="toggle-category">
+    <i class="fas fa-mobile-alt"></i> @danhMuc.TenDanhMuc
+    @if (Model.SoLuongSanPham > 0)
+    {
+        <span class="text-xs text-gray-400 ml-1">(@Model.SoLuongSanPham)</span>
+    }
+</a>
+
+<ul class="category-list">
+    <!-- Xem tất cả -->
+    <li>
+ <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })">
+          <i class="fas fa-list mr-2"></i> Tất cả điện thoại
+     </a>
+    </li>
+    
+    @* Submenu thương hiệu động từ database *@
+    @if (Model.DanhSachThuongHieu != null && Model.DanhSachThuongHieu.Any())
+    {
+   <li class="submenu-divider">
+      <span class="text-xs text-gray-500 font-semibold px-3 py-1 block">Thương hiệu</span>
+</li>
+    
+     foreach (var thuongHieu in Model.DanhSachThuongHieu)
+        {
+   <li>
+      <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, thuongHieuId = thuongHieu.Id })">
+            @if (!string.IsNullOrEmpty(thuongHieu.HinhAnh))
+    {
+        <img src="@Url.Content("~/Content/Images/" + thuongHieu.HinhAnh)" 
+ alt="@thuongHieu.TenThuongHieu" 
+           class="inline-block w-4 h-4 mr-2 object-contain" />
+    }
+    @thuongHieu.TenThuongHieu
+ <span class="text-xs text-gray-400">(@thuongHieu.SoLuongSanPham)</span>
+       </a>
+   </li>
+}
+    }
+    else
+    {
+    @* Fallback: Hiển thị thương hiệu hardcoded nếu không có trong DB *@
+        <li class="submenu-divider">
+            <span class="text-xs text-gray-500 font-semibold px-3 py-1 block">Thương hiệu</span>
+        </li>
+        <li><a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, thuongHieu = "Apple" })">iPhone</a></li>
+        <li><a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, thuongHieu = "Samsung" })">Samsung</a></li>
+        <li><a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, thuongHieu = "Xiaomi" })">Xiaomi</a></li>
+        <li><a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, thuongHieu = "Oppo" })">Oppo</a></li>
+    }
+    
+    @* Filter theo giá và tính năng *@
+    <li class="submenu-divider">
+        <span class="text-xs text-gray-500 font-semibold px-3 py-1 block">Mức giá</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMax = 5000000 })">
+            <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> Dưới 5 triệu
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMin = 5000000, giaMax = 10000000 })">
+            <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> 5 - 10 triệu
+      </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMin = 10000000 })">
+            <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> Trên 10 triệu
+        </a>
+    </li>
+</ul>

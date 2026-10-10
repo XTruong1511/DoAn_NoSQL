@@ -1,0 +1,1013 @@
+@model DoAnNoSQL.Models.CheckoutViewModel
+
+@{
+    ViewBag.Title = "Thanh toán đơn hàng";
+}
+
+<!-- Breadcrumb -->
+<nav class="flex mb-6" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3 text-xs sm:text-sm">
+        <li class="inline-flex items-center">
+            <a href="@Url.Action("Index", "Home")" class="inline-flex items-center font-medium text-slate-600 hover:text-teal-600 transition-colors">
+                <i class="fas fa-home mr-1.5 text-teal-600"></i>
+                Trang chủ
+            </a>
+        </li>
+        <li>
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-slate-300 mx-1.5 text-[10px]"></i>
+                <a href="@Url.Action("Index", "GioHang")" class="font-medium text-slate-600 hover:text-teal-600 transition-colors">
+                    Giỏ hàng
+                </a>
+            </div>
+        </li>
+        <li aria-current="page">
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-slate-300 mx-1.5 text-[10px]"></i>
+                <span class="font-semibold text-teal-700">Thanh toán</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+
+@using (Html.BeginForm("Index", "ThanhToan", FormMethod.Post, new { @class = "checkout-form" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column: Shipping Info & Payment (2/3 width) -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Customer Information Card -->
+            <div class="bg-white rounded-3xl shadow-card border border-slate-200/80 p-6 sm:p-8 space-y-6" data-aos="fade-up">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-teal-600 to-emerald-500 text-white flex items-center justify-center shadow-md shadow-teal-500/20">
+                            <i class="fas fa-user-check text-base"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg sm:text-xl font-bold text-slate-900 font-heading">
+                                Thông tin người nhận
+                            </h2>
+                            <p class="text-xs text-slate-500">Vui lòng cung cấp địa chỉ nhận hàng chính xác</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Full Name -->
+                    <div>
+                        @Html.LabelFor(m => m.HoTen, new { @class = "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2" })
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                <i class="fas fa-user text-sm"></i>
+                            </span>
+                            @Html.TextBoxFor(m => m.HoTen, new { 
+                                @class = "w-full pl-11 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white transition-all text-sm text-slate-800 placeholder-slate-400", 
+                                placeholder = "Ví dụ: Nguyễn Văn A",
+                                required = "required"
+                            })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.HoTen, "", new { @class = "text-rose-500 text-xs mt-1" })
+                    </div>
+
+                    <!-- Phone & Email -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            @Html.LabelFor(m => m.SoDienThoai, new { @class = "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2" })
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fas fa-phone text-sm"></i>
+                                </span>
+                                @Html.TextBoxFor(m => m.SoDienThoai, new { 
+                                    @class = "w-full pl-11 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white transition-all text-sm text-slate-800 placeholder-slate-400", 
+                                    placeholder = "0912 345 678",
+                                    type = "tel",
+                                    required = "required"
+                                })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.SoDienThoai, "", new { @class = "text-rose-500 text-xs mt-1" })
+                        </div>
+
+                        <div>
+                            @Html.LabelFor(m => m.Email, new { @class = "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2" })
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fas fa-envelope text-sm"></i>
+                                </span>
+                                @Html.TextBoxFor(m => m.Email, new { 
+                                    @class = "w-full pl-11 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white transition-all text-sm text-slate-800 placeholder-slate-400", 
+                                    placeholder = "email@example.com",
+                                    type = "email"
+                                })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-rose-500 text-xs mt-1" })
+                        </div>
+                    </div>
+
+                    <!-- Address Section: Mô hình chính quyền địa phương 2 cấp (34 Tỉnh/Thành phố sau sáp nhập) -->
+                    <div class="space-y-4 pt-2">
+                        <!-- Hidden input QuanHuyen để tương thích ngược model -->
+                        <input type="hidden" id="district" name="QuanHuyen" value="" />
+
+                        <!-- 2 Cấp hành chính: Cấp 1 (Tỉnh/Thành phố) & Cấp 2 (Phường/Xã/Thị trấn) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Cấp 1: Tỉnh / Thành phố (34 Tỉnh thành) -->
+                            <div class="relative address-dropdown-container">
+                                <div class="mb-2">
+                                    @Html.LabelFor(m => m.TinhThanhPho, "Tỉnh / Thành phố", new { @class = "block text-xs font-bold uppercase tracking-wider text-slate-700" })
+                                </div>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="fas fa-city text-sm"></i>
+                                    </span>
+                                    <input type="text" id="province" name="TinhThanhPho" 
+                                           class="w-full pl-11 pr-10 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white transition-all text-sm text-slate-800 placeholder-slate-400" 
+                                           placeholder="Chọn hoặc tìm Tỉnh / Thành phố..." required autocomplete="off">
+                                    <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="fas fa-chevron-down text-xs"></i>
+                                    </span>
+                                </div>
+                                <ul id="provinceList" class="absolute z-50 w-full bg-white border border-slate-200 rounded-2xl shadow-xl max-h-60 overflow-y-auto hidden mt-1 divide-y divide-slate-100"></ul>
+                                @Html.ValidationMessageFor(m => m.TinhThanhPho, "", new { @class = "text-rose-500 text-xs mt-1" })
+                            </div>
+
+                            <!-- Cấp 2: Phường / Xã / Thị trấn (Chính quyền cơ sở trực thuộc) -->
+                            <div class="relative address-dropdown-container">
+                                <div class="mb-2">
+                                    @Html.LabelFor(m => m.PhuongXa, "Phường / Xã / Thị trấn", new { @class = "block text-xs font-bold uppercase tracking-wider text-slate-700" })
+                                </div>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="fas fa-location-dot text-sm"></i>
+                                    </span>
+                                    <input type="text" id="ward" name="PhuongXa" 
+                                           class="w-full pl-11 pr-10 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white transition-all text-sm text-slate-800 placeholder-slate-400" 
+                                           placeholder="Chọn hoặc nhập Phường / Xã..." required autocomplete="off">
+                                    <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="fas fa-chevron-down text-xs"></i>
+                                    </span>
+                                </div>
+                                <ul id="wardList" class="absolute z-50 w-full bg-white border border-slate-200 rounded-2xl shadow-xl max-h-60 overflow-y-auto hidden mt-1 divide-y divide-slate-100"></ul>
+                                @Html.ValidationMessageFor(m => m.PhuongXa, "", new { @class = "text-rose-500 text-xs mt-1" })
+                            </div>
+                        </div>
+
+                        <!-- House Address -->
+                        <div>
+                            @Html.LabelFor(m => m.DiaChiNha, new { @class = "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2" })
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fas fa-house-chimney text-sm"></i>
+                                </span>
+                                @Html.TextBoxFor(m => m.DiaChiNha, new { 
+                                    @class = "w-full pl-11 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white transition-all text-sm text-slate-800 placeholder-slate-400", 
+                                    placeholder = "Số nhà, tên đường, tòa nhà (Ví dụ: 140 Lê Trọng Tấn)",
+                                    id = "houseAddress",
+                                    required = "required"
+                                })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.DiaChiNha, "", new { @class = "text-rose-500 text-xs mt-1" })
+                        </div>
+
+                        <!-- Full Address Preview -->
+                        <div class="p-4 bg-teal-50/80 border border-teal-200/80 rounded-2xl flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center text-sm flex-shrink-0 mt-0.5">
+                                <i class="fas fa-map-pin"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider text-teal-900 mb-0.5">Địa chỉ giao hàng hoàn chỉnh:</p>
+                                <p id="fullAddress" class="text-xs text-teal-800 font-medium leading-relaxed italic">
+                                    Vui lòng điền đầy đủ các trường địa chỉ bên trên để tính địa chỉ chính xác
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Note -->
+                    <div class="pt-2">
+                        @Html.LabelFor(m => m.GhiChu, new { @class = "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2" })
+                        @Html.TextAreaFor(m => m.GhiChu, new { 
+                            @class = "w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white transition-all text-sm text-slate-800 placeholder-slate-400", 
+                            placeholder = "Ghi chú thêm cho người giao hàng (Ví dụ: Giao giờ hành chính, gọi trước khi đến)...",
+                            rows = 2
+                        })
+                        @Html.ValidationMessageFor(m => m.GhiChu, "", new { @class = "text-rose-500 text-xs mt-1" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Method Selection Card -->
+            <div class="bg-white rounded-3xl shadow-card border border-slate-200/80 p-6 sm:p-8 space-y-5" data-aos="fade-up">
+                <div class="flex items-center space-x-3 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20">
+                        <i class="fas fa-wallet text-base"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 font-heading">
+                            Phương thức thanh toán
+                        </h2>
+                        <p class="text-xs text-slate-500">Lựa chọn hình thức thanh toán an toàn, thuận tiện nhất</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <!-- Option 1: COD -->
+                    <label class="flex items-center p-4 border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-teal-500 hover:bg-teal-50/30 transition-all payment-method-option group">
+                        @Html.RadioButtonFor(m => m.PaymentMethod, 1, new { @class = "mr-3.5 w-5 h-5 text-teal-600 focus:ring-teal-500 cursor-pointer", @checked = "checked" })
+                        <div class="flex items-center gap-3.5 flex-1">
+                            <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-slate-800 text-sm">Thanh toán khi nhận hàng (COD)</span>
+                                    <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Phổ biến</span>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-0.5">Thanh toán bằng tiền mặt khi shipper giao hàng tận nơi</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Option 2: Bank Transfer -->
+                    <label class="flex items-center p-4 border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-teal-500 hover:bg-teal-50/30 transition-all payment-method-option group">
+                        @Html.RadioButtonFor(m => m.PaymentMethod, 2, new { @class = "mr-3.5 w-5 h-5 text-teal-600 focus:ring-teal-500 cursor-pointer" })
+                        <div class="flex items-center gap-3.5 flex-1">
+                            <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-slate-800 text-sm">Chuyển khoản ngân hàng 24/7</span>
+                                    <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">VietQR</span>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-0.5">Quét mã QR tự động xác nhận giao dịch trong 30 giây</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Option 3: MoMo -->
+                    <label class="flex items-center p-4 border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-teal-500 hover:bg-teal-50/30 transition-all payment-method-option group">
+                        @Html.RadioButtonFor(m => m.PaymentMethod, 3, new { @class = "mr-3.5 w-5 h-5 text-teal-600 focus:ring-teal-500 cursor-pointer" })
+                        <div class="flex items-center gap-3.5 flex-1">
+                            <div class="w-11 h-11 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-slate-800 text-sm">Ví điện tử MoMo</span>
+                                    <span class="text-[10px] bg-pink-100 text-pink-800 px-2 py-0.5 rounded-full font-bold">Tiện lợi</span>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-0.5">Xác nhận thanh toán trực tiếp qua ứng dụng MoMo</p>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Option 4: ZaloPay -->
+                    <label class="flex items-center p-4 border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-teal-500 hover:bg-teal-50/30 transition-all payment-method-option group">
+                        @Html.RadioButtonFor(m => m.PaymentMethod, 4, new { @class = "mr-3.5 w-5 h-5 text-teal-600 focus:ring-teal-500 cursor-pointer" })
+                        <div class="flex items-center gap-3.5 flex-1">
+                            <div class="w-11 h-11 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div class="flex-1">
+                                <span class="font-bold text-slate-800 text-sm">Ví điện tử ZaloPay</span>
+                                <p class="text-xs text-slate-500 mt-0.5">Thanh toán tức thì ngay trong ứng dụng Zalo / ZaloPay</p>
+                            </div>
+                        </div>
+                    </label>
+                    @Html.ValidationMessageFor(m => m.PaymentMethod, "", new { @class = "text-rose-500 text-xs mt-2" })
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Order Summary (Sticky 1/3 width) -->
+        <div class="lg:col-span-1">
+            <div class="bg-white/95 backdrop-blur-md rounded-3xl shadow-card border border-slate-200/80 p-6 sm:p-7 sticky top-24 space-y-6" data-aos="fade-left">
+                <!-- Header -->
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                    <h2 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2.5">
+                        <i class="fas fa-shopping-bag text-teal-600"></i>
+                        Đơn hàng của bạn
+                    </h2>
+                    <span class="text-xs font-bold px-2.5 py-1 bg-teal-100 text-teal-800 rounded-full">
+                        @Model.Cart.GetTotalQuantity() món
+                    </span>
+                </div>
+
+                <!-- Cart Items Scrollable List -->
+                <div class="space-y-3 max-h-72 overflow-y-auto divide-y divide-slate-100 pr-1">
+                    @foreach (var item in Model.Cart.Items)
+                    {
+                        <div class="pt-3 pb-2 flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-xl bg-slate-50 border border-slate-200 p-1 flex-shrink-0 flex items-center justify-center">
+                                <img src="@Url.Content("~/Content/Images/" + item.ProductImage)" 
+                                     alt="@item.ProductName" 
+                                     class="w-full h-full object-contain" />
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-xs font-semibold text-slate-800 truncate" title="@item.ProductName">
+                                    @item.ProductName
+                                </h4>
+                                @if (!string.IsNullOrEmpty(item.Color))
+                                {
+                                    <span class="inline-block text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.2 rounded">Màu: @item.Color</span>
+                                }
+                                <div class="flex items-center justify-between text-xs mt-1">
+                                    <span class="text-slate-500 text-[11px]">SL: @item.Quantity</span>
+                                    <span class="font-bold text-rose-600 font-heading">@String.Format("{0:0,0}", item.TotalPrice) đ</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Promo Code Voucher Input -->
+                <div class="pt-4 border-t border-slate-100 space-y-2.5">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fas fa-ticket-alt text-teal-600"></i> Mã khuyến mãi / Voucher
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="text" 
+                               id="discountCodeInput"
+                               placeholder="Nhập mã ưu đãi..." 
+                               class="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-full focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 focus:bg-white text-xs uppercase font-medium placeholder-slate-400"
+                               value="@Session["DiscountCode"]" />
+                        <button type="button" 
+                                id="btnApplyDiscount"
+                                onclick="applyDiscount()"
+                                class="px-5 py-2.5 bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white font-bold rounded-full transition-all text-xs whitespace-nowrap shadow-md shadow-teal-500/20">
+                            Áp dụng
+                        </button>
+                    </div>
+                    <div id="discountMessage" class="text-xs"></div>
+                    
+                    <!-- Discount Applied Display -->
+                    <div id="discountApplied" style="display: @(Session["DiscountAmount"] != null ? "flex" : "none")" class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl items-center justify-between">
+                        <div class="flex items-center text-emerald-700 text-xs">
+                            <i class="fas fa-check-circle mr-2 text-sm"></i>
+                            <span>Mã <strong id="appliedCode">@Session["DiscountCode"]</strong> đã được áp dụng!</span>
+                        </div>
+                        <button type="button" onclick="removeDiscount()" class="text-rose-500 hover:text-rose-700 ml-2" title="Xóa mã">
+                            <i class="fas fa-times-circle text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Financial Breakdown -->
+                <div class="space-y-2.5 pt-4 border-t border-slate-100 text-sm">
+                    <div class="flex justify-between text-slate-600">
+                        <span>Tạm tính tiền hàng:</span>
+                        <span id="subtotal" class="font-semibold text-slate-800">@String.Format("{0:0,0}", Model.Cart.GetTotal()) đ</span>
+                    </div>
+
+                    <div class="flex justify-between items-center text-slate-600">
+                        <span>Phí giao hàng:</span>
+                        <span class="font-bold text-emerald-600 text-xs px-2 py-0.5 bg-emerald-50 rounded-full border border-emerald-200">
+                            <i class="fas fa-gift mr-1"></i> Miễn phí
+                        </span>
+                    </div>
+
+                    <!-- Discount Display (if applied) -->
+                    <div id="discountSection" class="flex justify-between items-center text-emerald-600 font-medium" style="display: @(Session["DiscountAmount"] != null ? "flex" : "none")">
+                        <span>Giảm giá (<span id="discountCodeDisplay">@Session["DiscountCode"]</span>):</span>
+                        <span id="discountAmount" class="font-bold">-@String.Format("{0:0,0}", Session["DiscountAmount"] ?? 0) đ</span>
+                    </div>
+
+                    <!-- Total Amount -->
+                    <div class="pt-4 border-t border-slate-200 flex justify-between items-baseline">
+                        <div>
+                            <span class="text-sm font-bold text-slate-900 block">Tổng thanh toán:</span>
+                            <span class="text-[11px] text-slate-400 font-normal">(Đã bao gồm VAT nếu có)</span>
+                        </div>
+                        <div class="text-right">
+                            <span id="total" class="text-2xl font-black text-rose-600 font-heading tracking-tight">
+                                @String.Format("{0:0,0}", Model.Cart.GetTotal() - (decimal)(Session["DiscountAmount"] ?? 0m)) đ
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" 
+                        id="btnSubmitOrder"
+                        class="w-full py-4 px-6 bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 hover:from-teal-700 hover:to-emerald-700 text-white font-bold rounded-2xl shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-3 text-base group cursor-pointer">
+                    <i class="fas fa-shield-alt text-lg group-hover:scale-110 transition-transform"></i>
+                    <span>XÁC NHẬN ĐẶT HÀNG</span>
+                    <i class="fas fa-arrow-right text-xs opacity-80 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <!-- Trust Guarantees -->
+                <div class="pt-4 border-t border-slate-100 grid grid-cols-2 gap-3 text-xs text-slate-600">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-shield-check text-emerald-500 text-base"></i>
+                        <span>Bảo mật SSL 256-bit</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-box-open text-teal-500 text-base"></i>
+                        <span>Đổi trả trong 7 ngày</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-truck-fast text-blue-500 text-base"></i>
+                        <span>Giao hàng toàn quốc</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-headset text-indigo-500 text-base"></i>
+                        <span>Hotline: 1900 6868</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+<!-- QR Payment Handler -->
+<script src="~/Scripts/qr-payment.js"></script>
+
+<script>
+    // =========================================================================
+    // TÍCH HỢP API 34 TỈNH THÀNH (https://34tinhthanh.com/api) - MÔ HÌNH 2 CẤP
+    // =========================================================================
+
+    var provinceData = [];
+    var wardData = [];
+    var currentProvinceCode = null;
+
+    // Bước 1: Thử gọi API 34tinhthanh.com
+    // Bước 2: Nếu lỗi → thử server proxy (Get34Provinces)
+    // Bước 3: Nếu vẫn lỗi → hiển thị thông báo lỗi, cho nhập tay
+    function loadProvincesFromAPI() {
+        var apiUrl = 'https://34tinhthanh.com/api/provinces';
+        var proxyUrl = '@Url.Action("Get34Provinces", "ThanhToan")';
+
+        $('#province').attr('placeholder', 'Đang tải danh sách tỉnh thành...');
+
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            dataType: 'json',
+            timeout: 6000,
+            success: function(res) {
+                var list = Array.isArray(res) ? res : (res.value || res.data || []);
+                if (list.length > 0) {
+                    handleProvincesData(list);
+                    $('#province').attr('placeholder', 'Chọn hoặc tìm Tỉnh / Thành phố (' + provinceData.length + ' tỉnh thành)...');
+                } else {
+                    tryProxyThenFail(proxyUrl);
+                }
+            },
+            error: function() {
+                tryProxyThenFail(proxyUrl);
+            }
+        });
+    }
+
+    function tryProxyThenFail(proxyUrl) {
+        $.ajax({
+            url: proxyUrl,
+            method: 'GET',
+            dataType: 'json',
+            timeout: 6000,
+            success: function(res) {
+                var list = Array.isArray(res) ? res : (res.value || res.data || []);
+                if (list.length > 0) {
+                    handleProvincesData(list);
+                    $('#province').attr('placeholder', 'Chọn hoặc tìm Tỉnh / Thành phố (' + provinceData.length + ' tỉnh thành)...');
+                } else {
+                    onProvinceLoadError();
+                }
+            },
+            error: function() {
+                onProvinceLoadError();
+            }
+        });
+    }
+
+    function onProvinceLoadError() {
+        console.warn('[Address] Không thể tải danh sách tỉnh thành từ API 34tinhthanh.com.');
+        $('#province').attr('placeholder', 'Nhập thủ công tên Tỉnh / Thành phố...');
+    }
+
+    function handleProvincesData(list) {
+        provinceData = list.map(function(item) {
+            var pName = item.name || item.full_name;
+            var isCity = pName.toLowerCase().indexOf('thành phố') !== -1;
+            return {
+                id: item.province_code,
+                province_code: item.province_code,
+                name: pName,
+                full_name: pName,
+                badge: isCity ? 'TP trực thuộc TW' : 'Tỉnh'
+            };
+        });
+    }
+
+    // Load danh sách Phường / Xã theo tỉnh từ API 34tinhthanh.com
+    function loadWardsFromAPI(provinceCode, callback) {
+        var apiUrl = 'https://34tinhthanh.com/api/wards?province_code=' + encodeURIComponent(provinceCode);
+        var proxyUrl = '@Url.Action("Get34Wards", "ThanhToan")?province_code=' + encodeURIComponent(provinceCode);
+
+        $('#ward').attr('placeholder', 'Đang tải danh sách Phường / Xã từ API...');
+
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(res) {
+                var list = Array.isArray(res) ? res : (res.value || res.data || []);
+                handleWardsData(list);
+                if (callback) callback();
+            },
+            error: function() {
+                // Fallback qua server proxy
+                $.ajax({
+                    url: proxyUrl,
+                    method: 'GET',
+                    dataType: 'json',
+                    timeout: 8000,
+                    success: function(res) {
+                        var list = Array.isArray(res) ? res : (res.value || res.data || []);
+                        handleWardsData(list);
+                        if (callback) callback();
+                    },
+                    error: function() {
+                        wardData = [];
+                        $('#ward').attr('placeholder', 'Nhập thủ công Phường / Xã của bạn...');
+                        if (callback) callback();
+                    }
+                });
+            }
+        });
+    }
+
+    function handleWardsData(list) {
+        wardData = list.map(function(w) {
+            var wName = w.ward_name || w.name || w.full_name;
+            var note = '';
+            if (w.has_merger && w.merger_details) {
+                note = w.merger_details;
+            } else if (Array.isArray(w.old_units) && w.old_units.length > 0) {
+                note = w.old_units.join(', ');
+            }
+            return {
+                id: w.ward_code || w.code,
+                ward_code: w.ward_code,
+                name: wName,
+                full_name: wName,
+                note: note,
+                has_merger: w.has_merger
+            };
+        });
+        $('#ward').attr('placeholder', 'Chọn hoặc tìm Phường / Xã (' + wardData.length + ' đơn vị)...');
+    }
+
+    $(document).ready(function() {
+        // Tải tỉnh thành từ API 34tinhthanh.com
+        loadProvincesFromAPI();
+
+        // Cài đặt dropdown Cấp 1 (Tỉnh / Thành phố)
+        setupDropdown('province', 'provinceList', function() { return provinceData; }, function(item) {
+            $('#ward').val('');
+            wardData = [];
+            $('#wardList').empty().addClass('hidden');
+            
+            if (item && item.province_code) {
+                currentProvinceCode = item.province_code;
+                loadWardsFromAPI(item.province_code);
+            }
+            updateFullAddress();
+        });
+        
+        // Cài đặt dropdown Cấp 2 (Phường / Xã)
+        setupDropdown('ward', 'wardList', function() { return wardData; }, function(item) {
+            updateFullAddress();
+        });
+        
+        // Cập nhật địa chỉ khi nhập số nhà
+        $('#houseAddress').on('change keyup', function() {
+            updateFullAddress();
+        });
+        
+        // Đóng dropdown khi click ra ngoài
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.address-dropdown-container').length) {
+                $('ul[id$="List"]').addClass('hidden');
+            }
+        });
+        
+        updateFullAddress();
+    });
+    
+    // Helper function to setup custom dropdown behavior
+    function setupDropdown(inputId, listId, getDataFn, onSelectFn) {
+        var $input = $('#' + inputId);
+        var $list = $('#' + listId);
+        
+        // Show list on focus or input
+        $input.on('focus input', function() {
+            var val = $(this).val().toLowerCase().trim();
+            var data = getDataFn();
+            
+            if (!data || data.length === 0) {
+                $list.addClass('hidden');
+                return;
+            }
+            
+            // Tìm kiếm thông minh: khớp tên mới hoặc tên đơn vị cũ sáp nhập
+            var filtered = data.filter(function(x) {
+                var matchName = (x.full_name || '').toLowerCase().includes(val);
+                var matchNote = (x.note || '').toLowerCase().includes(val);
+                return matchName || matchNote;
+            });
+            
+            // Render dropdown list
+            $list.empty();
+            
+            if (filtered.length === 0) {
+                $list.addClass('hidden');
+                return;
+            }
+            
+            filtered.forEach(function(item) {
+                var li = $('<li></li>')
+                    .addClass('px-4 py-2.5 hover:bg-teal-50 cursor-pointer text-sm text-slate-700 transition-colors')
+                    .data('item', item)
+                    .on('mousedown', function(e) {
+                        e.preventDefault();
+                        var selectedItem = $(this).data('item');
+                        $input.val(selectedItem.full_name);
+                        $list.addClass('hidden');
+                        onSelectFn(selectedItem);
+                    });
+                
+                var topRow = $('<div class="flex items-center justify-between"></div>');
+                topRow.append($('<span class="font-medium text-slate-800"></span>').text(item.full_name));
+                
+                if (item.badge) {
+                    var spanBadge = $('<span></span>')
+                        .addClass('text-[10px] font-semibold px-2 py-0.5 rounded-full ' + (item.badge.includes('TP') ? 'bg-teal-50 text-teal-700 border border-teal-200' : 'bg-slate-100 text-slate-600'))
+                        .text(item.badge);
+                    topRow.append(spanBadge);
+                }
+                li.append(topRow);
+
+                if (item.note) {
+                    var subRow = $('<div class="text-[11px] text-slate-400 mt-0.5 truncate"></div>')
+                        .html('<i class="fas fa-code-merge mr-1 text-teal-600 text-[10px]"></i>Sáp nhập từ: ' + item.note);
+                    li.append(subRow);
+                }
+
+                $list.append(li);
+            });
+            
+            $list.removeClass('hidden');
+        });
+        
+        // Hide list on blur
+        $input.on('blur', function() {
+            setTimeout(function() {
+                $list.addClass('hidden');
+            }, 200);
+        });
+        
+        // Handle manual typing (when user types and presses Enter or Tab)
+        $input.on('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === 'Tab') {
+                var data = getDataFn();
+                var val = $(this).val().toLowerCase().trim();
+                
+                var exactMatch = data.find(function(x) {
+                    return (x.full_name || '').toLowerCase() === val;
+                });
+                
+                if (exactMatch) {
+                    onSelectFn(exactMatch);
+                } else {
+                    onSelectFn(null);
+                }
+                
+                $list.addClass('hidden');
+            }
+        });
+    }
+    
+    function updateFullAddress() {
+        var houseAddress = $('#houseAddress').val().trim();
+        var ward = $('#ward').val().trim();
+        var province = $('#province').val().trim();
+        
+        var fullAddressParts = [];
+        
+        if (houseAddress) fullAddressParts.push(houseAddress);
+        if (ward) fullAddressParts.push(ward);
+        if (province) fullAddressParts.push(province);
+        
+        if (fullAddressParts.length > 0) {
+            $('#fullAddress').html('<i class="fas fa-check-circle text-teal-600 mr-2"></i>' + fullAddressParts.join(', '));
+        } else {
+            $('#fullAddress').html('<i class="fas fa-exclamation-circle text-slate-400 mr-2"></i>Vui lòng điền đầy đủ thông tin địa chỉ bên trên');
+        }
+    }
+
+    // Apply discount code
+    function applyDiscount() {
+        var discountCode = $('#discountCodeInput').val().trim();
+        var btnApply = $('#btnApplyDiscount');
+        
+        if (!discountCode) {
+            showDiscountMessage('Vui lòng nhập mã giảm giá', 'error');
+            return;
+        }
+        
+        btnApply.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-1"></i> Đang xử lý...');
+        
+        $.ajax({
+            url: '@Url.Action("ApplyDiscount", "ThanhToan")',
+            type: 'POST',
+            data: { discountCode: discountCode },
+            success: function(response) {
+                if (response.success) {
+                    $('#discountSection').show();
+                    $('#discountCodeDisplay').text(response.discountCode);
+                    $('#discountAmount').text('-' + formatCurrency(response.discountAmount));
+                    $('#total').text(formatCurrency(response.finalTotal));
+                    $('#discountApplied').show();
+                    $('#appliedCode').text(response.discountCode);
+                    $('#discountCodeInput').prop('readonly', true);
+                    showDiscountMessage(response.message, 'success');
+                } else {
+                    showDiscountMessage(response.message, 'error');
+                }
+            },
+            error: function() {
+                showDiscountMessage('Có lỗi xảy ra, vui lòng thử lại', 'error');
+            },
+            complete: function() {
+                btnApply.prop('disabled', false).html('<i class="fas fa-check mr-1"></i> Áp dụng');
+            }
+        });
+    }
+    
+    // Remove discount code
+    function removeDiscount() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Xác nhận',
+            text: 'Bạn có chắc muốn xóa mã giảm giá?',
+            showCancelButton: true,
+            confirmButtonColor: '#3b82f6',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (!result.isConfirmed) {
+                return;
+            }
+            
+            $.ajax({
+            url: '@Url.Action("RemoveDiscount", "ThanhToan")',
+            type: 'POST',
+            success: function(response) {
+                if (response.success) {
+                    $('#discountSection').hide();
+                    $('#discountApplied').hide();
+                    $('#discountCodeInput').val('').prop('readonly', false);
+                    $('#total').text(formatCurrency(response.finalTotal));
+                    showDiscountMessage(response.message, 'success');
+                } else {
+                    showDiscountMessage(response.message, 'error');
+                }
+            },
+            error: function() {
+                showDiscountMessage('Có lỗi xảy ra, vui lòng thử lại', 'error');
+            }
+        });
+        });
+    }
+    
+    // Show discount message
+    function showDiscountMessage(message, type) {
+        var messageDiv = $('#discountMessage');
+        var colorClass = type === 'success' ? 'text-green-600' : 'text-red-600';
+        var icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
+        
+        messageDiv.html('<i class="fas fa-' + icon + ' mr-1"></i>' + message)
+                  .removeClass('text-green-600 text-red-600')
+                  .addClass(colorClass);
+        
+        setTimeout(function() {
+            messageDiv.fadeOut(function() {
+                $(this).html('').show();
+            });
+        }, 5000);
+    }
+
+    // Format currency
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
+    }
+
+    // Allow enter key to apply discount
+    $('#discountCodeInput').on('keypress', function(e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            applyDiscount();
+        }
+    });
+
+    // Payment method selection visual feedback & synchronization
+    function updatePaymentMethodSelection() {
+        $('.payment-method-option').removeClass('border-teal-500 bg-teal-50/40 ring-2 ring-teal-500/20 shadow-sm').addClass('border-slate-200');
+        var $checked = $('input[name="PaymentMethod"]:checked');
+        $checked.closest('.payment-method-option').removeClass('border-slate-200').addClass('border-teal-500 bg-teal-50/40 ring-2 ring-teal-500/20 shadow-sm');
+    }
+
+    $('input[name="PaymentMethod"]').on('change', function() {
+        updatePaymentMethodSelection();
+    });
+
+    $('.payment-method-option').on('click', function() {
+        $(this).find('input[name="PaymentMethod"]').prop('checked', true).trigger('change');
+    });
+
+    $(document).ready(function() {
+        updatePaymentMethodSelection();
+    });
+
+    // Form validation and confirmation on submit
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        
+        var isValid = true;
+        var firstError = null;
+
+        // Check required fields within this form only
+        $(this).find('input[required], textarea[required], select[required]').each(function() {
+            if (!$(this).val()) {
+                isValid = false;
+                if (!firstError) {
+                    firstError = $(this);
+                }
+                $(this).addClass('border-rose-400 bg-rose-50/20');
+            } else {
+                $(this).removeClass('border-rose-400 bg-rose-50/20');
+            }
+        });
+
+        if (!isValid) {
+            // Scroll to first error smoothly
+            if (firstError) {
+                $('html, body').animate({
+                    scrollTop: firstError.offset().top - 120
+                }, 400);
+                firstError.focus();
+            }
+
+            showNotification('Vui lòng điền đầy đủ các thông tin bắt buộc', 'error');
+            return false;
+        }
+
+        // Show confirmation modal
+        showOrderConfirmation(this);
+    });
+
+    // Get discount HTML for confirmation dialog
+    function getDiscountHTML() {
+        var discountSection = $('#discountSection');
+        if (discountSection.is(':visible')) {
+            var discountCode = $('#discountCodeDisplay').text();
+            var discountAmount = $('#discountAmount').text();
+            return `
+                <p class="text-emerald-700 flex items-center justify-between text-xs py-1">
+                    <span><i class="fas fa-ticket-alt mr-1"></i> Mã giảm (${discountCode}):</span>
+                    <strong class="font-bold text-emerald-600">${discountAmount}</strong>
+                </p>
+            `;
+        }
+        return '';
+    }
+
+    // Show order confirmation dialog
+    function showOrderConfirmation(form) {
+        var hoTen = $('input[name="HoTen"]').val();
+        var soDienThoai = $('input[name="SoDienThoai"]').val();
+        var email = $('input[name="Email"]').val() || 'Không cung cấp';
+        var diaChiNha = $('#houseAddress').val();
+        var phuongXa = $('#ward').val();
+        var tinhThanhPho = $('#province').val();
+        var diaChi = diaChiNha + ', ' + phuongXa + ', ' + tinhThanhPho;
+        var paymentMethod = $('input[name="PaymentMethod"]:checked').closest('.payment-method-option').find('span.font-bold').first().text().trim() || 'Thanh toán khi nhận hàng';
+        var totalItems = @Model.Cart.GetTotalQuantity();
+        var totalAmount = $('#total').text().trim();
+
+        // Build items list HTML
+        var itemsHtml = '<div class="space-y-2 max-h-48 overflow-y-auto divide-y divide-slate-100 pr-1 text-xs">';
+        @foreach (var item in Model.Cart.Items)
+        {
+            <text>
+            itemsHtml += '<div class="flex items-center justify-between pt-1.5">';
+            itemsHtml += '<div class="flex-1 pr-2 truncate">';
+            itemsHtml += '<p class="font-semibold text-slate-800 truncate">@item.ProductName</p>';
+            itemsHtml += '<p class="text-[11px] text-slate-400">SL: @item.Quantity</p>';
+            itemsHtml += '</div>';
+            itemsHtml += '<p class="font-bold text-slate-700">@String.Format("{0:0,0}", item.TotalPrice) đ</p>';
+            itemsHtml += '</div>';
+            </text>
+        }
+        itemsHtml += '</div>';
+
+        Swal.fire({
+            title: '<div class="text-lg font-bold text-slate-900 font-heading">Xác nhận đặt hàng</div>',
+            icon: 'question',
+            html: `
+                <div class="text-left space-y-3 pt-2 text-xs text-slate-600">
+                    <!-- Customer Info -->
+                    <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl">
+                        <h4 class="font-bold text-slate-900 mb-1.5 flex items-center text-xs uppercase tracking-wider">
+                            <i class="fas fa-user-check text-teal-600 mr-2"></i> Người nhận hàng
+                        </h4>
+                        <div class="space-y-1">
+                            <p><strong class="text-slate-700">Họ tên:</strong> ${hoTen} - <strong>SĐT:</strong> ${soDienThoai}</p>
+                            <p><strong class="text-slate-700">Địa chỉ:</strong> ${diaChi}</p>
+                        </div>
+                    </div>
+
+                    <!-- Items Summary -->
+                    <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl">
+                        <h4 class="font-bold text-slate-900 mb-2 flex items-center text-xs uppercase tracking-wider justify-between">
+                            <span><i class="fas fa-shopping-bag text-teal-600 mr-2"></i> Sản phẩm (${totalItems})</span>
+                        </h4>
+                        ${itemsHtml}
+                    </div>
+
+                    <!-- Payment Info -->
+                    <div class="bg-teal-50/60 border border-teal-200/80 p-3.5 rounded-2xl">
+                        <div class="flex justify-between items-center text-xs pb-1 border-b border-teal-100">
+                            <span class="text-teal-900 font-medium">Hình thức:</span>
+                            <span class="font-bold text-teal-950">${paymentMethod}</span>
+                        </div>
+                        ${getDiscountHTML()}
+                        <div class="flex justify-between items-center pt-2 mt-1">
+                            <span class="font-bold text-slate-800 text-sm">Tổng thanh toán:</span>
+                            <span class="text-lg font-black text-rose-600 font-heading">${totalAmount}</span>
+                        </div>
+                    </div>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonColor: '#0d9488',
+            cancelButtonColor: '#94a3b8',
+            confirmButtonText: '<i class="fas fa-check-circle mr-1.5"></i> Đồng ý đặt hàng',
+            cancelButtonText: 'Kiểm tra lại',
+            width: '540px',
+            customClass: {
+                popup: 'rounded-3xl p-6',
+                confirmButton: 'rounded-xl font-bold px-5 py-2.5 shadow-md shadow-teal-600/20',
+                cancelButton: 'rounded-xl font-semibold px-4 py-2.5'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#btnSubmitOrder')
+                    .prop('disabled', true)
+                    .html('<i class="fas fa-spinner fa-spin mr-2"></i> Đang xử lý...');
+
+                Swal.fire({
+                    title: 'Đang xử lý đơn hàng...',
+                    html: 'Hệ thống đang lưu đơn hàng, vui lòng không tắt trang web',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                form.submit();
+            }
+        });
+    }
+
+    // Show toast notification
+    function showNotification(message, type) {
+        var bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+        var notification = $('<div class="fixed top-24 right-5 ' + bgColor + ' text-white px-5 py-3 rounded-2xl shadow-xl z-50 flex items-center gap-2 text-xs font-semibold animate-fade-in">' +
+            '<i class="fas fa-' + (type === 'success' ? 'check' : 'exclamation') + '-circle"></i>' +
+            '<span>' + message + '</span>' +
+            '</div>');
+
+        $('body').append(notification);
+
+        setTimeout(function() {
+            notification.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
+
+    // Phone number formatting
+    $('input[type="tel"]').on('input', function() {
+        var value = $(this).val().replace(/\D/g, '');
+        $(this).val(value);
+    });
+</script>
+}

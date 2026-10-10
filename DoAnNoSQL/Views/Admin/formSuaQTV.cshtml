@@ -1,0 +1,181 @@
+@model DoAnNoSQL.tb_TaiKhoan
+@{
+    ViewBag.Title = "Chỉnh Sửa Quản Trị Viên";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .form-section-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 1.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .sticky-actions {
+        padding: 1rem 0;
+        margin-top: 1rem;
+    }
+    .role-badge-item {
+        transition: all 0.2s ease;
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+    }
+</style>
+
+@using (Html.BeginForm("SuaQTV", "Admin", FormMethod.Post, new { id = "formEditQTV" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3 mb-0 text-gray-800 fw-bold">
+            <i class="fas fa-user-shield text-primary me-2"></i>Sửa Quản Trị Viên: <span class="text-primary">@(string.IsNullOrEmpty(Model.HoTen) ? Model.TenDangNhap : Model.HoTen)</span>
+        </h2>
+        <div class="d-flex align-items-center gap-2">
+            <a href="@Url.Action("QuanTriVien", "Admin")" class="btn btn-outline-secondary rounded-pill px-4 py-2 d-inline-flex align-items-center shadow-sm">
+                <i class="fas fa-arrow-left me-2"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center shadow-sm fw-bold">
+                <i class="fas fa-save me-2"></i> Lưu thay đổi
+            </button>
+        </div>
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger rounded-3 shadow-sm" })
+
+    <div class="row g-4">
+        <!-- Cột trái: Đăng nhập & Cá nhân -->
+        <div class="col-lg-8">
+            <!-- Đăng nhập -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-key text-primary me-2"></i>Thông tin đăng nhập hệ thống</h5>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Tên đăng nhập...", required = "required" } })
+                                @Html.Label("TenDangNhap", "Tên đăng nhập *")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating position-relative">
+                                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Mật khẩu...", type = "password", id = "pwdInput" } })
+                                @Html.Label("MatKhau", "Mật khẩu mới (hoặc giữ nguyên)")
+                                <button type="button" class="btn btn-link text-muted position-absolute end-0 top-50 translate-middle-y me-2 text-decoration-none" id="togglePwd">
+                                    <i class="fas fa-eye" id="eyeIcon"></i>
+                                </button>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cá nhân & Liên hệ -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-id-card text-primary me-2"></i>Thông tin cá nhân nhân viên</h5>
+                    
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Họ và tên...", required = "required" } })
+                                @Html.Label("HoTen", "Họ và tên nhân viên *")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "admin@example.com", type = "email", required = "required" } })
+                                @Html.Label("Email", "Địa chỉ Email *")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "09...", type = "tel" } })
+                                @Html.Label("SoDienThoai", "Số điện thoại liên lạc")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Phân quyền & Trạng thái -->
+        <div class="col-lg-4">
+            <!-- Vai trò / Quyền hạn -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-shield-alt text-primary me-2"></i>Phân quyền vai trò</h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-dark mb-1">Chọn vai trò hệ thống *</label>
+                        @Html.DropDownList("QuyenId", (SelectList)ViewBag.Quyen, "-- Chọn vai trò --", new { @class = "form-select form-select-lg rounded-3 fs-6", required = "required" })
+                        @Html.ValidationMessageFor(model => model.QuyenId, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <div class="bg-light rounded-3 p-3 small text-muted">
+                        <div class="role-badge-item mb-2 bg-white border">
+                            <strong class="text-primary"><i class="fas fa-crown me-1"></i>Quản trị viên:</strong> Toàn quyền quản lý
+                        </div>
+                        <div class="role-badge-item mb-2 bg-white border">
+                            <strong class="text-success"><i class="fas fa-cash-register me-1"></i>Thu ngân:</strong> Đơn hàng, thanh toán
+                        </div>
+                        <div class="role-badge-item mb-2 bg-white border">
+                            <strong class="text-info"><i class="fas fa-headset me-1"></i>Bán hàng:</strong> Tư vấn, chốt đơn hàng
+                        </div>
+                        <div class="role-badge-item bg-white border">
+                            <strong class="text-warning"><i class="fas fa-warehouse me-1"></i>Kho:</strong> Quản lý kho sản phẩm
+                        </div>
+                        <div class="role-badge-item mt-2 bg-white border">
+                            <strong style="color:#7c3aed"><i class="fas fa-tools me-1"></i>Kỹ thuật:</strong> Bảo hành, sửa chữa thiết bị
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trạng thái -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-toggle-on text-primary me-2"></i>Trạng thái tài khoản</h5>
+                    
+                    <div class="form-check form-switch p-0 d-flex align-items-center justify-content-between">
+                        <div>
+                            <label class="form-check-label fw-bold text-dark d-block mb-1" for="HoatDongSwitch">Tài khoản hoạt động</label>
+                            <small class="text-muted">Cho phép đăng nhập vào trang quản trị</small>
+                        </div>
+                        @Html.CheckBox("HoatDong", Model.HoatDong ?? true, new { @class = "form-check-input ms-0 fs-4", @id = "HoatDongSwitch", role = "switch" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.HoatDong, "", new { @class = "text-danger small" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('togglePwd');
+        const pwdInput = document.getElementById('pwdInput');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (toggleBtn && pwdInput) {
+            toggleBtn.addEventListener('click', function() {
+                const isPassword = pwdInput.type === 'password';
+                pwdInput.type = isPassword ? 'text' : 'password';
+                eyeIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+            });
+        }
+    });
+</script>
+}

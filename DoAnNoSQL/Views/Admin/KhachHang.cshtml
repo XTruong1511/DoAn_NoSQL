@@ -1,0 +1,355 @@
+@model List<tb_TaiKhoan>
+@{
+    ViewBag.Title = "KhachHang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string TuKhoa = ViewBag.TuKhoa;
+}
+
+<div id="customers" class="tab-content active">
+    <h1 class="mb-4"><i class="fas fa-users text-primary me-2"></i>Quản lý khách hàng</h1>
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <form action="TimKhachHang" method="get" class="input-group w-50">
+                <input type="text" class="form-control" id="timkh" name="timkh" placeholder="Tìm kiếm khách hàng...">
+                <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="d-flex gap-2">
+                <button class="btn btn-success btn-icon" onclick="exportAllCustomers()" title="Xuất Excel">
+                    <i class="fas fa-file-excel"></i>
+                </button>
+                <button class="btn btn-secondary btn-icon" onclick="printPage()" title="In danh sách">
+                    <i class="fas fa-print"></i>
+                </button>
+                <a href="@Url.Action("formThemKH", "Admin")" class="btn btn-primary btn-icon" title="Thêm khách hàng">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover" id="customerTable">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Trạng thái</th>
+                    <th class="text-center">Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="customerTableBody">
+                @foreach (var item in Model)
+                {
+                    <tr id="customer-@item.Id" class="@(item.HoatDong == false ? "table-danger" : "")">
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td>
+                            <strong>@item.TenDangNhap</strong>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-primary text-white me-2">
+                                    @item.HoTen.Substring(0, 1).ToUpper()
+                                </div>
+                                <span>@item.HoTen</span>
+                            </div>
+                        </td>
+                        <td>
+                            <i class="fas fa-envelope text-muted me-1"></i>
+                            @item.Email
+                        </td>
+                        <td>
+                            <i class="fas fa-phone text-muted me-1"></i>
+                            @item.SoDienThoai
+                        </td>
+                        <td id="status-@item.Id">
+                            @if (item.HoatDong == true)
+                            {
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle me-1"></i>Hoạt động
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    <i class="fas fa-lock me-1"></i>Đã khóa
+                                </span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group justify-content-center" role="group">
+                                @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 3))
+                                {
+                                    <a href="@Url.Action("formSuaKH", "Admin", new { id = item.Id })" 
+                                       class="btn btn-sm btn-warning" 
+                                       title="Sửa thông tin">
+                                        <i class="fas fa-pen-to-square"></i>
+                                    </a>
+                                    
+                                    <button type="button" 
+                                            class="btn btn-sm @(item.HoatDong == true ? "btn-danger" : "btn-success") btn-toggle-lock" 
+                                            data-id="@item.Id" 
+                                            data-name="@item.HoTen"
+                                            data-status="@item.HoatDong"
+                                            title="@(item.HoatDong == true ? "Khóa tài khoản" : "Mở khóa tài khoản")">
+                                        <i class="fas @(item.HoatDong == true ? "fa-lock" : "fa-unlock")"></i>
+                                    </button>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "KhachHang" : "TimKhachHang",
+                    new { timkh = ViewBag.TuKhoa, page = currentPage - 1 })">Trước</a>
+                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action(
+                        String.IsNullOrEmpty(ViewBag.TuKhoa) ? "KhachHang" : "TimKhachHang",
+                        new { timkh = ViewBag.TuKhoa, page = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "KhachHang" : "TimKhachHang",
+                    new { timkh = ViewBag.TuKhoa, page = currentPage + 1 })">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section scripts {
+<style>
+    .avatar-circle {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    
+    .table-danger {
+        background-color: rgba(220, 53, 69, 0.1) !important;
+    }
+    
+    .btn-group .btn {
+        margin: 0 2px;
+    }
+    
+    .badge {
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Export all customers to Excel
+    async function exportAllCustomers() {
+        try {
+            // Show Loading
+            Swal.fire({
+                title: 'Đang xử lý...',
+                text: 'Đang tải dữ liệu toàn bộ khách hàng...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+            
+            // Fetch Data from server
+            const response = await fetch('@Url.Action("GetCustomersForExport", "Admin")');
+            const data = await response.json();
+            
+            if (!data || data.length === 0) {
+                Swal.fire('Thông báo', 'Không có dữ liệu để xuất', 'info');
+                return;
+            }
+            
+            // Check for error
+            if (data.error) {
+                Swal.fire('Lỗi', 'Không thể tải dữ liệu: ' + data.error, 'error');
+                return;
+            }
+            
+            // Map data to Vietnamese headers
+            const formattedData = data.map(item => ({
+                "ID": item.ID,
+                "Họ tên": item.HoTen || '',
+                "Tên đăng nhập": item.TenDangNhap || '',
+                "Email": item.Email || '',
+                "Số điện thoại": item.SoDienThoai || '',
+                "Trạng thái": item.HoatDong ? 'Hoạt động' : 'Đã khóa'
+            }));
+            
+            // Create Worksheet
+            const ws = XLSX.utils.json_to_sheet(formattedData);
+            
+            // --- AUTO WIDTH LOGIC ---
+            const range = XLSX.utils.decode_range(ws['!ref']);
+            const colWidths = [];
+            
+            for (let C = range.s.c; C <= range.e.c; ++C) {
+                let maxLen = 10; // Min width
+                for (let R = range.s.r; R <= range.e.r; ++R) {
+                    const cellRef = XLSX.utils.encode_cell({ c: C, r: R });
+                    const cell = ws[cellRef];
+                    if (cell && cell.v) {
+                        const len = (cell.v.toString().length + 2); // Add padding
+                        if (len > maxLen) maxLen = len;
+                    }
+                }
+                colWidths.push({ wch: maxLen });
+            }
+            ws['!cols'] = colWidths;
+            // ------------------------
+            
+            // Create Workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "DanhSachKhachHang");
+            
+            // Download file
+            const filename = `DanhSachKhachHang_Full_${new Date().toISOString().slice(0,10)}.xlsx`;
+            XLSX.writeFile(wb, filename);
+            
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                html: `Đã xuất <strong>${data.length}</strong> khách hàng ra file Excel!`,
+                timer: 2500,
+                showConfirmButton: false
+            });
+        } catch (error) {
+            console.error('Export error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Không thể xuất file: ' + error.message
+            });
+        }
+    }
+
+    $(document).ready(function() {
+        // Toggle Lock/Unlock Account
+        $('.btn-toggle-lock').on('click', function() {
+            var btn = $(this);
+            var customerId = btn.data('id');
+            var customerName = btn.data('name');
+            var currentStatus = btn.data('status');
+            
+            var action = currentStatus === 'True' ? 'khóa' : 'mở khóa';
+            var actionCapital = currentStatus === 'True' ? 'Khóa' : 'Mở khóa';
+            
+            Swal.fire({
+                title: actionCapital + ' tài khoản?',
+                html: `Bạn có chắc chắn muốn <strong>${action}</strong> tài khoản của <strong>${customerName}</strong>?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: currentStatus === 'True' ? '#dc3545' : '#28a745',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: `<i class="fas fa-${currentStatus === 'True' ? 'lock' : 'unlock'} mr-1"></i>${actionCapital}`,
+                cancelButtonText: '<i class="fas fa-times mr-1"></i>Hủy',
+                customClass: {
+                    confirmButton: 'btn btn-lg',
+                    cancelButton: 'btn btn-lg'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Show loading
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    
+                    // Call AJAX
+                    $.ajax({
+                        url: '@Url.Action("ToggleKhoaTaiKhoan", "Admin")',
+                        type: 'POST',
+                        data: { id: customerId },
+                        success: function(response) {
+                            Swal.close();
+                            
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công!',
+                                    text: response.message,
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    // Update UI
+                                    var newStatus = response.newStatus;
+                                    var row = $('#customer-' + customerId);
+                                    var statusCell = $('#status-' + customerId);
+                                    
+                                    // Update row background
+                                    if (newStatus) {
+                                        row.removeClass('table-danger');
+                                    } else {
+                                        row.addClass('table-danger');
+                                    }
+                                    
+                                    // Update status badge
+                                    if (newStatus) {
+                                        statusCell.html('<span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Hoạt động</span>');
+                                    } else {
+                                        statusCell.html('<span class="badge bg-danger"><i class="fas fa-lock me-1"></i>Đã khóa</span>');
+                                    }
+                                    
+                                    // Update button
+                                    if (newStatus) {
+                                        btn.removeClass('btn-success').addClass('btn-danger');
+                                        btn.html('<i class="fas fa-lock"></i>');
+                                        btn.attr('title', 'Khóa tài khoản');
+                                    } else {
+                                        btn.removeClass('btn-danger').addClass('btn-success');
+                                        btn.html('<i class="fas fa-unlock"></i>');
+                                        btn.attr('title', 'Mở khóa tài khoản');
+                                    }
+                                    
+                                    // Update data attribute
+                                    btn.data('status', newStatus);
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi!',
+                                    text: response.message,
+                                    confirmButtonColor: '#dc3545'
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.close();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: 'Có lỗi xảy ra khi xử lý. Vui lòng thử lại.',
+                                confirmButtonColor: '#dc3545'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+}
+
+
+

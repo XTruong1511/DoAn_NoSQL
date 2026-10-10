@@ -1,0 +1,320 @@
+@model List<DoAnNoSQL.Models.QLSP>
+
+@{
+    ViewBag.Title = "QLSP";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string TuKhoa = ViewBag.TuKhoa;
+}
+
+<style>
+    /* Thu gọn cột Mô tả và Mô tả chi tiết */
+    .truncate-text {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: help;
+    }
+    
+    .truncate-text-short {
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: help;
+    }
+    
+    /* Tooltip khi hover để xem full text */
+    .truncate-text:hover,
+    .truncate-text-short:hover {
+        position: relative;
+        overflow: visible;
+        white-space: normal;
+        background: #fff;
+        z-index: 10;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        padding: 8px;
+        border-radius: 4px;
+    }
+    
+</style>
+
+<!-- Quản lý sản phẩm -->
+<div id="products" class="tab-content active">
+    <h1 class="mb-4">  <i class="fas fa-box text-primary me-2"></i>Quản lý sản phẩm</h1>
+    
+    @*@if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }*@
+    
+    <!--@if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }-->
+    
+    <div class="table-container">
+        <form action="TimKiemSP" method="get" id="filterForm" class="w-100">
+            <div class="d-flex justify-content-between mb-3 align-items-center">
+                <!-- Search -->
+                <div class="input-group flex-grow-1 me-4">
+                    <input type="text" class="form-control" id="timsp" name="timsp" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.TuKhoa">
+                    <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <!-- Right side: Filters + Actions -->
+                <div class="d-flex gap-4 align-items-center">
+                    <!-- Filters -->
+                    <div class="d-flex gap-2">
+                        <select name="danhMucId" class="form-select" style="width: 180px;" onchange="document.getElementById('filterForm').submit();">
+                            <option value="">Tất cả danh mục</option>
+                            @if (ViewBag.DanhMucs != null)
+                            {
+                                foreach (var dm in ViewBag.DanhMucs)
+                                {
+                                    <option value="@dm.Id" selected="@(ViewBag.SelectedDanhMuc == dm.Id ? "selected" : null)">@dm.TenDanhMuc</option>
+                                }
+                            }
+                        </select>
+                        <select name="thuongHieuId" class="form-select" style="width: 180px;" onchange="document.getElementById('filterForm').submit();">
+                            <option value="">Tất cả thương hiệu</option>
+                            @if (ViewBag.ThuongHieus != null)
+                            {
+                                foreach (var th in ViewBag.ThuongHieus)
+                                {
+                                    <option value="@th.Id" selected="@(ViewBag.SelectedThuongHieu == th.Id ? "selected" : null)">@th.TenThuongHieu</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-success btn-icon" onclick="exportAllProducts()" title="Xuất Excel">
+                            <i class="fas fa-file-excel"></i>
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-icon" onclick="printPage()" title="In danh sách">
+                            <i class="fas fa-print"></i>
+                        </button>
+                        @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 4))
+                        {
+                            <a href="@Url.Action("formThemSP", "Admin")" class="btn btn-primary btn-icon" title="Thêm sản phẩm">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered table-hover" id="productTable">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Hình ảnh</th>
+                    <th style="width: 250px;">Tên sản phẩm</th>
+                    @*<th>Mã sản phẩm</th>*@
+                    <th class="text-center">Giá</th>
+                    <th class="text-center">Giá khuyến mãi</th>
+                    <th class="text-center">Số lượng</th>
+                    @*<th>Danh mục</th>*@
+                    @*<th>Thương hiệu</th>*@
+                    @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 4))
+                    {
+                        <th class="text-center">Hành động</th>
+                    }
+                </tr>
+            </thead>
+            
+            <tbody id="productTableBody">
+            @foreach (var item in Model)
+            {
+                    <tr id="product-@item.Id">
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td class="text-center align-middle"><img src="~/Content/Images/@item.HinhAnh" onerror="this.onerror=null;this.src='/Content/Images/no-image.png';" alt="@item.TenSanPham" class="lazyload" style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #eee; border-radius: 4px;" /></td>
+                        <td class="align-middle">
+                            <strong>@item.TenSanPham</strong>
+                        </td>
+                        @*<td><span class="badge bg-secondary">@item.MaSanPham</span></td>*@
+                        <td class="text-end align-middle"><strong class="text-success">@String.Format("{0:N0}", item.Gia) đ</strong></td>
+                        <td class="text-end align-middle">
+                            @if (item.GiaKhuyenMai.HasValue && item.GiaKhuyenMai.Value > 0 && item.GiaKhuyenMai.Value < item.Gia)
+                            {
+                                <strong class="text-danger">@String.Format("{0:N0}", item.GiaKhuyenMai) đ</strong>
+                            }
+                            else
+                            {
+                                <span class="text-muted">---</span>
+                            }
+                        </td>
+                        <td class="text-center align-middle">
+                            @if (item.SoLuong > 0)
+                            {
+                                <span class="text-dark">@item.SoLuong</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger fw-bold">Hết hàng</span>
+                            }
+                        </td>
+                        @*<td>@item.TenDanhMuc</td>*@
+                        @*<td>@item.TenThuongHieu</td>*@
+                        @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 4))
+                        {
+                            <td class="text-center align-middle">
+                                <div class="btn-group justify-content-center" role="group">
+                                    <a href="@Url.Action("formSuaSP", "Admin", new { id = item.Id })" class="btn btn-sm btn-warning" title="Sửa sản phẩm">
+                                        <i class="fas fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(@item.Id, '@item.TenSanPham')" title="Xóa sản phẩm">
+                                        <i class="fas fa-trash-can"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+            }
+            </tbody>
+        </table>
+        
+        <script>
+        function confirmDelete(id, productName) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                html: `Bạn có chắc chắn muốn xóa sản phẩm <strong>"${productName}"</strong>?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fas fa-trash-can"></i> Xóa',
+                cancelButtonText: '<i class="fas fa-times"></i> Hủy',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("XoaSP", "Admin")' + '?id=' + id;
+                }
+            });
+        }
+        
+        // Export all products to Excel
+        async function exportAllProducts() {
+            try {
+                // Show Loading
+                Swal.fire({
+                    title: 'Đang xử lý...',
+                    text: 'Đang tải dữ liệu toàn bộ sản phẩm...',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+                
+                // Fetch Data from server
+                const response = await fetch('@Url.Action("GetProductsForExport", "Admin")');
+                const data = await response.json();
+                
+                if (!data || data.length === 0) {
+                    Swal.fire('Thông báo', 'Không có dữ liệu để xuất', 'info');
+                    return;
+                }
+                
+                // Check for error
+                if (data.error) {
+                    Swal.fire('Lỗi', 'Không thể tải dữ liệu: ' + data.error, 'error');
+                    return;
+                }
+                
+                // Map data to Vietnamese headers
+                const formattedData = data.map(item => ({
+                    "ID": item.ID,
+                    "Hình ảnh": item.HinhAnh || '',
+                    "Tên sản phẩm": item.TenSanPham || '',
+                    "Mã sản phẩm": item.MaSanPham || '',
+                    "Giá gốc": item.Gia ? item.Gia.toLocaleString('vi-VN') + ' đ' : '0 đ',
+                    "Giá khuyến mãi": item.GiaKhuyenMai ? item.GiaKhuyenMai.toLocaleString('vi-VN') + ' đ' : '',
+                    "Số lượng": item.SoLuong || 0,
+                    "Lượt xem": item.LuotXem || 0,
+                    "Danh mục": item.DanhMuc || '',
+                    "Thương hiệu": item.ThuongHieu || '',
+                    "Hiển thị": item.HienThi ? 'Có' : 'Không',
+                    "Ngày tạo": item.NgayTao ? new Date(item.NgayTao).toLocaleDateString('vi-VN') : ''
+                }));
+                
+                // Create Worksheet
+                const ws = XLSX.utils.json_to_sheet(formattedData);
+                
+                // --- AUTO WIDTH LOGIC ---
+                const range = XLSX.utils.decode_range(ws['!ref']);
+                const colWidths = [];
+                
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    let maxLen = 10; // Min width
+                    for (let R = range.s.r; R <= range.e.r; ++R) {
+                        const cellRef = XLSX.utils.encode_cell({ c: C, r: R });
+                        const cell = ws[cellRef];
+                        if (cell && cell.v) {
+                            const len = (cell.v.toString().length + 2); // Add padding
+                            if (len > maxLen) maxLen = len;
+                        }
+                    }
+                    colWidths.push({ wch: maxLen });
+                }
+                ws['!cols'] = colWidths;
+                // ------------------------
+                
+                // Create Workbook
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "DanhSachSanPham");
+                
+                // Download file
+                const filename = `DanhSachSanPham_Full_${new Date().toISOString().slice(0,10)}.xlsx`;
+                XLSX.writeFile(wb, filename);
+                
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    html: `Đã xuất <strong>${data.length}</strong> sản phẩm ra file Excel!`,
+                    timer: 2500,
+                    showConfirmButton: false
+                });
+            } catch (error) {
+                console.error('Export error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Không thể xuất file: ' + error.message
+                });
+            }
+        }
+        </script>
+        
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) && ViewBag.SelectedDanhMuc == null && ViewBag.SelectedThuongHieu == null ? "QLSP" : "TimKiemSP",
+                    new { timsp = ViewBag.TuKhoa, danhMucId = ViewBag.SelectedDanhMuc, thuongHieuId = ViewBag.SelectedThuongHieu, page = currentPage - 1 })">Trước</a>
+                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action(
+                        String.IsNullOrEmpty(ViewBag.TuKhoa) && ViewBag.SelectedDanhMuc == null && ViewBag.SelectedThuongHieu == null ? "QLSP" : "TimKiemSP",
+                        new { timsp = ViewBag.TuKhoa, danhMucId = ViewBag.SelectedDanhMuc, thuongHieuId = ViewBag.SelectedThuongHieu, page = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) && ViewBag.SelectedDanhMuc == null && ViewBag.SelectedThuongHieu == null ? "QLSP" : "TimKiemSP",
+                    new { timsp = ViewBag.TuKhoa, danhMucId = ViewBag.SelectedDanhMuc, thuongHieuId = ViewBag.SelectedThuongHieu, page = currentPage + 1 })">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,1712 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330847"
+    },
+    "SqlId": 3,
+    "MaDonHang": "DH00000001",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "Nguyễn Văn An",
+      "SoDienThoai": "0901234567",
+      "Email": "an.nguyen@email.com",
+      "DiaChi": "123 Đồng Khởi, Quận 1, TP.HCM"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 20,
+        "TenSanPham": "iPhone 17",
+        "HinhAnh": "DT_IP_17_1.png",
+        "Gia": 21900000.0,
+        "SoLuong": 1,
+        "ThanhTien": 21900000.0
+      },
+      {
+        "SanPhamId": 22,
+        "TenSanPham": "iPhone 17 Pro Max",
+        "HinhAnh": "DT_IP_17ProMax_1.png",
+        "Gia": 28900000.0,
+        "SoLuong": 1,
+        "ThanhTien": 28900000.0
+      }
+    ],
+    "TongTien": 50800000.0,
+    "SoLuongSanPham": 0,
+    "PhuongThucThanhToan": {
+      "Id": 2,
+      "TenPhuongThuc": "Chuyển khoản ngân hàng"
+    },
+    "PhuongThucVanChuyen": null,
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:31.880Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T13:55:08.273Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330848"
+    },
+    "SqlId": 4,
+    "MaDonHang": "DH00000002",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "Trần Thị Bình",
+      "SoDienThoai": "0912345678",
+      "Email": "binh.tran@email.com",
+      "DiaChi": "456 Trúc Bạch, Quận Ba Đình, Hà Nội"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 23,
+        "TenSanPham": "iPhone Air",
+        "HinhAnh": "DT_IP_Air_1.png",
+        "Gia": 16900000.0,
+        "SoLuong": 1,
+        "ThanhTien": 16900000.0
+      }
+    ],
+    "TongTien": 16900000.0,
+    "SoLuongSanPham": 0,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": null,
+    "MaGiamGia": null,
+    "TrangThai": 3,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:31.880Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T14:47:32.067Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330849"
+    },
+    "SqlId": 5,
+    "MaDonHang": "DH00000003",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "Phạm Thị Dung",
+      "SoDienThoai": "0934567890",
+      "Email": "dung.pham@email.com",
+      "DiaChi": "101 Bạch Đằng, Quận Hải Châu, Đà Nẵng"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 25,
+        "TenSanPham": "OPPO Find N3 Flip",
+        "HinhAnh": "DT_OPPO_FindFlip_1.png",
+        "Gia": 15900000.0,
+        "SoLuong": 2,
+        "ThanhTien": 31800000.0
+      }
+    ],
+    "TongTien": 31800000.0,
+    "SoLuongSanPham": 0,
+    "PhuongThucThanhToan": {
+      "Id": 3,
+      "TenPhuongThuc": "Ví điện tử MoMo"
+    },
+    "PhuongThucVanChuyen": null,
+    "MaGiamGia": null,
+    "TrangThai": 1,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:31.880Z"
+    },
+    "NgayCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533084a"
+    },
+    "SqlId": 6,
+    "MaDonHang": "DH00000004",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "Đỗ Minh Hải",
+      "SoDienThoai": "0967890123",
+      "Email": "hai.do@email.com",
+      "DiaChi": "33 Nguyễn Hữu Thọ, Quận 7, TP.HCM"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 21,
+        "TenSanPham": "iPhone 17 Pro",
+        "HinhAnh": "DT_IP_17Pro_1.png",
+        "Gia": 24900000.0,
+        "SoLuong": 1,
+        "ThanhTien": 24900000.0
+      }
+    ],
+    "TongTien": 24900000.0,
+    "SoLuongSanPham": 0,
+    "PhuongThucThanhToan": {
+      "Id": 2,
+      "TenPhuongThuc": "Chuyển khoản ngân hàng"
+    },
+    "PhuongThucVanChuyen": null,
+    "MaGiamGia": null,
+    "TrangThai": 1,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:31.880Z"
+    },
+    "NgayCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533084b"
+    },
+    "SqlId": 7,
+    "MaDonHang": "DH00000005",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "Đặng Thị Mai",
+      "SoDienThoai": "0990123456",
+      "Email": "mai.dang@email.com",
+      "DiaChi": "567 Lạch Tray, Quận Ngô Quyền, Hải Phòng"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 24,
+        "TenSanPham": "OPPO Find N5",
+        "HinhAnh": "DT_OPPO_Find_1.png",
+        "Gia": 13900000.0,
+        "SoLuong": 1,
+        "ThanhTien": 13900000.0
+      }
+    ],
+    "TongTien": 13900000.0,
+    "SoLuongSanPham": 0,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": null,
+    "MaGiamGia": null,
+    "TrangThai": 3,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:31.880Z"
+    },
+    "NgayCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533084c"
+    },
+    "SqlId": 9,
+    "MaDonHang": "DH202511251313342651",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 văn thân"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 29,
+        "TenSanPham": "Samsung Galaxy Z Flip7",
+        "HinhAnh": "DT_SS_Flip_1.png",
+        "Gia": 26990000.0,
+        "SoLuong": 2,
+        "ThanhTien": 53980000.0
+      }
+    ],
+    "TongTien": 53980000.0,
+    "SoLuongSanPham": 2,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 1,
+    "NgayTao": {
+      "$date": "2025-11-25T13:13:34.100Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-25T13:13:34.100Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533084d"
+    },
+    "SqlId": 10,
+    "MaDonHang": "DH202511251314354062",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 lo gom"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 38,
+        "TenSanPham": "Asus VivoBook S 14",
+        "HinhAnh": "LT_Asus_VivoS14_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 1,
+    "NgayTao": {
+      "$date": "2025-11-25T13:14:35.607Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-25T13:14:35.607Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533084e"
+    },
+    "SqlId": 11,
+    "MaDonHang": "DH202511251320414904",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 vvv"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 1,
+    "NgayTao": {
+      "$date": "2025-11-25T13:20:41.093Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-25T13:20:41.093Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533084f"
+    },
+    "SqlId": 12,
+    "MaDonHang": "DH202511251325599410",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123456"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 23,
+        "TenSanPham": "iPhone Air",
+        "HinhAnh": "DT_IP_Air_1.png",
+        "Gia": 18990000.0,
+        "SoLuong": 2,
+        "ThanhTien": 37980000.0
+      }
+    ],
+    "TongTien": 37980000.0,
+    "SoLuongSanPham": 2,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-11-25T13:25:59.010Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-25T13:25:59.010Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330850"
+    },
+    "SqlId": 13,
+    "MaDonHang": "DH202511251333244708",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "1233"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 57,
+        "TenSanPham": "Samsung Galaxy Tab A9",
+        "HinhAnh": "TB_SS_A9_1.png",
+        "Gia": 3490000.0,
+        "SoLuong": 1,
+        "ThanhTien": 3490000.0
+      }
+    ],
+    "TongTien": 3490000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-11-25T13:33:24.517Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-25T13:33:24.517Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330851"
+    },
+    "SqlId": 14,
+    "MaDonHang": "DH202511251352186650",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "1234 van than"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 33,
+        "TenSanPham": "Xiaomi 15 Ultra",
+        "HinhAnh": "DT_XM_15Ultra_1.png",
+        "Gia": 23990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 23990000.0
+      }
+    ],
+    "TongTien": 23990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-11-25T13:52:18.883Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-25T13:52:18.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330852"
+    },
+    "SqlId": 15,
+    "MaDonHang": "DH202511251400359168",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "đâ"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 45,
+        "TenSanPham": "Lenovo Legion Pro 7",
+        "HinhAnh": "LT_LNV_LegiPro7_1.png",
+        "Gia": 54990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 54990000.0
+      }
+    ],
+    "TongTien": 54990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-11-25T14:00:35.160Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-25T14:00:35.160Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330853"
+    },
+    "SqlId": 16,
+    "MaDonHang": "DH202511261455581814",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "133/4"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 29,
+        "TenSanPham": "Samsung Galaxy Z Flip7",
+        "HinhAnh": "DT_SS_Flip_1.png",
+        "Gia": 26990000.0,
+        "SoLuong": 2,
+        "ThanhTien": 53980000.0
+      }
+    ],
+    "TongTien": 53980000.0,
+    "SoLuongSanPham": 2,
+    "PhuongThucThanhToan": {
+      "Id": 2,
+      "TenPhuongThuc": "Chuyển khoản ngân hàng"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-11-26T14:55:58.330Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-11-26T14:55:58.330Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330854"
+    },
+    "SqlId": 17,
+    "MaDonHang": "DH202512051506435984",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "dsdsdddds"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 70,
+        "TenSanPham": "Bphone",
+        "HinhAnh": "639011343310049829_639005406274885182_4_DT_IP_17_1.png",
+        "Gia": 11000000.0,
+        "SoLuong": 1,
+        "ThanhTien": 11000000.0
+      }
+    ],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-05T15:06:43.630Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-05T15:06:43.630Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330855"
+    },
+    "SqlId": 18,
+    "MaDonHang": "DH202512051507327433",
+    "KhachHang": {
+      "TaiKhoanId": null,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0946737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "12345567"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 70,
+        "TenSanPham": "Bphone",
+        "HinhAnh": "639011343310049829_639005406274885182_4_DT_IP_17_1.png",
+        "Gia": 11000000.0,
+        "SoLuong": 1,
+        "ThanhTien": 11000000.0
+      }
+    ],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-05T15:07:32.020Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-05T15:07:32.020Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330856"
+    },
+    "SqlId": 19,
+    "MaDonHang": "DH202512051522044228",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123456"
+    },
+    "DanhSachSanPham": [],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 3,
+    "NgayTao": {
+      "$date": "2025-12-05T15:22:04.240Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-06T13:05:56.837Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330857"
+    },
+    "SqlId": 20,
+    "MaDonHang": "DH202512051522121236",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "fvsfvs"
+    },
+    "DanhSachSanPham": [],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-05T15:22:12.957Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-05T15:22:12.957Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330858"
+    },
+    "SqlId": 21,
+    "MaDonHang": "DH202512061350021610",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 Văn Thân"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-06T13:50:02.960Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-07T16:02:48.837Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330859"
+    },
+    "SqlId": 22,
+    "MaDonHang": "DH202512061421521561",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 Bình Tiên"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 31,
+        "TenSanPham": "Samsung Galaxy S25 Ultra",
+        "HinhAnh": "DT_SS_S25Ultra_1.png",
+        "Gia": 29990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 29990000.0
+      }
+    ],
+    "TongTien": 29990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-06T14:21:52.647Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-06T14:24:04.893Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533085a"
+    },
+    "SqlId": 23,
+    "MaDonHang": "DH202512081644281648",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "FSDFSDDFS"
+    },
+    "DanhSachSanPham": [],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-08T16:44:28.553Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-08T16:44:28.553Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533085b"
+    },
+    "SqlId": 25,
+    "MaDonHang": "DH202512081655003879",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 lo gom"
+    },
+    "DanhSachSanPham": [],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-08T16:55:00.183Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-08T16:55:00.183Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533085c"
+    },
+    "SqlId": 26,
+    "MaDonHang": "DH202512081703516940",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 văn thân"
+    },
+    "DanhSachSanPham": [],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-08T17:03:51.343Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-08T17:03:51.343Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533085d"
+    },
+    "SqlId": 28,
+    "MaDonHang": "DH202512081757463863",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "dfsdvds"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-08T17:57:46.890Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-08T17:58:36.717Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533085e"
+    },
+    "SqlId": 30,
+    "MaDonHang": "DH202512121107097818",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "ÊDSSD"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-12T11:07:09.860Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-12T11:07:09.860Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533085f"
+    },
+    "SqlId": 31,
+    "MaDonHang": "DH202512121114026497",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 văn thân "
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-12T11:14:02.570Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T14:06:56.463Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330860"
+    },
+    "SqlId": 32,
+    "MaDonHang": "DH202512121117533298",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "123 văn thân"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 70,
+        "TenSanPham": "Bphone",
+        "HinhAnh": "639011343310049829_639005406274885182_4_DT_IP_17_1.png",
+        "Gia": 11000000.0,
+        "SoLuong": 1,
+        "ThanhTien": 11000000.0
+      }
+    ],
+    "TongTien": 11000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-12T11:17:53.013Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-12T13:01:03.200Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330861"
+    },
+    "SqlId": 33,
+    "MaDonHang": "DH202512121141463061",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường 8, Quận 6, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 28,
+        "TenSanPham": "Samsung Galaxy A56",
+        "HinhAnh": "DT_SS_A56_1.png",
+        "Gia": 9990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 9990000.0
+      }
+    ],
+    "TongTien": 9990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-12T11:41:46.170Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-12T11:42:36.473Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330862"
+    },
+    "SqlId": 34,
+    "MaDonHang": "DH202512121152452498",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường 8, Quận 6, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 26,
+        "TenSanPham": "OPPO Find X8 Pro",
+        "HinhAnh": "DT_OPPO_FindX8Pro_1.png",
+        "Gia": 24990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 24990000.0
+      }
+    ],
+    "TongTien": 24990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-12T11:52:45.930Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-12T11:53:49.337Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330863"
+    },
+    "SqlId": 35,
+    "MaDonHang": "DH202512121215223418",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường 8, Quận 6, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 30,
+        "TenSanPham": "Samsung Galaxy Z Fold7",
+        "HinhAnh": "DT_SS_Fold_1.png",
+        "Gia": 41990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 41990000.0
+      }
+    ],
+    "TongTien": 41990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-12T12:15:22.413Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-12T12:17:38.210Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330864"
+    },
+    "SqlId": 36,
+    "MaDonHang": "DH202512121218543946",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường 8, Quận 6, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 24,
+        "TenSanPham": "OPPO Find N5",
+        "HinhAnh": "DT_OPPO_Find_1.png",
+        "Gia": 34990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 34990000.0
+      }
+    ],
+    "TongTien": 34990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 7,
+    "NgayTao": {
+      "$date": "2025-12-12T12:18:54.320Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T07:29:20.887Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330865"
+    },
+    "SqlId": 37,
+    "MaDonHang": "DH202512121229442734",
+    "KhachHang": {
+      "TaiKhoanId": 18,
+      "TenKhachHang": "truong",
+      "SoDienThoai": "0123456798",
+      "Email": "truong456@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường Bình Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 29,
+        "TenSanPham": "Samsung Galaxy Z Flip7",
+        "HinhAnh": "DT_SS_Flip_1.png",
+        "Gia": 26990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 26990000.0
+      }
+    ],
+    "TongTien": 26990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 7,
+    "NgayTao": {
+      "$date": "2025-12-12T12:29:44.540Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-12T13:00:50.377Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330866"
+    },
+    "SqlId": 38,
+    "MaDonHang": "DH202512121514544078",
+    "KhachHang": {
+      "TaiKhoanId": 18,
+      "TenKhachHang": "truong",
+      "SoDienThoai": "0942737181",
+      "Email": "truong456@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường 1, Quận 6, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 30,
+        "TenSanPham": "Samsung Galaxy Z Fold7",
+        "HinhAnh": "DT_SS_Fold_1.png",
+        "Gia": 41990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 41990000.0
+      }
+    ],
+    "TongTien": 41990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 2,
+      "TenPhuongThuc": "Chuyển khoản ngân hàng"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-12T15:14:54.203Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T07:29:36.807Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330867"
+    },
+    "SqlId": 39,
+    "MaDonHang": "DH202512130725192442",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường 8, Quận 6, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 28,
+        "TenSanPham": "Samsung Galaxy A56",
+        "HinhAnh": "DT_SS_A56_1.png",
+        "Gia": 9990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 9990000.0
+      }
+    ],
+    "TongTien": 9990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-13T07:25:19.637Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T07:29:09.503Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330868"
+    },
+    "SqlId": 40,
+    "MaDonHang": "DH202512130817445777",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường 8, Quận 6, Thành phố Hồ Chí Minh"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 22,
+        "TenSanPham": "iPhone 17 Pro Max",
+        "HinhAnh": "DT_IP_17ProMax_1.png",
+        "Gia": 32990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 32990000.0
+      }
+    ],
+    "TongTien": 32990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 2,
+      "TenPhuongThuc": "Chuyển khoản ngân hàng"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 5,
+    "NgayTao": {
+      "$date": "2025-12-13T08:17:44.493Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T08:19:34.917Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330869"
+    },
+    "SqlId": 41,
+    "MaDonHang": "DH202512131435366944",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Xã Vạn Mai, Huyện Mai Châu, Tỉnh Hoà Bình"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 2,
+        "ThanhTien": 35980000.0
+      }
+    ],
+    "TongTien": 35980000.0,
+    "SoLuongSanPham": 2,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-13T14:35:36.457Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T14:35:36.457Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533086a"
+    },
+    "SqlId": 42,
+    "MaDonHang": "DH202512131443514947",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Xã Đồng Trung, Huyện Thanh Thuỷ, Tỉnh Phú Thọ"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 76,
+        "TenSanPham": "Honor 1",
+        "HinhAnh": "639012324340915559_DT_XM_15Ultra_1.png",
+        "Gia": 15000000.0,
+        "SoLuong": 2,
+        "ThanhTien": 30000000.0
+      }
+    ],
+    "TongTien": 30000000.0,
+    "SoLuongSanPham": 2,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 7,
+    "NgayTao": {
+      "$date": "2025-12-13T14:43:51.683Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T14:49:04.540Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533086b"
+    },
+    "SqlId": 43,
+    "MaDonHang": "DH202512131514335635",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Xã Minh Hóa, Huyện Minh Hóa, Tỉnh Quảng Bình"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 2,
+      "TenPhuongThuc": "Chuyển khoản ngân hàng"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-13T15:14:33.040Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T15:14:33.040Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533086c"
+    },
+    "SqlId": 44,
+    "MaDonHang": "DH202512131515582644",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Xã Mông Ân, Huyện Bảo Lâm, Tỉnh Cao Bằng"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 76,
+        "TenSanPham": "Honor 1",
+        "HinhAnh": "639012324340915559_DT_XM_15Ultra_1.png",
+        "Gia": 15000000.0,
+        "SoLuong": 1,
+        "ThanhTien": 15000000.0
+      }
+    ],
+    "TongTien": 15000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-13T15:15:58.663Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T15:15:58.663Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533086d"
+    },
+    "SqlId": 45,
+    "MaDonHang": "DH202512131541081935",
+    "KhachHang": {
+      "TaiKhoanId": 3,
+      "TenKhachHang": "tín",
+      "SoDienThoai": "0942737181",
+      "Email": "tin123@gmail.com",
+      "DiaChi": "165 Lò Gốm, Phường Trà Nóc, Quận Bình Thuỷ, Thành phố Cần Thơ"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 76,
+        "TenSanPham": "Honor 1",
+        "HinhAnh": "639012324340915559_DT_XM_15Ultra_1.png",
+        "Gia": 15000000.0,
+        "SoLuong": 1,
+        "ThanhTien": 15000000.0
+      }
+    ],
+    "TongTien": 15000000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": null,
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-13T15:41:08.547Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-13T15:41:08.547Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533086e"
+    },
+    "SqlId": 46,
+    "MaDonHang": "DH202512141045048428",
+    "KhachHang": {
+      "TaiKhoanId": 18,
+      "TenKhachHang": "truong",
+      "SoDienThoai": "0946737181",
+      "Email": "truong456@gmail.com",
+      "DiaChi": "165 Lò Gốm, Xã Hồng An, Huyện Bảo Lạc, Tỉnh Cao Bằng"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 28,
+        "TenSanPham": "Samsung Galaxy A56",
+        "HinhAnh": "DT_SS_A56_1.png",
+        "Gia": 9990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 9990000.0
+      }
+    ],
+    "TongTien": 9990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": {
+      "Id": 1,
+      "MaCode": "SALE10",
+      "SoTienGiam": 50000.0,
+      "PhanTramGiam": null
+    },
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-14T10:45:04.130Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-14T10:45:04.130Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533086f"
+    },
+    "SqlId": 47,
+    "MaDonHang": "DH202512141051157495",
+    "KhachHang": {
+      "TaiKhoanId": 18,
+      "TenKhachHang": "truong",
+      "SoDienThoai": "0123456798",
+      "Email": "truong456@gmail.com",
+      "DiaChi": "165 Lò Gôm, Xã Tiên Hội, Huyện Đại Từ, Tỉnh Thái Nguyên"
+    },
+    "DanhSachSanPham": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "HinhAnh": "DT_XM_15_1.png",
+        "Gia": 17990000.0,
+        "SoLuong": 1,
+        "ThanhTien": 17990000.0
+      }
+    ],
+    "TongTien": 17990000.0,
+    "SoLuongSanPham": 1,
+    "PhuongThucThanhToan": {
+      "Id": 1,
+      "TenPhuongThuc": "Tiền mặt (COD)"
+    },
+    "PhuongThucVanChuyen": {
+      "Id": 1,
+      "TenPhuongThuc": "Giao hàng Tiêu chuẩn",
+      "Gia": 30000.0
+    },
+    "MaGiamGia": {
+      "Id": 1,
+      "MaCode": "SALE10",
+      "SoTienGiam": 50000.0,
+      "PhanTramGiam": null
+    },
+    "TrangThai": 2,
+    "NgayTao": {
+      "$date": "2025-12-14T10:51:15.533Z"
+    },
+    "NgayCapNhat": {
+      "$date": "2025-12-14T10:51:15.533Z"
+    }
+  }
+]

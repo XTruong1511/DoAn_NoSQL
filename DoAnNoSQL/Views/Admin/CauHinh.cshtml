@@ -1,0 +1,388 @@
+@model Dictionary<string, string>
+
+@{
+    ViewBag.Title = "Cài đặt hệ thống & Cơ sở dữ liệu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var stats = ViewBag.CollectionStats as Dictionary<string, long> ?? new Dictionary<string, long>();
+}
+
+<div class="container-fluid py-4">
+    <!-- Tiêu đề trang -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h1 class="mb-4"><i class="fas fa-cogs me-2 text-primary"></i>Cài đặt hệ thống</h1>
+        </div>
+        <div>
+            <button type="button" id="btnAction" class="btn btn-primary px-3 shadow-sm" onclick="toggleEditMode()">
+                <i class="fas fa-edit me-1" id="btnIcon"></i> <span id="btnText">Chỉnh sửa thông tin</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PHẦN 1: CẤU HÌNH CỬA HÀNG -->
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-header bg-white py-3 border-bottom d-flex align-items-center">
+            <i class="fas fa-store me-2 text-primary fs-5"></i>
+            <h5 class="card-title mb-0 fw-bold text-dark">Thông tin cửa hàng & Website</h5>
+        </div>
+        <div class="card-body p-4">
+            @using (Html.BeginForm("LuuCauHinh", "Admin", FormMethod.Post, new { id = "formCauHinh", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label fw-bold text-dark">Logo website</label>
+                        <div class="d-flex align-items-center p-2 border rounded bg-light">
+                            <img src="~/Content/images/@(!string.IsNullOrEmpty(Model["LogoCuaHang"]) ? Model["LogoCuaHang"] : "logo.png")" alt="Logo" class="img-thumbnail me-3 bg-white" style="max-height: 80px; max-width: 140px; object-fit: contain;" id="previewLogo">
+                            <div class="flex-grow-1">
+                                <input type="file" class="form-control" id="LogoCuaHang" name="LogoCuaHang" accept="image/*" disabled>
+                                <small class="text-muted d-block mt-1">Định dạng hỗ trợ: PNG, JPG, JPEG, WEBP</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <label for="TenCuaHang" class="form-label fw-bold text-dark">Tên cửa hàng / Tiêu đề Website</label>
+                        <input type="text" class="form-control" id="TenCuaHang" name="TenCuaHang" value="@Model["TenCuaHang"]" placeholder="Nhập tên cửa hàng..." readonly>
+                        <small class="text-muted">Hiển thị ở tiêu đề trang và thanh điều hướng chính.</small>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <label for="Hotline" class="form-label fw-bold text-dark">Hotline hỗ trợ</label>
+                        <input type="text" class="form-control" id="Hotline" name="Hotline" value="@Model["Hotline"]" placeholder="Nhập số điện thoại hotline..." readonly>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <label for="EmailLienHe" class="form-label fw-bold text-dark">Email liên hệ</label>
+                        <input type="email" class="form-control" id="EmailLienHe" name="EmailLienHe" value="@Model["EmailLienHe"]" placeholder="Nhập email tiếp nhận liên hệ..." readonly>
+                    </div>
+
+                    <div class="col-12 mb-2">
+                        <label for="DiaChiCuaHang" class="form-label fw-bold text-dark">Địa chỉ cửa hàng / Trụ sở</label>
+                        <textarea class="form-control" id="DiaChiCuaHang" name="DiaChiCuaHang" rows="3" placeholder="Nhập địa chỉ cửa hàng..." readonly>@Model["DiaChiCuaHang"]</textarea>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- PHẦN 2: SAO LƯU & KHÔI PHỤC DỮ LIỆU (MONGODB - 14 COLLECTIONS) -->
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-database me-2 text-success fs-5"></i>
+                <div>
+                    <h5 class="card-title mb-0 fw-bold text-dark">Sao lưu & Khôi phục cơ sở dữ liệu (MongoDB)</h5>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle mt-1">Hệ thống 14 Collections</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <!-- Dải thông tin thống kê 14 collection -->
+            <div class="mb-4">
+                <h6 class="fw-bold text-secondary mb-3"><i class="fas fa-chart-pie me-1"></i> Trạng thái 14 Collections hiện tại:</h6>
+                <div class="row g-2">
+                    @foreach (var item in stats)
+                    {
+                        <div class="col-6 col-md-3 col-lg-2">
+                            <div class="p-2 border rounded bg-light text-center">
+                                <div class="small fw-bold text-truncate" title="@item.Key">@item.Key</div>
+                                <div class="text-primary fw-bold fs-6">@item.Value.ToString("N0") <small class="text-muted fw-normal" style="font-size:0.75rem;">docs</small></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <!-- Khối Export và Restore -->
+            <div class="row g-4">
+                <!-- EXPORT CARD -->
+                <div class="col-lg-6">
+                    <div class="border rounded-3 p-4 h-100 bg-light-subtle d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="feature-icon bg-primary text-white rounded-circle p-3 me-3 d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="fas fa-file-export fs-5"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold mb-0 text-dark">1. Xuất dữ liệu (Export Database)</h5>
+                                    <small class="text-muted">Tải xuống toàn bộ 14 collections và ID sequence</small>
+                                </div>
+                            </div>
+                            <p class="text-secondary small mb-3">
+                                Dữ liệu sẽ được trích xuất trực tiếp từ MongoDB dưới định dạng JSON chuẩn. Bạn có thể tải về file nén ZIP (chứa từng collection riêng) hoặc một file JSON tổng hợp duy nhất.
+                            </p>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-3 pt-3 border-top">
+                            <a href="@Url.Action("ExportDatabase", "Admin", new { type = "zip" })" class="btn btn-primary px-3 shadow-sm" onclick="showExportToast('ZIP')">
+                                <i class="fas fa-file-archive me-1"></i> Xuất file nén ZIP (.zip)
+                            </a>
+                            <a href="@Url.Action("ExportDatabase", "Admin", new { type = "json" })" class="btn btn-outline-primary px-3" onclick="showExportToast('JSON')">
+                                <i class="fas fa-file-code me-1"></i> Xuất file JSON tổng hợp (.json)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESTORE CARD -->
+                <div class="col-lg-6">
+                    <div class="border rounded-3 p-4 h-100 bg-light-subtle d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="feature-icon bg-warning text-dark rounded-circle p-3 me-3 d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="fas fa-file-import fs-5"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold mb-0 text-dark">2. Khôi phục dữ liệu (Restore Database)</h5>
+                                    <small class="text-muted">Nhập dữ liệu từ bản sao lưu vào MongoDB</small>
+                                </div>
+                            </div>
+                            <p class="text-secondary small mb-3">
+                                Bạn có thể tải lên file sao lưu (.zip / .json) hoặc chọn khôi phục nhanh về bản dữ liệu gốc 14 collections có sẵn trong thư mục <code>Database_backup</code> của hệ thống.
+                            </p>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-3 pt-3 border-top">
+                            <button type="button" class="btn btn-warning text-dark fw-bold px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalRestoreUpload">
+                                <i class="fas fa-cloud-upload-alt me-1"></i> Tải file lên để khôi phục
+                            </button>
+                            <button type="button" class="btn btn-outline-danger fw-bold px-3" onclick="confirmDefaultRestore()">
+                                <i class="fas fa-undo-alt me-1"></i> Khôi phục từ Database_backup mặc định
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL TẢI FILE RESTORE -->
+<div class="modal fade" id="modalRestoreUpload" tabindex="-1" aria-labelledby="modalRestoreUploadLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header bg-warning text-dark py-3">
+                <h5 class="modal-title fw-bold" id="modalRestoreUploadLabel">
+                    <i class="fas fa-upload me-2"></i>Tải lên bản sao lưu để khôi phục
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            @using (Html.BeginForm("RestoreDatabase", "Admin", FormMethod.Post, new { id = "formRestoreUpload", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-body p-4">
+                    <div class="alert alert-warning py-2 mb-3 small d-flex align-items-center" role="alert">
+                        <i class="fas fa-exclamation-triangle fs-4 me-2 text-warning flex-shrink-0"></i>
+                        <div>
+                            <strong>Lưu ý quan trọng:</strong> Dữ liệu của các collection trong file sao lưu sẽ được <strong>ghi đè</strong> vào cơ sở dữ liệu hiện tại. Hãy xuất file sao lưu dự phòng trước khi thực hiện.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="backupFile" class="form-label fw-bold">Chọn file sao lưu (.zip hoặc .json):</label>
+                        <input type="file" class="form-control" id="backupFile" name="backupFile" accept=".zip,.json" required>
+                        <div class="form-text small">
+                            Chấp nhận: File <strong>.zip</strong> (chứa các file collection .json) hoặc file <strong>.json</strong> tổng hợp.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-secondary px-3" data-bs-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-warning text-dark fw-bold px-4" onclick="submitUploadRestore()">
+                        <i class="fas fa-check me-1"></i> Bắt đầu khôi phục
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Form ẩn dùng để Restore từ Database_backup gốc -->
+@using (Html.BeginForm("RestoreDatabase", "Admin", FormMethod.Post, new { id = "formRestoreDefault" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="restoreFromDefault" value="true" />
+}
+
+@section scripts {
+    <script>
+        var isEditMode = false;
+        function toggleEditMode() {
+            var btnAction = document.getElementById('btnAction');
+            var btnIcon = document.getElementById('btnIcon');
+            var btnText = document.getElementById('btnText');
+            var formControls = document.querySelectorAll('#formCauHinh .form-control:not([type="file"])');
+            var fileInput = document.getElementById('LogoCuaHang');
+
+            if (!isEditMode) {
+                // Chuyển sang chế độ sửa
+                isEditMode = true;
+                
+                // Mở khóa các ô input
+                formControls.forEach(function(el) {
+                    el.removeAttribute('readonly');
+                });
+                fileInput.removeAttribute('disabled');
+                
+                // Focus vào ô đầu tiên
+                document.getElementById('TenCuaHang').focus();
+                
+                // Đổi nút thành Lưu cài đặt
+                btnAction.classList.remove('btn-primary');
+                btnAction.classList.add('btn-success');
+                btnIcon.classList.remove('fa-edit');
+                btnIcon.classList.add('fa-save');
+                btnText.innerText = "Lưu cài đặt";
+            } else {
+                // Đang ở chế độ sửa -> Submit form
+                document.getElementById('formCauHinh').submit();
+            }
+        }
+
+        // Preview logo khi chọn file
+        document.getElementById('LogoCuaHang').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewLogo').src = e.target.result;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Thông báo tải export
+        function showExportToast(format) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Đang chuẩn bị file ' + format + '...',
+                text: 'Hệ thống đang trích xuất 14 collections. File sẽ tự động tải xuống trong giây lát.',
+                timer: 3500,
+                showConfirmButton: false
+            });
+        }
+
+        // Xác nhận khôi phục từ file tải lên
+        function submitUploadRestore() {
+            var fileInput = document.getElementById('backupFile');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Chưa chọn file',
+                    text: 'Vui lòng chọn file .zip hoặc .json sao lưu trước khi nhấn khôi phục!'
+                });
+                return;
+            }
+
+            var fileName = fileInput.files[0].name;
+
+            Swal.fire({
+                title: 'Xác nhận khôi phục dữ liệu?',
+                html: 'Bạn đang chuẩn bị khôi phục cơ sở dữ liệu từ file <b>' + fileName + '</b>.<br><span class="text-danger">Dữ liệu hiện tại sẽ bị ghi đè!</span>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ffc107',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<span class="text-dark fw-bold">Tôi đồng ý, tiến hành khôi phục</span>',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Đang khôi phục dữ liệu...',
+                        text: 'Vui lòng chờ trong khi hệ thống nạp dữ liệu vào MongoDB và đồng bộ ID sequence.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    document.getElementById('formRestoreUpload').submit();
+                }
+            });
+        }
+
+        // Xác nhận khôi phục từ thư mục mặc định Database_backup
+        function confirmDefaultRestore() {
+            Swal.fire({
+                title: 'Khôi phục về Database gốc (14 Collections)?',
+                html: 'Thao tác này sẽ đọc dữ liệu từ thư mục <b>Database_backup</b> trên server và khôi phục toàn bộ 14 collections về trạng thái ban đầu.<br><br><span class="text-danger fw-bold"><i class="fas fa-exclamation-circle me-1"></i>Toàn bộ dữ liệu mới chỉnh sửa sẽ bị thay thế!</span>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Đồng ý khôi phục gốc',
+                cancelButtonText: 'Hủy bỏ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Đang khôi phục từ bản sao lưu gốc...',
+                        text: 'Vui lòng chờ trong giây lát...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    document.getElementById('formRestoreDefault').submit();
+                }
+            });
+        }
+
+        // Hiển thị thông báo TempData
+        @if (TempData["Success"] != null || TempData["SuccessMessage"] != null)
+        {
+            var msg = TempData["Success"] ?? TempData["SuccessMessage"];
+            // Ensure both are marked for deletion by reading them
+            var dummy1 = TempData["Success"];
+            var dummy2 = TempData["SuccessMessage"];
+            <text>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: '@Html.Raw(msg.ToString())',
+                timer: 4000,
+                showConfirmButton: true
+            });
+            </text>
+        }
+        
+        @if (TempData["Error"] != null || TempData["ErrorMessage"] != null)
+        {
+            var errMsg = TempData["Error"] ?? TempData["ErrorMessage"];
+            var dummy3 = TempData["Error"];
+            var dummy4 = TempData["ErrorMessage"];
+            <text>
+            Swal.fire({
+                icon: 'error',
+                title: 'Có lỗi xảy ra',
+                text: '@Html.Raw(errMsg.ToString())'
+            });
+            </text>
+        }
+    </script>
+}
+
+@section styles {
+    <style>
+        .card {
+            border-radius: 10px;
+        }
+        .form-label {
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .form-control {
+            border: 1px solid #ced4da;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        .bg-light-subtle {
+            background-color: #fbfbfb;
+        }
+    </style>
+}
+
+
+

@@ -1,0 +1,828 @@
+@model List<DoAnNoSQL.Models.QLDonHangViewModel>
+
+@{
+    ViewBag.Title = "DonHang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string TuKhoa = ViewBag.TuKhoa;
+}
+
+<div id="orders" class="tab-content active">
+    <h1 class="mb-4"> <i class="fas fa-shopping-cart text-primary me-2"></i>Quản lý đơn hàng</h1>
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <form action="TimDonHang" method="get" class="input-group w-50">
+                <input type="text" class="form-control" id="timdh" name="timdh" placeholder="Tìm kiếm đơn hàng...">
+                <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="d-flex gap-2">
+                <select class="form-select" style="width: auto;" id="filterOrder" onchange="location = this.value;">
+                    <option value="@Url.Action("DonHang", "Admin")" @(string.IsNullOrEmpty(ViewBag.TuKhoa) ? "selected" : "")>Tất cả</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = 1 })" @(ViewBag.TuKhoa == "1" ? "selected" : "")>Chờ xác nhận</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = 2 })" @(ViewBag.TuKhoa == "2" ? "selected" : "")>Đã xác nhận</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = 3 })" @(ViewBag.TuKhoa == "3" ? "selected" : "")>Đang giao</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = 4 })" @(ViewBag.TuKhoa == "4" ? "selected" : "")>Đã giao</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = 5 })" @(ViewBag.TuKhoa == "5" ? "selected" : "")>Hoàn thành</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = -1 })" @(ViewBag.TuKhoa == "-1" ? "selected" : "")>Đã hủy</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = 6 })" @(ViewBag.TuKhoa == "6" ? "selected" : "")>Yêu cầu trả hàng</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = 7 })" @(ViewBag.TuKhoa == "7" ? "selected" : "")>Đã trả hàng</option>
+                    <option value="@Url.Action("LocDonHang", "Admin", new { trangthai = "store" })" @(ViewBag.TuKhoa == "store" ? "selected" : "")>Mua tại cửa hàng</option>
+                </select>
+                <button class="btn btn-success btn-icon" onclick="exportAllOrders()" title="Xuất Excel">
+                    <i class="fas fa-file-excel"></i>
+                </button>
+                <button class="btn btn-secondary btn-icon" onclick="printPage()" title="In danh sách">
+                    <i class="fas fa-print"></i>
+                </button>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover" id="orderTable">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên khách hàng</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th class="text-center">Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+                @foreach (var item in Model)
+                {
+                    <tr id="order-@item.Id" onclick="toggleOrderRow(@item.Id)" style="cursor: pointer;" title="Nhấn để xem chi tiết">
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td>@item.MaDonHang</td>
+                        <td>@item.TenKhachHang</td>
+                        <td>@item.TongTien</td>
+                        <td>
+                            @{
+                                string statusBadge = "";
+                                string statusText = "";
+                                switch (item.TrangThai)
+                                {
+                                    case 1:
+                                        statusBadge = "bg-warning";
+                                        statusText = "Chờ xác nhận";
+                                        break;
+                                    case 2:
+                                        statusBadge = "bg-info";
+                                        statusText = "Đã xác nhận";
+                                        break;
+                                    case 3:
+                                        statusBadge = "bg-primary";
+                                        statusText = "Đang giao";
+                                        break;
+                                    case 4:
+                                        statusBadge = "bg-success";
+                                        statusText = "Đã giao";
+                                        break;
+                                    case 5:
+                                        statusBadge = "bg-dark";
+                                        statusText = "Hoàn thành";
+                                        break;
+                                    case 6:
+                                        statusBadge = "bg-warning text-dark";
+                                        statusText = "Yêu cầu trả hàng";
+                                        break;
+                                    case 7:
+                                        statusBadge = "bg-secondary";
+                                        statusText = "Đã trả hàng";
+                                        break;
+                                    case -1:
+                                        statusBadge = "bg-danger";
+                                        statusText = "Đã hủy";
+                                        break;
+                                    default:
+                                        statusBadge = "bg-secondary";
+                                        statusText = "Không xác định";
+                                        break;
+                                }
+                            }
+                            <span class="badge @statusBadge">@statusText</span>
+                        </td>
+                        <td>@item.NgayTao</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-info text-white me-1" onclick="inHoaDon(@item.Id)" title="In hóa đơn">
+                                <i class="fas fa-print"></i>
+                            </button>
+                            @if (item.TrangThai == -1)
+                            {
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle"></i> Đã hoàn tiền
+                                </span>
+                            }
+                            else if (item.TrangThai == 4)
+                            {
+                                <button type="button" class="btn btn-sm btn-success" onclick="hoanThanhDonHang(@item.Id)" title="Hoàn thành đơn hàng">
+                                    <i class="fas fa-check-double"></i>
+                                </button>
+                            }
+                            else if (item.TrangThai == 5)
+                            {
+                                <span class="badge bg-success">Đã hoàn thành</span>
+                            }
+                            else if (item.TrangThai == 6)
+                            {
+                                <button class="btn btn-sm btn-success" onclick="xacNhanTraHang(@item.Id)" title="Xác nhận đã nhận hàng trả lại">
+                                    <i class="fas fa-check-circle"></i>
+                                </button>
+                            }
+                            else if (item.TrangThai == 7)
+                            {
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-box-open"></i> Đã trả hàng
+                                </span>
+                            }
+                            else if (item.TrangThai < 4)
+                            {
+                                if (Session["Role"] != null && Convert.ToInt32(Session["Role"]) == 4 && item.TrangThai == 1)
+                                {
+                                    <span class="badge bg-warning text-dark"><i class="fas fa-clock"></i> Đợi duyệt</span>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="capNhatTrangThai(@item.Id, @item.TrangThai)" title="Cập nhật trạng thái">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                    <tr style="padding: 0; border: 0;">
+                        <td colspan="7" class="p-0" style="border: 0;">
+                            <div id="collapse-@item.Id" style="display: none; background-color: #f8f9fa;">
+                                <div class="p-3">
+                                    <strong>Thông tin liên hệ & Thanh toán:</strong>
+                                    <ul class="mb-0 mt-2">
+                                        <li><strong>Số điện thoại:</strong> @item.SoDienThoai</li>
+                                        <li><strong>Email:</strong> @item.Email</li>
+                                        <li><strong>Địa chỉ giao hàng:</strong> @item.DiaChi</li>
+                                        <li><strong>Loại thanh toán:</strong> @item.PhuongThucThanhToan</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "DonHang" : "TimDonHang",
+                    new { timdh = ViewBag.TuKhoa, page = currentPage - 1 })">Trước</a>
+                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action(
+                        String.IsNullOrEmpty(ViewBag.TuKhoa) ? "DonHang" : "TimDonHang",
+                        new { timdh = ViewBag.TuKhoa, page = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "DonHang" : "TimDonHang",
+                    new { timdh = ViewBag.TuKhoa, page = currentPage + 1 })">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+    <script>
+        function toggleOrderRow(id) {
+            var target = document.getElementById('collapse-' + id);
+            if (target) {
+                // Tắt hoàn toàn hiệu ứng Collapse của Bootstrap, chuyển sang dùng style display cơ bản
+                // Để khắc phục triệt để lỗi "bấm vào hiện ra 1 giây rồi mất để lại khoảng trống" do Bootstrap tính toán sai chiều cao TR
+                if (target.style.display === 'none' || target.style.display === '') {
+                    target.style.display = 'block';
+                } else {
+                    target.style.display = 'none';
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+        // Ngăn chặn sự kiện click lan truyền từ các nút chức năng để không mở/đóng dòng ẩn
+        const actionButtons = document.querySelectorAll('#orderTable tbody tr .btn');
+        actionButtons.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
+
+<!-- Modal In Hóa Đơn -->
+<div class="modal fade" id="printInvoiceModal" tabindex="-1" aria-labelledby="printInvoiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="printInvoiceModalLabel"><i class="fas fa-file-invoice"></i> Chi Tiết Hóa Đơn</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="invoicePrintArea">
+                <!-- Nội dung hóa đơn -->
+                <div class="invoice-container p-4">
+                    <div class="text-center mb-4">
+                        <h2 class="text-primary fw-bold text-nowrap m-0" style="font-size: 1.6rem; letter-spacing: 1px;">@DoAnNoSQL.Helpers.SettingsHelper.GetValue("TenCuaHang", "CỬA HÀNG THIẾT BỊ ĐIỆN TỬ - TTT")</h2>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-7">
+                            <p class="mb-1"><i class="fas fa-map-marker-alt me-1"></i> @DoAnNoSQL.Helpers.SettingsHelper.GetValue("DiaChiCuaHang", "140 Lê Trọng Tấn, P. Tây Thạnh, TP. HCM")</p>
+                            <p class="mb-1"><i class="fas fa-envelope me-1"></i> @DoAnNoSQL.Helpers.SettingsHelper.GetValue("EmailLienHe", "khoaluancunhan@gmail.com")</p>
+                            <p class="mb-1"><i class="fas fa-phone me-1"></i> @DoAnNoSQL.Helpers.SettingsHelper.GetValue("Hotline", "028 3816 3318")</p>
+                        </div>
+                        <div class="col-5 text-end">
+                            <h4 class="fw-bold text-secondary mb-1">HÓA ĐƠN</h4>
+                            <p class="mb-0 small text-muted">Mã đơn: <strong id="invMaDon" class="text-dark"></strong></p>
+                        </div>
+                    </div>
+                    
+                    <hr />
+
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <p class="mb-2 text-muted fw-bold">KHÁCH HÀNG:</p>
+                            <p class="mb-1 text-nowrap"><span class="pe-1">Tên khách hàng:</span> <span class="fs-5" id="invTenKhach"></span></p>
+                            <p class="mb-1 text-nowrap"><span class="pe-1">SĐT:</span> <span id="invSdtKhach"></span></p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <p class="mb-1 text-muted fw-bold">THÔNG TIN THANH TOÁN:</p>
+                            <p class="mb-1">Ngày đặt: <strong id="invNgayDat"></strong></p>
+                            <p class="mb-1">Người lập: <strong id="invNguoiLap">@Session["UserName"]</strong></p>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-center">STT</th>
+                                <th>Sản Phẩm</th>
+                                <th class="text-center">Số Lượng</th>
+                                <th class="text-end">Đơn Giá</th>
+                                <th class="text-end">Thành Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invChiTietBody">
+                        </tbody>
+                    </table>
+
+                    <div class="row mt-4">
+                        <div class="col-7">
+                            <p class="text-muted fst-italic small mb-0">* Ghi chú: Vui lòng kiểm tra kỹ sản phẩm trước khi nhận.</p>
+                            <p class="text-muted fst-italic small mb-0">* Hàng đã mua có thể đổi size/mẫu trong vòng 7 ngày (giữ nguyên tem mác).</p>
+                        </div>
+                        <div class="col-5">
+                            <div class="d-flex justify-content-between border-top pt-2">
+                                <h5 class="fw-bold text-nowrap me-2">TỔNG CỘNG:</h5>
+                                <h5 class="fw-bold text-primary text-nowrap" id="invTongTien"></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Code Chuyển Khoản (Căn giữa tuyệt đối) -->
+                    <div class="qr-payment-section mt-4 mb-3 text-center" id="qrPaymentSection" style="text-align: center; width: 100%; display: block; margin: 16px auto;">
+                        <div class="text-center" style="text-align: center; width: 100%; margin: 0 auto; display: inline-block;">
+                            <p class="fw-bold text-primary mb-2 small text-center" style="text-align: center; margin-bottom: 8px;">
+                                <i class="fas fa-qrcode me-1"></i>Quét mã QR để chuyển khoản thanh toán
+                            </p>
+                            <img id="invQRCode" src="" alt="QR Chuyển khoản" style="display: block; margin: 0 auto; margin-left: auto; margin-right: auto; width: 220px; height: 220px; object-fit: contain; border: 1px solid #dee2e6; border-radius: 8px; padding: 4px; background: white;" />
+                        </div>
+                    </div>
+
+                    <!-- <div class="row mt-3 text-center" style="page-break-inside: avoid; break-inside: avoid;">
+                        <div class="col-6">
+                            <h6 class="fw-bold">Khách hàng</h6>
+                            <p class="text-muted fst-italic">(Ký, ghi rõ họ tên)</p>
+                            <p class="mt-3 fw-bold" id="invTenKhachKy" style="min-height: 24px;"></p>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="fw-bold">Người lập phiếu</h6>
+                            <p class="text-muted fst-italic">(Ký, ghi rõ họ tên)</p>
+                            <p class="mt-3 fw-bold" style="min-height: 24px;">@Session["UserName"]</p>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="printInvoice()"><i class="fas fa-print"></i> In Hóa Đơn</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Ẩn các nút khi in */
+    .print-hide {
+        display: none !important;
+    }
+    
+    /* Giao diện cho phép sửa tên, sđt */
+    .editable-field {
+        border-bottom: 1px dashed #ccc;
+        padding: 0 4px;
+        min-width: 100px;
+        display: inline-block;
+        transition: background-color 0.2s;
+    }
+    .editable-field:hover, .editable-field:focus {
+        background-color: #f8f9fa;
+        outline: none;
+        border-bottom-color: #0d6efd;
+    }
+
+    /* Thêm logo chìm cho hóa đơn */
+    .invoice-container {
+        position: relative;
+        z-index: 1;
+    }
+    .invoice-container::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        background-image: url('/Content/images/@DoAnNoSQL.Helpers.SettingsHelper.GetValue("LogoCuaHang", "logo.png")');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.15;
+        z-index: -1;
+        pointer-events: none;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    /* QR Payment Section - in ra giữ màu và căn giữa tuyệt đối */
+    .qr-payment-section {
+        width: 100% !important;
+        text-align: center !important;
+        margin: 16px auto !important;
+        display: block !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+    .qr-payment-section .text-center,
+    .qr-payment-section p {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .qr-box {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    @@media print {
+        .qr-payment-section {
+            width: 100% !important;
+            text-align: center !important;
+            margin: 16px auto !important;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .qr-payment-section * {
+            text-align: center !important;
+        }
+        .qr-box {
+            background: #f0f7ff !important;
+            border: 2px dashed #0d6efd !important;
+        }
+    }
+
+    /* Ép buộc kích thước QR luôn cố định và căn giữa kể cả khi in */
+    #invQRCode {
+        display: block !important;
+        margin: 0 auto !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 220px !important;
+        height: 220px !important;
+        min-width: 220px !important;
+        min-height: 220px !important;
+        max-width: 220px !important;
+        max-height: 220px !important;
+    }
+</style>
+
+@section scripts {
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Export all orders to Excel
+    async function exportAllOrders() {
+        try {
+            // Show Loading
+            Swal.fire({
+                title: 'Đang xử lý...',
+                text: 'Đang tải dữ liệu toàn bộ đơn hàng...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+            
+            // Fetch Data from server
+            const response = await fetch('@Url.Action("GetOrdersForExport", "Admin")');
+            const data = await response.json();
+            
+            if (!data || data.length === 0) {
+                Swal.fire('Thông báo', 'Không có dữ liệu để xuất', 'info');
+                return;
+            }
+            
+            // Check for error
+            if (data.error) {
+                Swal.fire('Lỗi', 'Không thể tải dữ liệu: ' + data.error, 'error');
+                return;
+            }
+            
+            // Function to get status text
+            function getTrangThaiText(status) {
+                switch(status) {
+                    case 1: return 'Chờ xác nhận';
+                    case 2: return 'Đã xác nhận';
+                    case 3: return 'Đang giao';
+                    case 4: return 'Đã giao';
+                    case 5: return 'Hoàn thành';
+                    case 6: return 'Yêu cầu trả hàng';
+                    case 7: return 'Đã trả hàng';
+                    case -1: return 'Đã hủy';
+                    default: return 'Không xác định';
+                }
+            }
+            
+            // Map data to Vietnamese headers
+            const formattedData = data.map(item => ({
+                "ID": item.ID,
+                "Mã đơn hàng": item.MaDonHang || '',
+                "Tên khách hàng": item.TenKhachHang || '',
+                "Số điện thoại": item.SoDienThoai || '',
+                "Email": item.Email || '',
+                "Địa chỉ": item.DiaChi || '',
+                "Tổng tiền": item.TongTien ? item.TongTien.toLocaleString('vi-VN') + ' đ' : '0 đ',
+                "Số lượng SP": item.SoLuongSanPham || 0,
+                "PT Thanh toán": item.PhuongThucThanhToan || '',
+                "PT Vận chuyển": item.PhuongThucVanChuyen || '',
+                "Mã giảm giá": item.MaGiamGia || '',
+                "Trạng thái": getTrangThaiText(item.TrangThai),
+                "Ngày tạo": item.NgayTao ? new Date(item.NgayTao).toLocaleDateString('vi-VN') : '',
+                "Ngày cập nhật": item.NgayCapNhat ? new Date(item.NgayCapNhat).toLocaleDateString('vi-VN') : ''
+            }));
+            
+            // Create Worksheet
+            const ws = XLSX.utils.json_to_sheet(formattedData);
+            
+            // --- AUTO WIDTH LOGIC ---
+            const range = XLSX.utils.decode_range(ws['!ref']);
+            const colWidths = [];
+            
+            for (let C = range.s.c; C <= range.e.c; ++C) {
+                let maxLen = 10; // Min width
+                for (let R = range.s.r; R <= range.e.r; ++R) {
+                    const cellRef = XLSX.utils.encode_cell({ c: C, r: R });
+                    const cell = ws[cellRef];
+                    if (cell && cell.v) {
+                        const len = (cell.v.toString().length + 2); // Add padding
+                        if (len > maxLen) maxLen = len;
+                    }
+                }
+                colWidths.push({ wch: maxLen });
+            }
+            ws['!cols'] = colWidths;
+            // ------------------------
+            
+            // Create Workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "DanhSachDonHang");
+            
+            // Download file
+            const filename = `DanhSachDonHang_Full_${new Date().toISOString().slice(0,10)}.xlsx`;
+            XLSX.writeFile(wb, filename);
+            
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                html: `Đã xuất <strong>${data.length}</strong> đơn hàng ra file Excel!`,
+                timer: 2500,
+                showConfirmButton: false
+            });
+        } catch (error) {
+            console.error('Export error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Không thể xuất file: ' + error.message
+            });
+        }
+    }
+
+    function hoanThanhDonHang(orderId) {
+        Swal.fire({
+            title: 'Xác nhận hoàn thành đơn hàng?',
+            text: 'Đơn hàng đã được giao thành công và khách hàng đã nhận được hàng?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Xác nhận hoàn thành',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '@Url.Action("HoanThanhDonHang", "Admin")',
+                    type: 'POST',
+                    data: { id: orderId },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire('Thành công!', response.message, 'success')
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi cập nhật trạng thái', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    function capNhatTrangThai(orderId, currentStatus) {
+        var userRole = @(Session["Role"] ?? 0);
+        
+        const statusOptions = {
+            1: { next: 2, text: 'Xác nhận đơn hàng' },
+            2: { next: 3, text: 'Chuyển sang đang giao' },
+            3: { next: 4, text: 'Xác nhận đã giao' }
+        };
+
+        const option = statusOptions[currentStatus];
+        if (!option) {
+            Swal.fire('Thông báo', 'Không thể cập nhật trạng thái này', 'info');
+            return;
+        }
+        
+        // Nhân viên kho (Role 4) không được xác nhận đơn (trạng thái 1->2)
+        if (userRole === 4 && currentStatus === 1) {
+            Swal.fire('Truy cập bị từ chối', 'Nhân viên kho không có quyền xác nhận đơn hàng mới. Vui lòng đợi Sales xác nhận.', 'error');
+            return;
+        }
+
+        Swal.fire({
+            title: 'Cập nhật trạng thái?',
+            text: option.text + '?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3b82f6',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '@Url.Action("CapNhatTrangThaiDonHang", "Admin")',
+                    type: 'POST',
+                    data: {
+                        id: orderId,
+                        trangThaiMoi: option.next
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire('Thành công!', response.message, 'success')
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi cập nhật trạng thái', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    function xacNhanTraHang(orderId) {
+        Swal.fire({
+            title: 'Xác nhận đã nhận hàng trả lại?',
+            html: `
+                <div class="text-start">
+                    <p class="text-info"><i class="fas fa-info-circle"></i> <strong>Lưu ý:</strong></p>
+                    <ul class="text-start">
+                        <li>Xác nhận đã nhận được hàng trả lại từ khách</li>
+                        <li>Số lượng sản phẩm đã được hoàn vào kho</li>
+                        <li>Trạng thái đơn hàng sẽ chuyển sang "Đã trả hàng"</li>
+                        <li>Thao tác này không thể hoàn tác!</li>
+                    </ul>
+                    <p>Bạn có chắc chắn đã nhận được hàng trả lại?</p>
+                </div>
+            `,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: '<i class="fas fa-check-circle"></i> Xác nhận đã trả hàng',
+            cancelButtonText: 'Hủy',
+            width: '600px'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show loading
+                Swal.fire({
+                    title: 'Đang xử lý...',
+                    html: 'Vui lòng đợi trong giây lát',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: '@Url.Action("XacNhanTraHang", "Admin")',
+                    type: 'POST',
+                    data: { id: orderId },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                title: 'Xác nhận thành công!',
+                                html: `
+                                    <div class="text-start">
+                                        <p class="text-success"><i class="fas fa-check-circle"></i> ${response.message}</p>
+                                        <hr>
+                                        <p><strong>Đã hoàn tất:</strong></p>
+                                        <ul>
+                                            <li>✓ Đã nhận hàng trả lại</li>
+                                            <li>✓ Số lượng sản phẩm đã trong kho</li>
+                                            <li>✓ Đơn hàng đã hoàn tất xử lý</li>
+                                        </ul>
+                                    </div>
+                                `,
+                                icon: 'success',
+                                confirmButtonColor: '#10b981'
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire('Lỗi!', response.message, 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi xác nhận', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    // ===== CẤU HÌNH NGÂN HÀNG CHO QR CODE =====
+    // Thay đổi thông tin bên dưới thành thông tin ngân hàng thực tế của bạn
+    var BANK_CONFIG = {
+        BANK_ID: 'TECHCOMBANK',              // Mã ngân hàng (VD: MB, VCB, TCB, ACB, BIDV, VPB, TPB...)
+        ACCOUNT_NO: '8939796898',   // Số tài khoản ngân hàng
+        ACCOUNT_NAME: 'KHOA LUAN CU NHAN', // Tên chủ tài khoản (viết HOA, không dấu)
+        BANK_NAME: 'Techcombank',       // Tên hiển thị ngân hàng
+        TEMPLATE: 'qr_only'        // Template QR: compact, compact2, qr_only, print
+    };
+    // ============================================
+
+    /**
+     * Tạo URL ảnh QR VietQR
+     * @@param {number} amount - Số tiền cần thanh toán
+     * @@param {string} addInfo - Nội dung chuyển khoản
+     * @@returns {string} URL ảnh QR
+     */
+    function buildVietQRUrl(amount, addInfo) {
+        var baseUrl = 'https://img.vietqr.io/image/';
+        var url = baseUrl + BANK_CONFIG.BANK_ID + '-' + BANK_CONFIG.ACCOUNT_NO + '-' + BANK_CONFIG.TEMPLATE + '.png';
+        url += '?amount=' + amount;
+        url += '&addInfo=' + encodeURIComponent(addInfo);
+        url += '&accountName=' + encodeURIComponent(BANK_CONFIG.ACCOUNT_NAME);
+        return url;
+    }
+
+    function inHoaDon(orderId) {
+        $.ajax({
+            url: '@Url.Action("GetOrderDetails", "Admin")',
+            type: 'GET',
+            data: { id: orderId },
+            success: function (res) {
+                if (res.success) {
+                    $('#invMaDon').text('#' + res.MaDonHang);
+                    $('#invTenKhach').text(res.TenKhachHang);
+                    $('#invTenKhachKy').text(res.TenKhachHang);
+                    $('#invEmailKhach').text(res.Email || '');
+                    $('#invSdtKhach').text(res.SoDienThoai || '');
+                    $('#invNgayDat').text(res.NgayTao);
+                    $('#invTrangThai').text(res.TrangThaiText);
+                    $('#invPTTT').text(res.PhuongThucThanhToan);
+                    $('#invTongTien').text(res.TongTien.toLocaleString('vi-VN') + ' VNĐ');
+
+                    var tbody = '';
+                    if (res.ChiTiet && res.ChiTiet.length > 0) {
+                        res.ChiTiet.forEach(function(item, index) {
+                            tbody += `
+                                <tr>
+                                    <td class="text-center">${index + 1}</td>
+                                    <td>${item.TenSanPham}</td>
+                                    <td class="text-center">${item.SoLuong}</td>
+                                    <td class="text-end">${item.Gia.toLocaleString('vi-VN')} VNĐ</td>
+                                    <td class="text-end">${item.ThanhTien.toLocaleString('vi-VN')} VNĐ</td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        tbody = `<tr><td colspan="5" class="text-center">Không có sản phẩm nào</td></tr>`;
+                    }
+                    $('#invChiTietBody').html(tbody);
+
+                    // ===== TẠO QR CODE CHUYỂN KHOẢN =====
+                    var tongTienRaw = res.TongTien; // Số tiền dạng số nguyên
+                    var maDon = res.MaDonHang || orderId;
+                    var noiDungCK = 'Thanh toan DH ' + maDon; // Nội dung chuyển khoản
+                    var qrUrl = buildVietQRUrl(tongTienRaw, noiDungCK);
+
+                    // Cập nhật ảnh QR và thông tin ngân hàng
+                    $('#invQRCode').attr('src', qrUrl);
+                    $('#invBankName').text(BANK_CONFIG.BANK_NAME);
+                    $('#invAccountName').text(BANK_CONFIG.ACCOUNT_NAME);
+                    $('#invAccountNo').text(BANK_CONFIG.ACCOUNT_NO);
+                    $('#invQRAmount').text(tongTienRaw.toLocaleString('vi-VN') + ' VNĐ');
+                    $('#invTransferNote').text(noiDungCK);
+                    // ====================================
+                    
+                    // Sử dụng getInstance hoặc khởi tạo mới để tránh lỗi modal hiện ra rồi tắt liền
+                    var modalEl = document.getElementById('printInvoiceModal');
+                    var printModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                    printModal.show();
+                } else {
+                    Swal.fire('Lỗi!', res.message, 'error');
+                }
+            },
+            error: function () {
+                Swal.fire('Lỗi!', 'Không thể tải thông tin hóa đơn', 'error');
+            }
+        });
+    }
+
+    // Sync edited customer name to signature area (with null check)
+    var invTenKhachInput = document.getElementById('invTenKhach');
+    if (invTenKhachInput) {
+        invTenKhachInput.addEventListener('input', function() {
+            var kyElem = document.getElementById('invTenKhachKy');
+            if (kyElem) kyElem.textContent = this.textContent;
+        });
+    }
+
+    function printInvoice() {
+        var printContent = document.getElementById('invoicePrintArea').innerHTML;
+        var printWindow = window.open('', '_blank');
+        
+        printWindow.document.write('<html><head><title>In Hóa Đơn</title>');
+        
+        // Lấy tất cả các thẻ link css từ trang hiện tại (Bootstrap, FontAwesome...)
+        var styles = document.querySelectorAll('link[rel="stylesheet"]');
+        styles.forEach(function(style) {
+            printWindow.document.write('<link rel="stylesheet" href="' + style.href + '">');
+        });
+        
+        // Copy các thẻ style để nhận CSS logo chìm
+        var styleTags = document.querySelectorAll('style');
+        styleTags.forEach(function(s) {
+            printWindow.document.write('<style>' + s.innerHTML + '</style>');
+        });
+        
+        printWindow.document.write('<style>@@page { margin: 10mm 15mm; } body { padding: 0; margin: 0; background-color: white; } .invoice-container { max-width: 800px; margin: 0 auto; page-break-after: avoid; } .editable-field { border: none !important; background: transparent !important; padding: 0 !important; } .qr-payment-section { width: 100% !important; text-align: center !important; margin: 16px auto !important; } .qr-payment-section * { text-align: center !important; } #invQRCode { display: block !important; margin: 0 auto !important; margin-left: auto !important; margin-right: auto !important; width: 220px !important; height: 220px !important; }</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(printContent);
+        printWindow.document.write('</body></html>');
+        
+        printWindow.document.close();
+        
+        // Đợi CSS load xong rồi mới gọi in
+        setTimeout(function() {
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }, 500);
+    }
+</script>
+}
+
+
+

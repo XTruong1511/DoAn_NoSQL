@@ -1,0 +1,31 @@
+## Visual Studio Cache & Temporary Files
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+## Build Results
+[Bb]in/
+[Oo]bj/
+
+## NuGet
+# Thường nên lưu packages.config và bỏ qua thư mục packages (nếu dùng nuget restore)
+# packages/
+
+## Python Crawler Cache & Logs
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+Crawler/debug.html
+
+## OS Generated Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Ignore sensitive settings
+mailSettings.config

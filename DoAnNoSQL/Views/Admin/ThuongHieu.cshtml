@@ -1,0 +1,129 @@
+@model List<tb_ThuongHieu>
+@{
+    ViewBag.Title = "ThuongHieu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string TuKhoa = ViewBag.TuKhoa;
+}
+
+<div id="brands" class="tab-content active">
+    <h1 class="mb-4"><i class="fas fa-tags text-primary me-2"></i>Quản lý thương hiệu</h1>
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <form action="TimThuongHieu" method="get" class="input-group w-50">
+                <input type="text" class="form-control" id="timth" name="timth" placeholder="Tìm kiếm thương hiệu...">
+                <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="d-flex gap-2">
+                <button class="btn btn-success btn-icon" onclick="exportTableToExcel('brandTable', 'DanhSachThuongHieu_' + new Date().toISOString().slice(0,10) + '.xlsx')" title="Xuất Excel">
+                    <i class="fas fa-file-excel"></i>
+                </button>
+                <a href="@Url.Action("formThemTH", "Admin")" class="btn btn-primary btn-icon" title="Thêm thương hiệu">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover" id="brandTable">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Logo</th>
+                    <th>Tên thuong hiệu</th>
+                    <th>Bí danh</th>
+                    <th>Ngày tạo</th>
+                    <th>Hiển thị</th>
+                    <th class="text-center">Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="brandTableBody">
+                @foreach (var item in Model)
+                {
+                    <tr id="brand-@item.Id">
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td class="text-center align-middle">
+                            @if (!string.IsNullOrEmpty(item.HinhAnh))
+                            {
+                                <img src="@Url.Content("~/Content/Images/" + item.HinhAnh)" 
+                                     alt="@item.TenThuongHieu" 
+                                     class="img-thumbnail"
+                                     style="max-width: 100px; max-height: 50px; object-fit: contain;"
+                                     onerror="this.src='@Url.Content("~/Content/Images/no-image.png")'; this.onerror=null;">
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-image"></i> Chua có logo
+                                </span>
+                            }
+                        </td>
+                        <td>@item.TenThuongHieu</td>
+                        <td>@item.BiDanh</td>
+                        <td>@(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy HH:mm") : "")</td>
+                        <td>
+                            <div class="form-check form-switch d-flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" @(item.HienThi == true ? "checked" : "") disabled>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group justify-content-center" role="group">
+                                <a href="@Url.Action("formSuaTH", "Admin", new { id = item.Id })" class="btn btn-sm btn-warning" title="Sửa thương hiệu">
+                                    <i class="fas fa-pen-to-square"></i>
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDeleteBrand(@item.Id, '@item.TenThuongHieu')" title="Xóa thương hiệu">
+                                    <i class="fas fa-trash-can"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        
+        <script>
+        function confirmDeleteBrand(id, brandName) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                html: `Bạn có chắc chắn muốn xóa thương hiệu <strong>"${brandName}"</strong>?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fas fa-trash-can"></i> Xóa',
+                cancelButtonText: '<i class="fas fa-times"></i> Hủy',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("XoaTH", "Admin")' + '?id=' + id;
+                }
+            });
+        }
+        </script>
+        
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "ThuongHieu" : "TimThuongHieu",
+                    new { timth = ViewBag.TuKhoa, page = currentPage - 1 })">Trước</a>
+                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action(
+                        String.IsNullOrEmpty(ViewBag.TuKhoa) ? "ThuongHieu" : "TimThuongHieu",
+                        new { timth = ViewBag.TuKhoa, page = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "ThuongHieu" : "TimThuongHieu",
+                    new { timth = ViewBag.TuKhoa, page = currentPage + 1 })">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+

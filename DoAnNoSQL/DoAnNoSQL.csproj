@@ -1,0 +1,898 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC8943D2-B9E3-4257-B2E0-BBBB702E24F6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DoAnNoSQL</RootNamespace>
+    <AssemblyName>DoAnNoSQL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44393</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DnsClient, Version=1.6.1.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.6.1\lib\net471\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.76.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.76.0\lib\net462\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.76.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.76.0\lib\net462\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.76.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.76.0\lib\net462\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=3.11.1.0, Culture=neutral, PublicKeyToken=94992a530f44e321, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.3.11.1\lib\net472\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=3.11.1.0, Culture=neutral, PublicKeyToken=94992a530f44e321, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.3.11.1\lib\net472\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Encryption, Version=3.11.1.0, Culture=neutral, PublicKeyToken=94992a530f44e321, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Encryption.3.11.1\lib\net472\MongoDB.Driver.Encryption.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress, Version=0.48.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.48.1\lib\netstandard2.0\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="Snappier, Version=1.3.1.0, Culture=neutral, PublicKeyToken=a1b25124e6e13a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Snappier.1.3.1\lib\net472\Snappier.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.5.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.8.0.0\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ZstdSharp, Version=0.7.3.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZstdSharp.Port.0.7.3\lib\net461\ZstdSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AdminController.BaoHanh.cs" />
+    <Compile Include="Controllers\AdminController.DanhMuc.cs" />
+    <Compile Include="Controllers\AdminController.DonHang.cs" />
+    <Compile Include="Controllers\AdminController.KhuyenMai.cs" />
+    <Compile Include="Controllers\AdminController.Misc.cs" />
+    <Compile Include="Controllers\AdminController.SanPham.cs" />
+    <Compile Include="Controllers\AdminController.TaiKhoan.cs" />
+    <Compile Include="Controllers\AdminController.ThuongHieu.cs" />
+    <Compile Include="Controllers\AdminController.TinTuc.cs" />
+    <Compile Include="Models\MongoDbContext.cs" />
+    <Compile Include="Models\MongoEntities.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MongoConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Models\Payments\VnPayLibrary.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChatbotController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhuyenMaiController.cs" />
+    <Compile Include="Controllers\LienHeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TaiKhoanController.cs" />
+    <Compile Include="Controllers\ThanhToanController.cs" />
+    <Compile Include="Controllers\TinTucController.cs" />
+    <Compile Include="Filters\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\BannerViewModel.cs" />
+    <Compile Include="Models\BaoHanhViewModel.cs" />
+    <Compile Include="Models\CartModels.cs" />
+    <Compile Include="Models\CheckoutViewModel.cs" />
+    <Compile Include="Models\ChiTietDonHangViewModel.cs" />
+    <Compile Include="Helpers\SettingsHelper.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\MenuDanhMucViewModel.cs" />
+    <Compile Include="Models\ProductDetailViewModel.cs" />
+    <Compile Include="Models\ProductListViewModel.cs" />
+    <Compile Include="Models\QLDonHangViewModel.cs" />
+    <Compile Include="Models\QLSP.cs" />
+    <Compile Include="Models\QLThanhToanViewModel.cs" />
+    <Compile Include="Models\RecentOrderViewModel.cs" />
+    <Compile Include="Models\TopStockProductViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\DoAnNoSQL.dll" />
+    <Content Include="bin\DoAnNoSQL.pdb" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\System.Buffers.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Memory.dll" />
+    <Content Include="bin\roslyn\System.Numerics.Vectors.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Images\639005400745821620_1_DT_IP_17_2.png" />
+    <Content Include="Content\Images\bank.jpg" />
+    <Content Include="Content\Images\banner1.jpg" />
+    <Content Include="Content\Images\banner2.jpg" />
+    <Content Include="Content\Images\banner3.jpg" />
+    <Content Include="Content\Images\banner5.jpg" />
+    <Content Include="Content\Images\DT_IP_17ProMax_1.png" />
+    <Content Include="Content\Images\DT_IP_17ProMax_2.png" />
+    <Content Include="Content\Images\DT_IP_17ProMax_3.png" />
+    <Content Include="Content\Images\DT_IP_17ProMax_4.png" />
+    <Content Include="Content\Images\DT_IP_17ProMax_5.png" />
+    <Content Include="Content\Images\DT_IP_17ProMax_6.png" />
+    <Content Include="Content\Images\DT_IP_17Pro_1.png" />
+    <Content Include="Content\Images\DT_IP_17Pro_2.png" />
+    <Content Include="Content\Images\DT_IP_17Pro_3.png" />
+    <Content Include="Content\Images\DT_IP_17Pro_4.png" />
+    <Content Include="Content\Images\DT_IP_17Pro_5.png" />
+    <Content Include="Content\Images\DT_IP_17Pro_6.png" />
+    <Content Include="Content\Images\DT_IP_17_1.png" />
+    <Content Include="Content\Images\DT_IP_17_2.png" />
+    <Content Include="Content\Images\DT_IP_17_3.png" />
+    <Content Include="Content\Images\DT_IP_17_4.png" />
+    <Content Include="Content\Images\DT_IP_17_5.png" />
+    <Content Include="Content\Images\DT_IP_17_6.png" />
+    <Content Include="Content\Images\DT_IP_Air_1.png" />
+    <Content Include="Content\Images\DT_IP_Air_2.png" />
+    <Content Include="Content\Images\DT_IP_Air_3.png" />
+    <Content Include="Content\Images\DT_IP_Air_4.png" />
+    <Content Include="Content\Images\DT_IP_Air_5.png" />
+    <Content Include="Content\Images\DT_IP_Air_6.png" />
+    <Content Include="Content\Images\DT_OPPO_FindFlip_1.png" />
+    <Content Include="Content\Images\DT_OPPO_FindFlip_2.png" />
+    <Content Include="Content\Images\DT_OPPO_FindFlip_3.png" />
+    <Content Include="Content\Images\DT_OPPO_FindFlip_4.png" />
+    <Content Include="Content\Images\DT_OPPO_FindFlip_5.png" />
+    <Content Include="Content\Images\DT_OPPO_FindFlip_6.png" />
+    <Content Include="Content\Images\DT_OPPO_FindX8Pro_1.png" />
+    <Content Include="Content\Images\DT_OPPO_FindX8Pro_2.png" />
+    <Content Include="Content\Images\DT_OPPO_FindX8Pro_3.png" />
+    <Content Include="Content\Images\DT_OPPO_FindX8Pro_4.png" />
+    <Content Include="Content\Images\DT_OPPO_FindX8Pro_5.png" />
+    <Content Include="Content\Images\DT_OPPO_FindX8Pro_6.png" />
+    <Content Include="Content\Images\DT_OPPO_Find_1.png" />
+    <Content Include="Content\Images\DT_OPPO_Find_2.png" />
+    <Content Include="Content\Images\DT_OPPO_Find_3.png" />
+    <Content Include="Content\Images\DT_OPPO_Find_4.png" />
+    <Content Include="Content\Images\DT_OPPO_Find_5.png" />
+    <Content Include="Content\Images\DT_OPPO_Find_6.png" />
+    <Content Include="Content\Images\DT_OPPO_Reno12Pro_1.png" />
+    <Content Include="Content\Images\DT_OPPO_Reno12Pro_2.png" />
+    <Content Include="Content\Images\DT_OPPO_Reno12Pro_3.png" />
+    <Content Include="Content\Images\DT_OPPO_Reno12Pro_4.png" />
+    <Content Include="Content\Images\DT_OPPO_Reno12Pro_5.png" />
+    <Content Include="Content\Images\DT_OPPO_Reno12Pro_6.png" />
+    <Content Include="Content\Images\DT_SS_A56_1.png" />
+    <Content Include="Content\Images\DT_SS_A56_2.png" />
+    <Content Include="Content\Images\DT_SS_A56_3.png" />
+    <Content Include="Content\Images\DT_SS_A56_4.png" />
+    <Content Include="Content\Images\DT_SS_A56_5.png" />
+    <Content Include="Content\Images\DT_SS_A56_6.png" />
+    <Content Include="Content\Images\DT_SS_Flip_1.png" />
+    <Content Include="Content\Images\DT_SS_Flip_2.png" />
+    <Content Include="Content\Images\DT_SS_Flip_3.png" />
+    <Content Include="Content\Images\DT_SS_Flip_4.png" />
+    <Content Include="Content\Images\DT_SS_Flip_5.png" />
+    <Content Include="Content\Images\DT_SS_Flip_6.png" />
+    <Content Include="Content\Images\DT_SS_Fold_1.png" />
+    <Content Include="Content\Images\DT_SS_Fold_2.png" />
+    <Content Include="Content\Images\DT_SS_Fold_3.png" />
+    <Content Include="Content\Images\DT_SS_Fold_4.png" />
+    <Content Include="Content\Images\DT_SS_Fold_5.png" />
+    <Content Include="Content\Images\DT_SS_Fold_6.png" />
+    <Content Include="Content\Images\DT_SS_S25Ultra_1.png" />
+    <Content Include="Content\Images\DT_SS_S25Ultra_2.png" />
+    <Content Include="Content\Images\DT_SS_S25Ultra_3.png" />
+    <Content Include="Content\Images\DT_SS_S25Ultra_4.png" />
+    <Content Include="Content\Images\DT_SS_S25Ultra_5.png" />
+    <Content Include="Content\Images\DT_SS_S25Ultra_6.png" />
+    <Content Include="Content\Images\DT_XM_15Ultra_1.png" />
+    <Content Include="Content\Images\DT_XM_15Ultra_2.png" />
+    <Content Include="Content\Images\DT_XM_15Ultra_3.png" />
+    <Content Include="Content\Images\DT_XM_15Ultra_4.png" />
+    <Content Include="Content\Images\DT_XM_15Ultra_5.png" />
+    <Content Include="Content\Images\DT_XM_15Ultra_6.png" />
+    <Content Include="Content\Images\DT_XM_15_1.png" />
+    <Content Include="Content\Images\DT_XM_15_2.png" />
+    <Content Include="Content\Images\DT_XM_15_3.png" />
+    <Content Include="Content\Images\DT_XM_15_4.png" />
+    <Content Include="Content\Images\DT_XM_15_5.png" />
+    <Content Include="Content\Images\DT_XM_15_6.png" />
+    <Content Include="Content\Images\DT_XM_RM15_1.png" />
+    <Content Include="Content\Images\DT_XM_RM15_2.png" />
+    <Content Include="Content\Images\DT_XM_RM15_3.png" />
+    <Content Include="Content\Images\DT_XM_RM15_4.png" />
+    <Content Include="Content\Images\DT_XM_RM15_5.png" />
+    <Content Include="Content\Images\DT_XM_RM15_6.png" />
+    <Content Include="Content\Images\DT_XM_RMNote14Pro+_1.png" />
+    <Content Include="Content\Images\DT_XM_RMNote14Pro+_2.png" />
+    <Content Include="Content\Images\DT_XM_RMNote14Pro+_3.png" />
+    <Content Include="Content\Images\DT_XM_RMNote14Pro+_4.png" />
+    <Content Include="Content\Images\DT_XM_RMNote14Pro+_5.png" />
+    <Content Include="Content\Images\DT_XM_RMNote14Pro+_6.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo_anker.png" />
+    <Content Include="Content\Images\logo_apple.png" />
+    <Content Include="Content\Images\logo_asus.png" />
+    <Content Include="Content\Images\logo_dell.png" />
+    <Content Include="Content\Images\logo_lenovo.png" />
+    <Content Include="Content\Images\logo_oppo.png" />
+    <Content Include="Content\Images\logo_samsung.png" />
+    <Content Include="Content\Images\logo_sony.png" />
+    <Content Include="Content\Images\logo_xiaomi.png" />
+    <Content Include="Content\Images\LT_Asus_ROG16_1.png" />
+    <Content Include="Content\Images\LT_Asus_ROG16_2.png" />
+    <Content Include="Content\Images\LT_Asus_ROG16_3.png" />
+    <Content Include="Content\Images\LT_Asus_ROG16_4.png" />
+    <Content Include="Content\Images\LT_Asus_ROG16_5.png" />
+    <Content Include="Content\Images\LT_Asus_ROG16_6.png" />
+    <Content Include="Content\Images\LT_Asus_TUF16_1.png" />
+    <Content Include="Content\Images\LT_Asus_TUF16_2.png" />
+    <Content Include="Content\Images\LT_Asus_TUF16_3.png" />
+    <Content Include="Content\Images\LT_Asus_TUF16_4.png" />
+    <Content Include="Content\Images\LT_Asus_TUF16_5.png" />
+    <Content Include="Content\Images\LT_Asus_TUF16_6.png" />
+    <Content Include="Content\Images\LT_Asus_VivoS14_1.png" />
+    <Content Include="Content\Images\LT_Asus_VivoS14_2.png" />
+    <Content Include="Content\Images\LT_Asus_VivoS14_3.png" />
+    <Content Include="Content\Images\LT_Asus_VivoS14_4.png" />
+    <Content Include="Content\Images\LT_Asus_VivoS14_5.png" />
+    <Content Include="Content\Images\LT_Asus_VivoS14_6.png" />
+    <Content Include="Content\Images\LT_Asus_ZenDUO_1.png" />
+    <Content Include="Content\Images\LT_Asus_ZenDUO_2.png" />
+    <Content Include="Content\Images\LT_Asus_ZenDUO_3.png" />
+    <Content Include="Content\Images\LT_Asus_ZenDUO_4.png" />
+    <Content Include="Content\Images\LT_Asus_ZenDUO_5.png" />
+    <Content Include="Content\Images\LT_Asus_ZenDUO_6.png" />
+    <Content Include="Content\Images\LT_Dell_Alien16_1.png" />
+    <Content Include="Content\Images\LT_Dell_Alien16_2.png" />
+    <Content Include="Content\Images\LT_Dell_Alien16_3.png" />
+    <Content Include="Content\Images\LT_Dell_Alien16_4.png" />
+    <Content Include="Content\Images\LT_Dell_Alien16_5.png" />
+    <Content Include="Content\Images\LT_Dell_Alien16_6.png" />
+    <Content Include="Content\Images\LT_Dell_Insp16_1.png" />
+    <Content Include="Content\Images\LT_Dell_Insp16_2.png" />
+    <Content Include="Content\Images\LT_Dell_Insp16_3.png" />
+    <Content Include="Content\Images\LT_Dell_Insp16_4.png" />
+    <Content Include="Content\Images\LT_Dell_Insp16_5.png" />
+    <Content Include="Content\Images\LT_Dell_Insp16_6.png" />
+    <Content Include="Content\Images\LT_Dell_LatiUltra5_1.png" />
+    <Content Include="Content\Images\LT_Dell_LatiUltra5_2.png" />
+    <Content Include="Content\Images\LT_Dell_LatiUltra5_3.png" />
+    <Content Include="Content\Images\LT_Dell_LatiUltra5_4.png" />
+    <Content Include="Content\Images\LT_Dell_LatiUltra5_5.png" />
+    <Content Include="Content\Images\LT_Dell_LatiUltra5_6.png" />
+    <Content Include="Content\Images\LT_Dell_XPS13_1.png" />
+    <Content Include="Content\Images\LT_Dell_XPS13_2.png" />
+    <Content Include="Content\Images\LT_Dell_XPS13_3.png" />
+    <Content Include="Content\Images\LT_Dell_XPS13_4.png" />
+    <Content Include="Content\Images\LT_Dell_XPS13_5.png" />
+    <Content Include="Content\Images\LT_Dell_XPS13_6.png" />
+    <Content Include="Content\Images\LT_LNV_LegiPro7_1.png" />
+    <Content Include="Content\Images\LT_LNV_LegiPro7_2.png" />
+    <Content Include="Content\Images\LT_LNV_LegiPro7_3.png" />
+    <Content Include="Content\Images\LT_LNV_LegiPro7_4.png" />
+    <Content Include="Content\Images\LT_LNV_LegiPro7_5.png" />
+    <Content Include="Content\Images\LT_LNV_LegiPro7_6.png" />
+    <Content Include="Content\Images\LT_LNV_LOQ15_1.png" />
+    <Content Include="Content\Images\LT_LNV_LOQ15_2.png" />
+    <Content Include="Content\Images\LT_LNV_LOQ15_3.png" />
+    <Content Include="Content\Images\LT_LNV_LOQ15_4.png" />
+    <Content Include="Content\Images\LT_LNV_LOQ15_5.png" />
+    <Content Include="Content\Images\LT_LNV_LOQ15_6.png" />
+    <Content Include="Content\Images\LT_LNV_TB16_1.png" />
+    <Content Include="Content\Images\LT_LNV_TB16_2.png" />
+    <Content Include="Content\Images\LT_LNV_TB16_3.png" />
+    <Content Include="Content\Images\LT_LNV_TB16_4.png" />
+    <Content Include="Content\Images\LT_LNV_TB16_5.png" />
+    <Content Include="Content\Images\LT_LNV_TB16_6.png" />
+    <Content Include="Content\Images\LT_LNV_TPX1_1.png" />
+    <Content Include="Content\Images\LT_LNV_TPX1_2.png" />
+    <Content Include="Content\Images\LT_LNV_TPX1_3.png" />
+    <Content Include="Content\Images\LT_LNV_TPX1_4.png" />
+    <Content Include="Content\Images\LT_LNV_TPX1_5.png" />
+    <Content Include="Content\Images\LT_LNV_TPX1_6.png" />
+    <Content Include="Content\Images\LT_Mac_AirM1_1.png" />
+    <Content Include="Content\Images\LT_Mac_AirM1_2.png" />
+    <Content Include="Content\Images\LT_Mac_AirM1_3.png" />
+    <Content Include="Content\Images\LT_Mac_AirM1_4.png" />
+    <Content Include="Content\Images\LT_Mac_AirM1_5.png" />
+    <Content Include="Content\Images\LT_Mac_AirM1_6.png" />
+    <Content Include="Content\Images\LT_Mac_AirM2_1.png" />
+    <Content Include="Content\Images\LT_Mac_AirM2_2.png" />
+    <Content Include="Content\Images\LT_Mac_AirM2_3.png" />
+    <Content Include="Content\Images\LT_Mac_AirM2_4.png" />
+    <Content Include="Content\Images\LT_Mac_AirM2_5.png" />
+    <Content Include="Content\Images\LT_Mac_AirM2_6.png" />
+    <Content Include="Content\Images\LT_Mac_AirM4_1.png" />
+    <Content Include="Content\Images\LT_Mac_AirM4_2.png" />
+    <Content Include="Content\Images\LT_Mac_AirM4_3.png" />
+    <Content Include="Content\Images\LT_Mac_AirM4_4.png" />
+    <Content Include="Content\Images\LT_Mac_AirM4_5.png" />
+    <Content Include="Content\Images\LT_Mac_AirM4_6.png" />
+    <Content Include="Content\Images\LT_Mac_ProM4_1.png" />
+    <Content Include="Content\Images\LT_Mac_ProM4_2.png" />
+    <Content Include="Content\Images\LT_Mac_ProM4_3.png" />
+    <Content Include="Content\Images\LT_Mac_ProM4_4.png" />
+    <Content Include="Content\Images\LT_Mac_ProM4_5.png" />
+    <Content Include="Content\Images\LT_Mac_ProM4_6.png" />
+    <Content Include="Content\Images\momo.jpg" />
+    <Content Include="Content\Images\PK_SDP_Anker_1.png" />
+    <Content Include="Content\Images\PK_SDP_Anker_2.png" />
+    <Content Include="Content\Images\PK_SDP_Anker_3.png" />
+    <Content Include="Content\Images\PK_SDP_Anker_4.png" />
+    <Content Include="Content\Images\PK_SDP_Anker_5.png" />
+    <Content Include="Content\Images\PK_SDP_Anker_6.png" />
+    <Content Include="Content\Images\PK_SDP_AVA+_1.png" />
+    <Content Include="Content\Images\PK_SDP_AVA+_2.png" />
+    <Content Include="Content\Images\PK_SDP_AVA+_3.png" />
+    <Content Include="Content\Images\PK_SDP_AVA+_4.png" />
+    <Content Include="Content\Images\PK_SDP_AVA+_5.png" />
+    <Content Include="Content\Images\PK_SDP_AVA+_6.png" />
+    <Content Include="Content\Images\PK_SDP_Baseus_1.png" />
+    <Content Include="Content\Images\PK_SDP_Baseus_2.png" />
+    <Content Include="Content\Images\PK_SDP_Baseus_3.png" />
+    <Content Include="Content\Images\PK_SDP_Baseus_4.png" />
+    <Content Include="Content\Images\PK_SDP_Baseus_5.png" />
+    <Content Include="Content\Images\PK_SDP_Baseus_6.png" />
+    <Content Include="Content\Images\PK_SDP_Ugreen_1.png" />
+    <Content Include="Content\Images\PK_SDP_Ugreen_2.png" />
+    <Content Include="Content\Images\PK_SDP_Ugreen_3.png" />
+    <Content Include="Content\Images\PK_SDP_Ugreen_4.png" />
+    <Content Include="Content\Images\PK_SDP_Ugreen_5.png" />
+    <Content Include="Content\Images\PK_SDP_Ugreen_6.png" />
+    <Content Include="Content\Images\PK_TN_Sen_1.png" />
+    <Content Include="Content\Images\PK_TN_Sen_2.png" />
+    <Content Include="Content\Images\PK_TN_Sen_3.png" />
+    <Content Include="Content\Images\PK_TN_Sen_4.png" />
+    <Content Include="Content\Images\PK_TN_Sen_5.png" />
+    <Content Include="Content\Images\PK_TN_Sen_6.png" />
+    <Content Include="Content\Images\PK_TN_Shokz_1.png" />
+    <Content Include="Content\Images\PK_TN_Shokz_2.png" />
+    <Content Include="Content\Images\PK_TN_Shokz_3.png" />
+    <Content Include="Content\Images\PK_TN_Shokz_4.png" />
+    <Content Include="Content\Images\PK_TN_Shokz_5.png" />
+    <Content Include="Content\Images\PK_TN_Shokz_6.png" />
+    <Content Include="Content\Images\PK_TN_Sony_1.png" />
+    <Content Include="Content\Images\PK_TN_Sony_2.png" />
+    <Content Include="Content\Images\PK_TN_Sony_3.png" />
+    <Content Include="Content\Images\PK_TN_Sony_4.png" />
+    <Content Include="Content\Images\PK_TN_Sony_5.png" />
+    <Content Include="Content\Images\PK_TN_Sony_6.png" />
+    <Content Include="Content\Images\PK_TN_TWS_1.png" />
+    <Content Include="Content\Images\PK_TN_TWS_2.png" />
+    <Content Include="Content\Images\PK_TN_TWS_3.png" />
+    <Content Include="Content\Images\PK_TN_TWS_4.png" />
+    <Content Include="Content\Images\PK_TN_TWS_5.png" />
+    <Content Include="Content\Images\PK_TN_TWS_6.png" />
+    <Content Include="Content\Images\TB_IP_A16_1.png" />
+    <Content Include="Content\Images\TB_IP_A16_2.png" />
+    <Content Include="Content\Images\TB_IP_A16_3.png" />
+    <Content Include="Content\Images\TB_IP_A16_4.png" />
+    <Content Include="Content\Images\TB_IP_A16_5.png" />
+    <Content Include="Content\Images\TB_IP_A16_6.png" />
+    <Content Include="Content\Images\TB_IP_AirM3_1.png" />
+    <Content Include="Content\Images\TB_IP_AirM3_2.png" />
+    <Content Include="Content\Images\TB_IP_AirM3_3.png" />
+    <Content Include="Content\Images\TB_IP_AirM3_4.png" />
+    <Content Include="Content\Images\TB_IP_AirM3_5.png" />
+    <Content Include="Content\Images\TB_IP_AirM3_6.png" />
+    <Content Include="Content\Images\TB_IP_Mini7_1.png" />
+    <Content Include="Content\Images\TB_IP_Mini7_2.png" />
+    <Content Include="Content\Images\TB_IP_Mini7_3.png" />
+    <Content Include="Content\Images\TB_IP_Mini7_4.png" />
+    <Content Include="Content\Images\TB_IP_Mini7_5.png" />
+    <Content Include="Content\Images\TB_IP_Mini7_6.png" />
+    <Content Include="Content\Images\TB_IP_ProM4_1.png" />
+    <Content Include="Content\Images\TB_IP_ProM4_2.png" />
+    <Content Include="Content\Images\TB_IP_ProM4_3.png" />
+    <Content Include="Content\Images\TB_IP_ProM4_4.png" />
+    <Content Include="Content\Images\TB_IP_ProM4_5.png" />
+    <Content Include="Content\Images\TB_IP_ProM4_6.png" />
+    <Content Include="Content\Images\TB_LNV_4G_1.png" />
+    <Content Include="Content\Images\TB_LNV_4G_2.png" />
+    <Content Include="Content\Images\TB_LNV_4G_3.png" />
+    <Content Include="Content\Images\TB_LNV_4G_4.png" />
+    <Content Include="Content\Images\TB_LNV_4G_5.png" />
+    <Content Include="Content\Images\TB_LNV_4G_6.png" />
+    <Content Include="Content\Images\TB_LNV_Plus_1.png" />
+    <Content Include="Content\Images\TB_LNV_Plus_2.png" />
+    <Content Include="Content\Images\TB_LNV_Plus_3.png" />
+    <Content Include="Content\Images\TB_LNV_Plus_4.png" />
+    <Content Include="Content\Images\TB_LNV_Plus_5.png" />
+    <Content Include="Content\Images\TB_LNV_Plus_6.png" />
+    <Content Include="Content\Images\TB_SS_A9+_1.png" />
+    <Content Include="Content\Images\TB_SS_A9+_2.png" />
+    <Content Include="Content\Images\TB_SS_A9+_3.png" />
+    <Content Include="Content\Images\TB_SS_A9+_4.png" />
+    <Content Include="Content\Images\TB_SS_A9+_5.png" />
+    <Content Include="Content\Images\TB_SS_A9+_6.png" />
+    <Content Include="Content\Images\TB_SS_A9_1.png" />
+    <Content Include="Content\Images\TB_SS_A9_2.png" />
+    <Content Include="Content\Images\TB_SS_A9_3.png" />
+    <Content Include="Content\Images\TB_SS_A9_4.png" />
+    <Content Include="Content\Images\TB_SS_A9_5.png" />
+    <Content Include="Content\Images\TB_SS_A9_6.png" />
+    <Content Include="Content\Images\TB_SS_S11Ultra_1.png" />
+    <Content Include="Content\Images\TB_SS_S11Ultra_2.png" />
+    <Content Include="Content\Images\TB_SS_S11Ultra_3.png" />
+    <Content Include="Content\Images\TB_SS_S11Ultra_4.png" />
+    <Content Include="Content\Images\TB_SS_S11Ultra_5.png" />
+    <Content Include="Content\Images\TB_SS_S11Ultra_6.png" />
+    <Content Include="Content\Images\TB_SS_S6Lite_1.png" />
+    <Content Include="Content\Images\TB_SS_S6Lite_2.png" />
+    <Content Include="Content\Images\TB_SS_S6Lite_3.png" />
+    <Content Include="Content\Images\TB_SS_S6Lite_4.png" />
+    <Content Include="Content\Images\TB_SS_S6Lite_5.png" />
+    <Content Include="Content\Images\TB_SS_S6Lite_6.png" />
+    <Content Include="Content\Images\TB_XM_7Pro_1.png" />
+    <Content Include="Content\Images\TB_XM_7Pro_2.png" />
+    <Content Include="Content\Images\TB_XM_7Pro_3.png" />
+    <Content Include="Content\Images\TB_XM_7Pro_4.png" />
+    <Content Include="Content\Images\TB_XM_7Pro_5.png" />
+    <Content Include="Content\Images\TB_XM_7Pro_6.png" />
+    <Content Include="Content\Images\TB_XM_RM2_1.png" />
+    <Content Include="Content\Images\TB_XM_RM2_2.png" />
+    <Content Include="Content\Images\TB_XM_RM2_3.png" />
+    <Content Include="Content\Images\TB_XM_RM2_4.png" />
+    <Content Include="Content\Images\TB_XM_RM2_5.png" />
+    <Content Include="Content\Images\TB_XM_RM2_6.png" />
+    <Content Include="Content\Images\TB_XM_RMPro_1.png" />
+    <Content Include="Content\Images\TB_XM_RMPro_2.png" />
+    <Content Include="Content\Images\TB_XM_RMPro_3.png" />
+    <Content Include="Content\Images\TB_XM_RMPro_4.png" />
+    <Content Include="Content\Images\TB_XM_RMPro_5.png" />
+    <Content Include="Content\Images\TB_XM_RMPro_6.png" />
+    <Content Include="Content\Images\TB_XM_RMSE_1.png" />
+    <Content Include="Content\Images\TB_XM_RMSE_2.png" />
+    <Content Include="Content\Images\TB_XM_RMSE_3.png" />
+    <Content Include="Content\Images\TB_XM_RMSE_4.png" />
+    <Content Include="Content\Images\TB_XM_RMSE_5.png" />
+    <Content Include="Content\Images\TB_XM_RMSE_6.png" />
+    <Content Include="Content\Images\zalopay.jpg" />
+    <Content Include="Controllers\UpdateRoles.exe" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="obj\Debug\DoAnNoSQL.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\DoAnNoSQL.dll" />
+    <Content Include="obj\Debug\DoAnNoSQL.pdb" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Admin.css" />
+    <Content Include="Scripts\cart.js" />
+    <Content Include="Scripts\qr-payment.js" />
+    <Content Include="Scripts\Admin.js" />
+    <Content Include="Content\Tin-Tuc.css" />
+    <Content Include="Scripts\Tin-Tuc.js" />
+    <Content Include="Content\Trang-Chu.css" />
+    <Content Include="Scripts\Trang-Chu.js" />
+    <Content Include="Content\Web-Ban-Hang.css" />
+    <Content Include="Scripts\Web-Bang-Hang.js" />
+    <Content Include=".vs\DoAnNoSQL.csproj.dtbcache.json" />
+    <None Include="bin\DoAnNoSQL.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets" />
+    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\DoAnNoSQL.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\DoAnNoSQL.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\DoAnNoSQL.csproj.Up2Date" />
+    <Content Include="Database_backup\BaoHanh.json" />
+    <Content Include="Database_backup\CauHinh.json" />
+    <Content Include="Database_backup\DangKyNhanTin.json" />
+    <Content Include="Database_backup\DanhGia.json" />
+    <Content Include="Database_backup\DanhMuc.json" />
+    <Content Include="Database_backup\DonHang.json" />
+    <Content Include="Database_backup\LienHe.json" />
+    <Content Include="Database_backup\MaGiamGia.json" />
+    <Content Include="Database_backup\Menu.json" />
+    <Content Include="Database_backup\QuangCao.json" />
+    <Content Include="Database_backup\SanPham.json" />
+    <Content Include="Database_backup\TaiKhoan.json" />
+    <Content Include="Database_backup\ThuongHieu.json" />
+    <Content Include="Database_backup\TinTuc.json" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Payment\PaymentFailed.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_DanhMuc.cshtml" />
+    <Content Include="Views\Shared\_CategoryMenuItem.cshtml" />
+    <Content Include="Views\Shared\_MenuDienThoai.cshtml" />
+    <Content Include="Views\Shared\_MenuLaptop.cshtml" />
+    <Content Include="Views\Shared\_MenuTablet.cshtml" />
+    <Content Include="Views\Shared\_MenuPhuKien.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\SanPham\ChiTietSP.cshtml" />
+    <Content Include="Views\SanPham\Index.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\ThanhToan\Index.cshtml" />
+    <Content Include="Views\ThanhToan\Success.cshtml" />
+    <Content Include="Views\ThanhToan\ChiTiet.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\KhuyenMai\Index.cshtml" />
+    <Content Include="Views\TinTuc\Index.cshtml" />
+    <Content Include="Views\TinTuc\ChiTiet.cshtml" />
+    <Content Include="Views\LienHe\Index.cshtml" />
+    <Content Include="Views\TaiKhoan\Index.cshtml" />
+    <Content Include="Views\TaiKhoan\DoiMatKhau.cshtml" />
+    <Content Include="Views\TaiKhoan\DonHang.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\BaoCaoThongKe.cshtml" />
+    <Content Include="Views\Admin\DanhMuc.cshtml" />
+    <Content Include="Views\Admin\DonHang.cshtml" />
+    <Content Include="Views\Admin\formSuaDM.cshtml" />
+    <Content Include="Views\Admin\formSuaKH.cshtml" />
+    <Content Include="Views\Admin\formSuaKM.cshtml" />
+    <Content Include="Views\Admin\formSuaQTV.cshtml" />
+    <Content Include="Views\Admin\formSuaTH.cshtml" />
+    <Content Include="Views\Admin\formThemDM.cshtml" />
+    <Content Include="Views\Admin\formThemKH.cshtml" />
+    <Content Include="Views\Admin\formThemKM.cshtml" />
+    <Content Include="Views\Admin\formThemQTV.cshtml" />
+    <Content Include="Views\Admin\formThemTH.cshtml" />
+    <Content Include="Views\Admin\HoTroKH.cshtml" />
+    <Content Include="Views\Admin\KhachHang.cshtml" />
+    <Content Include="Views\Admin\KhuyenMai.cshtml" />
+    <Content Include="Views\Admin\QLSP.cshtml" />
+    <Content Include="Views\Admin\QuanTriVien.cshtml" />
+    <Content Include="Views\Admin\ThuongHieu.cshtml" />
+    <Content Include="Views\Admin\TongQuan.cshtml" />
+    <Content Include="Views\Admin\ThanhToan.cshtml" />
+    <Content Include="Views\Admin\formThemSP.cshtml" />
+    <Content Include="Views\Admin\formSuaSP.cshtml" />
+    <Content Include="Views\TaiKhoan\ChiTietDonHang.cshtml" />
+    <Content Include="Views\Shared\_ChatbotWidget.cshtml" />
+    <Content Include="Views\Shared\_TopMenu.cshtml" />
+    <Content Include="Views\Admin\TinTuc.cshtml" />
+    <Content Include="Views\Admin\formThemTinTuc.cshtml" />
+    <Content Include="Views\Admin\formSuaTinTuc.cshtml" />
+    <Content Include="Views\Admin\Banner.cshtml" />
+    <Content Include="Views\Admin\formThemBanner.cshtml" />
+    <Content Include="Views\Admin\formSuaBanner.cshtml" />
+    <Content Include="Views\TinTuc\TimKiem.cshtml" />
+    <Content Include="Views\Account\AccessDenied.cshtml" />
+    <Content Include="Views\Admin\BanHang.cshtml" />
+    <Content Include="Views\Admin\BaoHanh.cshtml" />
+    <Content Include="Views\Admin\CauHinh.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51051</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44393/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Driver.Encryption.3.11.1\build\MongoDB.Driver.Encryption.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Driver.Encryption.3.11.1\build\MongoDB.Driver.Encryption.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Import Project="..\packages\MongoDB.Driver.Encryption.3.11.1\build\MongoDB.Driver.Encryption.targets" Condition="Exists('..\packages\MongoDB.Driver.Encryption.3.11.1\build\MongoDB.Driver.Encryption.targets')" />
+</Project>

@@ -1,0 +1,74 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308da"
+    },
+    "SqlId": 1,
+    "Email": "an.nguyen@email.com",
+    "NgayTao": "CAST(N'2023-10-15T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308db"
+    },
+    "SqlId": 2,
+    "Email": "binh.tran@email.com",
+    "NgayTao": "CAST(N'2023-11-20T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308dc"
+    },
+    "SqlId": 3,
+    "Email": "dung.pham@email.com",
+    "NgayTao": "CAST(N'2023-12-05T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308dd"
+    },
+    "SqlId": 4,
+    "Email": "hai.do@email.com",
+    "NgayTao": "CAST(N'2024-01-02T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308de"
+    },
+    "SqlId": 5,
+    "Email": "khach.moi@gmail.com",
+    "NgayTao": "CAST(N'2024-01-15T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308df"
+    },
+    "SqlId": 6,
+    "Email": "fan.congnghe@yahoo.com",
+    "NgayTao": "CAST(N'2024-02-14T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308e0"
+    },
+    "SqlId": 7,
+    "Email": "sanh.dieu@outlook.com",
+    "NgayTao": "CAST(N'2024-03-01T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308e1"
+    },
+    "SqlId": 8,
+    "Email": "nguoi.mua.an.danh@icloud.com",
+    "NgayTao": "CAST(N'2024-03-20T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308e2"
+    },
+    "SqlId": 9,
+    "Email": "sale.hunter.99@gmail.com",
+    "NgayTao": "CAST(N'2025-11-25T12:59:31.967' AS DateTime"
+  }
+]

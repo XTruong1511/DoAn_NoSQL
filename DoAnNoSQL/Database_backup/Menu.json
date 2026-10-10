@@ -1,0 +1,74 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308ce"
+    },
+    "SqlId": 1,
+    "TieuDe": "Trang chủ",
+    "LienKet": "/",
+    "MoTa": "Trang chủ website",
+    "MenuChaId": null,
+    "ThuTu": 1,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308cf"
+    },
+    "SqlId": 2,
+    "TieuDe": "Sản phẩm",
+    "LienKet": "/san-pham",
+    "MoTa": "Danh sách sản phẩm",
+    "MenuChaId": null,
+    "ThuTu": 2,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d0"
+    },
+    "SqlId": 3,
+    "TieuDe": "Tin tức",
+    "LienKet": "/tin-tuc",
+    "MoTa": "Tin tức công nghệ",
+    "MenuChaId": null,
+    "ThuTu": 3,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d1"
+    },
+    "SqlId": 4,
+    "TieuDe": "Liên hệ",
+    "LienKet": "/lien-he",
+    "MoTa": "Liên hệ với chúng tôi",
+    "MenuChaId": null,
+    "ThuTu": 4,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d2"
+    },
+    "SqlId": 5,
+    "TieuDe": "Điện thoại",
+    "LienKet": "/san-pham/dien-thoai",
+    "MoTa": "Điện thoại thông minh",
+    "MenuChaId": 2,
+    "ThuTu": 1,
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d3"
+    },
+    "SqlId": 6,
+    "TieuDe": "Laptop",
+    "LienKet": "/san-pham/laptop",
+    "MoTa": "Máy tính xách tay",
+    "MenuChaId": 2,
+    "ThuTu": 2,
+    "HienThi": true
+  }
+]

@@ -1,0 +1,132 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533082b"
+    },
+    "SqlId": 1,
+    "TenThuongHieu": "Apple",
+    "BiDanh": "apple",
+    "HinhAnh": "logo_apple.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533082c"
+    },
+    "SqlId": 2,
+    "TenThuongHieu": "Samsung",
+    "BiDanh": "samsung",
+    "HinhAnh": "logo_samsung.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533082d"
+    },
+    "SqlId": 3,
+    "TenThuongHieu": "Xiaomi",
+    "BiDanh": "xiaomi",
+    "HinhAnh": "brand_3_639008612097624781.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533082e"
+    },
+    "SqlId": 4,
+    "TenThuongHieu": "Oppo",
+    "BiDanh": "oppo",
+    "HinhAnh": "brand_4_639008612359279512.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533082f"
+    },
+    "SqlId": 5,
+    "TenThuongHieu": "Dell",
+    "BiDanh": "dell",
+    "HinhAnh": "brand_5_639008612475360170.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330830"
+    },
+    "SqlId": 6,
+    "TenThuongHieu": "Asus",
+    "BiDanh": "asus",
+    "HinhAnh": "brand_6_639008612614319870.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330831"
+    },
+    "SqlId": 7,
+    "TenThuongHieu": "Lenovo",
+    "BiDanh": "lenovo",
+    "HinhAnh": "brand_7_639008612825367905.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330832"
+    },
+    "SqlId": 8,
+    "TenThuongHieu": "Sony",
+    "BiDanh": "sony",
+    "HinhAnh": "brand_8_639008613042676468.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330833"
+    },
+    "SqlId": 9,
+    "TenThuongHieu": "Anker",
+    "BiDanh": "anker",
+    "HinhAnh": "brand_9_639008613226228656.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:31:01.967Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330834"
+    },
+    "SqlId": 10,
+    "TenThuongHieu": "Honor",
+    "BiDanh": "honor",
+    "HinhAnh": "brand_639012072417513690.png",
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-12-13T07:20:41.753Z"
+    }
+  }
+]

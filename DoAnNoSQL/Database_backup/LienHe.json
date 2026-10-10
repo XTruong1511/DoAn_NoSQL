@@ -1,0 +1,26 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d8"
+    },
+    "SqlId": 1,
+    "TenNguoiGui": "Nguyễn Văn A",
+    "Email": "vana@gmail.com",
+    "Website": "https://example.com",
+    "NoiDung": "Tôi cần hỗ trợ về sản phẩm A.",
+    "DaDoc": true,
+    "NgayTao": "CAST(N'2025-01-01T00:00:00.000' AS DateTime"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308d9"
+    },
+    "SqlId": 2,
+    "TenNguoiGui": "Trần Thị B",
+    "Email": "thib@gmail.com",
+    "Website": "https://khachhang.com",
+    "NoiDung": "Tôi muốn hỏi về chính sách bảo hành.",
+    "DaDoc": true,
+    "NgayTao": "CAST(N'2025-01-01T00:00:00.000' AS DateTime"
+  }
+]

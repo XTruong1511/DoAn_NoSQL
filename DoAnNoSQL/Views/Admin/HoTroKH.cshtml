@@ -1,0 +1,267 @@
+﻿
+@model List<DoAnNoSQL.tb_LienHe>
+
+@{
+    ViewBag.Title = "Hỗ trợ khách hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    int totalItems = ViewBag.TotalItems;
+}
+
+<div id="support" class="tab-content active">
+    <h1 class="mb-4">
+        <i class="fas fa-headset text-primary"></i> Hỗ trợ khách hàng
+    </h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <div class="text-muted">
+                <i class="fas fa-inbox"></i> Tổng số: <strong>@totalItems</strong> liên hệ
+            </div>
+            <div>
+                <span class="badge bg-warning">@Model.Count(x => !x.DaDoc.GetValueOrDefault()) Chưa đọc</span>
+                <span class="badge bg-success">@Model.Count(x => x.DaDoc.GetValueOrDefault()) Đã đọc</span>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info text-center" role="alert">
+                <i class="fas fa-info-circle fa-2x mb-2"></i>
+                <p class="mb-0">Chưa có liên hệ nào từ khách hàng</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover" id="supportTable">
+                <thead>
+                    <tr>
+                        <th width="5%">ID</th>
+                        <th width="15%">Người gửi</th>
+                        <th width="15%">Email / SĐT</th>
+                        <th width="35%">Nội dung</th>
+                        <th width="10%">Trạng thái</th>
+                        <th width="10%">Ngày gửi</th>
+                        <th width="10%" class="text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="@(!item.DaDoc.GetValueOrDefault() ? "table-warning" : "")">
+                            <td class="text-center align-middle">@item.Id</td>
+                            <td>
+                                <strong>@item.TenNguoiGui</strong>
+                            </td>
+                            <td>
+                                <div class="small">
+                                    <i class="fas fa-envelope"></i> @item.Email<br>
+                                    @if (!string.IsNullOrEmpty(item.Website))
+                                    {
+                                        <i class="fas fa-phone"></i> <span>@item.Website</span>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-truncate" style="max-width: 300px;" title="@item.NoiDung">
+                                    @(item.NoiDung.Length > 100 ? item.NoiDung.Substring(0, 100) + "..." : item.NoiDung)
+                                </div>
+                                <button class="btn btn-link btn-sm p-0" onclick="xemChiTiet(@item.Id)">
+                                    <i class="fas fa-eye"></i> Xem đầy đủ
+                                </button>
+                            </td>
+                            <td class="text-center align-middle">
+                                @if (item.DaDoc.GetValueOrDefault())
+                                {
+                                    <span class="badge bg-success">Đã đọc</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning">Chưa đọc</span>
+                                }
+                            </td>
+                            <td>
+                                <small>@(item.NgayTao.HasValue ? item.NgayTao.Value.ToString("dd/MM/yyyy HH:mm") : "")</small>
+                            </td>
+                            <td class="text-center">
+                                @if (!item.DaDoc.GetValueOrDefault())
+                                {
+                                    <button class="btn btn-sm btn-primary" 
+                                            onclick="danhDauDaDoc(@item.Id)" 
+                                            title="Đánh dấu đã đọc">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                }
+                                <button class="btn btn-sm btn-danger" 
+                                        onclick="xoaLienHe(@item.Id)" 
+                                        title="Xóa">
+                                    <i class="fas fa-trash-can"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            if (totalPages > 1)
+            {
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("HoTroKH", new { page = currentPage - 1 })">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </li>
+
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(i == currentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("HoTroKH", new { page = i })">@i</a>
+                            </li>
+                        }
+
+                        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("HoTroKH", new { page = currentPage + 1 })">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            }
+        }
+    </div>
+</div>
+
+<!-- Modal Chi tiết -->
+<div class="modal fade" id="chiTietModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết liên hệ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="chiTietContent">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function xemChiTiet(id) {
+            var lienHe = @Html.Raw(Json.Encode(Model));
+            var item = lienHe.find(x => x.Id === id);
+            
+            if (item) {
+                var content = `
+                    <div class="mb-3">
+                        <h6><i class="fas fa-user"></i> Người gửi:</h6>
+                        <p class="ms-3">${item.TenNguoiGui}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-envelope"></i> Email:</h6>
+                        <p class="ms-3">${item.Email}</p>
+                    </div>
+                    ${item.Website ? `
+                    <div class="mb-3">
+                        <h6><i class="fas fa-phone"></i> Số điện thoại:</h6>
+                        <p class="ms-3">${item.Website}</p>
+                    </div>
+                    ` : ''}
+                    <div class="mb-3">
+                        <h6><i class="fas fa-calendar"></i> Ngày gửi:</h6>
+                        <p class="ms-3">${new Date(item.NgayTao).toLocaleString('vi-VN')}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-comment"></i> Nội dung:</h6>
+                        <div class="ms-3 p-3 bg-light rounded">
+                            ${item.NoiDung.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+                `;
+                
+                $('#chiTietContent').html(content);
+                $('#chiTietModal').modal('show');
+            }
+        }
+
+        function danhDauDaDoc(id) {
+            Swal.fire({
+                title: 'Xác nhận',
+                text: 'Đánh dấu liên hệ này là đã đọc?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("DanhDauDaDoc", "Admin")',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire('Thành công!', response.message, 'success')
+                                    .then(() => location.reload());
+                            } else {
+                                Swal.fire('Lỗi!', response.message, 'error');
+                            }
+                        },
+                        error: function() {
+                            Swal.fire('Lỗi!', 'Có lỗi xảy ra', 'error');
+                        }
+                    });
+                }
+            });
+        }
+
+        function xoaLienHe(id) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: 'Bạn có chắc chắn muốn xóa liên hệ này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("XoaLienHe", "Admin")',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire('Đã xóa!', response.message, 'success')
+                                    .then(() => location.reload());
+                            } else {
+                                Swal.fire('Lỗi!', response.message, 'error');
+                            }
+                        },
+                        error: function() {
+                            Swal.fire('Lỗi!', 'Có lỗi xảy ra', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}
+
+

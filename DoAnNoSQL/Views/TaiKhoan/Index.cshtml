@@ -1,0 +1,233 @@
+@model DoAnNoSQL.tb_TaiKhoan
+
+@{
+    ViewBag.Title = "Tài khoản của tôi";
+}
+
+<!-- Breadcrumb -->
+<nav class="flex mb-6" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+            <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                <i class="fas fa-home mr-2"></i>
+                Trang chủ
+            </a>
+        </li>
+        <li aria-current="page">
+            <div class="flex items-center">
+                <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                <span class="text-sm font-medium text-gray-500">Tài khoản</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+
+<!-- Success/Error Messages -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg mb-6 animate__animated animate__fadeInDown" role="alert">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle text-2xl mr-3"></i>
+            <div>
+                <strong class="font-bold">Thành công!</strong>
+                <p class="text-sm">@TempData["SuccessMessage"]</p>
+            </div>
+            <button type="button" class="ml-auto" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times text-green-700 hover:text-green-900"></i>
+            </button>
+        </div>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg mb-6 animate__animated animate__fadeInDown" role="alert">
+        <div class="flex items-center">
+            <i class="fas fa-exclamation-circle text-2xl mr-3"></i>
+            <div>
+                <strong class="font-bold">Lỗi!</strong>
+                <p class="text-sm">@TempData["ErrorMessage"]</p>
+            </div>
+            <button type="button" class="ml-auto" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times text-red-700 hover:text-red-900"></i>
+            </button>
+        </div>
+    </div>
+}
+
+<!-- 3D Profile Header -->
+<div class="page-header-3d border-beam-3d mb-8" data-aos="fade-down">
+    <div class="relative z-10 flex flex-col sm:flex-row items-center gap-6">
+        <div class="relative">
+            <div class="w-24 h-24 rounded-3xl bg-teal-500/20 border-2 border-teal-400/40 flex items-center justify-center text-teal-300 shadow-xl shadow-teal-500/20">
+                <i class="fas fa-user-astronaut text-4xl"></i>
+            </div>
+            <div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[10px] text-white font-bold" title="Trực tuyến">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+        <div class="text-center sm:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-400/20 text-teal-200 border border-teal-400/30 text-xs font-bold uppercase tracking-wider mb-2">
+                <i class="fas fa-id-card text-amber-300"></i>
+                Hồ sơ thành viên VIP
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black font-heading text-white">@Model.HoTen</h1>
+            <p class="text-sm text-slate-300 mt-1 flex items-center justify-center sm:justify-start gap-2">
+                <i class="far fa-envelope text-teal-400"></i>
+                @Model.Email
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <!-- Sidebar Menu 3D (1/4) -->
+    <div class="lg:col-span-1">
+        <div class="card-glass-3d p-5 sticky top-4" data-aos="fade-right">
+            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
+                <i class="fas fa-bars-staggered text-teal-600"></i>
+                Quản lý tài khoản
+            </h3>
+            <nav class="space-y-2">
+                <a href="@Url.Action("Index", "TaiKhoan")" class="flex items-center px-4 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-xl font-bold text-xs shadow-md shadow-teal-600/30">
+                    <i class="fas fa-user-circle w-5 mr-3 text-sm"></i>
+                    Thông tin tài khoản
+                </a>
+                <a href="@Url.Action("DoiMatKhau", "TaiKhoan")" class="flex items-center px-4 py-3 text-slate-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl font-bold text-xs transition-colors">
+                    <i class="fas fa-key w-5 mr-3 text-sm text-slate-400"></i>
+                    Đổi mật khẩu
+                </a>
+                <a href="@Url.Action("DonHang", "TaiKhoan")" class="flex items-center px-4 py-3 text-slate-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl font-bold text-xs transition-colors">
+                    <i class="fas fa-shopping-bag w-5 mr-3 text-sm text-slate-400"></i>
+                    Đơn hàng của tôi
+                </a>
+                <a href="@Url.Action("Logout", "Account")" class="flex items-center px-4 py-3 text-rose-600 hover:bg-rose-50 rounded-xl font-bold text-xs transition-colors mt-4 pt-3 border-t border-slate-100">
+                    <i class="fas fa-sign-out-alt w-5 mr-3 text-sm"></i>
+                    Đăng xuất
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content 3D (3/4) -->
+    <div class="lg:col-span-3">
+        <div class="card-glass-3d border-beam-3d p-6 sm:p-8" data-aos="fade-left">
+            <h2 class="text-lg sm:text-xl font-black text-slate-900 mb-6 pb-4 border-b border-slate-100 flex items-center justify-between">
+                <span class="flex items-center gap-2.5">
+                    <i class="fas fa-user-gear text-teal-600"></i>
+                    Thông tin cá nhân
+                </span>
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-200">Bảo mật cao</span>
+            </h2>
+
+            <form action="@Url.Action("CapNhat", "TaiKhoan")" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                    <!-- Họ tên -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                            Họ và tên <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text"
+                               name="hoTen"
+                               value="@Model.HoTen"
+                               required
+                               class="w-full input-3d text-xs font-semibold">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                            Email <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="email"
+                               name="email"
+                               value="@Model.Email"
+                               required
+                               class="w-full input-3d text-xs font-semibold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <!-- Số điện thoại -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                            Số điện thoại
+                        </label>
+                        <input type="tel"
+                               name="soDienThoai"
+                               value="@Model.SoDienThoai"
+                               class="w-full input-3d text-xs font-semibold">
+                    </div>
+
+                    <!-- Tên đăng nhập (readonly) -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                            Tên đăng nhập hệ thống
+                        </label>
+                        <input type="text"
+                               value="@Model.TenDangNhap"
+                               readonly
+                               class="w-full input-3d text-xs font-semibold bg-slate-100 text-slate-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-100">
+                    <div class="text-xs text-slate-400">
+                        <i class="fas fa-shield-halved text-teal-600 mr-1"></i>
+                        <span class="text-rose-500 font-bold">*</span> Thông tin của bạn luôn được bảo vệ an toàn.
+                    </div>
+                    <button type="submit"
+                            class="btn-3d btn-3d-primary w-full sm:w-auto px-8 py-3 text-xs font-black uppercase rounded-xl flex items-center justify-center gap-2">
+                        <i class="fas fa-floppy-disk"></i>
+                        Lưu thay đổi
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Account Stats 3D -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+            <div class="card-glass-3d p-6 text-center group hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 rounded-2xl bg-teal-500/15 border border-teal-400/30 text-teal-600 flex items-center justify-center mx-auto mb-3 shadow-md group-hover:scale-110 transition-transform">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                </div>
+                <p class="text-3xl font-black font-heading text-slate-900">@ViewBag.TongDonHang</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Tổng đơn hàng</p>
+            </div>
+            <div class="card-glass-3d p-6 text-center group hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-400/30 text-emerald-600 flex items-center justify-center mx-auto mb-3 shadow-md group-hover:scale-110 transition-transform">
+                    <i class="fas fa-circle-check text-xl"></i>
+                </div>
+                <p class="text-3xl font-black font-heading text-slate-900">@ViewBag.DonHangHoanThanh</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Đã hoàn thành</p>
+            </div>
+            <div class="card-glass-3d p-6 text-center group hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 text-amber-600 flex items-center justify-center mx-auto mb-3 shadow-md group-hover:scale-110 transition-transform">
+                    <i class="fas fa-clock-rotate-left text-xl"></i>
+                </div>
+                <p class="text-3xl font-black font-heading text-slate-900">@ViewBag.DonHangDangXuLy</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Đang xử lý</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // Phone number formatting
+        $('input[type="tel"]').on('input', function () {
+            var value = $(this).val().replace(/\D/g, '');
+            $(this).val(value);
+        });
+
+        // Auto-hide messages after 5 seconds
+        setTimeout(function () {
+            $('[role="alert"]').fadeOut('slow', function () {
+                $(this).remove();
+            });
+        }, 5000);
+    </script>
+}

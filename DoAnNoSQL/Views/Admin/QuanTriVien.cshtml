@@ -1,0 +1,241 @@
+@model List<tb_TaiKhoan>
+
+@{
+    ViewBag.Title = "QuanTriVien";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string TuKhoa = ViewBag.TuKhoa;
+}
+
+<div id="admins" class="tab-content active">
+    <h1 class="mb-4">Quản lý tài khoản</h1>
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <form action="TimQuanTriVien" method="get" class="input-group w-50">
+                <input type="text" class="form-control" id="timqtv" name="timqtv" placeholder="Tìm kiếm tài khoản ...">
+                <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="d-flex gap-2">
+                <button class="btn btn-success btn-icon" onclick="exportAllAdmins()" title="Xuất Excel">
+                    <i class="fas fa-file-excel"></i>
+                </button>
+                <a href="@Url.Action("formThemQTV", "Admin")" class="btn btn-primary btn-icon" title="Thêm quản trị viên">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover" id="adminTable">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th class="text-center">Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="adminTableBody">
+                @foreach (var item in Model)
+                {
+                    string roleName = "Chưa rõ";
+                    string roleClass = "badge bg-secondary";
+                    string roleIcon = "fa-user";
+                    string roleStyle = "";
+                    
+                    if (item.QuyenId == 1) {
+                        roleName = "Quản trị viên";
+                        roleClass = "badge bg-danger";
+                        roleIcon = "fa-crown";
+                    } else if (item.QuyenId == 2) {
+                        roleName = "Thu ngân";
+                        roleClass = "badge bg-success";
+                        roleIcon = "fa-cash-register";
+                    } else if (item.QuyenId == 3) {
+                        roleName = "Nhân viên bán hàng";
+                        roleClass = "badge bg-primary";
+                        roleIcon = "fa-user-tie";
+                    } else if (item.QuyenId == 4) {
+                        roleName = "Nhân viên kho";
+                        roleClass = "badge bg-warning text-dark";
+                        roleIcon = "fa-boxes";
+                    } else if (item.QuyenId == 5) {
+                        roleName = "Kỹ thuật & sửa chữa";
+                        roleClass = "badge text-white";
+                        roleIcon = "fa-tools";
+                        roleStyle = "background: linear-gradient(135deg, #7c3aed, #a855f7);";
+                    }
+                    
+                    <tr id="admin-@item.Id">
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td>@item.TenDangNhap</td>
+                        <td>@item.HoTen</td>
+                        <td>@item.Email</td>
+                        <td class="text-center align-middle">
+                            <span class="@roleClass" style="@roleStyle">
+                                <i class="fas @roleIcon"></i> @roleName
+                            </span>
+                        </td>
+                        <td class="text-center align-middle">
+                            @if (item.HoatDong == true)
+                            {
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle"></i> Hoạt động
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-ban"></i> Khóa
+                                </span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group justify-content-center" role="group">
+                                <a href="@Url.Action("formSuaQTV", "Admin", new { id = item.Id })" class="btn btn-sm btn-warning" title="Sửa thông tin & quyền">
+                                    <i class="fas fa-pen-to-square"></i>
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDeleteAdmin(@item.Id, '@item.TenDangNhap')" title="Xóa admin">
+                                    <i class="fas fa-trash-can"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        
+        <script>
+        // Export all admins to Excel
+        async function exportAllAdmins() {
+            try {
+                // Show Loading
+                Swal.fire({
+                    title: 'Đang xử lý...',
+                    text: 'Đang tải dữ liệu toàn bộ tài khoản ...',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+                
+                // Fetch Data from server
+                const response = await fetch('@Url.Action("GetAdminsForExport", "Admin")');
+                const data = await response.json();
+                
+                if (!data || data.length === 0) {
+                    Swal.fire('Thông báo', 'Không có dữ liệu để xuất', 'info');
+                    return;
+                }
+                
+                // Check for error
+                if (data.error) {
+                    Swal.fire('Lỗi', 'Không thể tải dữ liệu: ' + data.error, 'error');
+                    return;
+                }
+                
+                // Map data to Vietnamese headers
+                const formattedData = data.map(item => ({
+                    "ID": item.ID,
+                    "Họ tên": item.HoTen || '',
+                    "Tên đăng nhập": item.TenDangNhap || '',
+                    "Email": item.Email || '',
+                    "Số điện thoại": item.SoDienThoai || '',
+                    "Vai trò": item.TenQuyen || (item.QuyenId == 1 ? 'Admin' : 'Staff'),
+                    "Trạng thái": item.HoatDong ? 'Hoạt động' : 'Khóa'
+                }));
+                
+                // Create Worksheet
+                const ws = XLSX.utils.json_to_sheet(formattedData);
+                
+                // --- AUTO WIDTH LOGIC ---
+                const range = XLSX.utils.decode_range(ws['!ref']);
+                const colWidths = [];
+                
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    let maxLen = 10; // Min width
+                    for (let R = range.s.r; R <= range.e.r; ++R) {
+                        const cellRef = XLSX.utils.encode_cell({ c: C, r: R });
+                        const cell = ws[cellRef];
+                        if (cell && cell.v) {
+                            const len = (cell.v.toString().length + 2); // Add padding
+                            if (len > maxLen) maxLen = len;
+                        }
+                    }
+                    colWidths.push({ wch: maxLen });
+                }
+                ws['!cols'] = colWidths;
+                // ------------------------
+                
+                // Create Workbook
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "DanhSachQuanTriVien");
+                
+                // Download file
+                const filename = `DanhSachQuanTriVien_Full_${new Date().toISOString().slice(0,10)}.xlsx`;
+                XLSX.writeFile(wb, filename);
+                
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    html: `Đã xuất <strong>${data.length}</strong> tài khoản ra file Excel!`,
+                    timer: 2500,
+                    showConfirmButton: false
+                });
+            } catch (error) {
+                console.error('Export error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Không thể xuất file: ' + error.message
+                });
+            }
+        }
+
+        function confirmDeleteAdmin(id, username) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                html: `Bạn có chắc chắn muốn xóa tài khoản <strong>"${username}"</strong>?<br><small class="text-muted">Hành động này không thể hoàn tác!</small>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fas fa-trash-can"></i> Xóa',
+                cancelButtonText: '<i class="fas fa-times"></i> Hủy',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("XoaQTV", "Admin")' + '?id=' + id;
+                }
+            });
+        }
+        </script>
+        
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "QuanTriVien" : "TimQuanTriVien",
+                    new { timqtv = ViewBag.TuKhoa, page = currentPage - 1 })">Trước</a>
+                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action(
+                        String.IsNullOrEmpty(ViewBag.TuKhoa) ? "QuanTriVien" : "TimQuanTriVien",
+                        new { timqtv = ViewBag.TuKhoa, page = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action(
+                    String.IsNullOrEmpty(ViewBag.TuKhoa) ? "QuanTriVien" : "TimQuanTriVien",
+                    new { timqtv = ViewBag.TuKhoa, page = currentPage + 1 })">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+

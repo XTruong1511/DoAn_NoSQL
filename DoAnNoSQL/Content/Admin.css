@@ -1,0 +1,646 @@
+:root {
+    --sidebar-width: 260px;
+    --primary-color: #0d9488;
+    --dark-bg: #0f172a;
+    --dark-surface: #1e293b;
+    --light-bg: #f8fafc;
+    --white-bg: #ffffff;
+    --hover-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Fix footer sticky issue for admin pages */
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    background-color: var(--light-bg);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #1e293b;
+}
+
+.sidebar {
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    width: var(--sidebar-width);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Custom Scrollbar for Sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+    .sidebar .navbar-brand {
+        color: var(--white-bg);
+        font-size: 1.25rem;
+        padding: 1.25rem 1rem;
+        text-align: center;
+        font-weight: 700;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .sidebar .navbar-brand:hover {
+        color: var(--white-bg);
+    }
+
+    .sidebar .nav-link {
+        color: #94a3b8;
+        padding: 0.75rem 1rem;
+        margin: 3px 12px;
+        font-size: 0.925rem;
+        font-weight: 500;
+        border-radius: 10px;
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+    }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--hover-color);
+            color: #38bdf8;
+            transform: translateX(3px);
+        }
+
+        .sidebar .nav-link.active {
+            background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+            font-weight: 600;
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+.content {
+    margin-left: var(--sidebar-width);
+    padding: 24px;
+    width: calc(100% - var(--sidebar-width));
+    transition: margin-left 0.3s ease-in-out;
+    flex: 1 0 auto;
+}
+
+.table-container {
+    background-color: var(--white-bg);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+}
+
+.tab-content {
+    display: none;
+}
+
+    .tab-content.active {
+        display: block;
+        animation: fadeIn 0.5s;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.table .sortable {
+    cursor: pointer;
+}
+
+    .table .sortable:hover {
+        background-color: #f8f9fa;
+    }
+
+.table .sort-icon {
+    margin-left: 5px;
+    color: #ccc;
+}
+
+.table .sortable.asc .sort-icon, .table .sortable.desc .sort-icon {
+    color: #333;
+}
+
+.modal .form-label {
+    font-weight: 500;
+}
+
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    background: var(--dark-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.stat-card {
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+    .stat-card .icon {
+        font-size: 2.5rem;
+        opacity: 0.8;
+    }
+
+    .stat-card .info {
+        margin-left: 15px;
+    }
+
+        .stat-card .info h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .stat-card .info p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+/* ==================== SIDEBAR OVERLAY ==================== */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+    .sidebar-overlay.show {
+        display: block;
+        opacity: 1;
+    }
+
+/* ==================== TABLE RESPONSIVENESS ==================== */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+}
+
+    .table-responsive::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+/* ==================== MOBILE RESPONSIVENESS ==================== */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+        .sidebar.show {
+            transform: translateX(0);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+    .content {
+        margin-left: 0;
+        width: 100%;
+        padding: 60px 15px 15px; /* Extra top padding for menu toggle button */
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+        .menu-toggle:hover {
+            background: var(--hover-color);
+        }
+
+        .menu-toggle:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+    /* Card responsiveness */
+    .stat-card {
+        margin-bottom: 15px;
+    }
+
+    /* Form responsiveness */
+    .modal-dialog {
+        margin: 10px;
+    }
+
+    /* Table actions on mobile */
+    .table-container .d-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        .table-container .d-flex > * {
+            width: 100%;
+        }
+
+    /* Button groups on mobile */
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+        .btn-group .btn {
+            flex: 1 0 auto;
+            min-width: fit-content;
+        }
+
+    /* Pagination on mobile */
+    .pagination {
+        font-size: 0.875rem;
+    }
+
+        .pagination .page-link {
+            padding: 0.375rem 0.75rem;
+        }
+}
+
+/* ==================== EXTRA SMALL DEVICES ==================== */
+@media (max-width: 576px) {
+    .content {
+        padding: 60px 10px 10px;
+    }
+
+    .table-container {
+        padding: 15px 10px;
+    }
+
+    /* Stack stat cards */
+    .stat-card {
+        padding: 15px;
+    }
+
+        .stat-card .icon {
+            font-size: 2rem;
+        }
+
+        .stat-card .info h3 {
+            font-size: 1.5rem;
+        }
+
+    /* Smaller headings */
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    /* Table font size */
+    .table {
+        font-size: 0.875rem;
+    }
+
+    /* Button sizing */
+    .btn {
+        font-size: 0.875rem;
+        padding: 0.375rem 0.75rem;
+    }
+
+    .btn-sm {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    /* Form controls */
+    .form-control, .form-select {
+        font-size: 0.875rem;
+    }
+
+    /* Modal adjustments */
+    .modal-dialog {
+        margin: 5px;
+        max-width: calc(100% - 10px);
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+}
+
+@media print {
+    /* --- Styles cho In toàn trang (ví dụ QLSP) --- */
+    body:not(.printing-modal) {
+        display: block;
+    }
+
+    body:not(.printing-modal) .sidebar, 
+    body:not(.printing-modal) .menu-toggle, 
+    body:not(.printing-modal) .modal, 
+    body:not(.printing-modal) .toast-container, 
+    body:not(.printing-modal) .btn, 
+    body:not(.printing-modal) nav, 
+    body:not(.printing-modal) .table-container .d-flex {
+        display: none !important;
+    }
+
+    body:not(.printing-modal) .content {
+        margin-left: 0;
+        width: 100%;
+        padding: 0;
+    }
+
+    body:not(.printing-modal) .tab-content.active {
+        display: block;
+    }
+
+    body:not(.printing-modal) .table-container {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    /* --- Styles cho In Modal Hóa đơn --- */
+    body.printing-modal > *:not(#print-container) {
+        display: none !important;
+    }
+
+    body.printing-modal #print-container {
+        display: block !important;
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: white !important;
+    }
+
+    /* Đảm bảo bảng in ra vẫn có đường viền rõ nét */
+    .table {
+        border-collapse: collapse !important;
+    }
+    
+    .table th,
+    .table td {
+        border: 1px solid #000 !important;
+    }
+}
+
+/* ==================== CUSTOM TABLE FORMATTING ==================== */
+.table thead th {
+    background-color: #212529 !important;
+    color: #fff !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.table tbody td, .table tbody th {
+    white-space: nowrap !important;
+}
+
+/* ===== SEARCH BARS (MODERN UNIFIED PILL SHAPE) ===== */
+.admin-search-pill,
+.input-group:has(input[placeholder*="Tìm"]),
+form[action^="Tim"].input-group,
+form[action*="Tim"].input-group {
+    display: inline-flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    background-color: #ffffff !important;
+    border: 1.5px solid #dce4ec !important;
+    border-radius: 50px !important;
+    padding: 3px 5px 3px 18px !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+    transition: all 0.25s ease !important;
+    max-width: 480px;
+    height: 44px !important;
+    position: relative !important;
+}
+
+.admin-search-pill:hover,
+.input-group:has(input[placeholder*="Tìm"]):hover,
+form[action^="Tim"].input-group:hover,
+form[action*="Tim"].input-group:hover {
+    border-color: #cbd5e1 !important;
+}
+
+.admin-search-pill:focus-within,
+.input-group:has(input[placeholder*="Tìm"]):focus-within,
+form[action^="Tim"].input-group:focus-within,
+form[action*="Tim"].input-group:focus-within {
+    border-color: #0d9488 !important;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15), 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+    background-color: #ffffff !important;
+}
+
+/* Search input styling */
+.admin-search-pill .form-control,
+.input-group:has(input[placeholder*="Tìm"]) .form-control,
+form[action^="Tim"].input-group .form-control,
+form[action*="Tim"].input-group .form-control,
+input[placeholder*="Tìm"] {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 10px 0 0 !important;
+    font-size: 0.95rem !important;
+    color: #1e293b !important;
+    height: 100% !important;
+    line-height: normal !important;
+    border-radius: 0 !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+}
+
+.admin-search-pill .form-control:focus,
+.input-group:has(input[placeholder*="Tìm"]) .form-control:focus,
+form[action^="Tim"].input-group .form-control:focus,
+form[action*="Tim"].input-group .form-control:focus {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.admin-search-pill .form-control::placeholder,
+.input-group:has(input[placeholder*="Tìm"]) .form-control::placeholder,
+form[action^="Tim"].input-group .form-control::placeholder,
+form[action*="Tim"].input-group .form-control::placeholder,
+input[placeholder*="Tìm"]::placeholder {
+    color: #94a3b8 !important;
+    font-weight: 400 !important;
+    opacity: 1 !important;
+}
+
+/* Circular Gradient Search Icon Button (Không có dấu X, chỉ có icon tìm kiếm) */
+.admin-search-pill .btn,
+.admin-search-pill .btn-icon,
+.input-group:has(input[placeholder*="Tìm"]) .btn,
+.input-group:has(input[placeholder*="Tìm"]) .btn-icon,
+form[action^="Tim"].input-group .btn,
+form[action^="Tim"].input-group .btn-icon,
+form[action*="Tim"].input-group .btn,
+form[action*="Tim"].input-group .btn-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%) !important;
+    border: none !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: 0 2px 6px rgba(13, 148, 136, 0.35) !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+}
+
+.admin-search-pill .btn:hover,
+.admin-search-pill .btn-icon:hover,
+.input-group:has(input[placeholder*="Tìm"]) .btn:hover,
+.input-group:has(input[placeholder*="Tìm"]) .btn-icon:hover,
+form[action^="Tim"].input-group .btn:hover,
+form[action^="Tim"].input-group .btn-icon:hover,
+form[action*="Tim"].input-group .btn:hover,
+form[action*="Tim"].input-group .btn-icon:hover {
+    background: linear-gradient(135deg, #0369a1 0%, #0f766e 100%) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 10px rgba(13, 148, 136, 0.45) !important;
+    color: #ffffff !important;
+}
+
+.admin-search-pill .btn:active,
+.input-group:has(input[placeholder*="Tìm"]) .btn:active {
+    transform: scale(0.96) !important;
+}
+
+.admin-search-pill .btn i,
+.input-group:has(input[placeholder*="Tìm"]) .btn i,
+form[action^="Tim"].input-group .btn i,
+form[action*="Tim"].input-group .btn i {
+    font-size: 0.95rem !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+}
+
+/* ==================== SQUARE ICON BUTTONS ==================== */
+.btn-icon {
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 6px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Đảm bảo nút tìm kiếm trong thanh tìm kiếm luôn tròn 50% */
+.admin-search-pill .btn,
+.admin-search-pill .btn-icon,
+.input-group:has(input[placeholder*="Tìm"]) .btn,
+.input-group:has(input[placeholder*="Tìm"]) .btn-icon,
+form[action^="Tim"].input-group .btn-icon,
+form[action*="Tim"].input-group .btn-icon {
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+}
+
+/* ==================== ADMIN PAGE TITLES ==================== */
+/* Tất cả h1 trong tab-content (đơn hàng, SP, DM, KH...) */
+.tab-content h1.mb-4,
+.tab-content h1.mb-0 {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+}
+
+/* Bảo hành: h1.h3.mb-1 */
+h1.h3.mb-1 {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+}
+
+/* Bán hàng: h1.mb-4 trong container-fluid */
+.pos-container h1.mb-4,
+.container-fluid h1.mb-4 {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+}
+

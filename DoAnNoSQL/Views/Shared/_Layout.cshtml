@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @DoAnNoSQL.Helpers.SettingsHelper.GetValue("TenCuaHang", "Cửa hàng của tôi")</title>
+    <link rel="icon" type="image/x-icon" href="~/Content/images/@DoAnNoSQL.Helpers.SettingsHelper.GetValue("LogoCuaHang", "logo.png")">
+
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS & Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04)',
+                        'glow': '0 0 20px rgba(13, 148, 136, 0.35)',
+                        'glow-blue': '0 0 20px rgba(37, 99, 235, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Đường dẫn CSS: Lưu ý dấu ~ để trỏ về thư mục gốc -->
+    <link href="~/Content/modern-ui.css" rel="stylesheet" />
+    <link href="~/Content/Trang-Chu.css" rel="stylesheet" />
+    <link href="~/Content/Global.css" rel="stylesheet" />
+    <link href="~/Content/web-3d.css?v=2.2" rel="stylesheet" />
+
+    <!-- jQuery - REQUIRED for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap CSS & JS - REQUIRED for Modal -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- SweetAlert2 for beautiful notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Animate.css for smooth animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- AOS - Animate On Scroll Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-teal-900 via-slate-900 to-blue-950 shadow-xl sticky top-0 z-50 backdrop-blur-md bg-opacity-95 border-b border-white/10" data-aos="fade-down" data-aos-duration="500">
+        <!-- Desktop Header (md and up) -->
+        <div class="hidden md:block">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex items-center justify-between gap-4">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0">
+                        <a href="@Url.Action("Index", "Home")" class="text-2xl font-bold text-blue-600 flex items-center">
+                            <img src="~/Content/Images/@DoAnNoSQL.Helpers.SettingsHelper.GetValue("LogoCuaHang", "logo.png")" alt="Logo" class="mr-2" style="max-height: 50px;" />
+                        </a>
+                    </div>
+
+                    <!-- Search Bar with Running Border Beam -->
+                    <div class="flex-1 max-w-2xl">
+                        <div class="relative">
+                            <form id="searchForm" action="@Url.Action("Index", "Search")" method="get">
+                                <div class="search-beam-container">
+                                    <span class="search-beam-border"></span>
+                                    <input type="text"
+                                           id="searchInput"
+                                           name="q"
+                                           placeholder="Tìm kiếm điện thoại, laptop, phụ kiện chính hãng..."
+                                           class="w-full py-2.5 px-5 pr-12 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-full focus:outline-none focus:ring-2 focus:ring-teal-400 focus:bg-white text-sm text-slate-800 placeholder-slate-400 transition-all shadow-inner relative z-10"
+                                           autocomplete="off">
+                                    <button type="submit" class="absolute right-0 top-0 h-full px-4 text-slate-400 hover:text-teal-600 transition-colors z-20">
+                                        <i class="fas fa-search text-base"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Autocomplete Dropdown -->
+                                <div id="searchDropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-slate-200/80 z-50 max-h-96 overflow-y-auto">
+                                    <!-- Results will be populated here -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <nav class="hidden lg:flex items-center space-x-1.5">
+                        <a href="@Url.Action("Index", "Home")" class="nav-border-beam whitespace-nowrap">
+                            <span class="beam-border"></span>
+                            <span>TRANG CHỦ</span>
+                        </a>
+                        <a href="@Url.Action("Index", "KhuyenMai")" class="nav-border-beam whitespace-nowrap">
+                            <span class="beam-border"></span>
+                            <span>KHUYẾN MÃI</span>
+                        </a>
+                        <a href="@Url.Action("Index", "TinTuc")" class="nav-border-beam whitespace-nowrap">
+                            <span class="beam-border"></span>
+                            <span>TIN TỨC</span>
+                        </a>
+                        <a href="@Url.Action("Index", "LienHe")" class="nav-border-beam whitespace-nowrap">
+                            <span class="beam-border"></span>
+                            <span>LIÊN HỆ</span>
+                        </a>
+                        <a href="@Url.Action("About", "Home")" class="nav-border-beam whitespace-nowrap">
+                            <span class="beam-border"></span>
+                            <span>GIỚI THIỆU</span>
+                        </a>
+                    </nav>
+
+                    <!-- Desktop User & Cart Icons -->
+                    <div class="flex items-center space-x-3 flex-shrink-0">
+                        @if (ViewBag.IsAuthenticated == true)
+                        {
+                            @* Hiển thị khi đã đăng nhập *@
+                            <div class="relative group user-dropdown-container">
+                                <a href="#" class="text-white/90 hover:text-white hover:bg-white/10 rounded-full p-2 flex items-center transition-all duration-200 hover:scale-105">
+                                    <i class="fas fa-user-circle text-2xl mr-2 text-teal-300"></i>
+                                    <span class="hidden xl:inline text-sm font-semibold">@ViewBag.CurrentUser.HoTen</span>
+                                    <i class="fas fa-chevron-down ml-1 text-xs opacity-75"></i>
+                                </a>
+                                @* Dropdown menu *@
+                                <div class="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-slate-200/80 hidden group-hover:block z-50 overflow-hidden">
+                                    <div class="py-2">
+                                        <a href="@Url.Action("Index", "TaiKhoan")" class="flex items-center px-4 py-2.5 hover:bg-teal-50 hover:text-teal-700 text-gray-700 transition-colors text-sm">
+                                            <i class="fas fa-user-circle w-5 mr-2 text-teal-600"></i> Tài khoản của tôi
+                                        </a>
+                                        <a href="@Url.Action("DonHang", "TaiKhoan")" class="flex items-center px-4 py-2.5 hover:bg-teal-50 hover:text-teal-700 text-gray-700 transition-colors text-sm">
+                                            <i class="fas fa-shopping-bag w-5 mr-2 text-teal-600"></i> Đơn hàng của tôi
+                                        </a>
+                                        <a href="@Url.Action("DoiMatKhau", "TaiKhoan")" class="flex items-center px-4 py-2.5 hover:bg-teal-50 hover:text-teal-700 text-gray-700 transition-colors text-sm">
+                                            <i class="fas fa-key w-5 mr-2 text-teal-600"></i> Đổi mật khẩu
+                                        </a>
+                                        <div class="border-t border-slate-100 my-1"></div>
+                                        <a href="@Url.Action("Logout", "Account")" class="flex items-center px-4 py-2.5 hover:bg-red-50 text-red-600 transition-colors text-sm font-medium">
+                                            <i class="fas fa-sign-out-alt w-5 mr-2"></i> Đăng xuất
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            @* Hiển thị khi chưa đăng nhập *@
+                            <a href="#" data-toggle="modal" data-target="#authModal" class="text-white/90 hover:text-white hover:bg-white/10 rounded-full p-2.5 flex items-center transition-all duration-200 hover:scale-105 active:scale-95" title="Đăng nhập">
+                                <i class="fas fa-user text-lg"></i>
+                            </a>
+                        }
+
+                        <!--Giỏ hàng (Mở Side Cart Drawer 1/4 bên trái)-->
+                        @if (ViewBag.IsAuthenticated == true)
+                        {
+                            <a href="javascript:void(0);" onclick="openSideCart(); return false;" class="open-cart-trigger text-white/90 hover:text-white hover:bg-white/10 rounded-full relative p-2.5 transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center" title="Giỏ hàng">
+                                <i class="fas fa-shopping-cart text-lg"></i>
+                                <span class="cart-count absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-rose-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-md shadow-rose-500/40">0</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" data-toggle="modal" data-target="#authModal" class="text-white/90 hover:text-white hover:bg-white/10 rounded-full relative p-2.5 transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center" title="Giỏ hàng">
+                                <i class="fas fa-shopping-cart text-lg"></i>
+                                <span class="cart-count absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-rose-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-md shadow-rose-500/40">0</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Header (below md) -->
+        <div class="md:hidden">
+            <div class="container mx-auto px-4 py-3">
+                <!-- Top Row: Logo, User, Cart -->
+                <div class="flex items-center justify-between mb-3">
+                    <!-- Logo -->
+                    <a href="@Url.Action("Index", "Home")" class="flex items-center">
+                        <img src="~/Content/Images/@DoAnNoSQL.Helpers.SettingsHelper.GetValue("LogoCuaHang", "logo.png")" alt="Logo" style="max-height: 40px;" />
+                    </a>
+
+                    <!-- User & Cart Icons -->
+                    <div class="flex items-center space-x-3">
+                        @if (ViewBag.IsAuthenticated == true)
+                        {
+                            <div class="relative group user-dropdown-container">
+                                <a href="#" class="text-white/90 hover:text-white p-2 flex items-center">
+                                    <i class="fas fa-user text-xl"></i>
+                                </a>
+                                <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 hidden z-50">
+                                    <div class="py-2">
+                                        <a href="@Url.Action("Index", "TaiKhoan")" class="block px-4 py-3 hover:bg-gray-50 text-gray-700 transition-colors text-sm">
+                                            <i class="fas fa-user-circle w-5 mr-2"></i> Tài khoản của tôi
+                                        </a>
+                                        <a href="@Url.Action("DonHang", "TaiKhoan")" class="block px-4 py-3 hover:bg-gray-50 text-gray-700 transition-colors text-sm">
+                                            <i class="fas fa-shopping-bag w-5 mr-2"></i> Đơn hàng của tôi
+                                        </a>
+                                        <a href="@Url.Action("DoiMatKhau", "TaiKhoan")" class="block px-4 py-3 hover:bg-gray-50 text-gray-700 transition-colors text-sm">
+                                            <i class="fas fa-key w-5 mr-2"></i> Đổi mật khẩu
+                                        </a>
+                                        <div class="border-t my-2"></div>
+                                        <a href="@Url.Action("Logout", "Account")" class="block px-4 py-3 hover:bg-red-50 text-red-600 transition-colors text-sm">
+                                            <i class="fas fa-sign-out-alt w-5 mr-2"></i> Đăng xuất
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="#" data-toggle="modal" data-target="#authModal" class="text-white/90 hover:text-white p-2">
+                                <i class="fas fa-user text-xl"></i>
+                            </a>
+                        }
+
+                        @if (ViewBag.IsAuthenticated == true)
+                        {
+                            <a href="javascript:void(0);" onclick="openSideCart(); return false;" class="open-cart-trigger text-white/90 hover:text-white relative p-2 transition-colors">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                                <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" data-toggle="modal" data-target="#authModal" class="text-white/90 hover:text-white relative p-2 transition-colors">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                                <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <!-- Search Bar Row with Running Border Beam -->
+                <div class="relative">
+                    <form id="searchFormMobile" action="@Url.Action("Index", "Search")" method="get">
+                        <div class="search-beam-container">
+                            <span class="search-beam-border"></span>
+                            <input type="text"
+                                   id="searchInputMobile"
+                                   name="q"
+                                   placeholder="Tìm kiếm điện thoại, laptop, phụ kiện..."
+                                   class="w-full py-2.5 px-4 pr-12 bg-white/95 border border-slate-200/80 rounded-full focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm text-slate-800 placeholder-slate-400 shadow-inner relative z-10"
+                                   autocomplete="off">
+                            <button type="submit" class="absolute right-0 top-0 h-full px-4 text-slate-400 hover:text-teal-600 transition-colors z-20">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
+                        <!-- Mobile Autocomplete Dropdown -->
+                        <div id="searchDropdownMobile" class="hidden absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-slate-200/80 z-50 max-h-96 overflow-y-auto">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Navigation -  Danh mục sản phẩm trên đầu -->
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- RenderBody: Nơi nội dung của từng trang con sẽ hiển thị ở đây -->
+        @RenderBody()
+    </main>
+
+  
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-slate-900 via-slate-950 to-black text-slate-300 py-12" data-aos="fade-up" data-aos-duration="800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <!-- Contact Info -->
+                <div class="space-y-3">
+                    <h3 class="text-base font-bold text-teal-400 tracking-wide uppercase font-heading flex items-center gap-2">
+                        <i class="fas fa-store text-teal-500"></i> THÔNG TIN LIÊN HỆ
+                    </h3>
+                    <p class="text-sm text-slate-300 flex items-start gap-2.5 leading-relaxed">
+                        <i class="fas fa-map-marker-alt text-teal-400 mt-1 flex-shrink-0"></i>
+                        <span>@DoAnNoSQL.Helpers.SettingsHelper.GetValue("DiaChiCuaHang", "140 Lê Trọng Tấn, P. Tây Thạnh, TP. HCM")</span>
+                    </p>
+                    <p class="text-sm text-slate-300 flex items-center gap-2.5">
+                        <i class="fas fa-phone-alt text-teal-400 flex-shrink-0"></i>
+                        <span>Hotline: <strong class="text-white font-semibold">@DoAnNoSQL.Helpers.SettingsHelper.GetValue("Hotline", "1800.1060")</strong></span>
+                    </p>
+                    <p class="text-sm text-slate-300 flex items-center gap-2.5">
+                        <i class="fas fa-envelope text-teal-400 flex-shrink-0"></i>
+                        <span>@DoAnNoSQL.Helpers.SettingsHelper.GetValue("EmailLienHe", "hotro@khoaluancunhan.vn")</span>
+                    </p>
+                </div>
+
+                <!-- About -->
+                <div class="space-y-3">
+                    <h3 class="text-base font-bold text-teal-400 tracking-wide uppercase font-heading">
+                        VỀ CHÚNG TÔI
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="@Url.Action("About", "Home")" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Giới thiệu hệ thống</a></li>
+                        <li><a href="@Url.Action("Index", "LienHe")" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Cơ hội việc làm</a></li>
+                        <li><a href="@Url.Action("Index", "LienHe")" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Góp ý & Khiếu nại</a></li>
+                        <li><a href="@Url.Action("Index", "LienHe")" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Support -->
+                <div class="space-y-3">
+                    <h3 class="text-base font-bold text-teal-400 tracking-wide uppercase font-heading">
+                        HỖ TRỢ KHÁCH HÀNG
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="@Url.Action("About", "Home")#guideline" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Hướng dẫn mua hàng online</a></li>
+                        <li><a href="@Url.Action("Index", "LienHe")" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Chính sách bảo hành & sửa chữa</a></li>
+                        <li><a href="@Url.Action("Index", "LienHe")" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Chính sách đổi trả & hoàn tiền</a></li>
+                        <li><a href="@Url.Action("Index", "LienHe")" class="hover:text-teal-300 transition-colors flex items-center gap-1.5"><i class="fas fa-chevron-right text-[10px] text-teal-500"></i> Câu hỏi thường gặp (FAQ)</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social & Newsletter -->
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-teal-400 tracking-wide uppercase font-heading">
+                        KẾT NỐI VỚI CHÚNG TÔI
+                    </h3>
+                    <div class="flex space-x-3">
+                        <a href="https://www.facebook.com/share/1DaaiE7daC/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/30" aria-label="Facebook"><i class="fab fa-facebook-f text-base"></i></a>
+                        <a href="https://youtube.com/&#64;dhcongthuong?si=5OOWI8E4RG9mT-bR" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/30" aria-label="YouTube"><i class="fab fa-youtube text-base"></i></a>
+                        <a href="https://www.instagram.com/dh_congthuong?igsi=emRzMG94Y2xlb3Ux" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-pink-600 text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/30" aria-label="Instagram"><i class="fab fa-instagram text-base"></i></a>
+                        <a href="https://www.tiktok.com/&#64;huit_media?_r=1&_t=ZS-99GC2bHlp7Q" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="TikTok"><i class="fab fa-tiktok text-base"></i></a>
+                    </div>
+                    
+                    <h3 class="text-base font-bold text-teal-400 tracking-wide uppercase font-heading">ĐĂNG KÝ NHẬN KHUYẾN MÃI</h3>
+                    <div class="flex shadow-lg rounded-full overflow-hidden border border-slate-700 bg-slate-800/80 p-1">
+                        <input type="email" id="newsletterEmail" placeholder="Nhập email của bạn..." class="px-4 py-2 bg-transparent text-white w-full text-sm focus:outline-none placeholder-slate-400" aria-label="Đăng ký nhận bản tin">
+                        <button id="btnSubscribe" class="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-5 py-2 rounded-full transition-all duration-300 font-medium text-sm flex-shrink-0 shadow-md" aria-label="Gửi">
+                            <i class="fas fa-paper-plane mr-1"></i> Gửi
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-slate-800/80 mt-10 pt-6 text-center text-slate-400">
+                <p class="text-xs sm:text-sm mb-1.5">&copy; @DateTime.Now.Year @DoAnNoSQL.Helpers.SettingsHelper.GetValue("TenCuaHang", "Khóa Luận Cử Nhân"). GPDKKD: do Trường ĐH Công Thương TP.HCM & Phòng đào tạo cấp ngày 01/08/2026.</p>
+                <p class="text-xs sm:text-sm">GP: 238/GP-BTTTT do Khoa công nghệ thông tin cấp ngày 17/08/2026.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Side Cart Drawer (1/4 screen on right) -->
+    @Html.Partial("_SideCart")
+
+    <!-- Auth Modal 3D Cyber Edition -->
+    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 480px; margin: 1.75rem auto;">
+            <div class="modal-content auth-modal-content-3d">
+                <div class="modal-body p-0">
+                    <style>
+                        .auth-modal-content-3d {
+                            background: rgba(8, 14, 28, 0.96) !important;
+                            backdrop-filter: blur(28px) !important;
+                            -webkit-backdrop-filter: blur(28px) !important;
+                            border: 1px solid rgba(45, 212, 191, 0.3) !important;
+                            border-radius: 28px !important;
+                            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8),
+                                        0 0 50px rgba(20, 184, 166, 0.25),
+                                        inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+                            overflow: hidden !important;
+                            color: #f1f5f9;
+                            position: relative;
+                        }
+
+                        .auth-container-modal {
+                            padding: 60px 32px 32px;
+                            width: 100%;
+                            position: relative;
+                            background: transparent;
+                        }
+
+                        /* Decorative ambient glow orbs inside modal */
+                        .auth-modal-glow-1 {
+                            position: absolute;
+                            top: -40px;
+                            left: -40px;
+                            width: 180px;
+                            height: 180px;
+                            background: rgba(20, 184, 166, 0.2);
+                            border-radius: 50%;
+                            filter: blur(60px);
+                            pointer-events: none;
+                            z-index: 0;
+                        }
+
+                        .auth-modal-glow-2 {
+                            position: absolute;
+                            bottom: -40px;
+                            right: -40px;
+                            width: 180px;
+                            height: 180px;
+                            background: rgba(99, 102, 241, 0.18);
+                            border-radius: 50%;
+                            filter: blur(60px);
+                            pointer-events: none;
+                            z-index: 0;
+                        }
+
+                        .auth-tabs-nav {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            background: rgba(255, 255, 255, 0.05);
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            padding: 4px;
+                            border-radius: 16px;
+                            margin-bottom: 24px;
+                            position: relative;
+                            z-index: 2;
+                        }
+
+                        .auth-tab-btn {
+                            flex: 1;
+                            padding: 10px 16px;
+                            text-align: center;
+                            font-size: 13px;
+                            font-weight: 700;
+                            border-radius: 12px;
+                            cursor: pointer;
+                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                            color: #94a3b8;
+                            border: none;
+                            background: transparent;
+                            outline: none !important;
+                        }
+
+                        .auth-tab-btn:hover {
+                            color: #ffffff;
+                        }
+
+                        .auth-tab-btn.active {
+                            background: linear-gradient(135deg, #0d9488 0%, #10b981 100%);
+                            color: #ffffff;
+                            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+                        }
+
+                        .auth-form-modal { display: none; position: relative; z-index: 2; }
+                        .auth-form-modal.active { display: block; animation: authFadeIn3D 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+                        @@keyframes authFadeIn3D {
+                            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+                            to { opacity: 1; transform: translateY(0) scale(1); }
+                        }
+
+                        .form-heading-modal {
+                            font-size: 22px;
+                            font-weight: 800;
+                            color: #ffffff;
+                            margin-bottom: 6px;
+                            text-align: center;
+                            letter-spacing: -0.02em;
+                        }
+
+                        .form-subheading-modal {
+                            text-align: center;
+                            font-size: 12px;
+                            color: #94a3b8;
+                            margin-bottom: 20px;
+                        }
+
+                        .input-group-modal {
+                            position: relative;
+                            margin-bottom: 16px;
+                        }
+
+                        .input-group-modal input {
+                            width: 100%;
+                            padding: 13px 44px 13px 42px;
+                            background: rgba(255, 255, 255, 0.05);
+                            border: 1.5px solid rgba(255, 255, 255, 0.12);
+                            border-radius: 14px;
+                            font-size: 13.5px;
+                            font-weight: 500;
+                            color: #ffffff;
+                            outline: none;
+                            transition: all 0.25s ease;
+                        }
+
+                        .input-group-modal input::placeholder {
+                            color: transparent;
+                        }
+
+                        .input-group-modal input:focus {
+                            background: rgba(255, 255, 255, 0.08);
+                            border-color: #14b8a6;
+                            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.25), 0 0 20px rgba(20, 184, 166, 0.15);
+                        }
+
+                        .input-group-modal label {
+                            position: absolute;
+                            top: 14px;
+                            left: 42px;
+                            color: #64748b;
+                            font-size: 13px;
+                            font-weight: 500;
+                            pointer-events: none;
+                            transition: all 0.2s ease;
+                        }
+
+                        .input-group-modal input:focus + label,
+                        .input-group-modal input:not(:placeholder-shown) + label {
+                            top: -9px;
+                            left: 34px;
+                            font-size: 10.5px;
+                            font-weight: 700;
+                            color: #2dd4bf;
+                            background: #080e1c;
+                            padding: 0 6px;
+                            border-radius: 4px;
+                        }
+
+                        .input-group-icon {
+                            position: absolute;
+                            left: 15px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            color: #64748b;
+                            font-size: 14px;
+                            transition: color 0.2s;
+                            pointer-events: none;
+                        }
+
+                        .input-group-modal input:focus ~ .input-group-icon {
+                            color: #2dd4bf;
+                        }
+
+                        .password-toggle-modal {
+                            position: absolute;
+                            right: 14px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            cursor: pointer;
+                            color: #64748b;
+                            font-size: 14px;
+                            transition: color 0.2s;
+                            padding: 4px;
+                            z-index: 3;
+                        }
+
+                        .password-toggle-modal:hover {
+                            color: #2dd4bf;
+                        }
+
+                        .submit-btn-modal {
+                            width: 100%;
+                            padding: 13px 20px;
+                            background: linear-gradient(135deg, #0d9488 0%, #10b981 100%);
+                            color: #ffffff;
+                            border: none;
+                            border-radius: 14px;
+                            font-size: 13px;
+                            font-weight: 800;
+                            letter-spacing: 0.05em;
+                            text-transform: uppercase;
+                            cursor: pointer;
+                            box-shadow: 0 8px 25px -5px rgba(13, 148, 136, 0.45);
+                            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                        }
+
+                        .submit-btn-modal:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 12px 30px -5px rgba(13, 148, 136, 0.6);
+                            filter: brightness(1.08);
+                        }
+
+                        .submit-btn-modal:active {
+                            transform: translateY(0);
+                        }
+
+                        .submit-btn-modal:disabled {
+                            opacity: 0.6;
+                            cursor: not-allowed;
+                            transform: none;
+                        }
+
+                        .forget-password-modal {
+                            text-align: right;
+                            margin-bottom: 18px;
+                            margin-top: -6px;
+                        }
+
+                        .forget-password-modal a {
+                            color: #2dd4bf;
+                            text-decoration: none;
+                            font-size: 12px;
+                            font-weight: 600;
+                            transition: color 0.2s;
+                        }
+
+                        .forget-password-modal a:hover {
+                            color: #5eead4;
+                            text-decoration: underline;
+                        }
+
+                        .switch-form-link-modal {
+                            text-align: center;
+                            margin-top: 18px;
+                            color: #94a3b8;
+                            font-size: 12.5px;
+                        }
+
+                        .switch-form-link-modal a {
+                            color: #2dd4bf;
+                            font-weight: 700;
+                            text-decoration: none;
+                            transition: color 0.2s;
+                        }
+
+                        .switch-form-link-modal a:hover {
+                            color: #5eead4;
+                            text-decoration: underline;
+                        }
+
+                        .close-modal-btn-3d {
+                            position: absolute;
+                            top: 18px;
+                            right: 20px;
+                            width: 36px;
+                            height: 36px;
+                            background: rgba(255, 255, 255, 0.08);
+                            border: 1px solid rgba(255, 255, 255, 0.12);
+                            border-radius: 12px;
+                            color: #94a3b8;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            z-index: 20;
+                            transition: all 0.2s ease;
+                        }
+
+                        .close-modal-btn-3d:hover {
+                            background: rgba(244, 63, 94, 0.2);
+                            border-color: rgba(244, 63, 94, 0.4);
+                            color: #fb7185;
+                            transform: rotate(90deg);
+                        }
+
+                        .alert-modal {
+                            padding: 10px 14px;
+                            border-radius: 12px;
+                            margin-bottom: 18px;
+                            font-size: 12.5px;
+                            font-weight: 600;
+                            display: none;
+                            animation: authFadeIn3D 0.25s ease;
+                        }
+
+                        .alert-modal.alert-danger {
+                            background: rgba(244, 63, 94, 0.15);
+                            color: #fda4af;
+                            border: 1px solid rgba(244, 63, 94, 0.3);
+                        }
+
+                        .alert-modal.alert-success {
+                            background: rgba(16, 185, 129, 0.15);
+                            color: #6ee7b7;
+                            border: 1px solid rgba(16, 185, 129, 0.3);
+                        }
+
+                        .otp-container-modal {
+                            display: flex;
+                            justify-content: center;
+                            gap: 8px;
+                            margin-bottom: 20px;
+                        }
+
+                        .otp-input-modal {
+                            width: 44px;
+                            height: 52px;
+                            font-size: 22px;
+                            font-family: monospace;
+                            font-weight: 800;
+                            text-align: center;
+                            background: rgba(255, 255, 255, 0.06);
+                            border: 1.5px solid rgba(255, 255, 255, 0.15);
+                            border-radius: 12px;
+                            color: #ffffff;
+                            outline: none;
+                            transition: all 0.25s;
+                        }
+
+                        .otp-input-modal:focus {
+                            background: rgba(255, 255, 255, 0.1);
+                            border-color: #14b8a6;
+                            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.25);
+                        }
+
+                        .otp-timer-modal {
+                            text-align: center;
+                            color: #94a3b8;
+                            font-size: 12.5px;
+                            margin-bottom: 18px;
+                        }
+
+                        .cyber-divider {
+                            margin-top: 18px;
+                            margin-bottom: 16px;
+                            text-align: center;
+                            position: relative;
+                        }
+
+                        .cyber-divider::before {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                            top: 50%;
+                            height: 1px;
+                            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+                        }
+
+                        .cyber-divider span {
+                            background: #080e1c;
+                            padding: 0 12px;
+                            color: #64748b;
+                            font-size: 11px;
+                            font-weight: 700;
+                            letter-spacing: 0.06em;
+                            text-transform: uppercase;
+                            position: relative;
+                            z-index: 1;
+                        }
+
+                        /* Custom Google Login Button */
+                        .google-login-btn-custom {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 12px;
+                            padding: 13px 20px;
+                            background: rgba(255, 255, 255, 0.06);
+                            border: 1.5px solid rgba(255, 255, 255, 0.12);
+                            border-radius: 14px;
+                            color: #e2e8f0;
+                            font-size: 14px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                            position: relative;
+                            overflow: hidden;
+                        }
+
+                        .google-login-btn-custom::before {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(234, 67, 53, 0.06), rgba(251, 188, 5, 0.06), rgba(52, 168, 83, 0.08));
+                            opacity: 0;
+                            transition: opacity 0.3s ease;
+                        }
+
+                        .google-login-btn-custom:hover,
+                        .google-login-btn-custom.hover-active {
+                            background: rgba(255, 255, 255, 0.1);
+                            border-color: rgba(255, 255, 255, 0.22);
+                            transform: translateY(-1px);
+                            box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.5);
+                            color: #ffffff;
+                        }
+
+                        .google-login-btn-custom:hover::before,
+                        .google-login-btn-custom.hover-active::before {
+                            opacity: 1;
+                        }
+
+                        .google-login-btn-custom:active {
+                            transform: translateY(0);
+                        }
+
+                        .google-login-btn-custom .google-icon-svg {
+                            width: 20px;
+                            height: 20px;
+                            flex-shrink: 0;
+                            position: relative;
+                            z-index: 1;
+                        }
+
+                        .google-login-btn-custom .google-btn-text {
+                            position: relative;
+                            z-index: 1;
+                        }
+
+                        /* Google button wrapper - overlay technique */
+                        .google-btn-wrapper {
+                            position: relative;
+                            width: 100%;
+                        }
+
+                        .google-gsi-overlay {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            overflow: hidden;
+                            opacity: 0.01;
+                            z-index: 10;
+                            cursor: pointer;
+                        }
+
+                        .google-gsi-overlay iframe {
+                            width: 100% !important;
+                            height: 100% !important;
+                            min-height: 48px;
+                        }
+                    </style>
+
+                    <div class="auth-container-modal">
+                        <!-- Ambient Glow Orbs -->
+                        <div class="auth-modal-glow-1"></div>
+                        <div class="auth-modal-glow-2"></div>
+
+                        <!-- Close Button Top Right -->
+                        <button type="button" class="close-modal-btn-3d" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" title="Đóng">
+                            <i class="fas fa-times"></i>
+                        </button>
+
+                        <!-- Segmented Navigation Tabs (Login / Register) -->
+                        <div class="auth-tabs-nav" id="modal-tabs-wrapper">
+                            <button type="button" class="auth-tab-btn active" id="tab-login-btn">
+                                <i class="fas fa-sign-in-alt mr-1.5"></i> Đăng nhập
+                            </button>
+                            <button type="button" class="auth-tab-btn" id="tab-register-btn">
+                                <i class="fas fa-user-plus mr-1.5"></i> Đăng ký
+                            </button>
+                        </div>
+
+                        <!-- Alert Box -->
+                        <div id="modal-alert" class="alert-modal"></div>
+
+                        <!-- Form Đăng nhập -->
+                        <form id="modal-login-form" class="auth-form-modal active" action="@Url.Action("AjaxLogin", "Account")">
+                            @Html.AntiForgeryToken()
+                            
+                            <div class="input-group-modal">
+                                <input type="text" name="EmailOrPhone" id="modal-login-email" placeholder=" " required />
+                                <label for="modal-login-email">Email hoặc Số điện thoại</label>
+                                <i class="fas fa-user input-group-icon"></i>
+                            </div>
+
+                            <div class="input-group-modal">
+                                <input type="password" name="Password" id="modal-login-password" placeholder=" " required />
+                                <label for="modal-login-password">Mật khẩu</label>
+                                <i class="fas fa-lock input-group-icon"></i>
+                                <i class="fas fa-eye password-toggle-modal" data-target="modal-login-password" title="Hiện/ẩn mật khẩu"></i>
+                            </div>
+
+                            <div class="forget-password-modal">
+                                <a id="show-forgot-form" href="javascript:void(0);">
+                                    <i class="fas fa-key mr-1"></i> Quên mật khẩu?
+                                </a>
+                            </div>
+
+                            <button class="submit-btn-modal" type="submit">
+                                <i class="fas fa-arrow-right-to-bracket"></i>
+                                <span>Đăng nhập</span>
+                            </button>
+
+                            <!-- Cyber Divider -->
+                            <div class="cyber-divider">
+                                <span>Hoặc tiếp tục với</span>
+                            </div>
+
+                            <!-- Google Login Button -->
+                            <div class="google-btn-wrapper">
+                                <!-- Custom visual button (user sees this) -->
+                                <button type="button" class="google-login-btn-custom" id="custom-google-login-btn">
+                                    <svg class="google-icon-svg" viewBox="0 0 48 48">
+                                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                                        <path fill="none" d="M0 0h48v48H0z"/>
+                                    </svg>
+                                    <span class="google-btn-text">Đăng nhập qua Google</span>
+                                </button>
+
+                                <!-- Real GSI button overlay (invisible, on top, receives the click) -->
+                                <div class="google-gsi-overlay" id="google-gsi-overlay-container">
+                                    <div id="g_id_onload"
+                                         data-client_id="875214279930-h0d47gbbmvodj3mejnkb3k89dj3esalo.apps.googleusercontent.com"
+                                         data-context="signin"
+                                         data-ux_mode="popup"
+                                         data-callback="handleGoogleLoginModal"
+                                         data-auto_prompt="false">
+                                    </div>
+                                    <div class="g_id_signin"
+                                         data-type="standard"
+                                         data-shape="rectangular"
+                                         data-theme="outline"
+                                         data-text="signin_with"
+                                         data-size="large"
+                                         data-width="400"
+                                         data-logo_alignment="center">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="switch-form-link-modal">
+                                Bạn chưa có tài khoản? <a id="show-register-form" href="javascript:void(0);">Đăng ký ngay</a>
+                            </div>
+                        </form>
+
+                        <!-- Form ẩn để submit Google Token từ Modal -->
+                        <form id="google-login-modal-form" action="@Url.Action("GoogleLogin", "Account")" method="POST" style="display: none;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="credential" id="google-credential-modal" />
+                        </form>
+
+                        <!-- Form Đăng ký -->
+                        <form id="modal-register-form" class="auth-form-modal" action="@Url.Action("AjaxRegister", "Account")">
+                            @Html.AntiForgeryToken()
+                            
+                            <div class="input-group-modal">
+                                <input type="text" name="FullName" id="modal-register-fullname" placeholder=" " required />
+                                <label for="modal-register-fullname">Họ và tên</label>
+                                <i class="fas fa-user-tag input-group-icon"></i>
+                            </div>
+
+                            <div class="input-group-modal">
+                                <input type="email" name="Email" id="modal-register-email" placeholder=" " required />
+                                <label for="modal-register-email">Địa chỉ Email</label>
+                                <i class="fas fa-envelope input-group-icon"></i>
+                            </div>
+
+                            <div class="input-group-modal">
+                                <input type="tel" name="PhoneNumber" id="modal-register-phone" placeholder=" " required />
+                                <label for="modal-register-phone">Số điện thoại</label>
+                                <i class="fas fa-phone input-group-icon"></i>
+                            </div>
+
+                            <div class="input-group-modal">
+                                <input type="password" name="Password" id="modal-register-password" placeholder=" " required />
+                                <label for="modal-register-password">Mật khẩu</label>
+                                <i class="fas fa-lock input-group-icon"></i>
+                                <i class="fas fa-eye password-toggle-modal" data-target="modal-register-password" title="Hiện/ẩn mật khẩu"></i>
+                            </div>
+
+                            <div class="input-group-modal">
+                                <input type="password" name="ConfirmPassword" id="modal-register-confirm" placeholder=" " required />
+                                <label for="modal-register-confirm">Xác nhận mật khẩu</label>
+                                <i class="fas fa-shield-check input-group-icon"></i>
+                                <i class="fas fa-eye password-toggle-modal" data-target="modal-register-confirm" title="Hiện/ẩn mật khẩu"></i>
+                            </div>
+
+                            <button class="submit-btn-modal" type="submit">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Tạo tài khoản mới</span>
+                            </button>
+
+                            <div class="switch-form-link-modal">
+                                Bạn đã có tài khoản? <a class="show-login-form" href="javascript:void(0);">Đăng nhập</a>
+                            </div>
+                        </form>
+
+                        <!-- Form Quên mật khẩu -->
+                        <form id="modal-forgot-form" class="auth-form-modal">
+                            @Html.AntiForgeryToken()
+                            <h2 class="form-heading-modal">Khôi phục mật khẩu</h2>
+                            
+                            <div id="modal-fp-step-1">
+                                <p class="form-subheading-modal">Nhập email đăng ký tài khoản để nhận mã OTP xác thực đa lớp.</p>
+                                <div class="input-group-modal">
+                                    <input type="email" name="Email" id="modal-forgot-email" placeholder=" " required />
+                                    <label for="modal-forgot-email">Địa chỉ Email</label>
+                                    <i class="fas fa-envelope input-group-icon"></i>
+                                </div>
+                                <button class="submit-btn-modal" type="button" id="btn-send-otp-modal">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Gửi mã xác nhận OTP</span>
+                                </button>
+                            </div>
+
+                            <div id="modal-fp-step-2" style="display: none;">
+                                <p class="form-subheading-modal">Nhập mã 6 chữ số vừa được gửi đến hòm thư email của bạn.</p>
+                                
+                                <div class="otp-container-modal" id="modal-otp-inputs">
+                                    <input type="text" class="otp-input-modal" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+                                    <input type="text" class="otp-input-modal" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+                                    <input type="text" class="otp-input-modal" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+                                    <input type="text" class="otp-input-modal" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+                                    <input type="text" class="otp-input-modal" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+                                    <input type="text" class="otp-input-modal" maxlength="1" pattern="[0-9]*" inputmode="numeric" />
+                                </div>
+                                
+                                <div class="otp-timer-modal">
+                                    Thời hạn mã OTP: <span id="modal-timer-count" class="font-bold text-teal-300 font-mono">05:00</span>
+                                </div>
+
+                                <button type="button" class="submit-btn-modal" id="btn-verify-otp-modal">
+                                    <i class="fas fa-shield-check"></i>
+                                    <span>Xác nhận mã OTP</span>
+                                </button>
+                            </div>
+
+                            <div id="modal-fp-step-3" style="display: none;">
+                                <p class="form-subheading-modal">Mã OTP hợp lệ. Vui lòng thiết lập mật khẩu mới an toàn.</p>
+                                
+                                <div class="input-group-modal">
+                                    <input type="password" id="modal-fp-new-password" name="NewPassword" placeholder=" " required />
+                                    <label for="modal-fp-new-password">Mật khẩu mới</label>
+                                    <i class="fas fa-lock input-group-icon"></i>
+                                    <i class="fas fa-eye password-toggle-modal" data-target="modal-fp-new-password"></i>
+                                </div>
+
+                                <div class="input-group-modal">
+                                    <input type="password" id="modal-fp-confirm-password" name="ConfirmNewPassword" placeholder=" " required />
+                                    <label for="modal-fp-confirm-password">Xác nhận mật khẩu</label>
+                                    <i class="fas fa-shield-check input-group-icon"></i>
+                                    <i class="fas fa-eye password-toggle-modal" data-target="modal-fp-confirm-password"></i>
+                                </div>
+
+                                <button type="button" class="submit-btn-modal" id="btn-save-password-modal">
+                                    <i class="fas fa-check"></i>
+                                    <span>Lưu mật khẩu mới</span>
+                                </button>
+                            </div>
+
+                            <div class="switch-form-link-modal">
+                                <a class="show-login-form" href="javascript:void(0);"><i class="fas fa-arrow-left mr-1"></i> Quay lại đăng nhập</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    @Html.Partial("_ChatbotWidget")
+
+    <!-- Javascript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 50
+        });
+    </script>
+    
+    <script src="~/Scripts/Trang-Chu.js"></script>
+    <script src="~/Scripts/cart.js"></script>
+
+    <script>
+      // Load cart count on page load
+        $(document).ready(function() {
+ $.ajax({
+   url: '@Url.Action("GetCartCount", "GioHang")',
+  type: 'GET',
+    success: function(response) {
+  if (response.count > 0) {
+     $('.cart-count').text(response.count).show();
+    } else {
+      $('.cart-count').hide();
+   }
+  }
+     });
+  });
+
+        // Search Autocomplete - Unified function
+        var searchTimeout;
+
+        function initSearchAutocomplete(inputSelector, dropdownSelector) {
+            var $input = $(inputSelector);
+            var $dropdown = $(dropdownSelector);
+
+            $input.on('input', function() {
+                clearTimeout(searchTimeout);
+                var keyword = $(this).val().trim();
+
+                if (keyword.length < 2) {
+                    $dropdown.addClass('hidden').empty();
+                    return;
+                }
+
+                searchTimeout = setTimeout(function() {
+                    $.ajax({
+                        url: '@Url.Action("QuickSearch", "Search")',
+                        type: 'GET',
+                        data: { q: keyword },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.success && response.count > 0) {
+                                var html = '<div class="p-2">';
+
+                                // Header
+                                html += '<div class="px-3 py-2 text-xs font-semibold text-gray-500 border-b">';
+                                html += 'Tìm thấy ' + response.count + ' sản phẩm';
+                                html += '</div>';
+
+                                // Results
+                                $.each(response.data, function(index, item) {
+                                    html += '<a href="' + item.url + '" class="flex items-center p-3 hover:bg-blue-50 transition-colors border-b last:border-b-0">';
+
+                                    // Image
+                                    html += '<img src="/Content/Images/' + item.image + '" alt="' + escapeHtml(item.name) + '" class="w-16 h-16 object-contain rounded border border-gray-200 mr-3" onerror="this.src=\'/Content/Images/no-image.png\'">';
+
+                                    // Info
+                                    html += '<div class="flex-1 min-w-0">';
+                                    html += '<p class="text-sm font-semibold text-gray-900 truncate">' + escapeHtml(item.name) + '</p>';
+
+                                    // Price
+                                    if (item.hasDiscount) {
+                                        html += '<div class="flex items-center space-x-2 mt-1">';
+                                        html += '<span class="text-sm font-bold text-red-600">' + formatPrice(item.price) + ' đ</span>';
+                                        html += '<span class="text-xs text-gray-500 line-through">' + formatPrice(item.oldPrice) + ' đ</span>';
+                                        html += '</div>';
+                                    } else {
+                                        html += '<span class="text-sm font-bold text-blue-600 mt-1 block">' + formatPrice(item.price) + ' đ</span>';
+                                    }
+
+                                    html += '</div>';
+
+                                    // Arrow
+                                    html += '<i class="fas fa-chevron-right text-gray-400"></i>';
+                                    html += '</a>';
+                                });
+
+                                // View All
+                                html += '<div class="p-3 border-t bg-gray-50">';
+                                html += '<a href="@Url.Action("Index", "Search")?q=' + encodeURIComponent(keyword) + '" class="block text-center text-blue-600 hover:text-blue-700 font-semibold text-sm">';
+                                html += '<i class="fas fa-search mr-2"></i>Xem tất cả kết quả';
+                                html += '</a>';
+                                html += '</div>';
+
+                                html += '</div>';
+
+                                $dropdown.html(html).removeClass('hidden');
+                            } else {
+                                // No results
+                                var noResultHtml = '<div class="p-6 text-center">';
+                                noResultHtml += '<i class="fas fa-search text-gray-300 text-3xl mb-2"></i>';
+                                noResultHtml += '<p class="text-gray-500 text-sm">Không tìm thấy sản phẩm</p>';
+                                noResultHtml += '</div>';
+                                $dropdown.html(noResultHtml).removeClass('hidden');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Search error:', error);
+                            $dropdown.addClass('hidden').empty();
+                        }
+                    });
+                }, 300); // Debounce 300ms
+            });
+
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest(inputSelector).length && !$(e.target).closest(dropdownSelector).length) {
+                    $dropdown.addClass('hidden');
+                }
+            });
+        }
+
+        // Initialize search for both desktop and mobile
+        initSearchAutocomplete('#searchInput', '#searchDropdown');
+        initSearchAutocomplete('#searchInputMobile', '#searchDropdownMobile');
+
+    // User Dropdown Menu Toggle
+    $('.user-dropdown-container > a').on('click', function(e) {
+        e.preventDefault();
+        var dropdown = $(this).siblings('div');
+        dropdown.toggleClass('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    $(document).on('click', function(e) {
+  if (!$(e.target).closest('.user-dropdown-container').length) {
+            $('.user-dropdown-container > div').addClass('hidden');
+        }
+    });
+
+    // Format price
+ function formatPrice(price) {
+        if (!price) return '0';
+ return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+        if (!text) return '';
+  var map = {
+     '&': '&amp;',
+            '<': '&lt;',
+'>': '&gt;',
+ '"': '&quot;',
+          "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+    // Auth Modal Script
+    $(document).ready(function() {
+        function showAuthAlert(message, isSuccess) {
+            var alertDiv = $('#modal-alert');
+            alertDiv.removeClass('alert-success alert-danger').addClass(isSuccess ? 'alert-success' : 'alert-danger');
+            alertDiv.html(isSuccess ? '<i class="fas fa-check-circle"></i> ' + message : '<i class="fas fa-exclamation-circle"></i> ' + message);
+            alertDiv.slideDown();
+            setTimeout(function() { alertDiv.slideUp(); }, 5000);
+        }
+
+        function resetAuthForms() {
+            $('.auth-form-modal').trigger('reset');
+            $('#modal-alert').hide();
+        }
+
+        function switchAuthForm(formId) {
+            $('.auth-form-modal').removeClass('active');
+            $('#' + formId).addClass('active');
+            resetAuthForms();
+
+            if (formId === 'modal-login-form') {
+                $('#modal-tabs-wrapper').slideDown(200);
+                $('#tab-login-btn').addClass('active');
+                $('#tab-register-btn').removeClass('active');
+            } else if (formId === 'modal-register-form') {
+                $('#modal-tabs-wrapper').slideDown(200);
+                $('#tab-register-btn').addClass('active');
+                $('#tab-login-btn').removeClass('active');
+            } else {
+                $('#modal-tabs-wrapper').slideUp(200);
+            }
+        }
+
+        $('#tab-login-btn').click(function() { switchAuthForm('modal-login-form'); });
+        $('#tab-register-btn').click(function() { switchAuthForm('modal-register-form'); });
+        $('#show-register-form').click(function() { switchAuthForm('modal-register-form'); });
+        $('.show-login-form').click(function() { switchAuthForm('modal-login-form'); });
+        $('#show-forgot-form').click(function() { switchAuthForm('modal-forgot-form'); });
+
+        $('.password-toggle-modal').on('click', function() {
+            var target = $(this).data('target');
+            var input = $('#' + target);
+            if (input.attr('type') === 'password') {
+                input.attr('type', 'text');
+                $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                input.attr('type', 'password');
+                $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        });
+
+        $('.close-modal-btn-3d').on('click', function () {
+            $('#authModal').modal('hide');
+        });
+
+        $('#authModal').on('hidden.bs.modal', function () {
+            switchAuthForm('modal-login-form');
+        });
+
+        // Submit Login
+        $('#modal-login-form').submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var btn = form.find('.submit-btn-modal');
+            btn.prop('disabled', true).text('Đang đăng nhập...');
+            $.post(form.attr('action'), form.serialize(), function(res) {
+                if(res.success) {
+                    window.location.href = res.redirectUrl;
+                } else {
+                    showAuthAlert(res.message, false);
+                    btn.prop('disabled', false).text('Đăng nhập');
+                }
+            }).fail(function() {
+                showAuthAlert("Có lỗi xảy ra, vui lòng thử lại.", false);
+                btn.prop('disabled', false).text('Đăng nhập');
+            });
+        });
+
+        // Submit Register
+        $('#modal-register-form').submit(function(e) {
+            e.preventDefault();
+            var pass = $('#modal-register-password').val();
+            var confirmPass = $('#modal-register-confirm').val();
+            if(pass !== confirmPass) {
+                showAuthAlert("Mật khẩu xác nhận không khớp.", false);
+                return;
+            }
+            var form = $(this);
+            var btn = form.find('.submit-btn-modal');
+            btn.prop('disabled', true).text('Đang đăng ký...');
+            $.post(form.attr('action'), form.serialize(), function(res) {
+                if(res.success) {
+                    showAuthAlert(res.message, true);
+                    setTimeout(function() { switchAuthForm('modal-login-form'); }, 2000);
+                } else {
+                    showAuthAlert(res.message, false);
+                }
+                btn.prop('disabled', false).text('Đăng ký');
+            }).fail(function() {
+                showAuthAlert("Có lỗi xảy ra, vui lòng thử lại.", false);
+                btn.prop('disabled', false).text('Đăng ký');
+            });
+        });
+
+                // OTP Logic for Forgot Password Modal
+        const modalOtpInputs = document.querySelectorAll('.otp-input-modal');
+        modalOtpInputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= '0' && e.key <= '9') {
+                    if (index < modalOtpInputs.length - 1) {
+                        modalOtpInputs[index + 1].focus();
+                    }
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) {
+                        modalOtpInputs[index - 1].focus();
+                    }
+                }
+            });
+        });
+
+        let modalOtpTimerInterval;
+        function startModalOtpTimer(duration) {
+            let timer = duration, minutes, seconds;
+            clearInterval(modalOtpTimerInterval);
+            modalOtpTimerInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                $('#modal-timer-count').text(minutes + ":" + seconds);
+                if (--timer < 0) {
+                    clearInterval(modalOtpTimerInterval);
+                    $('#modal-timer-count').text("Hết hạn");
+                }
+            }, 1000);
+        }
+
+        // Show step 1 when opening forgot form
+        $('#show-forgot-form').click(function() {
+            $('#modal-fp-step-1').show();
+            $('#modal-fp-step-2').hide();
+            $('#modal-timer-count').text('05:00');
+            clearInterval(modalOtpTimerInterval);
+            switchAuthForm('modal-forgot-form');
+        });
+
+        // Send OTP AJAX
+        $('#btn-send-otp-modal').on('click', function () {
+            var email = $('#modal-forgot-email').val();
+            if (!email) return;
+            
+            var btn = $(this);
+            btn.prop('disabled', true).text('Đang gửi...');
+
+            $.ajax({
+                url: '/Account/AjaxForgotPassword',
+                type: 'POST',
+                data: {
+                    Email: email,
+                    __RequestVerificationToken: $('#modal-forgot-form input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (res) {
+                    btn.prop('disabled', false).text('Gửi mã xác nhận OTP');
+                    if (res.success) {
+                        $('#modal-fp-step-1').hide();
+                        $('#modal-fp-step-2').show();
+                        startModalOtpTimer(300); // 5 mins
+                        showAuthAlert("Mã OTP đã được gửi đến email của bạn.", true);
+                    } else {
+                        showAuthAlert(res.message, false);
+                    }
+                },
+                error: function () {
+                    btn.prop('disabled', false).text('Gửi mã xác nhận OTP');
+                    showAuthAlert("Có lỗi xảy ra. Vui lòng thử lại.", false);
+                }
+            });
+        });
+
+                // Verify OTP AJAX (chuyển sang bước 3)
+        $('#btn-verify-otp-modal').on('click', function () {
+            var email = $('#modal-forgot-email').val();
+            var otp = "";
+            $('.otp-input-modal').each(function() { otp += $(this).val(); });
+            
+            if (otp.length !== 6) {
+                showAuthAlert("Vui lòng điền đủ 6 số OTP.", false);
+                return;
+            }
+            
+            var btn = $(this);
+            btn.prop('disabled', true).text('Đang xác nhận...');
+
+            $.ajax({
+                url: '/Account/AjaxVerifyOTP',
+                type: 'POST',
+                data: {
+                    Email: email,
+                    OTP: otp,
+                    __RequestVerificationToken: $('#modal-forgot-form input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (res) {
+                    btn.prop('disabled', false).text('Xác nhận OTP');
+                    if (res.success) {
+                        $('#modal-fp-step-2').hide();
+                        $('#modal-fp-step-3').show();
+                        clearInterval(modalOtpTimerInterval); // Dừng đếm ngược
+                    } else {
+                        showAuthAlert(res.message, false);
+                    }
+                },
+                error: function () {
+                    btn.prop('disabled', false).text('Xác nhận OTP');
+                    showAuthAlert("Có lỗi xảy ra. Vui lòng thử lại.", false);
+                }
+            });
+        });
+
+        // Submit New Password AJAX
+        $('#btn-save-password-modal').on('click', function () {
+            var email = $('#modal-forgot-email').val();
+            var otp = "";
+            $('.otp-input-modal').each(function() { otp += $(this).val(); });
+            var newPassword = $('#modal-fp-new-password').val();
+            var confirmPassword = $('#modal-fp-confirm-password').val();
+            
+            if (!newPassword || !confirmPassword) {
+                showAuthAlert("Vui lòng điền mật khẩu mới.", false);
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                showAuthAlert("Mật khẩu xác nhận không khớp.", false);
+                return;
+            }
+            
+            var btn = $(this);
+            btn.prop('disabled', true).text('Đang lưu...');
+
+            $.ajax({
+                url: '/Account/AjaxResetPassword',
+                type: 'POST',
+                data: {
+                    Email: email,
+                    OTP: otp,
+                    NewPassword: newPassword,
+                    ConfirmNewPassword: confirmPassword,
+                    __RequestVerificationToken: $('#modal-forgot-form input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (res) {
+                    btn.prop('disabled', false).text('Lưu mật khẩu mới');
+                    if (res.success) {
+                        showAuthAlert(res.message, true);
+                        setTimeout(function() { switchAuthForm('modal-login-form'); }, 2000);
+                    } else {
+                        showAuthAlert(res.message, false);
+                    }
+                },
+                error: function () {
+                    btn.prop('disabled', false).text('Lưu mật khẩu mới');
+                    showAuthAlert("Có lỗi xảy ra. Vui lòng thử lại.", false);
+                }
+            });
+        });
+    });</script>
+
+    <!-- AOS - Animate On Scroll Script & Smooth Motion Config -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 650,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 30,
+                    delay: 50
+                });
+            }
+
+            // Nav border beam click tactile feedback
+            $('.nav-border-beam').on('click', function() {
+                $('.nav-border-beam').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            // Handle Newsletter Subscription
+            $('#btnSubscribe').click(function(e) {
+                e.preventDefault();
+                var email = $('#newsletterEmail').val();
+                if (email && email.includes('@@')) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đăng ký thành công!',
+                        text: 'Cảm ơn bạn đã đăng ký nhận thông tin khuyến mãi.',
+                        confirmButtonColor: '#14b8a6'
+                    });
+                    $('#newsletterEmail').val('');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: 'Vui lòng nhập địa chỉ email hợp lệ.',
+                        confirmButtonColor: '#14b8a6'
+                    });
+                }
+            });
+        });
+    </script>
+
+    @Html.Partial("_QuickViewModal")
+
+    <!-- Three.js Library for Web 3D & 360 Product Experience -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="~/Scripts/web-3d-experience.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+        function handleGoogleLoginModal(response) {
+            document.getElementById('google-credential-modal').value = response.credential;
+            document.getElementById('google-login-modal-form').submit();
+        }
+
+        // Add hover effect passthrough: when hovering over the invisible GSI overlay,
+        // visually highlight the custom button underneath
+        $(document).ready(function() {
+            var overlay = document.getElementById('google-gsi-overlay-container');
+            var customBtn = document.getElementById('custom-google-login-btn');
+            if (overlay && customBtn) {
+                overlay.addEventListener('mouseenter', function() {
+                    customBtn.classList.add('hover-active');
+                });
+                overlay.addEventListener('mouseleave', function() {
+                    customBtn.classList.remove('hover-active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

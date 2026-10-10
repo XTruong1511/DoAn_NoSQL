@@ -1,0 +1,367 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330835"
+    },
+    "SqlId": 1,
+    "TenDangNhap": "admin",
+    "MatKhau": "123456",
+    "HoTen": "Quản trị viên",
+    "Email": "admin@example.com",
+    "SoDienThoai": null,
+    "LaQuanTri": true,
+    "HoatDong": true,
+    "Quyen": {
+      "Id": 1,
+      "TenQuyen": "Admin"
+    },
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330836"
+    },
+    "SqlId": 2,
+    "TenDangNhap": "tin",
+    "MatKhau": "123456",
+    "HoTen": "Chung Vĩ Tín",
+    "Email": null,
+    "SoDienThoai": null,
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330837"
+    },
+    "SqlId": 3,
+    "TenDangNhap": "tin123@gmail.com",
+    "MatKhau": "12345678",
+    "HoTen": "tín",
+    "Email": "tin123@gmail.com",
+    "SoDienThoai": "0942737181",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330838"
+    },
+    "SqlId": 4,
+    "TenDangNhap": "an.nguyen",
+    "MatKhau": "an@123",
+    "HoTen": "Nguyễn Văn An",
+    "Email": "an.nguyen@email.com",
+    "SoDienThoai": "0901234567",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": [
+      {
+        "SanPhamId": 22,
+        "TenSanPham": "iPhone 17 Pro Max",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 24,
+        "TenSanPham": "OPPO Find N5",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 50,
+        "TenSanPham": "MacBook Air M4",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330839"
+    },
+    "SqlId": 5,
+    "TenDangNhap": "binh.tran",
+    "MatKhau": "binh@123",
+    "HoTen": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "SoDienThoai": "0912345678",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": [
+      {
+        "SanPhamId": 30,
+        "TenSanPham": "Samsung Galaxy Z Fold7",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 31,
+        "TenSanPham": "Samsung Galaxy S25 Ultra",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 56,
+        "TenSanPham": "Samsung Galaxy Tab A9+",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533083a"
+    },
+    "SqlId": 6,
+    "TenDangNhap": "cuong.le",
+    "MatKhau": "cuong@123",
+    "HoTen": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "SoDienThoai": "0987654321",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533083b"
+    },
+    "SqlId": 7,
+    "TenDangNhap": "dung.pham",
+    "MatKhau": "dung@123",
+    "HoTen": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "SoDienThoai": "0934567890",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": [
+      {
+        "SanPhamId": 23,
+        "TenSanPham": "iPhone Air",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 48,
+        "TenSanPham": "MacBook Air M1 2020",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 52,
+        "TenSanPham": "iPad Air 6",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533083c"
+    },
+    "SqlId": 8,
+    "TenDangNhap": "em.hoang",
+    "MatKhau": "em@123",
+    "HoTen": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "SoDienThoai": "0945678901",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533083d"
+    },
+    "SqlId": 9,
+    "TenDangNhap": "giang.vu",
+    "MatKhau": "giang@123",
+    "HoTen": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "SoDienThoai": "0956789012",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533083e"
+    },
+    "SqlId": 10,
+    "TenDangNhap": "hai.do",
+    "MatKhau": "hai@123",
+    "HoTen": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "SoDienThoai": "0967890123",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": [
+      {
+        "SanPhamId": 36,
+        "TenSanPham": "Asus ROG Zephyrus G16",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 40,
+        "TenSanPham": "Dell Alienware 16",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 45,
+        "TenSanPham": "Lenovo Legion Pro 7",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533083f"
+    },
+    "SqlId": 11,
+    "TenDangNhap": "kieu.bui",
+    "MatKhau": "kieu@123",
+    "HoTen": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "SoDienThoai": "0978901234",
+    "LaQuanTri": false,
+    "HoatDong": false,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330840"
+    },
+    "SqlId": 12,
+    "TenDangNhap": "long.ngo",
+    "MatKhau": "long@123",
+    "HoTen": "Ngô Văn Long",
+    "Email": "long.ngo@email.com",
+    "SoDienThoai": "0989012345",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330841"
+    },
+    "SqlId": 13,
+    "TenDangNhap": "mai.dang",
+    "MatKhau": "mai@123",
+    "HoTen": "Đặng Thị Mai",
+    "Email": "mai.dang@email.com",
+    "SoDienThoai": "0990123456",
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": [
+      {
+        "SanPhamId": 32,
+        "TenSanPham": "Xiaomi 15",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 66,
+        "TenSanPham": "Sạc dự phòng Anker 20K",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      },
+      {
+        "SanPhamId": 67,
+        "TenSanPham": "Tai nghe Sony WH-1000XM6",
+        "NgayYeuThich": "CAST(N'2025-11-25T12:59:31.953' AS DateTime"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330842"
+    },
+    "SqlId": 14,
+    "TenDangNhap": "superadmin",
+    "MatKhau": "admin@123",
+    "HoTen": "Trần Tuấn Anh",
+    "Email": "admin@shop.com",
+    "SoDienThoai": null,
+    "LaQuanTri": true,
+    "HoatDong": true,
+    "Quyen": {
+      "Id": 1,
+      "TenQuyen": "Admin"
+    },
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330843"
+    },
+    "SqlId": 15,
+    "TenDangNhap": "sanpham_manager",
+    "MatKhau": "sanpham@123",
+    "HoTen": "Lý Thị Bích",
+    "Email": "product@shop.com",
+    "SoDienThoai": null,
+    "LaQuanTri": true,
+    "HoatDong": true,
+    "Quyen": {
+      "Id": 1,
+      "TenQuyen": "Admin"
+    },
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330844"
+    },
+    "SqlId": 16,
+    "TenDangNhap": "donhang_manager",
+    "MatKhau": "donhang@123",
+    "HoTen": "Bùi Văn Hùng",
+    "Email": "order@shop.com",
+    "SoDienThoai": null,
+    "LaQuanTri": true,
+    "HoatDong": true,
+    "Quyen": {
+      "Id": 1,
+      "TenQuyen": "Admin"
+    },
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330845"
+    },
+    "SqlId": 17,
+    "TenDangNhap": "bientapvien",
+    "MatKhau": "bientapvien@123",
+    "HoTen": "Phạm Thùy Linh",
+    "Email": "editor@shop.com",
+    "SoDienThoai": null,
+    "LaQuanTri": true,
+    "HoatDong": true,
+    "Quyen": {
+      "Id": 1,
+      "TenQuyen": "Admin"
+    },
+    "DanhSachYeuThich": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330846"
+    },
+    "SqlId": 18,
+    "TenDangNhap": "truong456@gmail.com",
+    "MatKhau": "123456",
+    "HoTen": "truong",
+    "Email": "truong456@gmail.com",
+    "SoDienThoai": null,
+    "LaQuanTri": false,
+    "HoatDong": true,
+    "Quyen": null,
+    "DanhSachYeuThich": []
+  }
+]

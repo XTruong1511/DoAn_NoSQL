@@ -1,0 +1,1460 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330874"
+    },
+    "SqlId": 2,
+    "SanPham": {
+      "Id": 20,
+      "TenSanPham": "iPhone 17"
+    },
+    "TenNguoiGui": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "NoiDung": "Máy dùng tốt, đáng tiền.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330875"
+    },
+    "SqlId": 3,
+    "SanPham": {
+      "Id": 21,
+      "TenSanPham": "iPhone 17 Pro"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "NoiDung": "Chất lượng ổn, nhưng pin hơi yếu.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330876"
+    },
+    "SqlId": 4,
+    "SanPham": {
+      "Id": 22,
+      "TenSanPham": "iPhone 17 Pro Max"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "NoiDung": "Thiết kế đẹp, nhưng hơi nặng.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330877"
+    },
+    "SqlId": 5,
+    "SanPham": {
+      "Id": 22,
+      "TenSanPham": "iPhone 17 Pro Max"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "NoiDung": "Camera xuất sắc, màu sắc đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330878"
+    },
+    "SqlId": 6,
+    "SanPham": {
+      "Id": 23,
+      "TenSanPham": "iPhone Air"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Chưa hài lòng, pin yếu.",
+    "Sao": 2,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330879"
+    },
+    "SqlId": 7,
+    "SanPham": {
+      "Id": 23,
+      "TenSanPham": "iPhone Air"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "NoiDung": "Máy ổn, hơi nóng khi chơi game.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533087a"
+    },
+    "SqlId": 8,
+    "SanPham": {
+      "Id": 24,
+      "TenSanPham": "OPPO Find N5"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "NoiDung": "Rất đẹp, cảm giác cầm chắc tay.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533087b"
+    },
+    "SqlId": 9,
+    "SanPham": {
+      "Id": 25,
+      "TenSanPham": "OPPO Find N3 Flip"
+    },
+    "TenNguoiGui": "Ngô Văn Long",
+    "Email": "long.ngo@email.com",
+    "NoiDung": "Máy nhanh, pin ổn.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533087c"
+    },
+    "SqlId": 10,
+    "SanPham": {
+      "Id": 25,
+      "TenSanPham": "OPPO Find N3 Flip"
+    },
+    "TenNguoiGui": "Đặng Thị Mai",
+    "Email": "mai.dang@email.com",
+    "NoiDung": "Chưa thích màu sắc lắm.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533087d"
+    },
+    "SqlId": 12,
+    "SanPham": {
+      "Id": 27,
+      "TenSanPham": "OPPO Reno12 Pro"
+    },
+    "TenNguoiGui": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "NoiDung": "Tốt, nhưng hơi nặng.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533087e"
+    },
+    "SqlId": 13,
+    "SanPham": {
+      "Id": 27,
+      "TenSanPham": "OPPO Reno12 Pro"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "NoiDung": "Máy ổn, giá hợp lý.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533087f"
+    },
+    "SqlId": 14,
+    "SanPham": {
+      "Id": 28,
+      "TenSanPham": "Samsung Galaxy A56"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "NoiDung": "Camera đẹp, pin tốt.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330880"
+    },
+    "SqlId": 15,
+    "SanPham": {
+      "Id": 29,
+      "TenSanPham": "Samsung Galaxy Z Flip7"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "NoiDung": "Máy dùng mượt, màu đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330881"
+    },
+    "SqlId": 16,
+    "SanPham": {
+      "Id": 29,
+      "TenSanPham": "Samsung Galaxy Z Flip7"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Tuyệt vời, rất đáng tiền.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330882"
+    },
+    "SqlId": 17,
+    "SanPham": {
+      "Id": 30,
+      "TenSanPham": "Samsung Galaxy Z Fold7"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "NoiDung": "Ổn, nhưng giá cao.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330883"
+    },
+    "SqlId": 18,
+    "SanPham": {
+      "Id": 31,
+      "TenSanPham": "Samsung Galaxy S25 Ultra"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "NoiDung": "Tuyệt vời, pin lâu.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330884"
+    },
+    "SqlId": 19,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Ngô Văn Long",
+    "Email": "long.ngo@email.com",
+    "NoiDung": "Máy ổn, thiết kế đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330885"
+    },
+    "SqlId": 20,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Đặng Thị Mai",
+    "Email": "mai.dang@email.com",
+    "NoiDung": "Rất hài lòng, đáng mua.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330886"
+    },
+    "SqlId": 22,
+    "SanPham": {
+      "Id": 34,
+      "TenSanPham": "Xiaomi Redmi 15"
+    },
+    "TenNguoiGui": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "NoiDung": "Tốt, đáng mua.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330887"
+    },
+    "SqlId": 23,
+    "SanPham": {
+      "Id": 35,
+      "TenSanPham": "Xiaomi Redmi Note 14 Pro+"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "NoiDung": "Camera xuất sắc, máy nhanh.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330888"
+    },
+    "SqlId": 24,
+    "SanPham": {
+      "Id": 36,
+      "TenSanPham": "Asus ROG Zephyrus G16"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "NoiDung": "Màu sắc đẹp, cảm giác cầm tốt.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330889"
+    },
+    "SqlId": 25,
+    "SanPham": {
+      "Id": 36,
+      "TenSanPham": "Asus ROG Zephyrus G16"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "NoiDung": "Tuyệt vời, đáng tiền.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533088a"
+    },
+    "SqlId": 26,
+    "SanPham": {
+      "Id": 37,
+      "TenSanPham": "Asus TUF Gaming F16"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Ổn, nhưng pin chưa lâu.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533088b"
+    },
+    "SqlId": 27,
+    "SanPham": {
+      "Id": 38,
+      "TenSanPham": "Asus VivoBook S 14"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "NoiDung": "Tốt, đáng mua.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533088c"
+    },
+    "SqlId": 28,
+    "SanPham": {
+      "Id": 38,
+      "TenSanPham": "Asus VivoBook S 14"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "NoiDung": "Máy nhanh, màu đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533088d"
+    },
+    "SqlId": 29,
+    "SanPham": {
+      "Id": 39,
+      "TenSanPham": "Asus ZenBook Duo"
+    },
+    "TenNguoiGui": "Ngô Văn Long",
+    "Email": "long.ngo@email.com",
+    "NoiDung": "Máy ổn, hơi nóng khi chơi game.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533088e"
+    },
+    "SqlId": 30,
+    "SanPham": {
+      "Id": 40,
+      "TenSanPham": "Dell Alienware 16"
+    },
+    "TenNguoiGui": "Đặng Thị Mai",
+    "Email": "mai.dang@email.com",
+    "NoiDung": "Máy ổn, thiết kế đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533088f"
+    },
+    "SqlId": 32,
+    "SanPham": {
+      "Id": 41,
+      "TenSanPham": "Dell Inspiron 16"
+    },
+    "TenNguoiGui": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "NoiDung": "Máy dùng mượt, pin tốt.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330890"
+    },
+    "SqlId": 33,
+    "SanPham": {
+      "Id": 42,
+      "TenSanPham": "Dell Latitude 7350"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "NoiDung": "Ổn, nhưng giá hơi cao.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330891"
+    },
+    "SqlId": 34,
+    "SanPham": {
+      "Id": 43,
+      "TenSanPham": "Dell XPS 13"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "NoiDung": "Tuyệt vời, camera đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330892"
+    },
+    "SqlId": 35,
+    "SanPham": {
+      "Id": 43,
+      "TenSanPham": "Dell XPS 13"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "NoiDung": "Máy dùng mượt, màu đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330893"
+    },
+    "SqlId": 36,
+    "SanPham": {
+      "Id": 44,
+      "TenSanPham": "Lenovo LOQ 15"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Pin chưa lâu, nhưng máy ổn.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330894"
+    },
+    "SqlId": 37,
+    "SanPham": {
+      "Id": 45,
+      "TenSanPham": "Lenovo Legion Pro 7"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "NoiDung": "Rất hài lòng, đáng mua.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330895"
+    },
+    "SqlId": 38,
+    "SanPham": {
+      "Id": 46,
+      "TenSanPham": "Lenovo ThinkBook 16"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "NoiDung": "Máy nhanh, thiết kế đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330896"
+    },
+    "SqlId": 39,
+    "SanPham": {
+      "Id": 46,
+      "TenSanPham": "Lenovo ThinkBook 16"
+    },
+    "TenNguoiGui": "Ngô Văn Long",
+    "Email": "long.ngo@email.com",
+    "NoiDung": "Ổn, nhưng pin hơi yếu.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330897"
+    },
+    "SqlId": 40,
+    "SanPham": {
+      "Id": 47,
+      "TenSanPham": "Lenovo ThinkPad X1"
+    },
+    "TenNguoiGui": "Đặng Thị Mai",
+    "Email": "mai.dang@email.com",
+    "NoiDung": "Tuyệt vời, đáng tiền.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330898"
+    },
+    "SqlId": 42,
+    "SanPham": {
+      "Id": 48,
+      "TenSanPham": "MacBook Air M1 2020"
+    },
+    "TenNguoiGui": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "NoiDung": "Tuyệt vời, camera đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330899"
+    },
+    "SqlId": 43,
+    "SanPham": {
+      "Id": 49,
+      "TenSanPham": "MacBook Air M2 2022"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "NoiDung": "Ổn, giá hơi cao.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533089a"
+    },
+    "SqlId": 44,
+    "SanPham": {
+      "Id": 50,
+      "TenSanPham": "MacBook Air M4"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "NoiDung": "Camera xuất sắc, máy nhanh.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533089b"
+    },
+    "SqlId": 45,
+    "SanPham": {
+      "Id": 50,
+      "TenSanPham": "MacBook Air M4"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "NoiDung": "Màu sắc đẹp, cầm chắc tay.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533089c"
+    },
+    "SqlId": 46,
+    "SanPham": {
+      "Id": 51,
+      "TenSanPham": "MacBook Pro M4"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Pin chưa lâu, hơi nóng khi chơi game.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533089d"
+    },
+    "SqlId": 47,
+    "SanPham": {
+      "Id": 52,
+      "TenSanPham": "iPad Air 6"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "NoiDung": "Máy dùng mượt, đáng tiền.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533089e"
+    },
+    "SqlId": 48,
+    "SanPham": {
+      "Id": 52,
+      "TenSanPham": "iPad Air 6"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "NoiDung": "Tuyệt vời, camera đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533089f"
+    },
+    "SqlId": 49,
+    "SanPham": {
+      "Id": 53,
+      "TenSanPham": "iPad Air M3"
+    },
+    "TenNguoiGui": "Ngô Văn Long",
+    "Email": "long.ngo@email.com",
+    "NoiDung": "Ổn, nhưng hơi nặng.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a0"
+    },
+    "SqlId": 50,
+    "SanPham": {
+      "Id": 54,
+      "TenSanPham": "iPad Pro M4"
+    },
+    "TenNguoiGui": "Đặng Thị Mai",
+    "Email": "mai.dang@email.com",
+    "NoiDung": "Tuyệt vời, rất hài lòng.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a1"
+    },
+    "SqlId": 52,
+    "SanPham": {
+      "Id": 55,
+      "TenSanPham": "iPad Mini 7"
+    },
+    "TenNguoiGui": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "NoiDung": "Ổn, nhưng pin chưa lâu.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a2"
+    },
+    "SqlId": 53,
+    "SanPham": {
+      "Id": 56,
+      "TenSanPham": "Samsung Galaxy Tab A9+"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "NoiDung": "Tuyệt vời, thiết kế đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a3"
+    },
+    "SqlId": 54,
+    "SanPham": {
+      "Id": 57,
+      "TenSanPham": "Samsung Galaxy Tab A9"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "NoiDung": "Máy dùng mượt, pin ổn.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a4"
+    },
+    "SqlId": 55,
+    "SanPham": {
+      "Id": 57,
+      "TenSanPham": "Samsung Galaxy Tab A9"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "NoiDung": "Tuyệt vời, đáng mua.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a5"
+    },
+    "SqlId": 56,
+    "SanPham": {
+      "Id": 58,
+      "TenSanPham": "Samsung Galaxy Tab S11 Ultra"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Ổn, nhưng hơi nóng khi chơi game.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a6"
+    },
+    "SqlId": 57,
+    "SanPham": {
+      "Id": 59,
+      "TenSanPham": "Samsung Galaxy Tab S6 Lite"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "NoiDung": "Tuyệt vời, camera đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a7"
+    },
+    "SqlId": 58,
+    "SanPham": {
+      "Id": 59,
+      "TenSanPham": "Samsung Galaxy Tab S6 Lite"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "NoiDung": "Máy dùng mượt, thiết kế đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a8"
+    },
+    "SqlId": 59,
+    "SanPham": {
+      "Id": 60,
+      "TenSanPham": "Lenovo Tab 4G"
+    },
+    "TenNguoiGui": "Ngô Văn Long",
+    "Email": "long.ngo@email.com",
+    "NoiDung": "Ổn, giá hơi cao.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308a9"
+    },
+    "SqlId": 60,
+    "SanPham": {
+      "Id": 61,
+      "TenSanPham": "Lenovo Tab Plus"
+    },
+    "TenNguoiGui": "Đặng Thị Mai",
+    "Email": "mai.dang@email.com",
+    "NoiDung": "Tuyệt vời, đáng tiền.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308aa"
+    },
+    "SqlId": 62,
+    "SanPham": {
+      "Id": 62,
+      "TenSanPham": "Xiaomi Pad 7 Pro"
+    },
+    "TenNguoiGui": "Trần Thị Bình",
+    "Email": "binh.tran@email.com",
+    "NoiDung": "Tuyệt vời, camera đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308ab"
+    },
+    "SqlId": 63,
+    "SanPham": {
+      "Id": 63,
+      "TenSanPham": "Xiaomi Redmi Pad 2"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@email.com",
+    "NoiDung": "Ổn, nhưng pin hơi yếu.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308ac"
+    },
+    "SqlId": 64,
+    "SanPham": {
+      "Id": 64,
+      "TenSanPham": "Xiaomi Redmi Pad Pro"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@email.com",
+    "NoiDung": "Tuyệt vời, đáng mua.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308ad"
+    },
+    "SqlId": 65,
+    "SanPham": {
+      "Id": 64,
+      "TenSanPham": "Xiaomi Redmi Pad Pro"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@email.com",
+    "NoiDung": "Máy dùng mượt, pin ổn.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308ae"
+    },
+    "SqlId": 66,
+    "SanPham": {
+      "Id": 65,
+      "TenSanPham": "Xiaomi Redmi Pad SE"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Ổn, hơi nóng khi chơi game.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308af"
+    },
+    "SqlId": 67,
+    "SanPham": {
+      "Id": 66,
+      "TenSanPham": "Sạc dự phòng Anker 20K"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@email.com",
+    "NoiDung": "Tuyệt vời, camera đẹp.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b0"
+    },
+    "SqlId": 68,
+    "SanPham": {
+      "Id": 66,
+      "TenSanPham": "Sạc dự phòng Anker 20K"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@email.com",
+    "NoiDung": "Máy dùng tốt, thiết kế đẹp.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b1"
+    },
+    "SqlId": 69,
+    "SanPham": {
+      "Id": 67,
+      "TenSanPham": "Tai nghe Sony WH-1000XM6"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@email.com",
+    "NoiDung": "Ổn, nhưng pin hơi yếu.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T12:59:17.217Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b2"
+    },
+    "SqlId": 70,
+    "SanPham": {
+      "Id": 31,
+      "TenSanPham": "Samsung Galaxy S25 Ultra"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "",
+    "NoiDung": "ddd",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T15:42:00.810Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b3"
+    },
+    "SqlId": 71,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "tin123@gmail.com",
+    "NoiDung": "tốt",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T15:49:29.057Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b4"
+    },
+    "SqlId": 72,
+    "SanPham": {
+      "Id": 31,
+      "TenSanPham": "Samsung Galaxy S25 Ultra"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "chongsieu@gmail.com",
+    "NoiDung": "xxx",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T15:57:35.133Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b5"
+    },
+    "SqlId": 73,
+    "SanPham": {
+      "Id": 31,
+      "TenSanPham": "Samsung Galaxy S25 Ultra"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "chongsieu@gmail.com",
+    "NoiDung": "xxx",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T15:57:44.910Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b6"
+    },
+    "SqlId": 74,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "chongsieu@gmail.com",
+    "NoiDung": "vvvc",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-26T13:46:08.767Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b7"
+    },
+    "SqlId": 75,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Nguyễn Văn A",
+    "Email": "nguyenvana@gmail.com",
+    "NoiDung": "Sản phẩm rất tốt, chất lượng xuất sắc! Giao hàng nhanh, đóng gói cẩn thận. Rất hài lòng với sản phẩm này.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-26T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b8"
+    },
+    "SqlId": 76,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Trần Thị B",
+    "Email": "tranthib@gmail.com",
+    "NoiDung": "Tuyệt vời! Đúng như mô tả, màu sắc đẹp, thiết kế sang trọng. Sẽ giới thiệu cho bạn bè.",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-25T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308b9"
+    },
+    "SqlId": 77,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Bùi Thị Kiều",
+    "Email": "kieu.bui@example.com",
+    "NoiDung": "Rất đẹp, cầm tay rất chắc chắn. Camera chụp ảnh siêu sắc nét. Recommend 100%!",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-24T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308ba"
+    },
+    "SqlId": 78,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Lê Minh Cường",
+    "Email": "cuong.le@example.com",
+    "NoiDung": "Sản phẩm tốt, chất lượng ổn. Giá hơi cao nhưng xứng đáng. Giao hàng đúng hẹn.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-23T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308bb"
+    },
+    "SqlId": 79,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Phạm Thị Dung",
+    "Email": "dung.pham@example.com",
+    "NoiDung": "Máy đẹp, pin trâu, màn hình sắc nét. Trừ 1 sao vì hơi nặng một chút.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-22T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308bc"
+    },
+    "SqlId": 80,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Ngô Văn Long",
+    "Email": "long.ngo@example.com",
+    "NoiDung": "Thiết kế đẹp, hiệu năng tốt. Cần thêm phụ kiện đi kèm thì hoàn hảo.",
+    "Sao": 4,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-21T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308bd"
+    },
+    "SqlId": 81,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Đỗ Minh Hải",
+    "Email": "hai.do@example.com",
+    "NoiDung": "Máy ổn, nhưng giao hàng hơi lâu. Đóng gói cẩn thận, chưa test hết tính năng.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-20T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308be"
+    },
+    "SqlId": 82,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Vũ Thị Giang",
+    "Email": "giang.vu@example.com",
+    "NoiDung": "Tạm được, giá hơi cao so với cấu hình. Chưa thực sự ấn tượng.",
+    "Sao": 3,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-19T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308bf"
+    },
+    "SqlId": 83,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Hoàng Văn Em",
+    "Email": "em.hoang@example.com",
+    "NoiDung": "Màu sắc không giống như hình. Máy dùng ổn nhưng không đáng giá tiền bỏ ra.",
+    "Sao": 2,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-18T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c0"
+    },
+    "SqlId": 84,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "Đặng Thị Mai",
+    "Email": "mai.dang@example.com",
+    "NoiDung": "Hài lòng với sản phẩm! Camera xuất sắc, pin trâu, thiết kế đẹp. Đáng đồng tiền!",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-17T14:10:36.827Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c1"
+    },
+    "SqlId": 85,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "chongsieu@gmail.com",
+    "NoiDung": "xxx",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-26T14:15:27.520Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c2"
+    },
+    "SqlId": 86,
+    "SanPham": {
+      "Id": 30,
+      "TenSanPham": "Samsung Galaxy Z Fold7"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "chongsieu@gmail.com",
+    "NoiDung": "đẹp",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-11-26T14:52:47.213Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c3"
+    },
+    "SqlId": 87,
+    "SanPham": {
+      "Id": 32,
+      "TenSanPham": "Xiaomi 15"
+    },
+    "TenNguoiGui": "TIẾN",
+    "Email": "tin123@gmail.com",
+    "NoiDung": "XYZ",
+    "Sao": 5,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-12-06T14:52:43.597Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c4"
+    },
+    "SqlId": 88,
+    "SanPham": {
+      "Id": 24,
+      "TenSanPham": "OPPO Find N5"
+    },
+    "TenNguoiGui": "tin",
+    "Email": "tin123@gmail.com",
+    "NoiDung": "dep, xai tot",
+    "Sao": 2,
+    "HienThi": true,
+    "NgayTao": {
+      "$date": "2025-12-13T07:08:54.653Z"
+    }
+  }
+]

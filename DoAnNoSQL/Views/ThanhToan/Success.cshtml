@@ -1,0 +1,194 @@
+@{
+    ViewBag.Title = "Đặt hàng thành công";
+}
+
+
+<div class="max-w-2xl mx-auto pb-16 px-4" data-aos="fade-up">
+    <!-- Success Card -->
+    <div class="bg-white/90 backdrop-blur-md rounded-3xl shadow-card border border-slate-200/80 p-6 sm:p-10 text-center relative overflow-hidden">
+        <!-- Top decorative gradient strip -->
+        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-teal-500 via-emerald-500 to-teal-600"></div>
+
+        <!-- Animated Success Icon -->
+        <div class="mb-6 mt-2 relative inline-block">
+            <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white flex items-center justify-center shadow-xl shadow-emerald-500/30 transform hover:rotate-6 transition-transform mx-auto">
+                <i class="fas fa-check text-4xl"></i>
+            </div>
+            <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-amber-400 text-amber-900 flex items-center justify-center text-xs shadow">
+                <i class="fas fa-sparkles"></i>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 font-heading tracking-tight mb-2">
+            Đặt Hàng Thành Công!
+        </h1>
+        <p class="text-sm text-slate-600 max-w-md mx-auto mb-8">
+            Cảm ơn bạn đã tin tưởng và mua sắm tại cửa hàng. Đơn hàng của bạn đã được tiếp nhận và đang trong quá trình đóng gói, vận chuyển.
+        </p>
+
+        <!-- Order Code Box -->
+        @if (ViewBag.OrderCode != null)
+        {
+            <div class="bg-gradient-to-br from-teal-50/80 to-blue-50/80 border border-teal-200/80 rounded-2xl p-5 mb-6 text-center relative group">
+                <p class="text-xs font-bold uppercase tracking-wider text-teal-800 mb-1">Mã đơn hàng của bạn</p>
+                <div class="flex items-center justify-center gap-3">
+                    <span id="orderCodeText" class="text-2xl sm:text-3xl font-black text-teal-900 font-mono tracking-wider">
+                        @ViewBag.OrderCode
+                    </span>
+                    <button type="button" onclick="copyOrderCode('@ViewBag.OrderCode')" 
+                            class="p-2 rounded-xl bg-white border border-teal-200 text-teal-700 hover:bg-teal-50 hover:text-teal-900 transition-all text-xs flex items-center gap-1 shadow-sm active:scale-95" 
+                            title="Sao chép mã đơn hàng">
+                        <i class="far fa-copy"></i>
+                        <span class="text-[11px] font-semibold hidden sm:inline">Sao chép</span>
+                    </button>
+                </div>
+                <p class="text-[11px] text-teal-700/80 mt-2">
+                    <i class="fas fa-info-circle mr-1"></i> Vui lòng lưu lại mã này để dễ dàng theo dõi và tra cứu hành trình đơn hàng.
+                </p>
+            </div>
+        }
+
+        <!-- QR Code Chuyển Khoản (Nếu chọn hình thức VietQR) -->
+        @if (ViewBag.PaymentMethod != null && Convert.ToInt32(ViewBag.PaymentMethod) == 2)
+        {
+            <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-5 sm:p-6 mb-6 text-left space-y-4">
+                <div class="flex items-center gap-3 pb-3 border-b border-slate-200">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">Quét mã QR để chuyển khoản nhanh</h3>
+                        <p class="text-xs text-slate-500">Giao dịch tự động xác nhận qua hệ thống VietQR</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-6 justify-center py-2">
+                    <!-- QR Image -->
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-200 text-center flex-shrink-0">
+                        <img src="https://img.vietqr.io/image/TECHCOMBANK-8939796898-qr_only.png?amount=@Convert.ToInt64(ViewBag.OrderTotal)&addInfo=@Html.Raw(HttpUtility.UrlEncode("Thanh toan DH " + ViewBag.OrderCode))&accountName=@Html.Raw(HttpUtility.UrlEncode("KHOA LUAN CU NHAN"))" 
+                             alt="QR VietQR Techcombank" 
+                             class="w-48 h-48 sm:w-52 sm:h-52 object-contain mx-auto" />
+                        <span class="text-[10px] text-slate-400 mt-2 block font-medium">Mở app Ngân hàng để quét mã</span>
+                    </div>
+
+                    <!-- Transfer Details -->
+                    <div class="flex-1 space-y-2.5 text-xs text-slate-700 w-full">
+                        <div class="flex justify-between py-1.5 border-b border-slate-200/60">
+                            <span class="text-slate-500">Ngân hàng:</span>
+                            <span class="font-bold text-slate-900">Techcombank</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-200/60 items-center">
+                            <span class="text-slate-500">Số tài khoản:</span>
+                            <span class="font-mono font-bold text-slate-900 text-sm">8939796898</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-200/60">
+                            <span class="text-slate-500">Chủ tài khoản:</span>
+                            <span class="font-bold text-slate-900 uppercase">KHOA LUAN CU NHAN</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 border-b border-slate-200/60">
+                            <span class="text-slate-500">Số tiền:</span>
+                            <span class="font-bold text-rose-600 font-heading text-sm">@Convert.ToDecimal(ViewBag.OrderTotal).ToString("N0") đ</span>
+                        </div>
+                        <div class="flex justify-between py-1.5 items-center">
+                            <span class="text-slate-500">Nội dung CK:</span>
+                            <span class="font-mono font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+                                Thanh toan DH @ViewBag.OrderCode
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-amber-50/80 border border-amber-200/80 rounded-xl text-xs text-amber-800 flex items-start gap-2">
+                    <i class="fas fa-exclamation-triangle text-amber-600 mt-0.5"></i>
+                    <span>Vui lòng giữ nguyên nội dung chuyển khoản để đơn hàng được kích hoạt tự động.</span>
+                </div>
+            </div>
+        }
+
+        <!-- Order Information Details List -->
+        <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-5 mb-8 text-left space-y-3 text-xs">
+            <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2 pb-2 border-b border-slate-200/80">
+                <i class="fas fa-clipboard-check text-teal-600"></i> Tiến trình xử lý đơn hàng
+            </h3>
+
+            <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-800">Tiếp nhận đơn hàng thành công</span>
+                    <p class="text-slate-500 text-[11px]">Hệ thống đã ghi nhận lúc @DateTime.Now.ToString("HH:mm - dd/MM/yyyy")</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs">
+                    <i class="fas fa-box-check"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-800">Đóng gói & Chuẩn bị bàn giao</span>
+                    <p class="text-slate-500 text-[11px]">Đơn vị vận chuyển sẽ nhận hàng trong 24 giờ làm việc</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-800">Thông báo xác nhận qua Email</span>
+                    <p class="text-slate-500 text-[11px]">Email chi tiết biên nhận đã được gửi đến hòm thư của bạn</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action CTA Buttons -->
+        <div class="space-y-3">
+            @if (ViewBag.OrderId != null)
+            {
+                <a href="@Url.Action("ChiTiet", "ThanhToan", new { id = ViewBag.OrderId })"
+                   class="block w-full py-4 px-6 bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 hover:from-teal-700 hover:to-emerald-700 text-white font-bold rounded-2xl shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all text-sm">
+                    <i class="fas fa-file-invoice mr-2"></i> Xem chi tiết đơn hàng
+                </a>
+            }
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a href="@Url.Action("Index", "Home")"
+                   class="py-3.5 px-5 bg-white border-2 border-slate-200 hover:border-teal-500 hover:bg-teal-50/30 text-slate-700 hover:text-teal-700 font-bold rounded-2xl transition-all text-xs flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fas fa-home"></i> Về trang chủ
+                </a>
+
+                <a href="@Url.Action("Index", "SanPham")"
+                   class="py-3.5 px-5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-2xl transition-all text-xs flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fas fa-shopping-bag"></i> Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+
+        <!-- Customer Service Hotline Footer -->
+        <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-center gap-3 text-xs text-slate-500">
+            <i class="fas fa-headset text-teal-600 text-base"></i>
+            <span>Hỗ trợ khách hàng 24/7: <strong class="text-slate-800 font-semibold">1900 6868</strong></span>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script>
+    function copyOrderCode(code) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(function() {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Đã sao chép mã đơn hàng: ' + code,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            });
+        }
+    }
+</script>
+}

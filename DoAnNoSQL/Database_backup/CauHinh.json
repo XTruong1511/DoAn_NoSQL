@@ -1,0 +1,34 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308e3"
+    },
+    "MaCauHinh": "EmailLienHe",
+    "GiaTri": "hotro@shop.com",
+    "MoTa": "Email nhận liên hệ từ khách hàng"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308e4"
+    },
+    "MaCauHinh": "Hotline",
+    "GiaTri": "0909.123.456",
+    "MoTa": "Số điện thoại hiển thị trên Header/Footer"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308e5"
+    },
+    "MaCauHinh": "Logo",
+    "GiaTri": "logo.png",
+    "MoTa": "Đường dẫn ảnh Logo website"
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308e6"
+    },
+    "MaCauHinh": "TieuDeWeb",
+    "GiaTri": "Shop Điện Tử Uy Tín",
+    "MoTa": "Tiêu đề mặc định của trang web (Page Title)"
+  }
+]

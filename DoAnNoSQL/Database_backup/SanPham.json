@@ -1,0 +1,5734 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307f4"
+    },
+    "SqlId": 20,
+    "MaSanPham": "IP17",
+    "TenSanPham": "iPhone 17",
+    "BiDanh": "iphone-17",
+    "MoTa": "iPhone 17 tiêu chuẩn với thiết kế tinh tế, hiệu năng mạnh mẽ và camera nâng cấp vượt trội cho năm 2025",
+    "ChiTiet": "iPhone 17 sở hữu màn hình Super Retina XDR OLED 6,1 inch, độ phân giải 2556x1179 pixel, mật độ điểm ảnh khoảng 460 ppi. Máy được trang bị chip A18 Bionic với hiệu năng cao, hỗ trợ trí tuệ nhân tạo và tiết kiệm điện năng hơn. Hệ thống camera kép 48MP cải tiến, chụp đêm và quay video tốt hơn. Thiết kế khung nhôm cao cấp, hỗ trợ sạc MagSafe và kết nối USB-C.",
+    "HinhAnhDaiDien": "DT_IP_17_1.png",
+    "Gia": 22990000.0,
+    "GiaKhuyenMai": 21990000.0,
+    "SoLuong": 49,
+    "LuotXem": 7,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_IP_17_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_IP_17_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.3\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "30 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 48 MP & Phụ 48 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iOS 26",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "6.3\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "30 giờ",
+      "Camera": "Chính 48 MP & Phụ 48 MP",
+      "Hệ điều hành": "iOS 26",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307f5"
+    },
+    "SqlId": 21,
+    "MaSanPham": "IP17P",
+    "TenSanPham": "iPhone 17 Pro",
+    "BiDanh": "iphone-17-pro",
+    "MoTa": "Chiếc iPhone 17 Pro là mẫu flagship “Pro” của Apple cho năm 2025, với chip mạnh mẽ, camera chuyên nghiệp",
+    "ChiTiet": "iPhone 17 Pro có màn hình Super Retina XDR OLED 6,3 inch, độ phân giải 2.622 × 1.206 pixel, mật độ điểm ảnh khoảng 460 ppi, Thiết bị được trang bị chip A19 Pro, kết hợp với thiết kế buồng hơi (vapor chamber) giúp quản lý nhiệt và hiệu suất bền hơn.",
+    "HinhAnhDaiDien": "DT_IP_17Pro_1.png",
+    "Gia": 29990000.0,
+    "GiaKhuyenMai": 28990000.0,
+    "SoLuong": 39,
+    "LuotXem": 3,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_IP_17Pro_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_IP_17Pro_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17Pro_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17Pro_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17Pro_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17Pro_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.3\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "31 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 48 MP & Phụ 48 MP, 48 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iOS 26",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "6.3\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "31 giờ",
+      "Camera": "Chính 48 MP & Phụ 48 MP, 48 MP",
+      "Hệ điều hành": "iOS 26",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307f6"
+    },
+    "SqlId": 22,
+    "MaSanPham": "IP17PM",
+    "TenSanPham": "iPhone 17 Pro Max",
+    "BiDanh": "iphone-17-pro-max",
+    "MoTa": "iPhone 17 chính hãng",
+    "ChiTiet": "iPhone 17 với Màn hình Super Retina XDR, Màn hình toàn phần OLED 6,9 inch (theo đường chéo), Độ phân giải 2868x1320 pixel với mật độ điểm ảnh 460 ppi",
+    "HinhAnhDaiDien": "DT_IP_17ProMax_1.png",
+    "Gia": 34990000.0,
+    "GiaKhuyenMai": 32990000.0,
+    "SoLuong": 98,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_IP_17ProMax_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_IP_17ProMax_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17ProMax_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17ProMax_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17ProMax_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_17ProMax_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.9\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "37 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 48 MP & Phụ 48 MP, 48 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iOS 26",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "6.9\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "37 giờ",
+      "Camera": "Chính 48 MP & Phụ 48 MP, 48 MP",
+      "Hệ điều hành": "iOS 26",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307f7"
+    },
+    "SqlId": 23,
+    "MaSanPham": "IPAIR",
+    "TenSanPham": "iPhone Air",
+    "BiDanh": "iphone-air",
+    "MoTa": "iPhone Air – phiên bản nhẹ nhất trong dòng iPhone 17 với thiết kế siêu mỏng, hiệu năng ổn định và giá dễ tiếp cận",
+    "ChiTiet": "iPhone Air được trang bị màn hình Super Retina XDR OLED 6,1 inch, độ phân giải 2556x1179 pixel, mật độ điểm ảnh 460 ppi. Máy sử dụng chip A18, tối ưu cho hiệu suất và tiết kiệm năng lượng. Thiết kế siêu mỏng, khung nhôm tái chế, mặt lưng kính mờ chống bám vân tay. Camera kép 48MP với khả năng chụp đêm tốt, quay video 4K HDR. Hỗ trợ sạc nhanh USB-C, kết nối 5G và Face ID.",
+    "HinhAnhDaiDien": "DT_IP_Air_1.png",
+    "Gia": 30990000.0,
+    "GiaKhuyenMai": 29990000.0,
+    "SoLuong": 25,
+    "LuotXem": 4,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_IP_Air_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_IP_Air_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_Air_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_Air_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_Air_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_IP_Air_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.5\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "27 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "48 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iOS 26",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "6.5\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "27 giờ",
+      "Camera": "48 MP",
+      "Hệ điều hành": "iOS 26",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307f8"
+    },
+    "SqlId": 24,
+    "MaSanPham": "OPN5",
+    "TenSanPham": "OPPO Find N5",
+    "BiDanh": "oppo-find-n5",
+    "MoTa": "OPPO Find N5 – smartphone màn hình gập cao cấp, thiết kế tinh tế, hiệu năng mạnh mẽ và camera tiên tiến",
+    "ChiTiet": "OPPO Find N5 sở hữu màn hình chính LTPO2 AMOLED 7,1 inch khi mở ra, màn hình phụ 6,3 inch, cả hai đều hỗ trợ tần số quét 120Hz và độ phân giải Full HD+. Máy trang bị chip Snapdragon 8 Gen 3, RAM 12GB, bộ nhớ trong 256GB/512GB. Hệ thống 3 camera sau gồm: camera chính 50MP, góc siêu rộng 50MP, telephoto 13MP. Camera selfie 32MP. Pin 4600mAh hỗ trợ sạc nhanh 100W, sạc không dây 50W. Thiết kế bản lề chắc chắn, khung nhôm cao cấp, chạy Android 15 với giao diện ColorOS 14.",
+    "HinhAnhDaiDien": "DT_OPPO_Find_1.png",
+    "Gia": 36990000.0,
+    "GiaKhuyenMai": 34990000.0,
+    "SoLuong": 13,
+    "LuotXem": 5,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 4,
+      "TenThuongHieu": "Oppo",
+      "BiDanh": "oppo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_OPPO_Find_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_OPPO_Find_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Find_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Find_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Find_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Find_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "Chính 8.0\" & Phụ 6.5\" - 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "4400 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 200 MP & Phụ 12 MP, 10 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 16",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "Chính 8.0\" & Phụ 6.5\" - 120 Hz",
+      "Dung lượng Pin": "4400 mAh",
+      "Camera": "Chính 200 MP & Phụ 12 MP, 10 MP",
+      "Hệ điều hành": "Android 16",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307f9"
+    },
+    "SqlId": 25,
+    "MaSanPham": "OPN3FLIP",
+    "TenSanPham": "OPPO Find N3 Flip",
+    "BiDanh": "oppo-find-n3-flip",
+    "MoTa": "OPPO Find N3 Flip Hồng – smartphone gập dọc thời trang, nhỏ gọn với màu sắc nổi bật và hiệu năng ổn định",
+    "ChiTiet": "OPPO Find N3 Flip sở hữu màn hình chính LTPO AMOLED 6,7 inch, màn hình phụ 1,9 inch bên ngoài để hiển thị thông báo và điều khiển nhanh. Máy trang bị chip Snapdragon 8+ Gen 2, RAM 8GB, bộ nhớ trong 256GB. Hệ thống camera kép sau 50MP + 13MP, camera selfie 32MP. Pin 4300mAh hỗ trợ sạc nhanh 66W. Thiết kế bản lề chắc chắn, khung nhôm, mặt lưng kính màu hồng thời trang, chạy Android 15 với ColorOS 14.",
+    "HinhAnhDaiDien": "DT_OPPO_FindFlip_1.png",
+    "Gia": 22990000.0,
+    "GiaKhuyenMai": 19990000.0,
+    "SoLuong": 23,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 4,
+      "TenThuongHieu": "Oppo",
+      "BiDanh": "oppo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_OPPO_FindFlip_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindFlip_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindFlip_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindFlip_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindFlip_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindFlip_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "Chính 6.9\" & Phụ 4.1\" - 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "4300 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 50 MP & Phụ 12 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 16",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "Chính 6.9\" & Phụ 4.1\" - 120 Hz",
+      "Dung lượng Pin": "4300 mAh",
+      "Camera": "Chính 50 MP & Phụ 12 MP",
+      "Hệ điều hành": "Android 16",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307fa"
+    },
+    "SqlId": 26,
+    "MaSanPham": "OPX8PRO",
+    "TenSanPham": "OPPO Find X8 Pro",
+    "BiDanh": "oppo-find-x8-pro",
+    "MoTa": "OPPO Find X8 Pro – flagship cao cấp với màn hình AMOLED 6,8 inch, hiệu năng mạnh mẽ và camera chuyên nghiệp",
+    "ChiTiet": "OPPO Find X8 Pro sở hữu màn hình LTPO2 AMOLED 6,8 inch, độ phân giải QHD+ (3200 x 1440 pixel), tần số quét 120Hz, hỗ trợ HDR10+. Máy trang bị chip Snapdragon 8 Gen 3, RAM 12GB, bộ nhớ trong 256GB/512GB. Hệ thống 3 camera sau gồm: camera chính 50MP, camera góc siêu rộng 50MP, telephoto 13MP. Camera selfie 32MP. Pin 5000mAh hỗ trợ sạc nhanh 100W, sạc không dây 50W và sạc ngược. Thiết kế khung nhôm cao cấp, mặt lưng kính gốm, chạy Android 15 với giao diện ColorOS 14.",
+    "HinhAnhDaiDien": "DT_OPPO_FindX8Pro_1.png",
+    "Gia": 25990000.0,
+    "GiaKhuyenMai": 24990000.0,
+    "SoLuong": 19,
+    "LuotXem": 2,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 4,
+      "TenThuongHieu": "Oppo",
+      "BiDanh": "oppo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_OPPO_FindX8Pro_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindX8Pro_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindX8Pro_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindX8Pro_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindX8Pro_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_FindX8Pro_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.78\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5910 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "4 camera 50 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 15",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "6.78\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "5910 mAh",
+      "Camera": "4 camera 50 MP",
+      "Hệ điều hành": "Android 15",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307fb"
+    },
+    "SqlId": 27,
+    "MaSanPham": "OPRENO12",
+    "TenSanPham": "OPPO Reno12 Pro",
+    "BiDanh": "oppo-reno12-pro",
+    "MoTa": "OPPO Reno12 Pro – smartphone tầm trung cao cấp với thiết kế sang trọng, hiệu năng ổn định và camera cải tiến",
+    "ChiTiet": "OPPO Reno12 Pro sở hữu màn hình AMOLED 6,7 inch, độ phân giải Full HD+ (2412 x 1080 pixel), tần số quét 120Hz. Máy trang bị chip MediaTek Dimensity 9200+, RAM 12GB, bộ nhớ trong 256GB/512GB. Hệ thống 3 camera sau gồm: camera chính 50MP, góc siêu rộng 8MP và macro 2MP. Camera selfie 32MP. Pin 4500mAh hỗ trợ sạc nhanh 100W. Thiết kế khung nhôm, mặt lưng kính Gradient, chạy Android 15 với giao diện ColorOS 14.",
+    "HinhAnhDaiDien": "DT_OPPO_Reno12Pro_1.png",
+    "Gia": 13990000.0,
+    "GiaKhuyenMai": 12990000.0,
+    "SoLuong": 35,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 4,
+      "TenThuongHieu": "Oppo",
+      "BiDanh": "oppo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_OPPO_Reno12Pro_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_OPPO_Reno12Pro_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Reno12Pro_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Reno12Pro_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Reno12Pro_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_OPPO_Reno12Pro_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.7\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 50 MP & Phụ 50 MP, 8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 14",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "6.7\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "5000 mAh",
+      "Camera": "Chính 50 MP & Phụ 50 MP, 8 MP",
+      "Hệ điều hành": "Android 14",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307fc"
+    },
+    "SqlId": 28,
+    "MaSanPham": "SSA56",
+    "TenSanPham": "Samsung Galaxy A56",
+    "BiDanh": "samsung-galaxy-a56",
+    "MoTa": "Samsung Galaxy A56 – smartphone tầm trung với thiết kế hiện đại, hiệu năng ổn định và camera ấn tượng",
+    "ChiTiet": "Samsung Galaxy A56 sở hữu màn hình Super AMOLED 6,6 inch độ phân giải Full HD+ (2340 x 1080 pixel), tần số quét 120Hz cho trải nghiệm mượt mà. Máy được trang bị chip Exynos 1480 (5nm), RAM 8GB và bộ nhớ trong 128GB/256GB. Hệ thống 3 camera sau gồm: cảm biến chính 50MP, góc siêu rộng 12MP và macro 5MP. Camera selfie 32MP hỗ trợ quay video 4K. Pin 5000mAh hỗ trợ sạc nhanh 25W. Thiết kế khung nhôm, mặt lưng kính, kháng nước IP67, chạy Android 15 với giao diện One UI 7.",
+    "HinhAnhDaiDien": "DT_SS_A56_1.png",
+    "Gia": 10990000.0,
+    "GiaKhuyenMai": 9990000.0,
+    "SoLuong": 58,
+    "LuotXem": 4,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_SS_A56_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_SS_A56_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_A56_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_A56_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_A56_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_A56_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.7\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 50 MP & Phụ 12 MP, 5 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 15",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "6.7\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "5000 mAh",
+      "Camera": "Chính 50 MP & Phụ 12 MP, 5 MP",
+      "Hệ điều hành": "Android 15",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307fd"
+    },
+    "SqlId": 29,
+    "MaSanPham": "SSFLIP7",
+    "TenSanPham": "Samsung Galaxy Z Flip7",
+    "BiDanh": "samsung-galaxy-z-flip7",
+    "MoTa": "Samsung Galaxy Z Flip7 – điện thoại gập dọc thời trang, nhỏ gọn với hiệu năng mạnh mẽ và camera nâng cấp",
+    "ChiTiet": "Samsung Galaxy Z Flip7 trang bị màn hình chính Dynamic AMOLED 2X 6,7 inch, độ phân giải Full HD+ (2640 x 1080 pixel) và tần số quét 120Hz. Màn hình phụ bên ngoài 3,9 inch Super AMOLED hỗ trợ hiển thị thông báo, điều khiển nhạc và camera selfie. Thiết bị sử dụng chip Snapdragon 8 Gen 3 for Galaxy, RAM 8GB, bộ nhớ trong 256GB. Camera kép gồm cảm biến chính 50MP và góc siêu rộng 12MP, camera selfie 10MP. Pin 4000mAh hỗ trợ sạc nhanh 25W, sạc không dây và sạc ngược. Thiết kế bản lề Armor Aluminum chắc chắn, kháng nước IPX8, chạy Android 15 với One UI 7.",
+    "HinhAnhDaiDien": "DT_SS_Flip_1.png",
+    "Gia": 28990000.0,
+    "GiaKhuyenMai": 26990000.0,
+    "SoLuong": 22,
+    "LuotXem": 10,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_SS_Flip_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_SS_Flip_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Flip_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Flip_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Flip_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Flip_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "Chính 6.9\" & Phụ 4.1\" - 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "4300 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 50 MP & Phụ 12 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 16",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "Chính 6.9\" & Phụ 4.1\" - 120 Hz",
+      "Dung lượng Pin": "4300 mAh",
+      "Camera": "Chính 50 MP & Phụ 12 MP",
+      "Hệ điều hành": "Android 16",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307fe"
+    },
+    "SqlId": 30,
+    "MaSanPham": "SSFOLD7",
+    "TenSanPham": "Samsung Galaxy Z Fold7",
+    "BiDanh": "samsung-galaxy-z-fold7",
+    "MoTa": "Samsung Galaxy Z Fold7 512GB – điện thoại gập cao cấp với thiết kế tinh tế, màn hình lớn và hiệu năng vượt trội",
+    "ChiTiet": "Samsung Galaxy Z Fold7 512GB sở hữu màn hình chính Dynamic AMOLED 2X 7,6 inch độ phân giải QXGA+ (2176 x 1812 pixel) và màn hình phụ 6,3 inch HD+. Thiết bị trang bị chip Snapdragon 8 Gen 3 for Galaxy, RAM 12GB, bộ nhớ trong 512GB. Hệ thống 3 camera sau gồm cảm biến chính 50MP, góc siêu rộng 12MP và telephoto 10MP. Pin dung lượng 4400mAh hỗ trợ sạc nhanh 45W, sạc không dây và sạc ngược. Thiết kế gập bền bỉ với bản lề Armor Aluminum, chống nước chuẩn IPX8, chạy Android 15 cùng giao diện One UI 7.",
+    "HinhAnhDaiDien": "DT_SS_Fold_1.png",
+    "Gia": 44990000.0,
+    "GiaKhuyenMai": 41990000.0,
+    "SoLuong": 16,
+    "LuotXem": 5,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_SS_Fold_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_SS_Fold_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Fold_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Fold_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Fold_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_Fold_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "Chính 8.0\" & Phụ 6.5\" - 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "4400 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 200 MP & Phụ 12 MP, 10 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 16",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "Chính 8.0\" & Phụ 6.5\" - 120 Hz",
+      "Dung lượng Pin": "4400 mAh",
+      "Camera": "Chính 200 MP & Phụ 12 MP, 10 MP",
+      "Hệ điều hành": "Android 16",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053307ff"
+    },
+    "SqlId": 31,
+    "MaSanPham": "SSS25U",
+    "TenSanPham": "Samsung Galaxy S25 Ultra",
+    "BiDanh": "samsung-galaxy-s25-ultra",
+    "MoTa": "Samsung Galaxy S25 Ultra – flagship đỉnh cao với hiệu năng mạnh mẽ, camera 200MP và bút S Pen đặc trưng",
+    "ChiTiet": "Samsung Galaxy S25 Ultra trang bị màn hình Dynamic AMOLED 2X 6,8 inch độ phân giải QHD+ (3120 x 1440 pixel), tần số quét 120Hz và độ sáng tối đa 2.600 nits. Thiết bị sử dụng chip Snapdragon 8 Gen 3 for Galaxy, RAM 12GB, bộ nhớ trong từ 256GB đến 1TB. Hệ thống 4 camera sau gồm: cảm biến chính 200MP, góc siêu rộng 12MP, telephoto 50MP và 10MP. Camera selfie 12MP. Pin 5000mAh hỗ trợ sạc nhanh 45W, sạc không dây và sạc ngược. Máy hỗ trợ bút S Pen, khung titan siêu bền, chạy Android 15 với giao diện One UI 7, hỗ trợ cập nhật phần mềm đến 7 năm.",
+    "HinhAnhDaiDien": "DT_SS_S25Ultra_1.png",
+    "Gia": 31990000.0,
+    "GiaKhuyenMai": 29990000.0,
+    "SoLuong": 48,
+    "LuotXem": 6,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_SS_S25Ultra_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_SS_S25Ultra_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_S25Ultra_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_S25Ultra_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_S25Ultra_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_SS_S25Ultra_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.9\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 200 MP & Phụ 50 MP, 50 MP, 10 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 15",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "6.9\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "5000 mAh",
+      "Camera": "Chính 200 MP & Phụ 50 MP, 50 MP, 10 MP",
+      "Hệ điều hành": "Android 15",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330800"
+    },
+    "SqlId": 32,
+    "MaSanPham": "XM15",
+    "TenSanPham": "Xiaomi 15",
+    "BiDanh": "xiaomi-15",
+    "MoTa": "Xiaomi 15 – smartphone cao cấp với hiệu năng mạnh mẽ, camera 50MP và thiết kế mỏng nhẹ",
+    "ChiTiet": "Xiaomi 15 sở hữu màn hình AMOLED 6,67 inch, độ phân giải Full HD+ (2400 x 1080 pixel), tần số quét 120Hz, hỗ trợ HDR10+. Máy trang bị chip Snapdragon 8 Gen 3, RAM 8GB/12GB, bộ nhớ trong 128GB/256GB. Hệ thống 3 camera sau gồm: camera chính 50MP, góc siêu rộng 13MP và macro 5MP. Camera selfie 32MP. Pin 4500mAh hỗ trợ sạc nhanh 100W có dây và 30W không dây. Thiết kế khung nhôm, mặt lưng kính, chạy MIUI 16 trên nền Android 15.",
+    "HinhAnhDaiDien": "DT_XM_15_1.png",
+    "Gia": 19990000.0,
+    "GiaKhuyenMai": 17990000.0,
+    "SoLuong": 27,
+    "LuotXem": 29,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_XM_15_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_XM_15_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.36\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5240 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "3 camera 50 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Xiaomi HyperOS 2",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "6.36\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "5240 mAh",
+      "Camera": "3 camera 50 MP",
+      "Hệ điều hành": "Xiaomi HyperOS 2",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330801"
+    },
+    "SqlId": 33,
+    "MaSanPham": "XM15U",
+    "TenSanPham": "Xiaomi 15 Ultra",
+    "BiDanh": "xiaomi-15-ultra",
+    "MoTa": "Xiaomi 15 Ultra Trắng – flagship cao cấp với hiệu năng mạnh mẽ, camera 200MP và thiết kế sang trọng",
+    "ChiTiet": "Xiaomi 15 Ultra sở hữu màn hình AMOLED 6,73 inch, độ phân giải QHD+ (3200 x 1440 pixel), tần số quét 120Hz, hỗ trợ HDR10+. Máy trang bị chip Snapdragon 8 Gen 3, RAM 12GB, bộ nhớ trong 256GB/512GB. Hệ thống 3 camera sau gồm: camera chính 200MP, góc siêu rộng 48MP và telephoto 48MP. Camera selfie 32MP. Pin 5000mAh hỗ trợ sạc nhanh 120W có dây và 50W không dây. Thiết kế khung nhôm, mặt lưng gốm màu trắng, chạy MIUI 16 trên nền Android 15.",
+    "HinhAnhDaiDien": "DT_XM_15Ultra_1.png",
+    "Gia": 24990000.0,
+    "GiaKhuyenMai": 23990000.0,
+    "SoLuong": 18,
+    "LuotXem": 2,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_XM_15Ultra_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_XM_15Ultra_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15Ultra_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15Ultra_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15Ultra_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_15Ultra_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.73\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5410 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 50 MP & Phụ 200 MP, 50 MP, 50 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Xiaomi HyperOS 2",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "6.73\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "5410 mAh",
+      "Camera": "Chính 50 MP & Phụ 200 MP, 50 MP, 50 MP",
+      "Hệ điều hành": "Xiaomi HyperOS 2",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330802"
+    },
+    "SqlId": 34,
+    "MaSanPham": "XMRM15",
+    "TenSanPham": "Xiaomi Redmi 15",
+    "BiDanh": "xiaomi-redmi-15",
+    "MoTa": "Xiaomi Redmi 15 – smartphone tầm trung, hiệu năng ổn định, pin dung lượng lớn và giá hợp lý",
+    "ChiTiet": "Xiaomi Redmi 15 sở hữu màn hình IPS LCD 6,6 inch, độ phân giải Full HD+ (2408 x 1080 pixel), tần số quét 90Hz. Máy trang bị chip MediaTek Helio G99, RAM 6GB, bộ nhớ trong 128GB. Hệ thống 3 camera sau gồm: camera chính 50MP, góc siêu rộng 2MP và macro 2MP. Camera selfie 8MP. Pin 5000mAh hỗ trợ sạc nhanh 18W. Thiết kế khung nhựa, mặt lưng nhựa, chạy MIUI 14 trên nền Android 15.",
+    "HinhAnhDaiDien": "DT_XM_RM15_1.png",
+    "Gia": 4990000.0,
+    "GiaKhuyenMai": 4590000.0,
+    "SoLuong": 80,
+    "LuotXem": 2,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_XM_RM15_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_XM_RM15_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RM15_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RM15_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RM15_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RM15_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "6 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "128 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.9\" - Tần số quét 144 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "7000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 50 MP & Phụ QVGA",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 15",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "6 GB",
+      "Bộ nhớ trong": "128 GB",
+      "Màn hình": "6.9\" - Tần số quét 144 Hz",
+      "Dung lượng Pin": "7000 mAh",
+      "Camera": "Chính 50 MP & Phụ QVGA",
+      "Hệ điều hành": "Android 15",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330803"
+    },
+    "SqlId": 35,
+    "MaSanPham": "XMRMN14",
+    "TenSanPham": "Xiaomi Redmi Note 14 Pro+",
+    "BiDanh": "xiaomi-redmi-note-14-pro-plus",
+    "MoTa": "Xiaomi Redmi Note 14 Pro+ 5G – smartphone tầm trung cao cấp, hiệu năng mạnh mẽ, bộ nhớ lớn và kết nối 5G",
+    "ChiTiet": "Xiaomi Redmi Note 14 Pro+ 5G sở hữu màn hình AMOLED 6,67 inch, độ phân giải Full HD+ (2400 x 1080 pixel), tần số quét 120Hz, hỗ trợ HDR10+. Máy trang bị chip MediaTek Dimensity 6100+, RAM 12GB, bộ nhớ trong 512GB. Hệ thống 3 camera sau gồm: camera chính 108MP, góc siêu rộng 8MP và macro 2MP. Camera selfie 32MP. Pin 5000mAh hỗ trợ sạc nhanh 67W. Thiết kế khung nhôm, mặt lưng kính, chạy MIUI 16 trên nền Android 15, kết nối 5G.",
+    "HinhAnhDaiDien": "DT_XM_RMNote14Pro+_1.png",
+    "Gia": 14990000.0,
+    "GiaKhuyenMai": 13990000.0,
+    "SoLuong": 50,
+    "LuotXem": 1,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_XM_RMNote14Pro+_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "DT_XM_RMNote14Pro+_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RMNote14Pro+_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RMNote14Pro+_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RMNote14Pro+_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "DT_XM_RMNote14Pro+_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.67\" - Tần số quét 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5110 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Chính 200 MP & Phụ 8 MP, 2 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 14",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "6.67\" - Tần số quét 120 Hz",
+      "Dung lượng Pin": "5110 mAh",
+      "Camera": "Chính 200 MP & Phụ 8 MP, 2 MP",
+      "Hệ điều hành": "Android 14",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330804"
+    },
+    "SqlId": 36,
+    "MaSanPham": "ASROG16",
+    "TenSanPham": "Asus ROG Zephyrus G16",
+    "BiDanh": "asus-rog-zephyrus-g16",
+    "MoTa": "ASUS ROG Zephyrus G16 – laptop gaming cao cấp mỏng nhẹ, hiệu năng mạnh mẽ, màn hình 16 inch và thiết kế hiện đại",
+    "ChiTiet": "ASUS ROG Zephyrus G16 GU605CM Ultra 9 QR078W trang bị CPU Intel Core i9 thế hệ 13, RAM 32GB, bộ nhớ SSD 1TB, card đồ họa NVIDIA GeForce RTX 4070 8GB. Màn hình 16 inch QHD+ 165Hz IPS, hỗ trợ Adaptive Sync và Dolby Vision. Hệ thống âm thanh 4 loa, webcam 1080p. Pin 90Wh hỗ trợ sạc nhanh, chạy Windows 11 Home. Thiết kế mỏng nhẹ, vỏ nhôm, bàn phím RGB, logo ROG LED, thích hợp cho game thủ và làm việc đồ họa nặng.",
+    "HinhAnhDaiDien": "LT_Asus_ROG16_1.png",
+    "Gia": 45990000.0,
+    "GiaKhuyenMai": 43990000.0,
+    "SoLuong": 15,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 6,
+      "TenThuongHieu": "Asus",
+      "BiDanh": "asus"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Asus_ROG16_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Asus_ROG16_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ROG16_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ROG16_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ROG16_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ROG16_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" WUXGA",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "100 Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "1080p FaceTime HD camera",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "3 x Thunderbolt 4",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "1 TB SSD",
+      "Màn hình": "16\" WUXGA",
+      "Dung lượng Pin": "100 Wh",
+      "Camera": "1080p FaceTime HD camera",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "3 x Thunderbolt 4"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330805"
+    },
+    "SqlId": 37,
+    "MaSanPham": "ASTUF16",
+    "TenSanPham": "Asus TUF Gaming F16",
+    "BiDanh": "asus-tuf-gaming-f16",
+    "MoTa": "ASUS TUF Gaming F16 – laptop gaming tầm trung với hiệu năng ổn định, thiết kế bền bỉ và màn hình 16 inch",
+    "ChiTiet": "ASUS TUF Gaming F16 FX608JMR trang bị CPU Intel Core i7 thế hệ 12, RAM 16GB, bộ nhớ SSD 512GB, card đồ họa NVIDIA GeForce RTX 4060 8GB. Màn hình 16 inch Full HD IPS, tần số quét 144Hz, chống chói, hỗ trợ Adaptive Sync. Hệ thống âm thanh 2 loa, webcam HD 720p. Pin 90Wh, chạy Windows 11 Home. Thiết kế cứng cáp đạt chuẩn quân đội MIL-STD-810H, bàn phím RGB 4-zone, LED logo TUF, thích hợp cho chơi game, học tập và làm việc đa nhiệm.",
+    "HinhAnhDaiDien": "LT_Asus_TUF16_1.png",
+    "Gia": 28990000.0,
+    "GiaKhuyenMai": 26990000.0,
+    "SoLuong": 25,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 6,
+      "TenThuongHieu": "Asus",
+      "BiDanh": "asus"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Asus_TUF16_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Asus_TUF16_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_TUF16_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_TUF16_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_TUF16_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_TUF16_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB SSD",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" WQXGA",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "6-cell Li-ion",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "HD webcam",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "HDMI 1 x USB Type-C 3.2",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "512 GB SSD",
+      "Màn hình": "16\" WQXGA",
+      "Dung lượng Pin": "6-cell Li-ion",
+      "Camera": "HD webcam",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "HDMI 1 x USB Type-C 3.2"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330806"
+    },
+    "SqlId": 38,
+    "MaSanPham": "ASVIVO14",
+    "TenSanPham": "Asus VivoBook S 14",
+    "BiDanh": "asus-vivobook-s14",
+    "MoTa": "ASUS VivoBook S 14 – laptop mỏng nhẹ, hiệu năng ổn định, thiết kế hiện đại phù hợp học tập và làm việc văn phòng",
+    "ChiTiet": "ASUS VivoBook S 14 S5406SA Ultra 7 PP059WS trang bị CPU Intel Core i7 thế hệ 13, RAM 16GB, bộ nhớ SSD 512GB, màn hình 14 inch Full HD (1920 x 1080) IPS, chống chói, viền mỏng. Hệ thống âm thanh 2 loa, webcam HD 720p. Pin 50Wh cho thời gian sử dụng đến 8 giờ, chạy Windows 11 Home. Thiết kế mỏng nhẹ, vỏ kim loại, bàn phím full-size, thích hợp cho học tập, làm việc văn phòng và di chuyển nhiều.",
+    "HinhAnhDaiDien": "LT_Asus_VivoS14_1.png",
+    "Gia": 18990000.0,
+    "GiaKhuyenMai": 17990000.0,
+    "SoLuong": 28,
+    "LuotXem": 1,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 6,
+      "TenThuongHieu": "Asus",
+      "BiDanh": "asus"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Asus_VivoS14_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Asus_VivoS14_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_VivoS14_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_VivoS14_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_VivoS14_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_VivoS14_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB SSD",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "13.3\" Retina (2560 x 1600)",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "18 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "720p FaceTime Camera",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "2 x Thunderbolt 3",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "256 GB SSD",
+      "Màn hình": "13.3\" Retina (2560 x 1600)",
+      "Dung lượng Pin": "18 giờ",
+      "Camera": "720p FaceTime Camera",
+      "Hệ điều hành": "Windows 11",
+      "Cổng kết nối": "2 x Thunderbolt 3"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330807"
+    },
+    "SqlId": 39,
+    "MaSanPham": "ASZENDUO",
+    "TenSanPham": "Asus ZenBook Duo",
+    "BiDanh": "asus-zenbook-duo",
+    "MoTa": "ASUS ZenBook Duo UX8406CA – laptop cao cấp 2 màn hình, thiết kế sáng tạo, hiệu năng mạnh mẽ, phù hợp làm việc đa nhiệm và sáng tạo nội dung",
+    "ChiTiet": "ASUS ZenBook Duo UX8406CA Ultra 9 PZ109WS trang bị CPU Intel Core i9 thế hệ 13, RAM 32GB, bộ nhớ SSD 1TB, card đồ họa NVIDIA GeForce RTX 4050 8GB. Màn hình chính 14 inch OLED 2.8K, màn hình phụ ScreenPad Plus 12.7 inch cảm ứng, hỗ trợ bút stylus. Hệ thống âm thanh 4 loa, webcam 1080p. Pin 76Wh, chạy Windows 11 Pro. Thiết kế 2 màn hình song song độc đáo, bản lề ErgoLift, vỏ nhôm nguyên khối, thích hợp cho sáng tạo nội dung, thiết kế đồ họa và làm việc đa nhiệm chuyên sâu.",
+    "HinhAnhDaiDien": "LT_Asus_ZenDUO_1.png",
+    "Gia": 75990000.0,
+    "GiaKhuyenMai": 73990000.0,
+    "SoLuong": 10,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 6,
+      "TenThuongHieu": "Asus",
+      "BiDanh": "asus"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Asus_ZenDUO_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Asus_ZenDUO_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ZenDUO_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ZenDUO_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ZenDUO_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Asus_ZenDUO_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB SSD",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "13.6\" Liquid Retina",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "18 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "1080p FaceTime HD camera",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "2 x Thunderbolt 3",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "256 GB SSD",
+      "Màn hình": "13.6\" Liquid Retina",
+      "Dung lượng Pin": "18 giờ",
+      "Camera": "1080p FaceTime HD camera",
+      "Hệ điều hành": "Windows 11",
+      "Cổng kết nối": "2 x Thunderbolt 3"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330808"
+    },
+    "SqlId": 40,
+    "MaSanPham": "DELLAW16",
+    "TenSanPham": "Dell Alienware 16",
+    "BiDanh": "dell-alienware-16",
+    "MoTa": "Dell Alienware 16 Aurora – máy tính để bàn gaming cao cấp với hiệu năng mạnh mẽ, thiết kế hầm hố và hệ thống tản nhiệt tối ưu",
+    "ChiTiet": "Dell Alienware 16 Aurora AC16250 trang bị CPU Intel Core i9 thế hệ 9, RAM 32GB, bộ nhớ SSD 1TB + HDD 2TB, card đồ họa NVIDIA GeForce RTX 4080 16GB. Hệ thống tản nhiệt Alienware Cryo-Tech, hỗ trợ chơi game nặng, render 3D và xử lý đồ họa chuyên nghiệp. Cổng kết nối đa dạng, hỗ trợ Wi-Fi 6E, Bluetooth 5.2, chạy Windows 11 Pro. Thiết kế hầm hố, LED RGB tùy chỉnh, thích hợp cho game thủ và các công việc đồ họa nặng.",
+    "HinhAnhDaiDien": "LT_Dell_Alien16_1.png",
+    "Gia": 89990000.0,
+    "GiaKhuyenMai": 85990000.0,
+    "SoLuong": 5,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 5,
+      "TenThuongHieu": "Dell",
+      "BiDanh": "dell"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Dell_Alien16_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Dell_Alien16_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Alien16_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Alien16_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Alien16_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Alien16_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "32 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD NVMe",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" WQXGA (2560 x 1600)",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "96 Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "HD webcam",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "HDMI + USB Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "32 GB",
+      "Bộ nhớ trong": "1 TB SSD NVMe",
+      "Màn hình": "16\" WQXGA (2560 x 1600)",
+      "Dung lượng Pin": "96 Wh",
+      "Camera": "HD webcam",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "HDMI + USB Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330809"
+    },
+    "SqlId": 41,
+    "MaSanPham": "DELLINS16",
+    "TenSanPham": "Dell Inspiron 16",
+    "BiDanh": "dell-inspiron-16",
+    "MoTa": "Dell Inspiron 16 5640 – laptop hiệu năng cao, màn hình lớn, phù hợp học tập, làm việc và giải trí",
+    "ChiTiet": "Dell Inspiron 16 5640 trang bị CPU Intel Core i7 thế hệ 12, RAM 16GB, bộ nhớ SSD 512GB, màn hình 16 inch Full HD (1920 x 1200) với tấm nền IPS, hiển thị sắc nét, chống chói. Hệ thống âm thanh 2 loa, webcam HD 720p. Pin 68Wh cho thời gian sử dụng đến 10 giờ, chạy Windows 11 Home. Thiết kế khung nhôm + nhựa cao cấp, trọng lượng vừa phải, thích hợp cho làm việc văn phòng, học tập và giải trí đa phương tiện.",
+    "HinhAnhDaiDien": "LT_Dell_Insp16_1.png",
+    "Gia": 25990000.0,
+    "GiaKhuyenMai": 24990000.0,
+    "SoLuong": 20,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 5,
+      "TenThuongHieu": "Dell",
+      "BiDanh": "dell"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Dell_Insp16_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Dell_Insp16_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Insp16_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Insp16_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Insp16_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_Insp16_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD M.2",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" 2.5K",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "54Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Full HD Webcam",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "1 x USB Type-C 3.2",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "1 TB SSD M.2",
+      "Màn hình": "16\" 2.5K",
+      "Dung lượng Pin": "54Wh",
+      "Camera": "Full HD Webcam",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "1 x USB Type-C 3.2"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533080a"
+    },
+    "SqlId": 42,
+    "MaSanPham": "DELLLAT7350",
+    "TenSanPham": "Dell Latitude 7350",
+    "BiDanh": "dell-latitude-7350",
+    "MoTa": "Dell Latitude 7350 Ultra 5 – laptop doanh nghiệp cao cấp, mỏng nhẹ, hiệu năng ổn định và bảo mật cao",
+    "ChiTiet": "Dell Latitude 7350 Ultra 5 trang bị CPU Intel Core i5 thế hệ 8, RAM 16GB, bộ nhớ SSD 512GB, màn hình 13,3 inch Full HD (1920 x 1080) với công nghệ chống chói. Hệ thống âm thanh 2 loa, webcam HD 720p. Pin 60Wh cho thời gian sử dụng đến 12 giờ, chạy Windows 11 Pro. Thiết kế khung nhôm chắc chắn, kháng va đập, bảo mật TPM 2.0 và vân tay. Thích hợp cho doanh nghiệp, học tập và làm việc di động.",
+    "HinhAnhDaiDien": "LT_Dell_LatiUltra5_1.png",
+    "Gia": 24990000.0,
+    "GiaKhuyenMai": 23990000.0,
+    "SoLuong": 15,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 5,
+      "TenThuongHieu": "Dell",
+      "BiDanh": "dell"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Dell_LatiUltra5_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Dell_LatiUltra5_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_LatiUltra5_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_LatiUltra5_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_LatiUltra5_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_LatiUltra5_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "32 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD NVMe",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "14\" WUXGA (1920 x 1200)",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "57 Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "FHD 1080p + IR",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Pro",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "2 x USB Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "32 GB",
+      "Bộ nhớ trong": "1 TB SSD NVMe",
+      "Màn hình": "14\" WUXGA (1920 x 1200)",
+      "Dung lượng Pin": "57 Wh",
+      "Camera": "FHD 1080p + IR",
+      "Hệ điều hành": "Windows 11 Pro",
+      "Cổng kết nối": "2 x USB Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533080b"
+    },
+    "SqlId": 43,
+    "MaSanPham": "DELLXPS13",
+    "TenSanPham": "Dell XPS 13",
+    "BiDanh": "dell-xps-13",
+    "MoTa": "Dell XPS 13 9350 – laptop cao cấp, mỏng nhẹ với hiệu năng ổn định cho công việc văn phòng và di chuyển",
+    "ChiTiet": "Dell XPS 13 9350 trang bị CPU Intel Core i7 thế hệ 7, RAM 8GB, bộ nhớ SSD 256GB, màn hình InfinityEdge 13,3 inch Full HD (1920 x 1080) với lớp kính chống chói. Hệ thống âm thanh 2 loa chất lượng tốt, webcam HD 720p. Pin 52Wh cho thời gian sử dụng đến 10 giờ, chạy Windows 10 Home. Thiết kế khung nhôm, nắp lưng sợi carbon, mỏng nhẹ, thích hợp cho học tập, làm việc văn phòng và di chuyển nhiều.",
+    "HinhAnhDaiDien": "LT_Dell_XPS13_1.png",
+    "Gia": 38990000.0,
+    "GiaKhuyenMai": 37990000.0,
+    "SoLuong": 25,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 5,
+      "TenThuongHieu": "Dell",
+      "BiDanh": "dell"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Dell_XPS13_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Dell_XPS13_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_XPS13_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_XPS13_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_XPS13_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Dell_XPS13_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "32 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD NVMe",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" WQXGA OLED",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "80 Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Camera 5.0 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "1 x USB 3.2",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "32 GB",
+      "Bộ nhớ trong": "1 TB SSD NVMe",
+      "Màn hình": "16\" WQXGA OLED",
+      "Dung lượng Pin": "80 Wh",
+      "Camera": "Camera 5.0 MP",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "1 x USB 3.2"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533080c"
+    },
+    "SqlId": 44,
+    "MaSanPham": "LNVLOQ15",
+    "TenSanPham": "Lenovo LOQ 15",
+    "BiDanh": "lenovo-loq-15",
+    "MoTa": "Lenovo Gaming LOQ 15AHP10 – laptop gaming tầm trung với hiệu năng ổn định, thiết kế trẻ trung và màn hình 15 inch",
+    "ChiTiet": "Lenovo Gaming LOQ 15AHP10 R7 trang bị CPU AMD Ryzen 7 6800H, RAM 16GB, bộ nhớ SSD 512GB, card đồ họa NVIDIA GeForce RTX 4060 8GB. Màn hình 15,6 inch Full HD IPS, tần số quét 144Hz, hỗ trợ Dolby Vision. Hệ thống âm thanh 2 loa, webcam HD 720p. Pin 60Wh, chạy Windows 11 Home. Thiết kế trẻ trung, logo LED RGB, bàn phím RGB 4-zone, phù hợp cho học tập, làm việc và chơi game nhẹ đến trung bình.",
+    "HinhAnhDaiDien": "LT_LNV_LOQ15_1.png",
+    "Gia": 27990000.0,
+    "GiaKhuyenMai": 25990000.0,
+    "SoLuong": 30,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 7,
+      "TenThuongHieu": "Lenovo",
+      "BiDanh": "lenovo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_LNV_LOQ15_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_LNV_LOQ15_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LOQ15_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LOQ15_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LOQ15_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LOQ15_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "DDR5 16+16 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "15.6\" Full HD",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "60 Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "5.0 MP with E-shutter",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "1 x USB-C 3.2 Gen 2",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "DDR5 16+16 GB",
+      "Màn hình": "15.6\" Full HD",
+      "Dung lượng Pin": "60 Wh",
+      "Camera": "5.0 MP with E-shutter",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "1 x USB-C 3.2 Gen 2"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533080d"
+    },
+    "SqlId": 45,
+    "MaSanPham": "LNVLEG7",
+    "TenSanPham": "Lenovo Legion Pro 7",
+    "BiDanh": "lenovo-legion-pro-7",
+    "MoTa": "Lenovo Legion Pro 7 16IAX10H – laptop gaming cao cấp với hiệu năng mạnh mẽ, màn hình lớn và thiết kế hầm hố",
+    "ChiTiet": "Lenovo Legion Pro 7 16IAX10H Ultra 9 275HX trang bị CPU Intel Core i9 thế hệ 13, RAM 32GB, bộ nhớ SSD 1TB, card đồ họa NVIDIA GeForce RTX 4080 16GB. Màn hình 16 inch QHD+ 165Hz IPS, hỗ trợ Dolby Vision và G-Sync. Hệ thống tản nhiệt Legion Coldfront 5.0, 4 loa âm thanh vòm, webcam 1080p. Pin 99Wh hỗ trợ sạc nhanh 300W, chạy Windows 11 Home. Thiết kế hầm hố, LED RGB tùy chỉnh, thích hợp cho game thủ và các tác vụ đồ họa nặng.",
+    "HinhAnhDaiDien": "LT_LNV_LegiPro7_1.png",
+    "Gia": 55990000.0,
+    "GiaKhuyenMai": 54990000.0,
+    "SoLuong": 8,
+    "LuotXem": 1,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 7,
+      "TenThuongHieu": "Lenovo",
+      "BiDanh": "lenovo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_LNV_LegiPro7_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_LNV_LegiPro7_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LegiPro7_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LegiPro7_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LegiPro7_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_LegiPro7_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "32 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD M.2",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" WUXGA (1920 x 1200)",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "45Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Full HD Webcam Camera IR",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "1 x USB-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "32 GB",
+      "Bộ nhớ trong": "1 TB SSD M.2",
+      "Màn hình": "16\" WUXGA (1920 x 1200)",
+      "Dung lượng Pin": "45Wh",
+      "Camera": "Full HD Webcam Camera IR",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "1 x USB-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533080e"
+    },
+    "SqlId": 46,
+    "MaSanPham": "LNVTB16",
+    "TenSanPham": "Lenovo ThinkBook 16",
+    "BiDanh": "lenovo-thinkbook-16",
+    "MoTa": "Lenovo ThinkBook 16 Ultra 7 – laptop doanh nghiệp cao cấp với hiệu năng mạnh mẽ, màn hình lớn và thiết kế mỏng nhẹ",
+    "ChiTiet": "Lenovo ThinkBook 16 Ultra 7 21SK006YVN trang bị CPU Intel Core i7 thế hệ 13, RAM 32GB, bộ nhớ SSD 1TB, màn hình 16 inch 2.5K IPS, hỗ trợ HDR và Dolby Vision. Hệ thống âm thanh 2 loa, webcam 1080p với ThinkShutter. Pin 71Wh cho thời gian sử dụng lên tới 12 giờ, chạy Windows 11 Pro. Thiết kế kim loại nguyên khối, bảo mật TPM 2.0 và vân tay, thích hợp cho doanh nghiệp, làm việc đa nhiệm và sáng tạo nội dung.",
+    "HinhAnhDaiDien": "LT_LNV_TB16_1.png",
+    "Gia": 22990000.0,
+    "GiaKhuyenMai": 21990000.0,
+    "SoLuong": 25,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 7,
+      "TenThuongHieu": "Lenovo",
+      "BiDanh": "lenovo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_LNV_TB16_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_LNV_TB16_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TB16_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TB16_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TB16_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TB16_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "32 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD NVMe",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" WUXGA (1920 x 1200)",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "90 Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Full HD Webcam Camera IR",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "1 x Thunderbolt 4",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "32 GB",
+      "Bộ nhớ trong": "1 TB SSD NVMe",
+      "Màn hình": "16\" WUXGA (1920 x 1200)",
+      "Dung lượng Pin": "90 Wh",
+      "Camera": "Full HD Webcam Camera IR",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "1 x Thunderbolt 4"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533080f"
+    },
+    "SqlId": 47,
+    "MaSanPham": "LNVTPX1",
+    "TenSanPham": "Lenovo ThinkPad X1",
+    "BiDanh": "lenovo-thinkpad-x1",
+    "MoTa": "Lenovo ThinkPad X1 2-in-1 Gen 10 – laptop doanh nghiệp cao cấp, hiệu năng mạnh mẽ, thiết kế 2-trong-1 linh hoạt",
+    "ChiTiet": "Lenovo ThinkPad X1 2-in-1 Gen 10 Ultra 7 255U trang bị CPU Intel Core i7 thế hệ 13, RAM 32GB, bộ nhớ SSD 1TB, màn hình 14 inch 2.8K OLED cảm ứng, hỗ trợ HDR, Dolby Vision và bút cảm ứng. Hệ thống âm thanh 4 loa Harman, micro chất lượng studio, webcam 1080p với ThinkShutter. Pin 63Wh cho thời gian sử dụng lên tới 12 giờ, chạy Windows 11 Pro. Thiết kế bản lề 360 độ, khung nhôm + sợi carbon, bảo mật vân tay, TPM 2.0, thích hợp cho doanh nghiệp, sáng tạo nội dung và làm việc di động.",
+    "HinhAnhDaiDien": "LT_LNV_TPX1_1.png",
+    "Gia": 45990000.0,
+    "GiaKhuyenMai": 42990000.0,
+    "SoLuong": 15,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 7,
+      "TenThuongHieu": "Lenovo",
+      "BiDanh": "lenovo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_LNV_TPX1_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_LNV_TPX1_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TPX1_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TPX1_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TPX1_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_LNV_TPX1_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "32 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB SSD NVMe",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "16\" WQXGA OLED",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "90 Wh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "Full HD Webcam Camera IR",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Windows 11 Home",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "1 x Thunderbolt 4",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "32 GB",
+      "Bộ nhớ trong": "1 TB SSD NVMe",
+      "Màn hình": "16\" WQXGA OLED",
+      "Dung lượng Pin": "90 Wh",
+      "Camera": "Full HD Webcam Camera IR",
+      "Hệ điều hành": "Windows 11 Home",
+      "Cổng kết nối": "1 x Thunderbolt 4"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330810"
+    },
+    "SqlId": 48,
+    "MaSanPham": "MACM1",
+    "TenSanPham": "MacBook Air M1 2020",
+    "BiDanh": "macbook-air-m1",
+    "MoTa": "MacBook Air 2020 – laptop mỏng nhẹ, thiết kế tinh tế với hiệu năng ổn định cho công việc văn phòng và học tập",
+    "ChiTiet": "MacBook Air 2020 trang bị chip Apple M1, RAM 8GB, bộ nhớ SSD 256GB, màn hình Retina 13,3 inch, độ phân giải 2560 x 1600 pixel, hỗ trợ True Tone. Hệ thống âm thanh 2 loa, micro chất lượng cao, webcam 720p. Pin 49,9Wh cho thời gian sử dụng đến 18 giờ, chạy macOS Big Sur. Thiết kế mỏng nhẹ, khung nhôm nguyên khối, thích hợp cho học tập, làm việc văn phòng và di chuyển nhiều.",
+    "HinhAnhDaiDien": "LT_Mac_AirM1_1.png",
+    "Gia": 18990000.0,
+    "GiaKhuyenMai": 16990000.0,
+    "SoLuong": 150,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Mac_AirM1_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM1_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM1_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM1_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM1_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM1_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "13.3\" Retina",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "18 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "720p Facetime",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "macOS",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "2 x Thunderbolt 3",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "1 TB",
+      "Màn hình": "13.3\" Retina",
+      "Dung lượng Pin": "18 giờ",
+      "Camera": "720p Facetime",
+      "Hệ điều hành": "macOS",
+      "Cổng kết nối": "2 x Thunderbolt 3"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330811"
+    },
+    "SqlId": 49,
+    "MaSanPham": "MACM2",
+    "TenSanPham": "MacBook Air M2 2022",
+    "BiDanh": "macbook-air-m2",
+    "MoTa": "MacBook Air M2 2022 – laptop mỏng nhẹ, hiệu năng mạnh mẽ với chip M2, RAM 16GB và bộ nhớ SSD 256GB",
+    "ChiTiet": "MacBook Air M2 2022 trang bị chip Apple M2 với RAM 16GB và SSD 256GB, màn hình Liquid Retina 13,6 inch, độ phân giải 2560 x 1664 pixel, hỗ trợ True Tone và P3 Wide Color. Hệ thống âm thanh 4 loa, micro chất lượng studio, webcam 1080p. Pin 52,6Wh hỗ trợ sạc nhanh 67W, chạy macOS Ventura với khả năng tối ưu phần mềm và bảo mật cao. Thiết kế mỏng nhẹ, khung nhôm nguyên khối, thích hợp cho học tập, làm việc văn phòng và di chuyển nhiều.",
+    "HinhAnhDaiDien": "LT_Mac_AirM2_1.png",
+    "Gia": 24990000.0,
+    "GiaKhuyenMai": 22990000.0,
+    "SoLuong": 80,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Mac_AirM2_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM2_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM2_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM2_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM2_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM2_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "13.6\" Liquid Retina",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "18 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "1080p Facetime",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "macOS",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "MagSafe 3",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "13.6\" Liquid Retina",
+      "Dung lượng Pin": "18 giờ",
+      "Camera": "1080p Facetime",
+      "Hệ điều hành": "macOS",
+      "Cổng kết nối": "MagSafe 3"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330812"
+    },
+    "SqlId": 50,
+    "MaSanPham": "MACM4",
+    "TenSanPham": "MacBook Air M4",
+    "BiDanh": "macbook-air-m4",
+    "MoTa": "MacBook Air 13-inch M4 – laptop mỏng nhẹ của Apple với hiệu năng mạnh mẽ và pin lâu",
+    "ChiTiet": "MacBook Air 13-inch trang bị chip Apple M4 với RAM 24GB và bộ nhớ SSD 512GB, màn hình Retina 13,3 inch, độ phân giải 2560 x 1600 pixel, hỗ trợ True Tone. Hệ thống âm thanh 4 loa, micro chất lượng studio, webcam 1080p. Pin 75Wh hỗ trợ sạc nhanh, chạy macOS Sonoma với khả năng tối ưu phần mềm và bảo mật cao. Thiết kế mỏng nhẹ, thích hợp cho học tập, làm việc văn phòng và di chuyển nhiều.",
+    "HinhAnhDaiDien": "LT_Mac_AirM4_1.png",
+    "Gia": 32990000.0,
+    "GiaKhuyenMai": 22990000.0,
+    "SoLuong": 50,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Mac_AirM4_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM4_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM4_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM4_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM4_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_AirM4_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "13.6\" Liquid Retina",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "18 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "1080p Facetime",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "macOS",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "MagSafe 3",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "13.6\" Liquid Retina",
+      "Dung lượng Pin": "18 giờ",
+      "Camera": "1080p Facetime",
+      "Hệ điều hành": "macOS",
+      "Cổng kết nối": "MagSafe 3"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330813"
+    },
+    "SqlId": 51,
+    "MaSanPham": "MACPROM4",
+    "TenSanPham": "MacBook Pro M4",
+    "BiDanh": "macbook-pro-m4",
+    "MoTa": "MacBook Pro 16-inch M4 Pro – laptop cao cấp của Apple với hiệu năng mạnh mẽ, màn hình lớn và pin lâu",
+    "ChiTiet": "MacBook Pro 16-inch trang bị chip Apple M4 Pro với RAM 24GB và bộ nhớ SSD 512GB, màn hình Liquid Retina XDR 16-inch, độ phân giải 3456 x 2234 pixel, hỗ trợ ProMotion 120Hz. Hệ thống âm thanh 6 loa, micro chất lượng studio, webcam 1080p. Pin 100Wh hỗ trợ sạc nhanh, chạy macOS Sonoma với khả năng tối ưu phần mềm và bảo mật cao. Thích hợp cho dựng phim, thiết kế đồ họa, lập trình và các công việc chuyên nghiệp.",
+    "HinhAnhDaiDien": "LT_Mac_ProM4_1.png",
+    "Gia": 45990000.0,
+    "GiaKhuyenMai": 43990000.0,
+    "SoLuong": 40,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 2,
+      "TenDanhMuc": "Laptop",
+      "BiDanh": "laptop"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "LT_Mac_ProM4_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "LT_Mac_ProM4_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_ProM4_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_ProM4_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_ProM4_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "LT_Mac_ProM4_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "18 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "14.2\" Liquid Retina XDR",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "22 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "1080p Facetime",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "macOS",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "3 x Thunderbolt 4",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "18 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "14.2\" Liquid Retina XDR",
+      "Dung lượng Pin": "22 giờ",
+      "Camera": "1080p Facetime",
+      "Hệ điều hành": "macOS",
+      "Cổng kết nối": "3 x Thunderbolt 4"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330814"
+    },
+    "SqlId": 52,
+    "MaSanPham": "IPADAIR6",
+    "TenSanPham": "iPad Air 6",
+    "BiDanh": "ipad-air-6",
+    "MoTa": null,
+    "ChiTiet": null,
+    "HinhAnhDaiDien": "TB_IP_A16_1.png",
+    "Gia": 16990000.0,
+    "GiaKhuyenMai": 15990000.0,
+    "SoLuong": 60,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_IP_A16_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_IP_A16_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_A16_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_A16_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_A16_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_A16_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "128 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "13\" Liquid Retina",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "10 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "12 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iPadOS 17",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "128 GB",
+      "Màn hình": "13\" Liquid Retina",
+      "Dung lượng Pin": "10 giờ",
+      "Camera": "12 MP",
+      "Hệ điều hành": "iPadOS 17",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330815"
+    },
+    "SqlId": 53,
+    "MaSanPham": "IPADAIRM3",
+    "TenSanPham": "iPad Air M3",
+    "BiDanh": "ipad-air-m3",
+    "MoTa": "iPad Air M3 13-inch – máy tính bảng mỏng nhẹ, hiệu năng mạnh mẽ với kết nối 5G và bộ nhớ 128GB",
+    "ChiTiet": "iPad Air M3 13-inch trang bị chip Apple M3, RAM 8GB, bộ nhớ SSD 128GB, màn hình Liquid Retina 13 inch, độ phân giải 2732 x 2048 pixel, hỗ trợ ProMotion 120Hz, True Tone và P3 Wide Color. Camera sau 12MP, camera trước 12MP Ultra Wide với Center Stage. Pin sử dụng cả ngày (~10 giờ), chạy iPadOS 17. Hỗ trợ Apple Pencil 2 và bàn phím Magic Keyboard, phù hợp cho học tập, làm việc đa nhiệm và sáng tạo nội dung.",
+    "HinhAnhDaiDien": "TB_IP_AirM3_1.png",
+    "Gia": 21990000.0,
+    "GiaKhuyenMai": 20990000.0,
+    "SoLuong": 45,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_IP_AirM3_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_IP_AirM3_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_AirM3_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_AirM3_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_AirM3_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_AirM3_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "13\" Liquid Retina",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "10 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "12 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iPadOS 17",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "13\" Liquid Retina",
+      "Dung lượng Pin": "10 giờ",
+      "Camera": "12 MP",
+      "Hệ điều hành": "iPadOS 17",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330816"
+    },
+    "SqlId": 54,
+    "MaSanPham": "IPADPROM4",
+    "TenSanPham": "iPad Pro M4",
+    "BiDanh": "ipad-pro-m4",
+    "MoTa": "iPad Pro M4 11-inch – máy tính bảng cao cấp của Apple với hiệu năng mạnh mẽ, màn hình Liquid Retina và bộ nhớ lớn 1TB",
+    "ChiTiet": "iPad Pro M4 11-inch trang bị chip Apple M4, RAM 16GB, bộ nhớ 1TB, màn hình Liquid Retina 11 inch, độ phân giải 2388 x 1668 pixel, hỗ trợ ProMotion 120Hz, True Tone và P3 Wide Color. Camera sau 12MP + LiDAR Scanner, camera trước 12MP Ultra Wide. Pin sử dụng cả ngày (~10 giờ), chạy iPadOS 17. Hỗ trợ bút Apple Pencil 2, bàn phím Magic Keyboard, thích hợp cho thiết kế, vẽ, học tập và làm việc đa nhiệm.",
+    "HinhAnhDaiDien": "TB_IP_ProM4_1.png",
+    "Gia": 28990000.0,
+    "GiaKhuyenMai": 27990000.0,
+    "SoLuong": 50,
+    "LuotXem": 1,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_IP_ProM4_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_IP_ProM4_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_ProM4_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_ProM4_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_ProM4_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_ProM4_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "16 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "1 TB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "14.6\" Ultra Retina XDR",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "10 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "12 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iPadOS 17",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "16 GB",
+      "Bộ nhớ trong": "1 TB",
+      "Màn hình": "14.6\" Ultra Retina XDR",
+      "Dung lượng Pin": "10 giờ",
+      "Camera": "12 MP",
+      "Hệ điều hành": "iPadOS 17",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330817"
+    },
+    "SqlId": 55,
+    "MaSanPham": "IPADMINI7",
+    "TenSanPham": "iPad Mini 7",
+    "BiDanh": "ipad-mini-7",
+    "MoTa": "iPad Mini 7 – máy tính bảng nhỏ gọn, hiệu năng mạnh mẽ với bộ nhớ 512GB",
+    "ChiTiet": "iPad Mini 7 trang bị chip Apple M3, RAM 6GB, bộ nhớ SSD 512GB, màn hình Liquid Retina 8,3 inch, độ phân giải 2266 x 1488 pixel, hỗ trợ True Tone và P3 Wide Color. Camera sau 12MP, camera trước 12MP Ultra Wide với Center Stage. Pin sử dụng cả ngày (~10 giờ), chạy iPadOS 17. Hỗ trợ Apple Pencil 2, thích hợp cho học tập, vẽ, giải trí và làm việc di động.",
+    "HinhAnhDaiDien": "TB_IP_Mini7_1.png",
+    "Gia": 14990000.0,
+    "GiaKhuyenMai": 13990000.0,
+    "SoLuong": 55,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 1,
+      "TenThuongHieu": "Apple",
+      "BiDanh": "apple"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_IP_Mini7_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_IP_Mini7_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_Mini7_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_Mini7_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_Mini7_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_IP_Mini7_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "4 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "64 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "8.3\" Liquid Retina",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "10 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "12 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "iPadOS 17",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "4 GB",
+      "Bộ nhớ trong": "64 GB",
+      "Màn hình": "8.3\" Liquid Retina",
+      "Dung lượng Pin": "10 giờ",
+      "Camera": "12 MP",
+      "Hệ điều hành": "iPadOS 17",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330818"
+    },
+    "SqlId": 56,
+    "MaSanPham": "SSTABA9P",
+    "TenSanPham": "Samsung Galaxy Tab A9+",
+    "BiDanh": "samsung-tab-a9-plus",
+    "MoTa": "Samsung Galaxy Tab A9 Plus 5G – máy tính bảng 11″ tầm trung‑cao với kết nối 5G, màn hình lớn và hiệu năng ổn định",
+    "ChiTiet": "Samsung Galaxy Tab A9 Plus 5G trang bị màn hình TFT LCD 11,0 inch 1200×1920 pixel, tần số quét 90Hz, vi xử lý Snapdragon 695 5G, RAM 4GB/8GB, bộ nhớ trong 64GB/128GB (hỗ trợ microSD đến 1TB), camera sau 8MP, camera trước 5MP, pin 7.040mAh, sạc 15W, chạy Android 13 với One UI 5.1. Thiết kế mỏng nhẹ (~6,9 mm, ~490g), phù hợp giải trí, học tập và làm việc di động.",
+    "HinhAnhDaiDien": "TB_SS_A9+_1.png",
+    "Gia": 5990000.0,
+    "GiaKhuyenMai": 5490000.0,
+    "SoLuong": 80,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_SS_A9+_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_SS_A9+_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9+_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9+_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9+_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9+_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "4 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "64 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "11\" - 90 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "7040 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 13",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "4 GB",
+      "Bộ nhớ trong": "64 GB",
+      "Màn hình": "11\" - 90 Hz",
+      "Dung lượng Pin": "7040 mAh",
+      "Camera": "8 MP",
+      "Hệ điều hành": "Android 13",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330819"
+    },
+    "SqlId": 57,
+    "MaSanPham": "SSTABA9",
+    "TenSanPham": "Samsung Galaxy Tab A9",
+    "BiDanh": "samsung-tab-a9",
+    "MoTa": "Samsung Galaxy Tab A9 – máy tính bảng nhỏ gọn, hiệu năng ổn định và giá dễ tiếp cận",
+    "ChiTiet": "Samsung Galaxy Tab A9 trang bị màn hình TFT LCD 8,7 inch độ phân giải 800×1340 pixel, vi xử lý Mediatek Helio G99, RAM 4GB, bộ nhớ trong 64GB (hỗ trợ thẻ microSD). Máy có camera sau 8MP, camera trước 2MP, pin khoảng 5.100mAh, sạc 15W, chạy Android 13 với One UI. Thiết kế nhẹ (~332g) và mỏng (~8mm), phù hợp cho giải trí, học tập và sử dụng hàng ngày.",
+    "HinhAnhDaiDien": "TB_SS_A9_1.png",
+    "Gia": 3990000.0,
+    "GiaKhuyenMai": 3490000.0,
+    "SoLuong": 98,
+    "LuotXem": 2,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_SS_A9_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_SS_A9_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_A9_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "4 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "64 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "8.7\" - 60 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5100 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 13",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "4 GB",
+      "Bộ nhớ trong": "64 GB",
+      "Màn hình": "8.7\" - 60 Hz",
+      "Dung lượng Pin": "5100 mAh",
+      "Camera": "8 MP",
+      "Hệ điều hành": "Android 13",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533081a"
+    },
+    "SqlId": 58,
+    "MaSanPham": "SSTABS11U",
+    "TenSanPham": "Samsung Galaxy Tab S11 Ultra",
+    "BiDanh": "samsung-tab-s11-ultra",
+    "MoTa": "Samsung Galaxy Tab S11 Ultra – máy tính bảng cao cấp, màn hình lớn, hiệu năng mạnh mẽ với kết nối 5G và bộ nhớ 1TB",
+    "ChiTiet": "Samsung Galaxy Tab S11 Ultra trang bị chip Snapdragon 8 Gen 3, RAM 16GB, bộ nhớ 1TB, màn hình AMOLED 14,6 inch, độ phân giải 2960 x 1848 pixel, hỗ trợ 120Hz và HDR10+. Camera sau 13MP + 5MP, camera trước 12MP. Pin 11.500mAh, hỗ trợ sạc nhanh 45W, chạy Android 14 với One UI 6. Hỗ trợ S Pen, Samsung DeX, thích hợp cho làm việc đa nhiệm, giải trí và sáng tạo nội dung.",
+    "HinhAnhDaiDien": "TB_SS_S11Ultra_1.png",
+    "Gia": 29990000.0,
+    "GiaKhuyenMai": 27990000.0,
+    "SoLuong": 20,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_SS_S11Ultra_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_SS_S11Ultra_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S11Ultra_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S11Ultra_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S11Ultra_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S11Ultra_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "14.6\" - 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "11200 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "13 MP + 8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 14",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12 GB",
+      "Bộ nhớ trong": "512 GB",
+      "Màn hình": "14.6\" - 120 Hz",
+      "Dung lượng Pin": "11200 mAh",
+      "Camera": "13 MP + 8 MP",
+      "Hệ điều hành": "Android 14",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533081b"
+    },
+    "SqlId": 59,
+    "MaSanPham": "SSTABS6L",
+    "TenSanPham": "Samsung Galaxy Tab S6 Lite",
+    "BiDanh": "samsung-tab-s6-lite",
+    "MoTa": "Samsung Galaxy Tab S6 Lite 2024 – máy tính bảng tầm trung với bút S‑Pen kèm theo, thiết kế mỏng nhẹ và màn hình 10,4 inch",
+    "ChiTiet": "Samsung Galaxy Tab S6 Lite (2024) sở hữu màn hình TFT LCD 10,4 inch độ phân giải 2000×1200 pixel, khung mỏng chỉ 7,0 mm, trọng lượng khoảng 465 g (WiFi). Máy dùng chip Exynos 1280, RAM 4GB, bộ nhớ trong 64GB hoặc 128GB, hỗ trợ thẻ microSD lên đến 1TB. Máy ảnh sau 8MP và camera trước 5MP, pin dung lượng 7.040 mAh cho thời lượng sử dụng lên tới ~14 giờ. Hệ điều hành Android 14 với giao diện One UI 6.1, hỗ trợ bút S Pen kèm theo và nhiều màu sắc trẻ trung (Oxford Gray, Chiffon Pink, Mint).",
+    "HinhAnhDaiDien": "TB_SS_S6Lite_1.png",
+    "Gia": 8990000.0,
+    "GiaKhuyenMai": 7990000.0,
+    "SoLuong": 60,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 2,
+      "TenThuongHieu": "Samsung",
+      "BiDanh": "samsung"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_SS_S6Lite_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_SS_S6Lite_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S6Lite_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S6Lite_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S6Lite_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_SS_S6Lite_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "4 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "64 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "10.4\" - 60 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "7040 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 14",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "4 GB",
+      "Bộ nhớ trong": "64 GB",
+      "Màn hình": "10.4\" - 60 Hz",
+      "Dung lượng Pin": "7040 mAh",
+      "Camera": "8 MP",
+      "Hệ điều hành": "Android 14",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533081c"
+    },
+    "SqlId": 60,
+    "MaSanPham": "LNVTAB4G",
+    "TenSanPham": "Lenovo Tab 4G",
+    "BiDanh": "lenovo-tab-4g",
+    "MoTa": "Lenovo Tab 4G – máy tính bảng tầm trung với màn hình lớn và kết nối 4G thuận tiện",
+    "ChiTiet": "Lenovo Tab 4G (ZAEJ0145VN) trang bị màn hình 10,1 inch độ phân giải 1920 × 1200 pixel, bộ vi xử lý MediaTek Helio G85, RAM 4GB, bộ nhớ trong 64GB (hỗ trợ thẻ microSD). Máy hỗ trợ kết nối 4G LTE, có camera sau 8MP và camera trước 5MP, pin khoảng 5.100mAh – 5.100 mAh. Thiết kế mỏng nhẹ (khoảng 425g và dày ~7,5mm), chạy Android 14 (hoặc phiên bản tương đương) và phù hợp cho học tập, làm việc đa nhiệm nhẹ và giải trí.",
+    "HinhAnhDaiDien": "TB_LNV_4G_1.png",
+    "Gia": 4190000.0,
+    "GiaKhuyenMai": 3950000.0,
+    "SoLuong": 40,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 7,
+      "TenThuongHieu": "Lenovo",
+      "BiDanh": "lenovo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_LNV_4G_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_LNV_4G_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_4G_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_4G_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_4G_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_4G_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "4 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "64 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "10.1\" IPS",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "5100 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 13",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "4 GB",
+      "Bộ nhớ trong": "64 GB",
+      "Màn hình": "10.1\" IPS",
+      "Dung lượng Pin": "5100 mAh",
+      "Camera": "8 MP",
+      "Hệ điều hành": "Android 13",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533081d"
+    },
+    "SqlId": 61,
+    "MaSanPham": "LNVTABPLUS",
+    "TenSanPham": "Lenovo Tab Plus",
+    "BiDanh": "lenovo-tab-plus",
+    "MoTa": "Lenovo Tab Plus – máy tính bảng tầm trung‑cao với màn hình lớn, RAM 8GB và bộ nhớ trong 256GB",
+    "ChiTiet": "Lenovo Tab Plus WiFi 8GB/256GB sở hữu màn hình 11,5 inch độ phân giải 2000×1200 (2K), tần số quét 90Hz. Máy sử dụng chip MediaTek Helio G99 (8 nhân) hoặc tùy phiên bản, RAM 8GB, bộ nhớ trong 256GB, hỗ trợ thẻ microSD mở rộng. Camera sau 8MP, camera trước 8MP. Pin dung lượng ~8600mAh, hỗ trợ sạc nhanh (tùy theo thị trường). Hệ điều hành Android 14, thiết kế mỏng nhẹ (~7.8mm, ~650g), khung nhôm, thích hợp cho giải trí, học tập và làm việc đa nhiệm.",
+    "HinhAnhDaiDien": "TB_LNV_Plus_1.png",
+    "Gia": 6990000.0,
+    "GiaKhuyenMai": 5590000.0,
+    "SoLuong": 35,
+    "LuotXem": 2,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 7,
+      "TenThuongHieu": "Lenovo",
+      "BiDanh": "lenovo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_LNV_Plus_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_LNV_Plus_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_Plus_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_Plus_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_Plus_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_LNV_Plus_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "128 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "11.5\" 2K",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "8600 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "13 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 13",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "128 GB",
+      "Màn hình": "11.5\" 2K",
+      "Dung lượng Pin": "8600 mAh",
+      "Camera": "13 MP",
+      "Hệ điều hành": "Android 13",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533081e"
+    },
+    "SqlId": 62,
+    "MaSanPham": "XMPAD7",
+    "TenSanPham": "Xiaomi Pad 7 Pro",
+    "BiDanh": "xiaomi-pad-7-pro",
+    "MoTa": "Xiaomi Pad 7 Pro – tablet cao cấp với màn hình lớn, hiệu năng mạnh và bộ nhớ lớn 512 GB",
+    "ChiTiet": "Xiaomi Pad 7 Pro trang bị màn hình 11,2″ độ phân giải 3.2K (3200×2136), tần số quét 144Hz, độ sáng cực đại ~800 nit. Máy sử dụng chip Snapdragon 8s Gen 3, RAM 12GB, bộ nhớ trong 512GB (LPDDR5X + UFS4.0) — phiên bản cao nhất trong dòng. Hệ thống âm thanh 4 loa với Dolby Atmos, pin dung lượng 8850mAh hỗ trợ sạc nhanh HyperCharge 67W. Thiết kế khung nhôm cao cấp, chạy HyperOS 2 trên nền Android. Thích hợp cho thiết kế, vẽ, học tập và làm việc đa nhiệm.",
+    "HinhAnhDaiDien": "TB_XM_7Pro_1.png",
+    "Gia": 10990000.0,
+    "GiaKhuyenMai": 9990000.0,
+    "SoLuong": 60,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_XM_7Pro_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_XM_7Pro_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_7Pro_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_7Pro_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_7Pro_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_7Pro_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "11\" - 144 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "8840 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "13 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 13",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "11\" - 144 Hz",
+      "Dung lượng Pin": "8840 mAh",
+      "Camera": "13 MP",
+      "Hệ điều hành": "Android 13",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d0533081f"
+    },
+    "SqlId": 63,
+    "MaSanPham": "XMRMPAD2",
+    "TenSanPham": "Xiaomi Redmi Pad 2",
+    "BiDanh": "xiaomi-redmi-pad-2",
+    "MoTa": "Xiaomi Redmi Pad 2 – máy tính bảng tầm trung với màn hình lớn, bộ nhớ 8 GB/256 GB và hiệu năng ổn định",
+    "ChiTiet": "Xiaomi Redmi Pad 2 WiFi bản 8GB RAM + 256GB ROM sở hữu màn hình 11,0 inch độ phân giải 1600×2560 pixel, tần số quét 90Hz. Máy trang bị chip MediaTek Helio G100 Ultra (6nm), RAM 8GB, bộ nhớ trong 256GB và hỗ trợ thẻ nhớ microSD mở rộng. Camera sau 8MP, camera trước 5MP. Pin dung lượng khoảng 9000mAh, sạc nhanh 18W. Thiết bị chạy HyperOS (Android) và có thiết kế kim loại mỏng nhẹ, phù hợp cho học tập, giải trí và làm việc đa nhiệm.",
+    "HinhAnhDaiDien": "TB_XM_RM2_1.png",
+    "Gia": 5990000.0,
+    "GiaKhuyenMai": 5490000.0,
+    "SoLuong": 50,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_XM_RM2_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_XM_RM2_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RM2_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RM2_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RM2_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RM2_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "6 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "128 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "11.5\" - 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "8000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 13",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "6 GB",
+      "Bộ nhớ trong": "128 GB",
+      "Màn hình": "11.5\" - 120 Hz",
+      "Dung lượng Pin": "8000 mAh",
+      "Camera": "8 MP",
+      "Hệ điều hành": "Android 13",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330820"
+    },
+    "SqlId": 64,
+    "MaSanPham": "XMRMPADPRO",
+    "TenSanPham": "Xiaomi Redmi Pad Pro",
+    "BiDanh": "xiaomi-redmi-pad-pro",
+    "MoTa": "Xiaomi Redmi Pad Pro – máy tính bảng tầm trung‑cao với màn hình lớn 12,1″, bộ nhớ 128GB và hiệu năng mạnh mẽ",
+    "ChiTiet": "Xiaomi Redmi Pad Pro trang bị màn hình LCD 12,1 inch độ phân giải 2560×1600 pixels, tần số quét 120Hz, hỗ trợ AdaptiveSync và Dolby Vision. Máy sử dụng chip Snapdragon 7s Gen 2 (4nm), RAM 6GB và bộ nhớ trong 128GB, hỗ trợ mở rộng lưu trữ lên đến ~1,5TB. Hệ thống camera sau 8MP, camera trước 8MP, pin dung lượng ~10.000mAh, sạc nhanh 33W. Chạy hệ điều hành HyperOS (Android) và hỗ trợ bàn phím/bút cảm ứng, phù hợp cho giải trí, học tập và làm việc đa nhiệm.",
+    "HinhAnhDaiDien": "TB_XM_RMPro_1.png",
+    "Gia": 7990000.0,
+    "GiaKhuyenMai": 7490000.0,
+    "SoLuong": 40,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_XM_RMPro_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_XM_RMPro_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMPro_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMPro_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMPro_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMPro_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "12.1\" - 120 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "10000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 14",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "12.1\" - 120 Hz",
+      "Dung lượng Pin": "10000 mAh",
+      "Camera": "8 MP",
+      "Hệ điều hành": "Android 14",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330821"
+    },
+    "SqlId": 65,
+    "MaSanPham": "XMRMPADSE",
+    "TenSanPham": "Xiaomi Redmi Pad SE",
+    "BiDanh": "xiaomi-redmi-pad-se",
+    "MoTa": "Xiaomi Redmi Pad SE – máy tính bảng tầm trung với màn hình lớn 11″, RAM 8 GB và bộ nhớ trong 256 GB",
+    "ChiTiet": "Xiaomi Redmi Pad SE trang bị màn hình 11.0 inch FHD+ (1920×1200), tần số quét lên đến 90 Hz. Máy sử dụng chip Snapdragon 680 (6nm) với RAM 8 GB, bộ nhớ trong 256 GB (hỗ trợ mở rộng qua microSD lên tới ~1TB). Camera sau 8MP, camera trước 5MP. Pin dung lượng 8000 mAh, sạc thường 10W. Thiết bị hỗ trợ 4 loa với Dolby Atmos, jack tai nghe 3.5mm, chạy MIUI Pad 14 trên Android 13. Thiết kế khung hợp kim nhôm nguyên khối, mỏng ~7.36 mm, phù hợp cho giải trí, học tập và làm việc đa nhiệm.",
+    "HinhAnhDaiDien": "TB_XM_RMSE_1.png",
+    "Gia": 4990000.0,
+    "GiaKhuyenMai": 4590000.0,
+    "SoLuong": 70,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 3,
+      "TenDanhMuc": "Tablet",
+      "BiDanh": "tablet"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "TB_XM_RMSE_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "TB_XM_RMSE_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMSE_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMSE_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMSE_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "TB_XM_RMSE_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8 GB",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256 GB",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "11\" - 90 Hz",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "8000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "8 MP",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "Android 13",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8 GB",
+      "Bộ nhớ trong": "256 GB",
+      "Màn hình": "11\" - 90 Hz",
+      "Dung lượng Pin": "8000 mAh",
+      "Camera": "8 MP",
+      "Hệ điều hành": "Android 13",
+      "Cổng kết nối": "Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330822"
+    },
+    "SqlId": 66,
+    "MaSanPham": "ANKER20K",
+    "TenSanPham": "Sạc dự phòng Anker 20K",
+    "BiDanh": "sac-du-phong-anker",
+    "MoTa": "Sạc dự phòng Anker Prime 20000mAh 200W – dung lượng lớn, hỗ trợ sạc nhanh laptop và máy tính bảng",
+    "ChiTiet": "Anker Prime A1336 trang bị dung lượng 20.000mAh, hỗ trợ tổng công suất đầu ra lên tới 200W. Có 2 cổng USB‑C và 1 cổng USB‑A, đủ khả năng sạc đồng thời hai laptop/thiết bị công suất cao (100W mỗi USB‑C) và một thiết bị qua USB‑A. Hỗ trợ các chuẩn sạc nhanh như PD / QC 3.0, có màn hình LED hiển thị dung lượng và công suất đầu ra/đầu vào. Với trọng lượng khoảng 540g, thiết kế nhỏ gọn để mang theo di chuyển.",
+    "HinhAnhDaiDien": "PK_SDP_Anker_1.png",
+    "Gia": 1200000.0,
+    "GiaKhuyenMai": 990000.0,
+    "SoLuong": 200,
+    "LuotXem": 10,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 4,
+      "TenDanhMuc": "Phụ kiện",
+      "BiDanh": "phu-kien"
+    },
+    "ThuongHieu": {
+      "Id": 9,
+      "TenThuongHieu": "Anker",
+      "BiDanh": "anker"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "PK_SDP_Anker_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "PK_SDP_Anker_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_SDP_Anker_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_SDP_Anker_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_SDP_Anker_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_SDP_Anker_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "20000 mAh",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Max 22.5W",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Dung lượng Pin": "20000 mAh",
+      "Cổng kết nối": "Max 22.5W"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": false,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330823"
+    },
+    "SqlId": 67,
+    "MaSanPham": "SONYXM6",
+    "TenSanPham": "Tai nghe Sony WH-1000XM6",
+    "BiDanh": "tai-nghe-sony-wh-1000xm6",
+    "MoTa": "Sony WH‑1000XM6 – tai nghe Bluetooth chụp tai chống ồn cao cấp với codec Hi‑Res, bộ xử lý ANC tiên tiến và thời lượng sử dụng dài",
+    "ChiTiet": "Sony WH‑1000XM6 trang bị driver 30 mm, công nghệ âm thanh Hi‑Res không dây với LDAC & LC3, chip QN3 xử lý chống ồn, hỗ trợ multipoint và chuyển đổi thiết bị nhanh. Thời lượng pin lên tới ~30 giờ khi bật ANC, ~40 giờ khi tắt ANC. Trở kháng 48 Ω, kết nối Bluetooth 5.3, vật liệu cao cấp, trọng lượng ~254 g, thiết kế gấp gọn tiện di chuyển.",
+    "HinhAnhDaiDien": "PK_TN_Sony_1.png",
+    "Gia": 10990000.0,
+    "GiaKhuyenMai": 9990000.0,
+    "SoLuong": 20,
+    "LuotXem": 2,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 4,
+      "TenDanhMuc": "Phụ kiện",
+      "BiDanh": "phu-kien"
+    },
+    "ThuongHieu": {
+      "Id": 8,
+      "TenThuongHieu": "Sony",
+      "BiDanh": "sony"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "PK_TN_Sony_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "PK_TN_Sony_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_TN_Sony_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_TN_Sony_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_TN_Sony_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "PK_TN_Sony_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Dung lượng Pin",
+        "GiaTri": "30 giờ",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Bluetooth/Type-C",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Dung lượng Pin": "30 giờ",
+      "Cổng kết nối": "Bluetooth/Type-C"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": true,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-11-25T12:53:05.457Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330824"
+    },
+    "SqlId": 70,
+    "MaSanPham": "IPB",
+    "TenSanPham": "Bphone",
+    "BiDanh": null,
+    "MoTa": "XXXX",
+    "ChiTiet": "CCCCCCCCCCCCC",
+    "HinhAnhDaiDien": "639011343310049829_639005406274885182_4_DT_IP_17_1.png",
+    "Gia": 12000000.0,
+    "GiaKhuyenMai": 11000000.0,
+    "SoLuong": 0,
+    "LuotXem": 13,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 4,
+      "TenThuongHieu": "Oppo",
+      "BiDanh": "oppo"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "639005400745821620_1_DT_IP_17_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639005406274845580_1_639005400745841571_2_DT_IP_17_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639005406274865375_2_639005400745861525_3_DT_IP_17_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639005406274875207_3_639005400745881463_4_DT_IP_17_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639005406274885182_4_DT_IP_17_1.png",
+        "LaAnhMacDinh": true
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.8",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng pin",
+        "GiaTri": "5000",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "50",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "15",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Tye-c",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8",
+      "Bộ nhớ trong": "256",
+      "Màn hình": "6.8",
+      "Dung lượng pin": "5000",
+      "Camera": "50",
+      "Hệ điều hành": "15",
+      "Cổng kết nối": "Tye-c"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": false
+    },
+    "NgayTao": {
+      "$date": "2025-12-05T14:10:27.447Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": {
+      "$date": "2025-12-12T11:05:31.003Z"
+    },
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330825"
+    },
+    "SqlId": 76,
+    "MaSanPham": "honor1",
+    "TenSanPham": "Honor 1",
+    "BiDanh": "honor-1-639012324340925523",
+    "MoTa": "sản phẩm mới của honor",
+    "ChiTiet": "sản phẩm đẹp, tốt",
+    "HinhAnhDaiDien": "639012324340915559_DT_XM_15Ultra_1.png",
+    "Gia": 15000000.0,
+    "GiaKhuyenMai": null,
+    "SoLuong": 0,
+    "LuotXem": 5,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 10,
+      "TenThuongHieu": "Honor",
+      "BiDanh": "honor"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "DT_XM_15Ultra_1.png",
+        "LaAnhMacDinh": true
+      },
+      {
+        "HinhAnh": "639012324341417331_1_DT_XM_15Ultra_2.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639012324341417331_2_DT_XM_15Ultra_3.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639012324341417331_3_DT_XM_15Ultra_4.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639012324341581459_4_DT_XM_15Ultra_5.png",
+        "LaAnhMacDinh": false
+      },
+      {
+        "HinhAnh": "639012324341601410_5_DT_XM_15Ultra_6.png",
+        "LaAnhMacDinh": false
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "12",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "512",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.7",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng pin",
+        "GiaTri": "8000",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "64",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "15",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Tye-c",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "12",
+      "Bộ nhớ trong": "512",
+      "Màn hình": "6.7",
+      "Dung lượng pin": "8000",
+      "Camera": "64",
+      "Hệ điều hành": "15",
+      "Cổng kết nối": "Tye-c"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-12-13T14:20:34.093Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330826"
+    },
+    "SqlId": 77,
+    "MaSanPham": "YT01",
+    "TenSanPham": "Yphone T",
+    "BiDanh": "yphone-t-639012336243365636",
+    "MoTa": "Yphont Test",
+    "ChiTiet": "sản phẩm đẹp, tốt",
+    "HinhAnhDaiDien": "639012336243365636_639005406274885182_4_DT_IP_17_1.png",
+    "Gia": 0.0,
+    "GiaKhuyenMai": null,
+    "SoLuong": 0,
+    "LuotXem": 0,
+    "ThoiGianBaoHanh": 12,
+    "DanhMuc": {
+      "Id": 1,
+      "TenDanhMuc": "Điện thoại",
+      "BiDanh": "dien-thoai"
+    },
+    "ThuongHieu": {
+      "Id": 3,
+      "TenThuongHieu": "Xiaomi",
+      "BiDanh": "xiaomi"
+    },
+    "DanhSachHinhAnh": [
+      {
+        "HinhAnh": "639005406274885182_4_DT_IP_17_1.png",
+        "LaAnhMacDinh": true
+      }
+    ],
+    "ThongSoKyThuat": [
+      {
+        "TenThongSo": "Bộ nhớ RAM",
+        "GiaTri": "8",
+        "ThuTu": 1
+      },
+      {
+        "TenThongSo": "Bộ nhớ trong",
+        "GiaTri": "256",
+        "ThuTu": 2
+      },
+      {
+        "TenThongSo": "Màn hình",
+        "GiaTri": "6.8",
+        "ThuTu": 3
+      },
+      {
+        "TenThongSo": "Dung lượng pin",
+        "GiaTri": "5000",
+        "ThuTu": 4
+      },
+      {
+        "TenThongSo": "Camera",
+        "GiaTri": "48",
+        "ThuTu": 5
+      },
+      {
+        "TenThongSo": "Hệ điều hành",
+        "GiaTri": "15",
+        "ThuTu": 6
+      },
+      {
+        "TenThongSo": "Cổng kết nối",
+        "GiaTri": "Tye-c",
+        "ThuTu": 7
+      }
+    ],
+    "ThongSoChiTiet": {
+      "Bộ nhớ RAM": "8",
+      "Bộ nhớ trong": "256",
+      "Màn hình": "6.8",
+      "Dung lượng pin": "5000",
+      "Camera": "48",
+      "Hệ điều hành": "15",
+      "Cổng kết nối": "Tye-c"
+    },
+    "CacCo": {
+      "LaSanPhamTrangChu": false,
+      "LaSanPhamKhuyenMai": false,
+      "LaSanPhamNoiBat": false,
+      "LaSanPhamHot": false,
+      "LaSanPhamMoi": true,
+      "LaSanPhamBanChay": false,
+      "HienThi": true
+    },
+    "NgayTao": {
+      "$date": "2025-12-13T14:40:24.337Z"
+    },
+    "NguoiTao": null,
+    "NgayCapNhat": null,
+    "NguoiCapNhat": null
+  }
+]

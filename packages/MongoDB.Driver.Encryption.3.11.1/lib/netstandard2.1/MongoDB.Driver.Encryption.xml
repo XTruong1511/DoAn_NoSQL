@@ -1,0 +1,1680 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MongoDB.Driver.Encryption</name>
+    </assembly>
+    <members>
+        <member name="T:MongoDB.Driver.Encryption.Binary">
+            <summary>
+            A pointer and length pair the contains raw bytes to pass or retrieve from libmongocrypt.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.Binary.Data">
+            <summary>
+            Gets the data.
+            </summary>
+            <value>
+            The data.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.Binary.Length">
+            <summary>
+            Gets the length.
+            </summary>
+            <value>
+            The length.
+            </value>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.Binary.ToArray">
+            <summary>
+            Converts to array.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.Binary.WriteBytes(System.Byte[])">
+            <summary>
+            Write bytes into Data.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.Binary.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.BinarySafeHandle">
+            <summary>
+            SafeHandle to manage the lifetime of a mongocrypt_binary_t.
+            </summary>
+            <seealso cref="T:System.Runtime.InteropServices.SafeHandle" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CheckableSafeHandle">
+            <summary>
+            SafeHandle to manage the lifetime of a mongocrypt_ctx_t.
+            </summary>
+            <seealso cref="T:System.Runtime.InteropServices.SafeHandle" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.ClientEncryption">
+            <summary>
+            Explicit client encryption.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.#ctor(MongoDB.Driver.Encryption.ClientEncryptionOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.ClientEncryption"/> class.
+            </summary>
+            <param name="clientEncryptionOptions">The client encryption options.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.AddAlternateKeyName(System.Guid,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Adds an alternate key name to the keyAltNames array of the key document in the key vault collection with the given UUID (BSON binary subtype 0x04).
+            </summary>
+            <param name="id">The id.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the previous version of the key document.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.AddAlternateKeyNameAsync(System.Guid,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Adds an alternate key name to the keyAltNames array of the key document in the key vault collection with the given UUID (BSON binary subtype 0x04).
+            </summary>
+            <param name="id">The id.</param>
+            <param name="alternateKeyName">The key alter name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the previous version of the key document.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.CreateEncryptedCollection(MongoDB.Driver.IMongoDatabase,System.String,MongoDB.Driver.CreateCollectionOptions,System.String,MongoDB.Driver.Encryption.DataKeyOptions,System.Threading.CancellationToken)">
+            <summary>
+            Create encrypted collection.
+            </summary>
+            <param name="database">The database.</param>
+            <param name="collectionName">The collection name.</param>
+            <param name="createCollectionOptions">The create collection options.</param>
+            <param name="kmsProvider">The kms provider.</param>
+            <param name="dataKeyOptions">The datakey options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The operation result.</returns>
+            <remarks>
+            If EncryptionFields contains a keyId with a null value, a data key will be automatically generated and returned in <see cref="P:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult.EncryptedFields"/>.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.CreateEncryptedCollection(MongoDB.Driver.IMongoDatabase,System.String,MongoDB.Driver.CreateCollectionOptions,System.String,MongoDB.Bson.BsonDocument,System.Threading.CancellationToken)">
+            <summary>
+            Create encrypted collection.
+            </summary>
+            <param name="database">The database.</param>
+            <param name="collectionName">The collection name.</param>
+            <param name="createCollectionOptions">The create collection options.</param>
+            <param name="kmsProvider">The kms provider.</param>
+            <param name="masterKey">The master key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The operation result.</returns>
+            <remarks>
+            If EncryptionFields contains a keyId with a null value, a data key will be automatically generated and returned in <see cref="P:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult.EncryptedFields"/>.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.CreateEncryptedCollectionAsync(MongoDB.Driver.IMongoDatabase,System.String,MongoDB.Driver.CreateCollectionOptions,System.String,MongoDB.Driver.Encryption.DataKeyOptions,System.Threading.CancellationToken)">
+            <summary>
+            Create encrypted collection.
+            </summary>
+            <param name="database">The database.</param>
+            <param name="collectionName">The collection name.</param>
+            <param name="createCollectionOptions">The create collection options.</param>
+            <param name="kmsProvider">The kms provider.</param>
+            <param name="dataKeyOptions">The datakey options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The operation result.</returns>
+            <remarks>
+            If EncryptionFields contains a keyId with a null value, a data key will be automatically generated and returned in <see cref="P:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult.EncryptedFields"/>.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.CreateEncryptedCollectionAsync(MongoDB.Driver.IMongoDatabase,System.String,MongoDB.Driver.CreateCollectionOptions,System.String,MongoDB.Bson.BsonDocument,System.Threading.CancellationToken)">
+            <summary>
+            Create encrypted collection.
+            </summary>
+            <param name="database">The database.</param>
+            <param name="collectionName">The collection name.</param>
+            <param name="createCollectionOptions">The create collection options.</param>
+            <param name="kmsProvider">The kms provider.</param>
+            <param name="masterKey">The master key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The operation result.</returns>
+            <remarks>
+            If EncryptionFields contains a keyId with a null value, a data key will be automatically generated and returned in <see cref="P:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult.EncryptedFields"/>.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.CreateDataKey(System.String,MongoDB.Driver.Encryption.DataKeyOptions,System.Threading.CancellationToken)">
+            <summary>
+            An alias function equivalent to createKey.
+            </summary>
+            <param name="kmsProvider">The kms provider.</param>
+            <param name="dataKeyOptions">The data key options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A data key.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.CreateDataKeyAsync(System.String,MongoDB.Driver.Encryption.DataKeyOptions,System.Threading.CancellationToken)">
+            <summary>
+            An alias function equivalent to createKey.
+            </summary>
+            <param name="kmsProvider">The kms provider.</param>
+            <param name="dataKeyOptions">The data key options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A data key.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.Decrypt(MongoDB.Bson.BsonBinaryData,System.Threading.CancellationToken)">
+            <summary>
+            Decrypts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The decrypted value.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.DecryptAsync(MongoDB.Bson.BsonBinaryData,System.Threading.CancellationToken)">
+            <summary>
+            Decrypts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The decrypted value.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.DeleteKey(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Removes the key document with the given UUID (BSON binary subtype 0x04) from the key vault collection.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the result of the internal deleteOne() operation on the key vault collection.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.DeleteKeyAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Removes the key document with the given UUID (BSON binary subtype 0x04) from the key vault collection.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the result of the internal deleteOne() operation on the key vault collection.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.Encrypt(MongoDB.Bson.BsonValue,MongoDB.Driver.Encryption.EncryptOptions,System.Threading.CancellationToken)">
+            <summary>
+            Encrypts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="encryptOptions">The encrypt options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The encrypted value.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.EncryptAsync(MongoDB.Bson.BsonValue,MongoDB.Driver.Encryption.EncryptOptions,System.Threading.CancellationToken)">
+            <summary>
+            Encrypts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="encryptOptions">The encrypt options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The encrypted value.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.EncryptExpression(MongoDB.Bson.BsonDocument,MongoDB.Driver.Encryption.EncryptOptions,System.Threading.CancellationToken)">
+            <summary>
+            Encrypts a Match Expression or Aggregate Expression to query a range index.
+            </summary>
+            <param name="expression">The expression that is expected to be a BSON document of one of the following forms:
+            1. A Match Expression of this form:
+              {$and: [{"field": {$gt: "value1"}}, {"field": {$lt: "value2" }}]}
+            2. An Aggregate Expression of this form:
+              {$and: [{$gt: ["fieldpath", "value1"]}, {$lt: ["fieldpath", "value2"]}]
+            $gt may also be $gte. $lt may also be $lte.
+            </param>
+            <param name="encryptOptions">The encryption options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The encrypted expression.</returns>
+            <remarks>
+            Only supported for queryType "range"
+            The Range algorithm is experimental only. It is not intended for public use. It is subject to breaking changes.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.EncryptExpressionAsync(MongoDB.Bson.BsonDocument,MongoDB.Driver.Encryption.EncryptOptions,System.Threading.CancellationToken)">
+            <summary>
+            Encrypts a Match Expression or Aggregate Expression to query a range index.
+            </summary>
+            <param name="expression">The expression that is expected to be a BSON document of one of the following forms:
+            1. A Match Expression of this form:
+              {$and: [{"field": {$gt: "value1"}}, {"field": {$lt: "value2" }}]}
+            2. An Aggregate Expression of this form:
+              {$and: [{$gt: ["fieldpath", "value1"]}, {$lt: ["fieldpath", "value2"]}]
+            $gt may also be $gte. $lt may also be $lte.
+            </param>
+            <param name="encryptOptions">The encryption options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>the encrypted expression.</returns>
+            <remarks>
+            Only supported for queryType "range"
+            The Range algorithm is experimental only. It is not intended for public use. It is subject to breaking changes.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.GetKey(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Finds a single key document with the given UUID (BSON binary subtype 0x04).
+            </summary>
+            <param name="id">The id.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the result of the internal find() operation on the key vault collection.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.GetKeyAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Finds a single key document with the given UUID (BSON binary subtype 0x04).
+            </summary>
+            <param name="id">The id.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the result of the internal find() operation on the key vault collection.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.GetKeyByAlternateKeyName(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds a single key document with the given alter name.
+            </summary>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns a key document in the key vault collection with the given alternateKeyName.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.GetKeyByAlternateKeyNameAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Finds a single key document with the given UUID (BSON binary subtype 0x04).
+            </summary>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns a key document in the key vault collection with the given alternateKeyName.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.GetKeys(System.Threading.CancellationToken)">
+            <summary>
+            Finds all documents in the key vault collection.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the result of the internal find() operation on the key vault collection.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.GetKeysAsync(System.Threading.CancellationToken)">
+            <summary>
+            Finds all documents in the key vault collection.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the result of the internal find() operation on the key vault collection.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.RemoveAlternateKeyName(System.Guid,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes an alternateKeyName from the keyAltNames array of the key document in the key vault collection with the given UUID (BSON binary subtype 0x04).
+            </summary>
+            <param name="id">The id.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the previous version of the key document.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.RemoveAlternateKeyNameAsync(System.Guid,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes an alternateKeyName from the keyAltNames array of the key document in the key vault collection with the given UUID (BSON binary subtype 0x04).
+            </summary>
+            <param name="id">The id.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Returns the previous version of the key document.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.RewrapManyDataKey(MongoDB.Driver.FilterDefinition{MongoDB.Bson.BsonDocument},MongoDB.Driver.Encryption.RewrapManyDataKeyOptions,System.Threading.CancellationToken)">
+            <summary>
+            Decrypts multiple data keys and (re-)encrypts them with a new masterKey, or with their current masterKey if a new one is not given.
+            </summary>
+            <param name="filter">The filter.</param>
+            <param name="options">The options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryption.RewrapManyDataKeyAsync(MongoDB.Driver.FilterDefinition{MongoDB.Bson.BsonDocument},MongoDB.Driver.Encryption.RewrapManyDataKeyOptions,System.Threading.CancellationToken)">
+            <summary>
+            Decrypts multiple data keys and (re-)encrypts them with a new masterKey, or with their current masterKey if a new one is not given.
+            </summary>
+            <param name="filter">The filter.</param>
+            <param name="options">The options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.ClientEncryptionOptions">
+            <summary>
+            Client encryption options.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryptionOptions.#ctor(MongoDB.Driver.IMongoClient,MongoDB.Driver.CollectionNamespace,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}},MongoDB.Driver.Optional{System.Collections.Generic.IReadOnlyDictionary{System.String,MongoDB.Driver.SslSettings}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.ClientEncryptionOptions"/> class.
+            </summary>
+            <param name="keyVaultClient">The key vault client.</param>
+            <param name="keyVaultNamespace">The key vault namespace.</param>
+            <param name="kmsProviders">The KMS providers.</param>
+            <param name="tlsOptions">The tls options.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.ClientEncryptionOptions.KeyExpiration">
+            <summary>
+            Gets the data encryption key cache expiration time.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.ClientEncryptionOptions.KmsConnector">
+            <summary>
+            Gets the KMS connector used to open connections to KMS hosts.
+            </summary>
+            <value>
+            The KMS connector used to open connections to KMS hosts.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.ClientEncryptionOptions.KeyVaultClient">
+            <summary>
+            Gets the key vault client.
+            </summary>
+            <value>
+            The key vault client.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.ClientEncryptionOptions.KeyVaultNamespace">
+            <summary>
+            Gets the key vault namespace.
+            </summary>
+            <value>
+            The key vault namespace.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.ClientEncryptionOptions.KmsProviders">
+            <summary>
+            Gets the KMS providers.
+            </summary>
+            <value>
+            The KMS providers.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.ClientEncryptionOptions.TlsOptions">
+            <summary>
+            Gets the tls options.
+            </summary>
+            <value>
+            The tls options.
+            </value>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryptionOptions.With(MongoDB.Driver.Optional{MongoDB.Driver.IMongoClient},MongoDB.Driver.Optional{MongoDB.Driver.CollectionNamespace},MongoDB.Driver.Optional{System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}}},MongoDB.Driver.Optional{System.Collections.Generic.IReadOnlyDictionary{System.String,MongoDB.Driver.SslSettings}})">
+            <summary>
+            Returns a new ClientEncryptionOptions instance with some settings changed.
+            </summary>
+            <param name="keyVaultClient">The key vault client.</param>
+            <param name="keyVaultNamespace">The key vault namespace.</param>
+            <param name="kmsProviders">The KMS providers.</param>
+            <param name="tlsOptions">The tls options.</param>
+            <returns>A new ClientEncryptionOptions instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryptionOptions.SetKeyExpiration(System.Nullable{System.TimeSpan})">
+            <summary>
+            Sets the data encryption key cache expiration time. If not set, it defaults to 60 seconds.
+            If set to TimeSpan.Zero, the cache never expires.
+            </summary>
+            <param name="keyExpiration">The data encryption key cache expiration time.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ClientEncryptionOptions.SetKmsConnector(MongoDB.Driver.Encryption.IKmsConnector)">
+            <summary>
+            Sets the KMS connector used to open connections to KMS hosts. If not set, the driver connects
+            directly to the KMS host.
+            </summary>
+            <param name="kmsConnector">The KMS connector used to open connections to KMS hosts.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.ContextSafeHandle">
+            <summary>
+            SafeHandle to manage the lifetime of a mongocrypt_ctx_t.
+            </summary>
+            <seealso cref="T:System.Runtime.InteropServices.SafeHandle" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult">
+            <summary>
+            Represents the result of a create encrypted collection.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult.#ctor(MongoDB.Bson.BsonDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult"/> class.
+            </summary>
+            <param name="encryptedFields">The encrypted fields document.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.CreateEncryptedCollectionResult.EncryptedFields">
+            <summary>
+            The encrypted fields document.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CryptClient">
+             <summary>
+             CryptClient represents a session with libmongocrypt.
+            
+             It can be used to encrypt and decrypt documents.
+             </summary>
+             <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.CryptClient.CryptSharedLibraryVersion">
+            <summary>
+            Gets the crypt shared library version.
+            </summary>
+            <returns>A crypt shared library version.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptClient.StartCreateDataKeyContext(MongoDB.Driver.Encryption.KmsKeyId)">
+            <summary>
+            Starts the create data key context.
+            </summary>
+            <param name="keyId">The key identifier.</param>
+            <returns>A crypt context for creating a data key</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptClient.StartEncryptionContext(System.String,System.Byte[])">
+            <summary>
+            Starts the encryption context.
+            </summary>
+            <param name="db">The database of the collection.</param>
+            <param name="command">The command.</param>
+            <returns>A encryption context.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptClient.StartExplicitEncryptionContext(System.Byte[],System.Byte[],System.String,System.Nullable{System.Int64},System.String,System.Byte[],System.Byte[],System.Byte[],System.Boolean)">
+            <summary>
+            Starts an explicit encryption context.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptClient.StartDecryptionContext(System.Byte[])">
+            <summary>
+            Starts the decryption context.
+            </summary>
+            <param name="buffer">The bson document to decrypt.</param>
+            <returns>A decryption context</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptClient.StartExplicitDecryptionContext(System.Byte[])">
+            <summary>
+            Starts an explicit decryption context.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <returns>A encryption context</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CryptClientFactory">
+            <summary>
+            A factory for CryptClients.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptClientFactory.Create(MongoDB.Driver.Encryption.CryptOptions)">
+            <summary>Creates a CryptClient with the specified options.</summary>
+            <param name="options">The options.</param>
+            <returns>A CryptClient</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CryptContext">
+            <summary>
+            A encryption or decryption session. It may not be reused.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+            <seealso cref="T:MongoDB.Driver.Encryption.IStatus" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CryptContext.StateCode">
+            <summary>
+            States of the CryptContext state machine
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_ERROR">
+            <summary>
+            LibMongoCrypt hit an error
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_NEED_MONGO_COLLINFO">
+            <summary>
+            LibMongoCrypt wants the collection information by running a OP_MSG command against the users' mongod.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_NEED_MONGO_MARKINGS">
+            <summary>
+            LibMongoCrypt wants a command to be run against mongocryptd.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_NEED_MONGO_KEYS">
+            <summary>
+            LibMongoCrypt wants a command to be run against mongod key vault.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_NEED_KMS">
+            <summary>
+            LibMongoCrypt wants a request sent to KMS.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_READY">
+            <summary>
+            LibMongoCrypt is ready to do encryption, call Finish().
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_DONE">
+            <summary>
+            LibMongoCrypt is complete.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.CryptContext.StateCode.MONGOCRYPT_CTX_NEED_KMS_CREDENTIALS">
+            <summary>
+            LibMongoCrypt requires new credentials.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.CryptContext.State">
+            <summary>
+            Gets the state.
+            </summary>
+            <value>
+            The state.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.CryptContext.IsDone">
+            <summary>
+            Gets a value indicating whether this instance is done.
+            </summary>
+            <value>
+              <c>true</c> if this instance is done; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptContext.GetOperation">
+            <summary>
+            Gets the operation.
+            </summary>
+            <returns>Binary payload to send to either KMS, mongod, or mongocryptd</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptContext.Feed(System.Byte[])">
+            <summary>
+            Feeds the result from running a remote operation back to the libmongocrypt.
+            </summary>
+            <param name="buffer">The buffer.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptContext.MarkDone">
+            <summary>
+            Signal the feeding is done.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptContext.FinalizeForEncryption">
+            <summary>
+            Finalizes for encryption.
+            </summary>
+            <returns>The encrypted or decrypted result.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptContext.GetNextKmsMessageRequest">
+            <summary>
+            Gets the next KMS message request
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CryptContext.SetCredentials(System.Byte[])">
+            <summary>
+            Sets the KMS credentials
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CryptException">
+            <summary>
+            An exception from libmongocrypt.
+            </summary>
+            <seealso cref="T:System.Exception" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CryptOptions">
+            <summary>
+            Options to configure mongocrypt with.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.CsfleSchemaBuilder">
+            <summary>
+            A builder class for creating Client-Side Field Level Encryption (CSFLE) schemas.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CsfleSchemaBuilder.Create(System.Action{MongoDB.Driver.Encryption.CsfleSchemaBuilder})">
+            <summary>
+            Creates a new instance of the <see cref="T:MongoDB.Driver.Encryption.CsfleSchemaBuilder"/> and configures it using the provided action.
+            </summary>
+            <param name="configure">An action to configure the schema builder.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CsfleSchemaBuilder.Encrypt``1(MongoDB.Driver.CollectionNamespace,System.Action{MongoDB.Driver.Encryption.EncryptedCollectionBuilder{``0}})">
+            <summary>
+            Adds an encrypted collection schema for a specific collection namespace.
+            </summary>
+            <typeparam name="T">The type of the document in the collection.</typeparam>
+            <param name="collectionNamespace">The namespace of the collection.</param>
+            <param name="configure">An action to configure the encrypted collection builder.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.CsfleSchemaBuilder"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.CsfleSchemaBuilder.Build">
+            <summary>
+            Builds and returns the resulting CSFLE schema.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1">
+            <summary>
+            A builder class for creating encrypted collection schemas.
+            </summary>
+            <typeparam name="TDocument">The type of the document in the collection.</typeparam>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.EncryptMetadata(System.Nullable{System.Guid},System.Nullable{MongoDB.Driver.Encryption.EncryptionAlgorithm})">
+            <summary>
+            Configures encryption metadata for the collection.
+            </summary>
+            <param name="keyId">The key ID to use for encryption.</param>
+            <param name="algorithm">The encryption algorithm to use.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.PatternProperty(System.String,MongoDB.Bson.BsonType,System.Nullable{MongoDB.Driver.Encryption.EncryptionAlgorithm},System.Nullable{System.Guid})">
+            <summary>
+            Adds a pattern property to the schema with encryption settings.
+            </summary>
+            <param name="pattern">The regex pattern for the property.</param>
+            <param name="bsonType">The BSON type of the property.</param>
+            <param name="algorithm">The encryption algorithm to use.</param>
+            <param name="keyId">The key ID to use for encryption.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.PatternProperty(System.String,System.Collections.Generic.IEnumerable{MongoDB.Bson.BsonType},System.Nullable{MongoDB.Driver.Encryption.EncryptionAlgorithm},System.Nullable{System.Guid})">
+            <summary>
+            Adds a pattern property to the schema with encryption settings.
+            </summary>
+            <param name="pattern">The regex pattern for the property.</param>
+            <param name="bsonTypes">The BSON types of the property.</param>
+            <param name="algorithm">The encryption algorithm to use.</param>
+            <param name="keyId">The key ID to use for encryption.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.PatternProperty``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Action{MongoDB.Driver.Encryption.EncryptedCollectionBuilder{``0}})">
+            <summary>
+            Adds a nested pattern property to the schema.
+            </summary>
+            <typeparam name="TField">The type of the nested field.</typeparam>
+            <param name="path">The field.</param>
+            <param name="configure">An action to configure the nested builder.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.PatternProperty``1(MongoDB.Driver.FieldDefinition{`0},System.Action{MongoDB.Driver.Encryption.EncryptedCollectionBuilder{``0}})">
+            <summary>
+            Adds a nested pattern property to the schema.
+            </summary>
+            <typeparam name="TField">The type of the nested field.</typeparam>
+            <param name="path">The field.</param>
+            <param name="configure">An action to configure the nested builder.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.Property``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},MongoDB.Bson.BsonType,System.Nullable{MongoDB.Driver.Encryption.EncryptionAlgorithm},System.Nullable{System.Guid})">
+            <summary>
+            Adds a property to the schema with encryption settings.
+            </summary>
+            <typeparam name="TField">The type of the field.</typeparam>
+            <param name="path">The field.</param>
+            <param name="bsonType">The BSON type of the property.</param>
+            <param name="algorithm">The encryption algorithm to use.</param>
+            <param name="keyId">The key ID to use for encryption.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.Property``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IEnumerable{MongoDB.Bson.BsonType},System.Nullable{MongoDB.Driver.Encryption.EncryptionAlgorithm},System.Nullable{System.Guid})">
+            <summary>
+            Adds a property to the schema with encryption settings.
+            </summary>
+            <typeparam name="TField">The type of the field.</typeparam>
+            <param name="path">The field.</param>
+            <param name="bsonTypes">The BSON types of the property.</param>
+            <param name="algorithm">The encryption algorithm to use.</param>
+            <param name="keyId">The key ID to use for encryption.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.Property(MongoDB.Driver.FieldDefinition{`0},MongoDB.Bson.BsonType,System.Nullable{MongoDB.Driver.Encryption.EncryptionAlgorithm},System.Nullable{System.Guid})">
+            <summary>
+            Adds a property to the schema with encryption settings.
+            </summary>
+            <param name="path">The field.</param>
+            <param name="bsonType">The BSON type of the property.</param>
+            <param name="algorithm">The encryption algorithm to use.</param>
+            <param name="keyId">The key ID to use for encryption.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.Property(MongoDB.Driver.FieldDefinition{`0},System.Collections.Generic.IEnumerable{MongoDB.Bson.BsonType},System.Nullable{MongoDB.Driver.Encryption.EncryptionAlgorithm},System.Nullable{System.Guid})">
+            <summary>
+            Adds a property to the schema with encryption settings.
+            </summary>
+            <param name="path">The field.</param>
+            <param name="bsonTypes">The BSON types of the property.</param>
+            <param name="algorithm">The encryption algorithm to use.</param>
+            <param name="keyId">The key ID to use for encryption.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.Property``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Action{MongoDB.Driver.Encryption.EncryptedCollectionBuilder{``0}})">
+            <summary>
+            Adds a nested property to the schema.
+            </summary>
+            <typeparam name="TField">The type of the nested field.</typeparam>
+            <param name="path">The field.</param>
+            <param name="configure">An action to configure the nested builder.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1.Property``1(MongoDB.Driver.FieldDefinition{`0},System.Action{MongoDB.Driver.Encryption.EncryptedCollectionBuilder{``0}})">
+            <summary>
+            Adds a nested property to the schema.
+            </summary>
+            <typeparam name="TField">The type of the nested field.</typeparam>
+            <param name="path">The field.</param>
+            <param name="configure">An action to configure the nested builder.</param>
+            <returns>The current <see cref="T:MongoDB.Driver.Encryption.EncryptedCollectionBuilder`1"/> instance.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.DataKeyOptions">
+            <summary>
+            Options for creating a data key.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.DataKeyOptions.#ctor(MongoDB.Driver.Optional{System.Collections.Generic.IReadOnlyList{System.String}},MongoDB.Driver.Optional{MongoDB.Bson.BsonDocument},MongoDB.Driver.Optional{MongoDB.Bson.BsonBinaryData})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.DataKeyOptions"/> class.
+            </summary>
+            <param name="alternateKeyNames">The alternate key names.</param>
+            <param name="masterKey">The master key.</param>
+            <param name="keyMaterial">The key material.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.DataKeyOptions.AlternateKeyNames">
+            <summary>
+            Gets the alternate key names.
+            </summary>
+            <value>
+            The alternate key names.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.DataKeyOptions.KeyMaterial">
+            <summary>
+            Gets the key material.
+            </summary>
+            <value>
+            The key material.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.DataKeyOptions.MasterKey">
+            <summary>
+            Gets the master key.
+            </summary>
+            <value>
+            The master key.
+            </value>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.DataKeyOptions.With(MongoDB.Driver.Optional{System.Collections.Generic.IReadOnlyList{System.String}},MongoDB.Driver.Optional{MongoDB.Bson.BsonDocument},MongoDB.Driver.Optional{MongoDB.Bson.BsonBinaryData})">
+            <summary>
+            Returns a new DataKeyOptions instance with some settings changed.
+            </summary>
+            <param name="alternateKeyNames">The alternate key names.</param>
+            <param name="masterKey">The master key.</param>
+            <param name="keyMaterial">The key material.</param>
+            <returns>A new DataKeyOptions instance.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.EncryptionAlgorithm">
+            <summary>
+            Represents an encryption algorithm.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.AEAD_AES_256_CBC_HMAC_SHA_512_Deterministic">
+            <summary>
+            Deterministic algorithm.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.AEAD_AES_256_CBC_HMAC_SHA_512_Random">
+            <summary>
+            Random algorithm.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.Indexed">
+            <summary>
+            Indexed algorithm.
+            </summary>
+            <remarks>
+            To insert or query with an "Indexed" encrypted payload, use a MongoClient configured with AutoEncryptionOptions.
+            AutoEncryptionOptions.BypassQueryAnalysis may be true. AutoEncryptionOptions.BypassAutoEncryption must be false.
+            </remarks>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.Unindexed">
+            <summary>
+            Unindexed algorithm.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.Range">
+            <summary>
+            Range algorithm.
+            </summary>
+            <remarks>
+            To insert or query with a "Range" encrypted payload, use a MongoClient configured with AutoEncryptionOptions.
+            AutoEncryptionOptions.BypassQueryAnalysis may be true. AutoEncryptionOptions.BypassAutoEncryption must be false.
+            </remarks>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.TextPreview">
+            <summary>
+            TextPreview algorithm.
+            </summary>
+            <remarks>
+            This is a deprecated alias for <see cref="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.String"/> and is translated to "String". Use <see cref="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.String"/> instead.
+            </remarks>
+        </member>
+        <member name="F:MongoDB.Driver.Encryption.EncryptionAlgorithm.String">
+            <summary>
+            String algorithm.
+            </summary>
+            <remarks>
+            To insert or query with a "String" encrypted payload, use a MongoClient configured with AutoEncryptionOptions.
+            AutoEncryptionOptions.BypassQueryAnalysis may be true. AutoEncryptionOptions.BypassAutoEncryption must be false.
+            </remarks>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.RangeOptions">
+            <summary>
+            Range options.
+            </summary>
+            <remarks>
+            The Range algorithm is experimental only. It is not intended for public use.
+            RangeOpts specifies index options for a Queryable Encryption field supporting "range" queries.
+            min, max, sparsity, and range must match the values set in the encryptedFields of the destination collection.
+            For double and decimal128, min/max/precision must all be set, or all be unset.
+            RangeOptions only applies when algorithm is "range".
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.RangeOptions.#ctor(MongoDB.Driver.Optional{MongoDB.Bson.BsonValue},MongoDB.Driver.Optional{MongoDB.Bson.BsonValue},MongoDB.Driver.Optional{System.Nullable{System.Int32}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.Nullable{System.Int32}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.RangeOptions"/> class.
+            </summary>
+            <param name="min">The min range.</param>
+            <param name="max">The max range.</param>
+            <param name="precision">The precision range.</param>
+            <param name="sparsity">The sparsity.</param>
+            <param name="trimFactor">The trim factor.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RangeOptions.Min">
+            <summary>
+            Minimum value.
+            </summary>
+            <remarks>Min is required if precision is set.</remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RangeOptions.Max">
+            <summary>
+            Maximum value.
+            </summary>
+            <remarks>Max is required if precision is set.</remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RangeOptions.TrimFactor">
+            <summary>
+            Gets the trim factor.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RangeOptions.Precision">
+            <summary>
+            Gets the precision.
+            </summary>
+            <remarks>
+            Precision may only be set for double or decimal128.
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RangeOptions.Sparsity">
+            <summary>
+            Gets the sparsity.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.PrefixOptions">
+            <summary>
+            Prefix options.
+            </summary>
+            <remarks>
+            PrefixOptions is used with StringOptions (or the deprecated TextOptions) and provides further options to support "prefix" and "prefixPreview" queries.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.PrefixOptions.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.PrefixOptions"/> class.
+            </summary>
+            <param name="strMaxQueryLength">The maximum allowed query length.</param>
+            <param name="strMinQueryLength">The minimum allowed query length.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.PrefixOptions.StrMaxQueryLength">
+            <summary>
+            Gets the maximum allowed query length.
+            </summary>
+            <remarks>
+            Querying with a longer string will error.
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.PrefixOptions.StrMinQueryLength">
+            <summary>
+            Gets the minimum allowed query length.
+            </summary>
+            <remarks>
+            Querying with a shorter string will error.
+            </remarks>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.SubstringOptions">
+            <summary>
+            Substring options.
+            </summary>
+            <remarks>
+            SubstringOptions is used with StringOptions (or the deprecated TextOptions) and provides further options to support "substring" and "substringPreview" queries.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.SubstringOptions.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.SubstringOptions"/> class.
+            </summary>
+            <param name="strMaxLength">The maximum allowed length to insert.</param>
+            <param name="strMaxQueryLength">The maximum allowed query length.</param>
+            <param name="strMinQueryLength">The minimum allowed query length.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.SubstringOptions.StrMaxLength">
+            <summary>
+            Gets the maximum allowed length to insert.
+            </summary>
+            <remarks>
+            Inserting longer strings will error.
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.SubstringOptions.StrMaxQueryLength">
+            <summary>
+            Gets the maximum allowed query length.
+            </summary>
+            <remarks>
+            Querying with a longer string will error.
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.SubstringOptions.StrMinQueryLength">
+            <summary>
+            Gets the minimum allowed query length.
+            </summary>
+            <remarks>
+            Querying with a shorter string will error.
+            </remarks>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.SuffixOptions">
+            <summary>
+            Suffix options.
+            </summary>
+            <remarks>
+            SuffixOptions is used with StringOptions (or the deprecated TextOptions) and provides further options to support "suffix" and "suffixPreview" queries.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.SuffixOptions.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.SuffixOptions"/> class.
+            </summary>
+            <param name="strMaxQueryLength">The maximum allowed query length.</param>
+            <param name="strMinQueryLength">The minimum allowed query length.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.SuffixOptions.StrMaxQueryLength">
+            <summary>
+            Gets the maximum allowed query length.
+            </summary>
+            <remarks>
+            Querying with a longer string will error.
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.SuffixOptions.StrMinQueryLength">
+            <summary>
+            Gets the minimum allowed query length.
+            </summary>
+            <remarks>
+            Querying with a shorter string will error.
+            </remarks>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.StringOptions">
+            <summary>
+            String options.
+            </summary>
+            <remarks>
+            StringOptions specifies options for a Queryable Encryption field that supports the "prefix", "prefixPreview", "substring", "substringPreview", "suffix", and "suffixPreview" query types.
+            StringOptions only applies when the encryption algorithm is "String".
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.StringOptions.#ctor(System.Boolean,System.Boolean,MongoDB.Driver.Optional{MongoDB.Driver.Encryption.PrefixOptions},MongoDB.Driver.Optional{MongoDB.Driver.Encryption.SubstringOptions},MongoDB.Driver.Optional{MongoDB.Driver.Encryption.SuffixOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.StringOptions"/> class.
+            </summary>
+            <param name="caseSensitive">The indicator of whether string indexes for this field are case-sensitive.</param>
+            <param name="diacriticSensitive">The indicator of whether string indexes for this field are diacritic sensitive.</param>
+            <param name="prefixOptions">The prefix options.</param>
+            <param name="substringOptions">The substring options.</param>
+            <param name="suffixOptions">The suffix options.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.StringOptions.CaseSensitive">
+            <summary>
+            Gets whether string indexes for this field are case-sensitive.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.StringOptions.DiacriticSensitive">
+            <summary>
+            Gets whether string indexes for this field are diacritic sensitive.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.StringOptions.PrefixOptions">
+            <summary>
+            Gets the prefix options.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.StringOptions.SubstringOptions">
+            <summary>
+            Gets the substring options.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.StringOptions.SuffixOptions">
+            <summary>
+            Gets the suffix options.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.TextOptions">
+            <summary>
+            Text options.
+            </summary>
+            <remarks>
+            This is a deprecated alias for <see cref="T:MongoDB.Driver.Encryption.StringOptions"/>. Use <see cref="T:MongoDB.Driver.Encryption.StringOptions"/> instead.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.TextOptions.#ctor(System.Boolean,System.Boolean,MongoDB.Driver.Optional{MongoDB.Driver.Encryption.PrefixOptions},MongoDB.Driver.Optional{MongoDB.Driver.Encryption.SubstringOptions},MongoDB.Driver.Optional{MongoDB.Driver.Encryption.SuffixOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.TextOptions"/> class.
+            </summary>
+            <param name="caseSensitive">The indicator of whether text indexes for this field are case-sensitive.</param>
+            <param name="diacriticSensitive">The indicator of whether text indexes for this field are diacritic sensitive.</param>
+            <param name="prefixOptions">The prefix options.</param>
+            <param name="substringOptions">The substring options.</param>
+            <param name="suffixOptions">The suffix options.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.TextOptions.CaseSensitive">
+            <summary>
+            Gets whether text indexes for this field are case-sensitive.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.TextOptions.DiacriticSensitive">
+            <summary>
+            Gets whether text indexes for this field are diacritic sensitive.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.TextOptions.PrefixOptions">
+            <summary>
+            Gets the prefix options.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.TextOptions.SubstringOptions">
+            <summary>
+            Gets the substring options.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.TextOptions.SuffixOptions">
+            <summary>
+            Gets the suffix options.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.EncryptOptions">
+            <summary>
+            Encryption options for explicit encryption.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.#ctor(System.String,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{MongoDB.Driver.Encryption.RangeOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.EncryptOptions"/> class.
+            </summary>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="keyId">The key Id.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="queryType">The query type.</param>
+            <param name="rangeOptions">The range options.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.#ctor(System.String,MongoDB.Driver.Encryption.StringOptions,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.EncryptOptions"/> class.
+            </summary>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="stringOptions">The string options.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="keyId">The key Id.</param>
+            <param name="queryType">The query type.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.#ctor(System.String,MongoDB.Driver.Encryption.TextOptions,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.EncryptOptions"/> class.
+            </summary>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="textOptions">The text options.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="keyId">The key Id.</param>
+            <param name="queryType">The query type.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.#ctor(MongoDB.Driver.Encryption.EncryptionAlgorithm,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{MongoDB.Driver.Encryption.RangeOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.EncryptOptions"/> class.
+            </summary>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="keyId">The key Id.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="queryType">The query type.</param>
+            <param name="rangeOptions">The range options.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.#ctor(MongoDB.Driver.Encryption.EncryptionAlgorithm,MongoDB.Driver.Encryption.StringOptions,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.EncryptOptions"/> class.
+            </summary>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="stringOptions">The string options.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="keyId">The key Id.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="queryType">The query type.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.#ctor(MongoDB.Driver.Encryption.EncryptionAlgorithm,MongoDB.Driver.Encryption.TextOptions,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.EncryptOptions"/> class.
+            </summary>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="textOptions">The text options.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="keyId">The key Id.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="queryType">The query type.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.Algorithm">
+            <summary>
+            Gets the algorithm.
+            </summary>
+            <value>
+            The algorithm.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.AlternateKeyName">
+            <summary>
+            Gets the alternate key name.
+            </summary>
+            <value>
+            The alternate key name.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.ContentionFactor">
+            <summary>
+            Gets the contention factor.
+            </summary>
+            <value>
+            The contention factor.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.KeyId">
+            <summary>
+            Gets the key identifier.
+            </summary>
+            <value>
+            The key identifier.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.QueryType">
+            <summary>
+            Gets the query type.
+            </summary>
+            <value>
+            The query type.
+            </value>
+            <remarks>
+            Currently, we only support "equality", "range", "prefix", "prefixPreview", "substring", "substringPreview", "suffix" or "suffixPreview" queryTypes.
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.RangeOptions">
+            <summary>
+            Gets the range options.
+            </summary>
+            <value>
+            The range options.
+            </value>
+            <remarks>
+            The Range algorithm is experimental only. It is not intended for public use.
+            RangeOpts specifies index options for a Queryable Encryption field supporting "range" queries.
+            RangeOptions only applies when algorithm is "range".
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.StringOptions">
+            <summary>
+            Gets the string options.
+            </summary>
+            <remarks>
+            StringOptions specifies options for a Queryable Encryption field that supports the "prefix", "prefixPreview", "substring", "substringPreview", "suffix", and "suffixPreview" query types.
+            StringOptions only applies when the encryption algorithm is "String".
+            </remarks>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.EncryptOptions.TextOptions">
+            <summary>
+            Gets the text options.
+            </summary>
+            <remarks>
+            This is a deprecated alias for <see cref="P:MongoDB.Driver.Encryption.EncryptOptions.StringOptions"/>. Use <see cref="P:MongoDB.Driver.Encryption.EncryptOptions.StringOptions"/> instead.
+            </remarks>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.With(MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{MongoDB.Driver.Encryption.RangeOptions})">
+            <summary>
+            Returns a new EncryptOptions instance with some settings changed.
+            </summary>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="keyId">The keyId.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="queryType">The query type.</param>
+            <param name="rangeOptions">The range options.</param>
+            <returns>A new EncryptOptions instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.With(MongoDB.Driver.Encryption.StringOptions,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.String})">
+            <summary>
+            Returns a new EncryptOptions instance with some settings changed.
+            </summary>
+            <param name="stringOptions">The string options.</param>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="keyId">The keyId.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="queryType">The query type.</param>
+            <returns>A new EncryptOptions instance.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.EncryptOptions.With(MongoDB.Driver.Encryption.TextOptions,MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.String},MongoDB.Driver.Optional{System.Nullable{System.Guid}},MongoDB.Driver.Optional{System.Nullable{System.Int64}},MongoDB.Driver.Optional{System.String})">
+            <summary>
+            Returns a new EncryptOptions instance with some settings changed.
+            </summary>
+            <param name="textOptions">The text options.</param>
+            <param name="algorithm">The encryption algorithm.</param>
+            <param name="alternateKeyName">The alternate key name.</param>
+            <param name="keyId">The keyId.</param>
+            <param name="contentionFactor">The contention factor.</param>
+            <param name="queryType">The query type.</param>
+            <returns>A new EncryptOptions instance.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.ExtensionManagerExtensions">
+            <summary>
+            IExtensionManager extensions.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.ExtensionManagerExtensions.AddAutoEncryption(MongoDB.Driver.IExtensionManager)">
+            <summary>
+            Registers the AutoEncryption Provider.
+            </summary>
+            <param name="extensionManager">The extension manager.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.IStatus">
+            <summary>
+            Interface for checking the status of the various libmongocrypt options.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.KmsCredentials">
+            <summary>
+            KMS Credentials.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.KmsCredentials.#ctor(System.Byte[])">
+            <summary>
+            Creates a <see cref="T:MongoDB.Driver.Encryption.KmsCredentials"/> class.
+            </summary>
+            <param name="credentialsBytes">The byte representation of credentials bson document.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.KmsKeyId">
+            <summary>
+            Represent a kms key.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.KmsKeyId.#ctor(System.Byte[],System.Collections.Generic.IEnumerable{System.Byte[]},System.Byte[])">
+            <summary>
+            Creates an <see cref="T:MongoDB.Driver.Encryption.KmsKeyId"/> class.
+            </summary>
+            <param name="dataKeyOptionsBytes">The byte representation of dataOptions bson document.</param>
+            <param name="alternateKeyNameBytes">The byte representation of alternate keyName.</param>
+            <param name="keyMaterialBytes">The byte representation of key material.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.KmsKeyId.AlternateKeyNameBytes">
+            <summary>
+            Alternate key name bytes.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.KmsKeyId.DataKeyOptionsBytes">
+            <summary>
+            Data key options bytes.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.KmsKeyId.KeyMaterialBytes">
+            <summary>
+            Key material bytes.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.KmsRequest">
+            <summary>
+            Contains a KMS request to make to a remote server.
+            </summary>
+            <seealso cref="T:MongoDB.Driver.Encryption.IStatus" />
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.KmsRequest.BytesNeeded">
+            <summary>
+            Gets the bytes needed from the remote side. No more data is need when this returns 0.
+            </summary>
+            <value>
+            The number of bytes needed.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.KmsRequest.Endpoint">
+            <summary>
+            Gets the endpoint.
+            </summary>
+            <value>
+            The endpoint.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.KmsRequest.KmsProvider">
+            <summary>
+            Gets the kms provider name.
+            </summary>
+            <value>
+            The kms provider name.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.KmsRequest.Sleep">
+            <summary>
+            The number of milliseconds to wait before sending this request.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.KmsRequest.GetMessage">
+            <summary>
+            Gets the message to send to KMS.
+            </summary>
+            <returns>The message</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.KmsRequest.Fail">
+            <summary>
+            Indicates a network-level failure.
+            </summary>
+            <returns>A boolean indicating whether the failed request may be retried.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.KmsRequest.Feed(System.Byte[])">
+            <summary>
+            Feeds the response back to the libmongocrypt
+            </summary>
+            <param name="buffer">The response.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.KmsRequestCollection">
+            <summary>
+            A collection of kms requests to make.
+            When all requests are done, <c>MarkDone</c> must be called.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.KmsRequestCollection.MarkDone">
+            <summary>
+            Marks alls the KMS requests as complete.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library">
+            <summary>
+            The low-level interface to libmongocrypt.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.Library.Version">
+            <summary>
+            Gets the version of libmongocrypt.
+            </summary>
+            <value>
+            The version.
+            </value>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.CryptoCallback">
+            <summary>
+            typedef bool (*mongocrypt_crypto_fn) (
+                void *ctx,
+                 mongocrypt_binary_t* key,
+                 mongocrypt_binary_t *iv,
+                 mongocrypt_binary_t*in,
+                 mongocrypt_binary_t*out,
+                 uint32_t* bytes_written,
+                 mongocrypt_status_t *status);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_aes_256_ecb">
+            <summary>
+            bool mongocrypt_setopt_aes_256_ecb(mongocrypt_t* crypt, mongocrypt_crypto_fn aes_256_ecb_encrypt, void* ctx);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_bypass_query_analysis">
+            <summary>
+            void mongocrypt_setopt_bypass_query_analysis(mongocrypt_t* crypt);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_encrypted_field_config_map">
+            <summary>
+            bool mongocrypt_setopt_encrypted_field_config_map(mongocrypt_t* crypt, mongocrypt_binary_t* efc_map)
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_enable_multiple_collinfo">
+            <summary>
+            bool mongocrypt_setopt_enable_multiple_collinfo(mongocrypt_t *crypt);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_append_crypt_shared_lib_search_path">
+            <summary>
+            void mongocrypt_setopt_append_crypt_shared_lib_search_path(mongocrypt_t* crypt, const char* path);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_set_crypt_shared_lib_path_override">
+            <summary>
+            void mongocrypt_setopt_set_crypt_shared_lib_path_override(mongocrypt_t* crypt, const char* path);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_use_need_kms_credentials_state">
+            <summary>
+            void mongocrypt_setopt_use_need_kms_credentials_state(mongocrypt_t* crypt);
+            </summary>
+            <param name="handle"></param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_crypt_shared_lib_version_string">
+            <summary>
+            const char * mongocrypt_crypt_shared_lib_version_string(const mongocrypt_t* crypt, uint32_t *len);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_crypt_shared_lib_version">
+            <summary>
+            uint64_t mongocrypt_crypt_shared_lib_version(const mongocrypt_t* crypt);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_setopt_key_material">
+            <summary>
+            bool mongocrypt_ctx_setopt_key_material(mongocrypt_ctx_t* ctx, mongocrypt_binary_t* key_material)
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_explicit_encrypt_init">
+            <summary>
+            bool mongocrypt_ctx_explicit_encrypt_init(mongocrypt_ctx_t* ctx, mongocrypt_binary_t* msg)
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_explicit_encrypt_expression_init">
+            <summary>
+            bool mongocrypt_ctx_explicit_encrypt_expression_init(mongocrypt_ctx_t* ctx, mongocrypt_binary_t* msg)
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_provide_kms_providers">
+            <summary>
+            bool mongocrypt_ctx_provide_kms_providers(mongocrypt_ctx_t* ctx, mongocrypt_binary_t* kms_providers_definition);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_setopt_algorithm">
+            <summary>
+            bool mongocrypt_ctx_setopt_algorithm(mongocrypt_ctx_t* ctx, const char* algorithm, int len);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_setopt_algorithm_range">
+            <summary>
+            bool mongocrypt_ctx_setopt_algorithm_range(mongocrypt_ctx_t* ctx, mongocrypt_binary_t* opts);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_setopt_algorithm_text">
+            <summary>
+            bool mongocrypt_ctx_setopt_algorithm_text(mongocrypt_ctx_t* ctx, mongocrypt_binary_t* opts);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_setopt_contention_factor">
+            <summary>
+            bool mongocrypt_ctx_setopt_contention_factor(mongocrypt_ctx_t* ctx, int64_t contention_factor);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_setopt_query_type">
+            <summary>
+            bool mongocrypt_ctx_setopt_query_type(mongocrypt_ctx_t* ctx, const char* query_type, int len)
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_setopt_key_expiration">
+            <summary>
+            bool mongocrypt_setopt_key_expiration(mongocrypt_t *crypt, uint64_t cache_expiration_ms)
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Library.Delegates.mongocrypt_ctx_rewrap_many_datakey_init">
+            <summary>
+            bool mongocrypt_ctx_rewrap_many_datakey_init(mongocrypt_ctx_t* ctx, mongocrypt_binary_t* filter);
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.LibraryLoader">
+            <summary>
+            LibraryLoader abstracts loading C functions from a shared library across OS
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.LibraryLoader.DarwinLibraryLoader">
+            <summary>
+            macOS Dynamic Library loader using dlsym
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.LibraryLoader.LinuxLibrary">
+            <summary>
+            Linux Shared Object loader using dlsym
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.LibraryLoader.WindowsLibrary">
+            <summary>
+            Windows DLL loader using GetProcAddress
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.LibraryLoadingException">
+            <summary>
+            An exception that indicates that an error occured while loading a library.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.LibraryLoadingException.#ctor(System.String)">
+            <summary>
+            Initializes an instance of a <see cref="T:MongoDB.Driver.Encryption.LibraryLoadingException"/>
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.MongoCryptSafeHandle">
+            <summary>
+            SafeHandle to manage the lifetime of a mongocrypt_t.
+            </summary>
+            <seealso cref="T:System.Runtime.InteropServices.SafeHandle" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.MongoEncryptionCreateCollectionException">
+            <summary>
+            Represents an encryption exception.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.MongoEncryptionCreateCollectionException.#ctor(System.Exception,MongoDB.Bson.BsonDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.MongoEncryptionException"/> class.
+            </summary>
+            <param name="innerException">The inner exception.</param>
+            <param name="encryptedFields">The encrypted fields.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.MongoEncryptionCreateCollectionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.MongoEncryptionCreateCollectionException"/> class (this overload used by deserialization).
+            </summary>
+            <param name="info">The SerializationInfo.</param>
+            <param name="context">The StreamingContext.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.MongoEncryptionCreateCollectionException.EncryptedFields">
+            <summary>
+            The encrypted fields.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.MongoEncryptionCreateCollectionException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Gets the object data.
+            </summary>
+            <param name="info">The information.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.MongoEncryptionException">
+            <summary>
+            Represents an encryption exception.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.MongoEncryptionException.#ctor(System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.MongoEncryptionException"/> class.
+            </summary>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.MongoEncryptionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.MongoEncryptionException"/> class (this overload used by deserialization).
+            </summary>
+            <param name="info">The SerializationInfo.</param>
+            <param name="context">The StreamingContext.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.PinnedBinary">
+            <summary>
+            A handle to a binary that must be either in unsafe code or pinned by the GC.
+            </summary>
+            <seealso cref="T:MongoDB.Driver.Encryption.Binary" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.RewrapManyDataKeyOptions">
+            <summary>
+            Rewrap many data keys options.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.RewrapManyDataKeyOptions.#ctor(System.String,MongoDB.Driver.Optional{MongoDB.Bson.BsonDocument})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Driver.Encryption.RewrapManyDataKeyOptions"/> class.
+            </summary>
+            <param name="masterKey">The master key.</param>
+            <param name="provider">The provider name.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RewrapManyDataKeyOptions.Provider">
+            <summary>
+            Gets the provider name.
+            </summary>
+            <value>
+            The provider name.
+            </value>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RewrapManyDataKeyOptions.MasterKey">
+            <summary>
+            Gets the master key.
+            </summary>
+            <value>
+            The master key.
+            </value>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.RewrapManyDataKeyOptions.With(MongoDB.Driver.Optional{MongoDB.Bson.BsonDocument},MongoDB.Driver.Optional{System.String})">
+            <summary>
+            Returns a new DataKeyOptions instance with some settings changed.
+            </summary>
+            <param name="masterKey">The master key.</param>
+            <param name="provider">The provider name.</param>
+            <returns>A new DataKeyOptions instance.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.RewrapManyDataKeyResult">
+            <summary>
+            Rewrap many data keys result.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.RewrapManyDataKeyResult.#ctor">
+            <summary>
+            Create RewrapManyDataKeyResult.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Encryption.RewrapManyDataKeyResult.#ctor(MongoDB.Driver.BulkWriteResult)">
+            <summary>
+            Create RewrapManyDataKeyResult.
+            </summary>
+            <param name="bulkWriteResult">The bulkWriteResult.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Encryption.RewrapManyDataKeyResult.BulkWriteResult">
+            <summary>
+            Bulk write result.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.Status">
+            <summary>
+            A LibMongoCrypt Status
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="T:MongoDB.Driver.Encryption.StatusSafeHandle">
+            <summary>
+            SafeHandle to manage the lifetime of a mongocrypt_status_t.
+            </summary>
+            <seealso cref="T:System.Runtime.InteropServices.SafeHandle" />
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,360 @@
+@model DoAnNoSQL.Models.ProductListViewModel
+
+@{
+    ViewBag.Title = Model.CurrentCategoryName;
+    var danhMucList = ViewBag.DanhMucList as List<DoAnNoSQL.tb_DanhMuc> ?? new List<DoAnNoSQL.tb_DanhMuc>();
+}
+
+<div class="max-w-7xl mx-auto pb-12 px-2 sm:px-4">
+    <!-- Breadcrumb tiêu chuẩn đồng bộ -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-home mr-2 text-slate-400"></i>
+                    Trang chủ
+                </a>
+            </li>
+            @if (Model.DanhMucId.HasValue)
+            {
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-slate-300 mx-2 text-xs"></i>
+                        <a href="@Url.Action("Index", "SanPham", new { loc = Model.FilterType })" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                            Tất cả sản phẩm
+                        </a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-slate-300 mx-2 text-xs"></i>
+                        <span class="text-sm font-medium text-blue-700 font-semibold">@Model.CurrentCategoryName</span>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-slate-300 mx-2 text-xs"></i>
+                        <span class="text-sm font-medium text-blue-700 font-semibold">@Model.CurrentCategoryName</span>
+                    </div>
+                </li>
+            }
+        </ol>
+    </nav>
+
+    <!-- Category Filter Pills & Sorting Toolbar -->
+    <div class="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-soft mb-8">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            
+            <!-- Category Pills (Cuộn ngang tiện dụng) -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none text-xs">
+                <a href="@Url.Action("Index", "SanPham", new { danhMucId = (int?)null, loc = Model.FilterType, search = Model.SearchKeyword })" 
+                   class="px-4 py-2 rounded-xl font-bold transition-all whitespace-nowrap @(!Model.DanhMucId.HasValue ? "bg-red-600 text-white shadow-sm shadow-red-600/30" : "bg-slate-100 text-slate-700 hover:bg-slate-200")">
+                    Tất cả danh mục (@Model.TotalProducts)
+                </a>
+                @foreach (var dm in danhMucList)
+                {
+                    bool isSelected = Model.DanhMucId.HasValue && Model.DanhMucId.Value == dm.Id;
+                    <a href="@Url.Action("Index", "SanPham", new { danhMucId = dm.Id, loc = Model.FilterType, search = Model.SearchKeyword })" 
+                       class="px-4 py-2 rounded-xl font-semibold transition-all whitespace-nowrap @(isSelected ? "bg-red-600 text-white shadow-sm shadow-red-600/30 font-bold" : "bg-slate-100 text-slate-700 hover:bg-slate-200")">
+                        @dm.TenDanhMuc
+                    </a>
+                }
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="flex items-center gap-2 self-end lg:self-auto flex-shrink-0">
+                <label for="locFilterSelect" class="text-xs font-semibold text-slate-500 whitespace-nowrap flex items-center gap-1.5">
+                    <i class="fas fa-sort-amount-down text-red-600"></i>
+                    <span>Sắp xếp:</span>
+                </label>
+                <select id="locFilterSelect" onchange="applySort(this.value)" class="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500/40 cursor-pointer shadow-2xs">
+                    <option value="moi" @(Model.FilterType == "moi" || string.IsNullOrEmpty(Model.FilterType) ? "selected" : "")>Mới nhất</option>
+                    <option value="banchay" @(Model.FilterType == "banchay" ? "selected" : "")>Bán chạy</option>
+                    <option value="khuyenmai" @(Model.FilterType == "khuyenmai" ? "selected" : "")>Giảm nhiều nhất</option>
+                    <option value="gia-tang" @(Model.FilterType == "gia-tang" ? "selected" : "")>Giá: Thấp đến cao</option>
+                    <option value="gia-giam" @(Model.FilterType == "gia-giam" ? "selected" : "")>Giá: Cao đến thấp</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Product Grid: 5 sản phẩm trên 1 hàng ở màn hình lớn -->
+    @if (Model.Products != null && Model.Products.Any())
+    {
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-3.5 sm:gap-4.5 mb-8">
+            @foreach (var sp in Model.Products)
+            {
+                var giaGoc = sp.Gia ?? 0;
+                var giaKm = (sp.GiaKhuyenMai.HasValue && sp.GiaKhuyenMai.Value > 0) ? sp.GiaKhuyenMai.Value : giaGoc;
+                var hasDiscount = giaGoc > 0 && giaKm < giaGoc;
+                var discountPercent = hasDiscount ? (int)Math.Round((1 - (giaKm / giaGoc)) * 100) : 0;
+                var isHot = sp.CacCo?.LaSanPhamHot == true || sp.CacCo?.LaSanPhamBanChay == true || sp.LaSanPhamBanChay == true;
+                var isNew = sp.CacCo?.LaSanPhamMoi == true || sp.LaSanPhamMoi == true;
+
+                <a href="@Url.Action("ChiTietSP", "SanPham", new { id = sp.Id })" class="product-card-3d group bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 hover:border-teal-400 shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden relative">
+                    
+                    <!-- Box Hình Ảnh & Badges -->
+                    <div class="relative bg-slate-50/70 p-3 sm:p-4 aspect-square flex items-center justify-center overflow-hidden product-img-wrap">
+                        
+                        <!-- Top Left Badge -->
+                        <div class="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 badge-3d">
+                            @if (hasDiscount)
+                            {
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-black bg-gradient-to-r from-red-600 to-rose-500 text-white shadow-xs">
+                                    <i class="fas fa-bolt text-yellow-300 text-[10px]"></i> -@discountPercent%
+                                </span>
+                            }
+                            else if (isNew)
+                            {
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500 text-white shadow-xs uppercase tracking-wider">
+                                    MỚI
+                                </span>
+                            }
+                            else if (isHot)
+                            {
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500 text-white shadow-xs uppercase tracking-wider">
+                                    <i class="fas fa-fire text-yellow-200 text-[9px]"></i> HOT
+                                </span>
+                            }
+                        </div>
+
+                        <!-- Nút Khám Phá 3D (360 Studio) -->
+                        <button type="button" 
+                                onclick="event.preventDefault(); Web3DExperience.openStudioModal('@sp.TenSanPham.Replace("'", "\\'")' , '@Url.Content("~/Content/Images/" + (sp.HinhAnh ?? "no-image.png"))'); return false;" 
+                                title="Khám phá 3D (360° Studio)" 
+                                class="absolute bottom-2.5 right-12 w-8 h-8 rounded-full bg-slate-900/90 hover:bg-teal-500 text-teal-300 hover:text-white shadow-md flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 transform scale-90 group-hover:scale-100 z-10 focus:outline-none">
+                            <i class="fas fa-cube text-xs"></i>
+                        </button>
+
+                        <!-- Nút Xem Nhanh (Quick View) -->
+                        <button type="button" onclick="openQuickView(@sp.Id); return false;" title="Xem nhanh sản phẩm" class="absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full bg-white/95 hover:bg-teal-600 text-slate-700 hover:text-white shadow-md flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 transform scale-90 group-hover:scale-100 z-10 focus:outline-none">
+                            <i class="fas fa-eye text-xs"></i>
+                        </button>
+
+                        <!-- Ảnh Sản Phẩm -->
+                        @if (!string.IsNullOrEmpty(sp.HinhAnh))
+                        {
+                            <img src="@Url.Content("~/Content/Images/" + sp.HinhAnh)" 
+                                 onerror="this.onerror=null;this.src='/Content/Images/no-image.png';" 
+                                 alt="@sp.TenSanPham" 
+                                 class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/Content/Images/no-image.png")" 
+                                 alt="No Image" 
+                                 class="w-full h-full object-contain" />
+                        }
+                    </div>
+
+                    <!-- Box Nội Dung Chi Tiết -->
+                    <div class="p-3 sm:p-4 flex flex-col justify-between flex-1">
+                        <div>
+                            <!-- Thương hiệu / Danh mục -->
+                            @if (sp.tb_ThuongHieu != null && !string.IsNullOrEmpty(sp.tb_ThuongHieu.TenThuongHieu))
+                            {
+                                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1 block">
+                                    @sp.tb_ThuongHieu.TenThuongHieu
+                                </span>
+                            }
+                            else if (sp.tb_DanhMuc != null && !string.IsNullOrEmpty(sp.tb_DanhMuc.TenDanhMuc))
+                            {
+                                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1 block">
+                                    @sp.tb_DanhMuc.TenDanhMuc
+                                </span>
+                            }
+
+                            <!-- Tên Sản Phẩm -->
+                            <h3 class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors line-clamp-2 min-h-[36px] sm:min-h-[40px] leading-snug mb-2">
+                                @sp.TenSanPham
+                            </h3>
+                        </div>
+
+                        <div>
+                            <!-- Giá Bán -->
+                            @if (hasDiscount)
+                            {
+                                <div class="flex items-baseline gap-1.5 flex-wrap mb-2">
+                                    <span class="text-sm sm:text-base font-black text-red-600 font-heading">
+                                        @giaKm.ToString("N0") <span>&#273;</span>
+                                    </span>
+                                    <span class="text-[11px] text-slate-400 line-through font-medium">
+                                        @giaGoc.ToString("N0") <span>&#273;</span>
+                                    </span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="mb-2">
+                                    <span class="text-sm sm:text-base font-black text-slate-900 font-heading">
+                                        @giaGoc.ToString("N0") <span>&#273;</span>
+                                    </span>
+                                </div>
+                            }
+
+                            <!-- Đánh Giá & Tình Trạng Hàng -->
+                            <div class="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-100">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-star text-amber-400 text-[10px]"></i>
+                                    <span class="font-bold text-slate-700 text-xs">4.8</span>
+                                </div>
+
+                                @if (sp.SoLuong.HasValue && sp.SoLuong > 0)
+                                {
+                                    <span class="text-emerald-600 font-semibold flex items-center gap-0.5 text-[10px]">
+                                        <i class="fas fa-check-circle text-[9px]"></i> Còn hàng
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-red-500 font-semibold flex items-center gap-0.5 text-[10px]">
+                                        <i class="fas fa-times-circle text-[9px]"></i> Hết hàng
+                                    </span>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            }
+        </div>
+
+        <!-- Pagination Hiện Đại -->
+        if (Model.TotalPages > 1)
+        {
+            <div class="bg-white rounded-3xl shadow-soft p-5 border border-slate-200/90 mb-8">
+                <nav class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    
+                    <!-- Nút Trang trước -->
+                    @if (Model.HasPreviousPage)
+                    {
+                        <a href="@Url.Action("Index", new { danhMucId = Model.DanhMucId, thuongHieuId = Model.ThuongHieuId, search = Model.SearchKeyword, loc = Model.FilterType, page = Model.CurrentPage - 1 })" 
+                           class="inline-flex items-center px-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+                            <i class="fas fa-chevron-left mr-2 text-[10px]"></i> Trang trước
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="inline-flex items-center px-4 py-2 text-xs font-semibold text-slate-400 bg-slate-50 rounded-xl cursor-not-allowed">
+                            <i class="fas fa-chevron-left mr-2 text-[10px]"></i> Trang trước
+                        </span>
+                    }
+
+                    <!-- Danh sách số trang -->
+                    <div class="flex items-center space-x-1.5">
+                        @{
+                            int startPage = Math.Max(1, Model.CurrentPage - 2);
+                            int endPage = Math.Min(Model.TotalPages, Model.CurrentPage + 2);
+                        }
+
+                        @if (startPage > 1)
+                        {
+                            <a href="@Url.Action("Index", new { danhMucId = Model.DanhMucId, thuongHieuId = Model.ThuongHieuId, search = Model.SearchKeyword, loc = Model.FilterType, page = 1 })" 
+                               class="w-9 h-9 flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+                                1
+                            </a>
+                            if (startPage > 2)
+                            {
+                                <span class="px-1 text-slate-400 text-xs">...</span>
+                            }
+                        }
+
+                        @for (int i = startPage; i <= endPage; i++)
+                        {
+                            if (i == Model.CurrentPage)
+                            {
+                                <span class="w-9 h-9 flex items-center justify-center text-xs font-extrabold text-white bg-red-600 rounded-xl shadow-sm shadow-red-600/30">
+                                    @i
+                                </span>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", new { danhMucId = Model.DanhMucId, thuongHieuId = Model.ThuongHieuId, search = Model.SearchKeyword, loc = Model.FilterType, page = i })" 
+                                   class="w-9 h-9 flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+                                    @i
+                                </a>
+                            }
+                        }
+
+                        @if (endPage < Model.TotalPages)
+                        {
+                            if (endPage < Model.TotalPages - 1)
+                            {
+                                <span class="px-1 text-slate-400 text-xs">...</span>
+                            }
+                            <a href="@Url.Action("Index", new { danhMucId = Model.DanhMucId, thuongHieuId = Model.ThuongHieuId, search = Model.SearchKeyword, loc = Model.FilterType, page = Model.TotalPages })" 
+                               class="w-9 h-9 flex items-center justify-center text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+                                @Model.TotalPages
+                            </a>
+                        }
+                    </div>
+
+                    <!-- Nút Trang sau -->
+                    @if (Model.HasNextPage)
+                    {
+                        <a href="@Url.Action("Index", new { danhMucId = Model.DanhMucId, thuongHieuId = Model.ThuongHieuId, search = Model.SearchKeyword, loc = Model.FilterType, page = Model.CurrentPage + 1 })" 
+                           class="inline-flex items-center px-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+                            Trang sau <i class="fas fa-chevron-right ml-2 text-[10px]"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="inline-flex items-center px-4 py-2 text-xs font-semibold text-slate-400 bg-slate-50 rounded-xl cursor-not-allowed">
+                            Trang sau <i class="fas fa-chevron-right ml-2 text-[10px]"></i>
+                        </span>
+                    }
+
+                </nav>
+
+                <!-- Page Info -->
+                <div class="mt-3 pt-3 border-t border-slate-100 text-center text-xs text-slate-500">
+                    Trang <span class="font-bold text-slate-800">@Model.CurrentPage</span> / <span class="font-bold text-slate-800">@Model.TotalPages</span>
+                    (Hiển thị @((Model.CurrentPage - 1) * Model.PageSize + 1) - @Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalProducts) của @Model.TotalProducts sản phẩm)
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <!-- No Products Found -->
+        <div class="bg-white rounded-3xl shadow-soft p-12 text-center border border-slate-200/90 my-6">
+            <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 text-3xl">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Không tìm thấy sản phẩm nào</h3>
+            <p class="text-xs sm:text-sm text-slate-500 mb-6 max-w-md mx-auto">
+                @if (!string.IsNullOrEmpty(Model.SearchKeyword))
+                {
+                    <span>Không có sản phẩm nào phù hợp với từ khóa "<strong>@Model.SearchKeyword</strong>". Vui lòng thử lại với từ khóa khác.</span>
+                }
+                else
+                {
+                    <span>Hiện chưa có sản phẩm nào trong danh mục hoặc bộ lọc này.</span>
+                }
+            </p>
+            <a href="@Url.Action("Index", "SanPham")" class="inline-flex items-center gap-2 px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl shadow-md transition-all">
+                <i class="fas fa-arrow-left"></i> Xem tất cả sản phẩm
+            </a>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script>
+        function applySort(val) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('loc', val);
+            url.searchParams.set('page', '1');
+            window.location.href = url.toString();
+        }
+
+        // Smooth scroll to top when changing page
+        if (window.location.search.includes('page=')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+}

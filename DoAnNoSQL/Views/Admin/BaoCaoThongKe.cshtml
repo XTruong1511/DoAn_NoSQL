@@ -1,0 +1,611 @@
+
+@{
+    ViewBag.Title = "Báo cáo & Thống kê";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
+    var fromDate = ViewBag.FromDate ?? DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd");
+    var toDate = ViewBag.ToDate ?? DateTime.Now.ToString("yyyy-MM-dd");
+    var totalRevenue = ViewBag.TotalRevenue ?? 0;
+    var totalOrders = ViewBag.TotalOrders ?? 0;
+    var completedOrders = ViewBag.CompletedOrders ?? 0;
+    var cancelledOrders = ViewBag.CancelledOrders ?? 0;
+    var returnedOrders = ViewBag.ReturnedOrders ?? 0;
+    var cancelRate = ViewBag.CancelRate ?? 0;
+    var completeRate = ViewBag.CompleteRate ?? 0;
+    var returnRate = ViewBag.ReturnRate ?? 0;
+    var lowStockCount = ViewBag.LowStockCount ?? 0;
+    var newCustomers = ViewBag.NewCustomers ?? 0;
+}
+
+<div id="reports" class="tab-content active">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">
+            <i class="fas fa-chart-bar text-primary me-2"></i>
+            Báo cáo & thống kê
+        </h1>
+    </div>
+
+    <!-- Bộ lọc thời gian -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" action="@Url.Action("BaoCaoThongKe", "Admin")" class="row g-3" id="reportFilterForm">
+                <div class="col-md-4">
+                    <label for="fromDate" class="form-label">
+                        <i class="far fa-calendar me-1"></i>
+                        Từ ngày
+                    </label>
+                    <input type="date" class="form-control" id="fromDate" name="fromDate" value="@fromDate" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="toDate" class="form-label">
+                        <i class="far fa-calendar me-1"></i>
+                        Đến ngày
+                    </label>
+                    <input type="date" class="form-control" id="toDate" name="toDate" value="@toDate" required>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i>
+                        Tạo báo cáo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Thống kê tổng quan -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-5 mb-4">
+        <div class="col mb-3">
+            <div class="card stat-card-small shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Tổng doanh thu</p>
+                            <h4 class="mb-0 text-primary">@String.Format("{0:N0}", totalRevenue) đ</h4>
+                        </div>
+                        <div class="icon-box bg-primary-light">
+                            <i class="fas fa-dollar-sign text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card stat-card-small shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Tổng đơn hàng</p>
+                            <h4 class="mb-0 text-success">@totalOrders</h4>
+                        </div>
+                        <div class="icon-box bg-success-light">
+                            <i class="fas fa-shopping-cart text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card stat-card-small shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Tỷ lệ hoàn thành</p>
+                            <h4 class="mb-0 text-info">@String.Format("{0:N1}%", completeRate)</h4>
+                        </div>
+                        <div class="icon-box bg-info-light">
+                            <i class="fas fa-check-circle text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card stat-card-small shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Tỷ lệ hủy đơn</p>
+                            <h4 class="mb-0 text-danger">@String.Format("{0:N1}%", cancelRate)</h4>
+                        </div>
+                        <div class="icon-box bg-danger-light">
+                            <i class="fas fa-times-circle text-danger"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card stat-card-small shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Tỷ lệ trả hàng</p>
+                            <h4 class="mb-0 text-warning">@String.Format("{0:N1}%", returnRate)</h4>
+                        </div>
+                        <div class="icon-box bg-warning-light">
+                            <i class="fas fa-undo text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Biểu đồ -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Doanh thu theo thời gian
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="revenueChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-success">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Top 10 sản phẩm bán chạy
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="topProductsChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Báo cáo chi tiết -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-info">
+                <i class="fas fa-file-alt me-2"></i>
+                Báo cáo chi tiết
+            </h6>
+            <div>
+                <button class="btn btn-sm btn-info me-2" onclick="printReport()">
+                    <i class="fas fa-print me-1"></i> In báo cáo
+                </button>
+                <button class="btn btn-sm btn-success" id="exportReportExcelBtn">
+                    <i class="fas fa-file-excel me-1"></i> Xuất Excel
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="reportDetailTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="50%">Chỉ số</th>
+                            <th width="50%">Giá trị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-calendar me-2 text-muted"></i>Thời gian báo cáo</td>
+                            <td><strong>@DateTime.Parse(fromDate).ToString("dd/MM/yyyy") - @DateTime.Parse(toDate).ToString("dd/MM/yyyy")</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-dollar-sign me-2 text-primary"></i>Doanh thu tổng</td>
+                            <td><strong class="text-primary">@String.Format("{0:N0}", totalRevenue) VNĐ</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-shopping-cart me-2 text-success"></i>Tổng đơn hàng</td>
+                            <td><strong>@totalOrders đơn</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-check-circle me-2 text-success"></i>Đơn hàng hoàn thành</td>
+                            <td><strong class="text-success">@completedOrders đơn (@String.Format("{0:N1}%", completeRate))</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-times-circle me-2 text-danger"></i>Đơn hàng đã hủy</td>
+                            <td><strong class="text-danger">@cancelledOrders đơn (@String.Format("{0:N1}%", cancelRate))</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-undo me-2 text-warning"></i>Đơn hàng đã trả hàng</td>
+                            <td><strong class="text-warning">@returnedOrders đơn (@String.Format("{0:N1}%", returnRate))</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-box me-2 text-warning"></i>Hàng tồn kho nhiều nhất</td>
+                            <td>
+                                @if (ViewBag.TopStockProduct != null)
+                                {
+                                    var topStock = (DoAnNoSQL.Models.TopStockProductViewModel)ViewBag.TopStockProduct;
+                                    <strong>@topStock.TenSanPham (@topStock.SoLuong sản phẩm)</strong>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Không có dữ liệu</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-exclamation-triangle me-2 text-warning"></i>Sản phẩm sắp hết hàng</td>
+                            <td><strong class="text-warning">@lowStockCount sản phẩm (< 10)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-user-plus me-2 text-info"></i>Khách hàng mới trong kỳ</td>
+                            <td><strong class="text-info">@newCustomers khách hàng</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .stat-card-small {
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.3s;
+    }
+    
+    .stat-card-small:hover {
+        transform: translateY(-5px);
+    }
+    
+    .icon-box {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    .bg-primary-light {
+        background-color: rgba(102, 126, 234, 0.1);
+    }
+    
+    .bg-success-light {
+        background-color: rgba(40, 167, 69, 0.1);
+    }
+    
+    .bg-info-light {
+        background-color: rgba(23, 162, 184, 0.1);
+    }
+    
+    .bg-danger-light {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
+    
+    .bg-warning-light {
+        background-color: rgba(255, 193, 7, 0.1);
+    }
+    
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+
+@section scripts {
+<script>
+    // Dữ liệu doanh thu 12 tháng
+    var revenueData = @Html.Raw(Json.Encode(ViewBag.RevenueByMonth ?? new List<object>()));
+    
+    // Dữ liệu top sản phẩm bán chạy
+    var topProductsData = @Html.Raw(Json.Encode(ViewBag.TopProducts ?? new List<object>()));
+    
+    // Biểu đồ doanh thu
+    if (revenueData.length > 0) {
+        var revenueLabels = revenueData.map(function(item) {
+            return 'T' + item.Month + '/' + item.Year;
+        });
+        
+        var revenueValues = revenueData.map(function(item) {
+            return item.Revenue;
+        });
+        
+        var revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: revenueLabels,
+                datasets: [{
+                    label: 'Doanh thu (đ)',
+                    data: revenueValues,
+                    backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Doanh thu: ' + context.parsed.y.toLocaleString('vi-VN') + ' đ';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString('vi-VN') + ' đ';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    // Biểu đồ top sản phẩm
+    console.log('Top Products Data:', topProductsData);
+    
+    if (topProductsData.length > 0) {
+        var productLabels = topProductsData.map(function(item) {
+            return item.ProductName;
+        });
+        
+        var productValues = topProductsData.map(function(item) {
+            return item.TotalQuantity;
+        });
+        
+        console.log('Product Labels:', productLabels);
+        console.log('Product Values:', productValues);
+        
+        var productCtx = document.getElementById('topProductsChart').getContext('2d');
+        new Chart(productCtx, {
+            type: 'bar',
+            data: {
+                labels: productLabels,
+                datasets: [{
+                    label: 'Số lượng đã bán',
+                    data: productValues,
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(40, 167, 69, 0.8)',
+                        'rgba(23, 162, 184, 0.8)',
+                        'rgba(255, 193, 7, 0.8)',
+                        'rgba(220, 53, 69, 0.8)',
+                        'rgba(108, 117, 125, 0.8)',
+                        'rgba(255, 87, 34, 0.8)',
+                        'rgba(156, 39, 176, 0.8)',
+                        'rgba(0, 150, 136, 0.8)',
+                        'rgba(63, 81, 181, 0.8)'
+                    ],
+                    borderWidth: 1,
+                    borderColor: [
+                        'rgba(102, 126, 234, 1)',
+                        'rgba(40, 167, 69, 1)',
+                        'rgba(23, 162, 184, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(220, 53, 69, 1)',
+                        'rgba(108, 117, 125, 1)',
+                        'rgba(255, 87, 34, 1)',
+                        'rgba(156, 39, 176, 1)',
+                        'rgba(0, 150, 136, 1)',
+                        'rgba(63, 81, 181, 1)'
+                    ]
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Đã bán: ' + context.parsed.x + ' sản phẩm';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' SP';
+                            }
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            autoSkip: false
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        console.log('No top products data available');
+        // Hiển thị thông báo nếu không có dữ liệu
+        var productCtx = document.getElementById('topProductsChart');
+        if (productCtx) {
+            var parentDiv = productCtx.parentElement;
+            parentDiv.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-chart-bar fa-3x mb-3"></i><p>Chưa có dữ liệu sản phẩm bán chạy</p></div>';
+        }
+    }
+    
+    // Hàm in báo cáo
+    function printReport() {
+        window.print();
+    }
+    
+    // Xuất Excel - Xuất chi tiết đơn hàng trong khoảng thời gian
+    document.getElementById('exportReportExcelBtn').addEventListener('click', async function() {
+        try {
+            // Show Loading
+            Swal.fire({
+                title: 'Đang xử lý...',
+                text: 'Đang tải dữ liệu báo cáo...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+            
+            // Get date range
+            var fromDate = '@fromDate';
+            var toDate = '@toDate';
+            
+            // Fetch Data from server
+            const response = await fetch(`@Url.Action("GetReportForExport", "Admin")?fromDate=${fromDate}&toDate=${toDate}`);
+            const data = await response.json();
+            
+            if (data.error) {
+                Swal.fire('Lỗi', 'Không thể tải dữ liệu: ' + data.error, 'error');
+                return;
+            }
+            
+            if (!data || data.length === 0) {
+                Swal.fire('Thông báo', 'Không có đơn hàng nào trong khoảng thời gian này', 'info');
+                return;
+            }
+            
+            // Function to get status text
+            function getTrangThaiText(status) {
+                switch(status) {
+                    case 1: return 'Chờ xác nhận';
+                    case 2: return 'Đã xác nhận';
+                    case 3: return 'Đang giao';
+                    case 4: return 'Đã giao';
+                    case 5: return 'Hoàn thành';
+                    case 6: return 'Yêu cầu trả hàng';
+                    case 7: return 'Đã trả hàng';
+                    case -1: return 'Đã hủy';
+                    default: return 'Không xác định';
+                }
+            }
+            
+            // Map data to Vietnamese headers
+            const formattedData = data.map(item => ({
+                "ID": item.ID,
+                "Mã đơn hàng": item.MaDonHang || '',
+                "Tên khách hàng": item.TenKhachHang || '',
+                "Số điện thoại": item.SoDienThoai || '',
+                "Email": item.Email || '',
+                "Địa chỉ": item.DiaChi || '',
+                "Tổng tiền": item.TongTien ? item.TongTien.toLocaleString('vi-VN') + ' đ' : '0 đ',
+                "Số lượng SP": item.SoLuongSanPham || 0,
+                "PT Thanh toán": item.PhuongThucThanhToan || '',
+                "Trạng thái": getTrangThaiText(item.TrangThai),
+                "Ngày tạo": item.NgayTao ? new Date(item.NgayTao).toLocaleDateString('vi-VN') : '',
+                "Ngày cập nhật": item.NgayCapNhat ? new Date(item.NgayCapNhat).toLocaleDateString('vi-VN') : ''
+            }));
+            
+            // Create Worksheet
+            const ws = XLSX.utils.json_to_sheet(formattedData);
+            
+            // --- AUTO WIDTH LOGIC ---
+            const range = XLSX.utils.decode_range(ws['!ref']);
+            const colWidths = [];
+            
+            for (let C = range.s.c; C <= range.e.c; ++C) {
+                let maxLen = 10;
+                for (let R = range.s.r; R <= range.e.r; ++R) {
+                    const cellRef = XLSX.utils.encode_cell({ c: C, r: R });
+                    const cell = ws[cellRef];
+                    if (cell && cell.v) {
+                        const len = (cell.v.toString().length + 2);
+                        if (len > maxLen) maxLen = len;
+                    }
+                }
+                colWidths.push({ wch: maxLen });
+            }
+            ws['!cols'] = colWidths;
+            // ------------------------
+            
+            // Create summary sheet
+            const summaryData = [
+                ["BÁO CÁO THỐNG KÊ"],
+                ["Thời gian: " + new Date(fromDate).toLocaleDateString('vi-VN') + " - " + new Date(toDate).toLocaleDateString('vi-VN')],
+                [""],
+                ["Chỉ số", "Giá trị"],
+                ["Tổng doanh thu", "@String.Format("{0:N0}", totalRevenue) đ"],
+                ["Tổng đơn hàng", "@totalOrders"],
+                ["Đơn hàng hoàn thành", "@completedOrders (@String.Format("{0:N1}%", completeRate))"],
+                ["Đơn hàng đã hủy", "@cancelledOrders (@String.Format("{0:N1}%", cancelRate))"],
+                ["Đơn hàng đã trả hàng", "@returnedOrders (@String.Format("{0:N1}%", returnRate))"],
+                ["Sản phẩm sắp hết hàng", "@lowStockCount sản phẩm"]
+            ];
+            
+            const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+            
+            // Set column widths for summary
+            wsSummary['!cols'] = [{ wch: 30 }, { wch: 40 }];
+            
+            // Create Workbook with multiple sheets
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, wsSummary, "Tổng quan");
+            XLSX.utils.book_append_sheet(wb, ws, "Chi tiết đơn hàng");
+            
+            // Download file
+            const filename = `BaoCaoThongKe_${new Date(fromDate).toISOString().slice(0,10)}_${new Date(toDate).toISOString().slice(0,10)}.xlsx`;
+            XLSX.writeFile(wb, filename);
+            
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                html: `Đã xuất báo cáo với <strong>${data.length}</strong> đơn hàng!`,
+                timer: 2500,
+                showConfirmButton: false
+            });
+        } catch (error) {
+            console.error('Export error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Không thể xuất file: ' + error.message
+            });
+        }
+    });
+    
+    // Validation cho Date Range
+    document.getElementById('reportFilterForm').addEventListener('submit', function(e) {
+        var fromDate = document.getElementById('fromDate').value;
+        var toDate = document.getElementById('toDate').value;
+        
+        // Kiểm tra nếu cả hai ngày đều có giá trị
+        if (fromDate && toDate) {
+            var fromDateTime = new Date(fromDate);
+            var toDateTime = new Date(toDate);
+            
+            // Nếu toDate < fromDate, hiển thị lỗi
+            if (toDateTime < fromDateTime) {
+                e.preventDefault(); // Ngăn form submit
+                
+                // Hiển thị SweetAlert
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi ngày tháng',
+                    text: 'Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#d33'
+                });
+            }
+        }
+    });
+</script>
+}
+
+
+

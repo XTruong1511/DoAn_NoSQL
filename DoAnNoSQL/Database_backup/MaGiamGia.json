@@ -1,0 +1,104 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c8"
+    },
+    "SqlId": 1,
+    "MaCode": "SALE10",
+    "SoTienGiam": 50000.0,
+    "PhanTramGiam": null,
+    "SoLuong": 98,
+    "NgayTao": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "NgayKetThuc": {
+      "$date": "2025-12-31T00:00:00Z"
+    },
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308c9"
+    },
+    "SqlId": 2,
+    "MaCode": "GIAM50K",
+    "SoTienGiam": 50000.0,
+    "PhanTramGiam": 0,
+    "SoLuong": 50,
+    "NgayTao": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "NgayKetThuc": {
+      "$date": "2025-06-30T00:00:00Z"
+    },
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308ca"
+    },
+    "SqlId": 3,
+    "MaCode": "FREESHIP",
+    "SoTienGiam": 0.0,
+    "PhanTramGiam": 0,
+    "SoLuong": 1000,
+    "NgayTao": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "NgayKetThuc": {
+      "$date": "2026-01-01T00:00:00Z"
+    },
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308cb"
+    },
+    "SqlId": 4,
+    "MaCode": "XMAS25",
+    "SoTienGiam": 0.0,
+    "PhanTramGiam": 25,
+    "SoLuong": 500,
+    "NgayTao": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "NgayKetThuc": {
+      "$date": "2025-12-25T00:00:00Z"
+    },
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308cc"
+    },
+    "SqlId": 5,
+    "MaCode": "X",
+    "SoTienGiam": null,
+    "PhanTramGiam": 10,
+    "SoLuong": 3,
+    "NgayTao": {
+      "$date": "2025-12-05T15:37:25.010Z"
+    },
+    "NgayKetThuc": {
+      "$date": "2025-12-06T00:00:00Z"
+    },
+    "HienThi": true
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d053308cd"
+    },
+    "SqlId": 6,
+    "MaCode": "XMAS",
+    "SoTienGiam": 50000.0,
+    "PhanTramGiam": 10,
+    "SoLuong": 0,
+    "NgayTao": {
+      "$date": "2025-12-13T14:53:20.033Z"
+    },
+    "NgayKetThuc": {
+      "$date": "2025-12-31T00:00:00Z"
+    },
+    "HienThi": true
+  }
+]

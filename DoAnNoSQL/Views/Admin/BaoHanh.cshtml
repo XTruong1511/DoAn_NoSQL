@@ -1,0 +1,1464 @@
+@model DoAnNoSQL.Models.BaoHanhIndexViewModel
+@{
+    ViewBag.Title = "Quản lý bảo hành";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int currentPage = Model.CurrentPage;
+    int totalPages = Model.TotalPages;
+    string tuKhoa = Model.TuKhoa ?? "";
+    string trangThai = Model.TrangThai ?? "";
+    string activeTab = string.IsNullOrEmpty(Model.ActiveTab) ? "baohanh" : Model.ActiveTab;
+
+    int repairCurrentPage = Model.RepairCurrentPage > 0 ? Model.RepairCurrentPage : 1;
+    int repairTotalPages = Model.RepairTotalPages > 0 ? Model.RepairTotalPages : 1;
+    int? repairStatus = Model.RepairStatus;
+}
+
+<style>
+    .stat-card-custom {
+        border-radius: 10px;
+        padding: 18px 20px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card-custom:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+    .stat-card-custom .stat-icon {
+        font-size: 2.2rem;
+        opacity: 0.85;
+    }
+    .stat-card-custom .stat-num {
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+    .stat-card-custom .stat-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        opacity: 0.95;
+    }
+    .nav-tabs .nav-link {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #495057;
+        padding: 12px 20px;
+        border: none;
+        border-bottom: 3px solid transparent;
+    }
+    .nav-tabs .nav-link.active {
+        color: #0d6efd;
+        border-bottom: 3px solid #0d6efd;
+        background: transparent;
+    }
+    .table-custom th {
+        background-color: #212529 !important;
+        color: #fff !important;
+        vertical-align: middle;
+    }
+    .table-custom td {
+        vertical-align: middle;
+    }
+    .badge-status {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+        border-radius: 20px;
+    }
+    .timeline-item {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 20px;
+    }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 6px;
+        bottom: -20px;
+        width: 2px;
+        background: #dee2e6;
+    }
+    .timeline-item:last-child::before {
+        display: none;
+    }
+    .timeline-dot {
+        position: absolute;
+        left: 0;
+        top: 4px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #0d6efd;
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 2px #0d6efd;
+    }
+    .table-custom .btn-group-sm .btn {
+        width: 32px;
+        padding-left: 0;
+        padding-right: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<div class="container-fluid p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1 text-gray-800">
+                <i class="fas fa-shield-alt text-primary me-2"></i>Quản lý bảo hành & Sửa chữa
+            </h1>
+        </div>
+        <div class="d-flex gap-2">
+            @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 3))
+            {
+                <button class="btn btn-primary btn-icon" onclick="openModalThemBaoHanh()" title="Tạo phiếu bảo hành">
+                    <i class="fas fa-plus"></i>
+                </button>
+            }
+            @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 5))
+            {
+                <button class="btn btn-warning text-dark btn-icon" onclick="openModalTiepNhanNhanh()" title="Tiếp nhận sửa chữa">
+                    <i class="fas fa-wrench"></i>
+                </button>
+            }
+        </div>
+    </div>
+
+    <!-- KPI Statistics Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card-custom" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
+                <div>
+                    <div class="stat-label">Tổng phiếu bảo hành</div>
+                    <div class="stat-num">@Model.ThongKe.TongSoPhieu</div>
+                    <small class="text-white-50">Toàn bộ thiết bị</small>
+                </div>
+                <i class="fas fa-shield-alt stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card-custom" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                <div>
+                    <div class="stat-label">Đang còn hạn</div>
+                    <div class="stat-num">@Model.ThongKe.ConHan</div>
+                    <small class="text-white-50">@Model.ThongKe.SapHetHan sắp hết hạn (&le;30 ngày)</small>
+                </div>
+                <i class="fas fa-check-circle stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card-custom" style="background: linear-gradient(135deg, #f7971e, #ffd200); color: #333;">
+                <div>
+                    <div class="stat-label" style="color:#222;">Đang xử lý sửa chữa</div>
+                    <div class="stat-num" style="color:#111;">@Model.ThongKe.DangXuLySuaChua</div>
+                    <small style="color:#444;">Tổng @Model.ThongKe.TongPhieuSuaChua ca tiếp nhận</small>
+                </div>
+                <i class="fas fa-tools stat-icon" style="color: #444;"></i>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card-custom" style="background: linear-gradient(135deg, #757F9A, #D7DDE8); color: #333;">
+                <div>
+                    <div class="stat-label" style="color:#222;">Đã hết hạn</div>
+                    <div class="stat-num" style="color:#111;">@Model.ThongKe.HetHan</div>
+                    <small style="color:#444;">Hỗ trợ sửa chữa dịch vụ</small>
+                </div>
+                <i class="fas fa-history stat-icon" style="color: #444;"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="table-container mb-4">
+        <ul class="nav nav-tabs mb-4" id="warrantyTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link @(activeTab == "baohanh" ? "active" : "")" id="tab-baohanh-btn" data-bs-toggle="tab" data-bs-target="#tab-baohanh" type="button" role="tab">
+                    <i class="fas fa-id-card me-2"></i>Phiếu Bảo Hành Điện Tử (@Model.ThongKe.TongSoPhieu)
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link @(activeTab == "suachua" ? "active" : "")" id="tab-suachua-btn" data-bs-toggle="tab" data-bs-target="#tab-suachua" type="button" role="tab">
+                    <i class="fas fa-tools me-2"></i>Tiếp Nhận & Sửa Chữa (@Model.ThongKe.TongPhieuSuaChua)
+                    @if (Model.ThongKe.DangXuLySuaChua > 0)
+                    {
+                        <span class="badge bg-danger ms-1">@Model.ThongKe.DangXuLySuaChua</span>
+                    }
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content d-block" id="warrantyTabsContent">
+            <!-- TAB 1: PHIẾU BẢO HÀNH -->
+            <div class="tab-pane fade @(activeTab == "baohanh" ? "show active" : "")" id="tab-baohanh" role="tabpanel">
+                <!-- Toolbar for Warranty Cards -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <form action="@Url.Action("BaoHanh", "Admin")" method="get" class="input-group" style="max-width: 450px; flex: 1;">
+                        <input type="hidden" name="tab" value="baohanh" />
+                        <input type="text" class="form-control" name="search" value="@tuKhoa" placeholder="Tìm kiếm theo Mã BH, IMEI, SĐT, Tên KH, Sản phẩm..." />
+                        <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+                    </form>
+
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <select class="form-select" style="width: auto;" onchange="location = '@Url.Action("BaoHanh", "Admin", new { tab = "baohanh", search = tuKhoa })&status=' + this.value;">
+                            <option value="" @(string.IsNullOrEmpty(trangThai) ? "selected" : "")>Tất cả trạng thái</option>
+                            <option value="conhan" @(trangThai == "conhan" ? "selected" : "")>Còn hạn bảo hành</option>
+                            <option value="saphethan" @(trangThai == "saphethan" ? "selected" : "")>Sắp hết hạn (&le;30 ngày)</option>
+                            <option value="dangsua" @(trangThai == "dangsua" ? "selected" : "")>Đang sửa chữa</option>
+                            <option value="hethan" @(trangThai == "hethan" ? "selected" : "")>Đã hết hạn</option>
+                        </select>
+                        <button class="btn btn-success btn-icon" onclick="exportTableToExcel('warrantyTable', 'Danh_Sach_Bao_Hanh.xlsx')" title="Xuất Excel">
+                            <i class="fas fa-file-excel"></i>
+                        </button>
+                        <button class="btn btn-secondary btn-icon" onclick="printPage()" title="In">
+                            <i class="fas fa-print"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Warranty Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-custom" id="warrantyTable">
+                        <thead>
+                            <tr>
+                                <th>Mã BH</th>
+                                <th>Sản phẩm</th>
+                                <th>Khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Ngày mua</th>
+                                <th>Hạn bảo hành</th>
+                                <th>Trạng thái</th>
+                                <th class="d-none">Đã sửa</th>
+                                <th class="text-center no-print">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.DanhSachBaoHanh != null && Model.DanhSachBaoHanh.Any())
+                            {
+                                foreach (var item in Model.DanhSachBaoHanh)
+                                {
+                                    <tr data-bs-toggle="collapse" data-bs-target="#collapse-bh-@item.Id" style="cursor: pointer;" title="Nhấn để xem chi tiết">
+                                        <td>
+                                            <span class="fw-bold text-primary">@item.MaBaoHanh</span>
+                                            @if (!string.IsNullOrEmpty(item.MaDonHang))
+                                            {
+                                                <div><small class="text-muted"><i class="fas fa-shopping-bag"></i> @item.MaDonHang</small></div>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2" style="max-width: 250px;">
+                                                @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                                {
+                                                    <img src="~/Content/Images/@item.HinhAnh" alt="" style="width: 38px; height: 38px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;" onerror="this.src='/Content/images/logo.png';" />
+                                                }
+                                                <div class="text-truncate" title="@item.TenSanPham">@item.TenSanPham</div>
+                                            </div>
+                                        </td>
+                                        <td><strong>@item.TenKhachHang</strong></td>
+                                        <td>
+                                            <a href="tel:@item.SoDienThoai" class="text-decoration-none" onclick="event.stopPropagation();">
+                                                <i class="fas fa-phone-alt text-success me-1"></i>@item.SoDienThoai
+                                            </a>
+                                        </td>
+                                        <td class="text-center align-middle">@item.NgayKichHoat.ToString("dd/MM/yyyy")</td>
+                                        <td class="text-center align-middle">
+                                            <strong>@item.NgayHetHan.ToString("dd/MM/yyyy")</strong>
+                                            @if (item.SoNgayConLai > 0 && item.SoNgayConLai <= 30)
+                                            {
+                                                <div><small class="text-warning">Còn @item.SoNgayConLai ngày</small></div>
+                                            }
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <span class="badge @item.TrangThaiBadgeClass badge-status">@item.TrangThaiText</span>
+                                        </td>
+                                        <td class="text-center d-none">
+                                            @if (item.SoLanSuaChua > 0)
+                                            {
+                                                <span class="badge bg-warning text-dark">@item.SoLanSuaChua lần</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">0</span>
+                                            }
+                                        </td>
+                                        <td class="text-center no-print">
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-info text-white" title="Xem chi tiết & Lịch sử sửa chữa" onclick="xemChiTietBaoHanh(@item.Id)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                @if (item.IsChoGiaoKhach)
+                                                {
+                                                    <button class="btn btn-success text-white" title="Bàn giao cho khách" onclick="capNhatNhanhTrangThaiSuaChua(@item.PhieuSuaChuaChoGiaoId, 5)">
+                                                        <i class="fas fa-box-open"></i>
+                                                    </button>
+                                                }
+                                                @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 5))
+                                                {
+                                                    <button class="btn btn-warning text-dark" title="Tiếp nhận bảo hành / Sửa chữa" onclick="tiepNhanTuBaoHanh(@item.Id, '@item.MaBaoHanh', '@item.TenKhachHang', '@item.SoDienThoai', '@item.TenSanPham')">
+                                                        <i class="fas fa-wrench"></i>
+                                                    </button>
+                                                }
+                                                @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 3))
+                                                {
+                                                    <button class="btn btn-primary" title="Chỉnh sửa thông tin" onclick="suaBaoHanhModal(@item.Id)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                }
+                                                <button class="btn btn-outline-dark" title="In phiếu bảo hành" onclick="inPhieuBaoHanh(@item.Id)">
+                                                    <i class="fas fa-print"></i>
+                                                </button>
+                                                @if (Session["Role"] != null && Convert.ToInt32(Session["Role"]) == 1)
+                                                {
+                                                    <button class="btn btn-danger" title="Xóa" onclick="xoaBaoHanh(@item.Id, '@item.MaBaoHanh')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="collapse-bh-@item.Id" class="collapse" style="background-color: #f8f9fa;">
+                                        <td colspan="9">
+                                            <div class="p-3">
+                                                <strong>Thông tin chi tiết thiết bị:</strong>
+                                                <ul class="mb-0 mt-2">
+                                                    <li><strong>Mã Seri / IMEI:</strong> <code>@(string.IsNullOrEmpty(item.MaSeri) ? "Chưa có IMEI" : item.MaSeri)</code></li>
+                                                    <li><strong>Thời hạn bảo hành:</strong> @item.ThoiHanBaoHanh tháng</li>
+                                                    @if (item.ThongTinBoSung != null && item.ThongTinBoSung.Any())
+                                                    {
+                                                        foreach (var tt in item.ThongTinBoSung)
+                                                        {
+                                                            <li><strong class="text-primary">@tt.TenTruong:</strong> @tt.GiaTri</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="11" class="text-center py-4 text-muted">
+                                        <i class="fas fa-folder-open fa-2x mb-2 d-block"></i>
+                                        Không tìm thấy phiếu bảo hành nào phù hợp.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Warranty Pagination -->
+                @if (totalPages > 1)
+                {
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="text-muted">Trang @currentPage / @totalPages</span>
+                        <ul class="pagination mb-0">
+                            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("BaoHanh", "Admin", new { page = currentPage - 1, search = tuKhoa, status = trangThai, tab = "baohanh" })">Trước</a>
+                            </li>
+                            @for (int i = 1; i <= totalPages; i++)
+                            {
+                                <li class="page-item @(currentPage == i ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("BaoHanh", "Admin", new { page = i, search = tuKhoa, status = trangThai, tab = "baohanh" })">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("BaoHanh", "Admin", new { page = currentPage + 1, search = tuKhoa, status = trangThai, tab = "baohanh" })">Sau</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+
+            <!-- TAB 2: TIẾP NHẬN & SỬA CHỮA -->
+            <div class="tab-pane fade @(activeTab == "suachua" ? "show active" : "")" id="tab-suachua" role="tabpanel">
+                <!-- Toolbar for Repairs -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <form action="@Url.Action("BaoHanh", "Admin")" method="get" class="input-group" style="max-width: 450px; flex: 1;">
+                        <input type="hidden" name="tab" value="suachua" />
+                        <input type="text" class="form-control" name="search" value="@tuKhoa" placeholder="Tìm kiếm theo Mã phiếu, Mã BH, SĐT, Tên KH..." />
+                        <button class="btn btn-outline-secondary btn-icon" type="submit" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+                    </form>
+
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <select class="form-select" style="width: auto;" onchange="location = '@Url.Action("BaoHanh", "Admin", new { tab = "suachua", search = tuKhoa })&repairStatus=' + this.value;">
+                            <option value="" @(!repairStatus.HasValue ? "selected" : "")>Tất cả trạng thái</option>
+                            <option value="1" @(repairStatus == 1 ? "selected" : "")>1. Tiếp nhận</option>
+                            <option value="2" @(repairStatus == 2 ? "selected" : "")>2. Đang sửa chữa</option>
+                            <option value="3" @(repairStatus == 3 ? "selected" : "")>3. Chờ linh kiện / Hãng</option>
+                            <option value="4" @(repairStatus == 4 ? "selected" : "")>4. Đã sửa xong</option>
+                            <option value="5" @(repairStatus == 5 ? "selected" : "")>5. Đã bàn giao</option>
+                            <option value="6" @(repairStatus == 6 ? "selected" : "")>6. Đổi mới</option>
+                            <option value="7" @(repairStatus == 7 ? "selected" : "")>7. Từ chối bảo hành</option>
+                        </select>
+                        @if (Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 5))
+                        {
+                            <button class="btn btn-warning text-dark btn-icon" onclick="openModalTiepNhanNhanh()" title="Lập phiếu tiếp nhận">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        }
+                        <button class="btn btn-success btn-icon" onclick="exportTableToExcel('repairTable', 'Danh_Sach_Sua_Chua.xlsx')" title="Xuất Excel">
+                            <i class="fas fa-file-excel"></i>
+                        </button>
+                        <button class="btn btn-secondary btn-icon" onclick="printPage()" title="In">
+                            <i class="fas fa-print"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Repair Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-custom" id="repairTable">
+                        <thead>
+                            <tr>
+                                <th>Mã phiếu</th>
+                                <th>Mã BH / IMEI</th>
+                                <th>Sản phẩm</th>
+                                <th>Khách hàng</th>
+                                <th>Lỗi tiếp nhận & Ngoại quan</th>
+                                <th>Ngày nhận</th>
+                                <th>Hẹn trả</th>
+                                <th>Trạng thái</th>
+                                <th>Chi phí</th>
+                                <th>Kỹ thuật viên</th>
+                                <th class="text-center no-print">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.DanhSachPhieuSuaChua != null && Model.DanhSachPhieuSuaChua.Any())
+                            {
+                                foreach (var item in Model.DanhSachPhieuSuaChua)
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong class="text-primary">@item.MaPhieu</strong>
+                                        </td>
+                                        <td>
+                                            <div><span class="badge bg-light text-dark border">@item.MaBaoHanh</span></div>
+                                            <small class="text-muted"><code>@(string.IsNullOrEmpty(item.MaSeri) ? "N/A" : item.MaSeri)</code></small>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2" style="max-width: 200px;">
+                                                @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                                {
+                                                    <img src="~/Content/Images/@item.HinhAnh" alt="" style="width: 35px; height: 35px; object-fit: cover; border-radius: 4px;" onerror="this.src='/Content/images/logo.png';" />
+                                                }
+                                                <div class="text-truncate" title="@item.TenSanPham">@item.TenSanPham</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div><strong>@item.TenKhachHang</strong></div>
+                                            <small><i class="fas fa-phone-alt text-success"></i> @item.SoDienThoai</small>
+                                        </td>
+                                        <td style="max-width: 250px;">
+                                            <div class="text-danger fw-bold"><i class="fas fa-exclamation-triangle me-1"></i>@item.TrieuChungLoi</div>
+                                            @if (!string.IsNullOrEmpty(item.TinhTrangTiepNhan))
+                                            {
+                                                <small class="text-muted d-block">Ngoại quan: @item.TinhTrangTiepNhan</small>
+                                            }
+                                        </td>
+                                        <td>@item.NgayTiepNhan.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td>
+                                            @if (item.NgayHenTra.HasValue)
+                                            {
+                                                <span>@item.NgayHenTra.Value.ToString("dd/MM/yyyy")</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Chưa hẹn</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="badge @item.TrangThaiBadgeClass badge-status">@item.TrangThaiText</span>
+                                        </td>
+                                        <td>
+                                            @if (item.ChiPhiPhatSinh > 0)
+                                            {
+                                                <strong class="text-danger">@item.ChiPhiPhatSinh.ToString("N0") đ</strong>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-success">Miễn phí</span>
+                                            }
+                                        </td>
+                                        <td>@(string.IsNullOrEmpty(item.KyThuatVien) ? "Chưa giao" : item.KyThuatVien)</td>
+                                        <td class="text-center no-print">
+                                            <div class="btn-group btn-group-sm">
+                                                @if (item.TrangThai < 5 && Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 5))
+                                                {
+                                                    <button class="btn btn-warning text-dark" title="Cập nhật tiến độ" onclick="capNhatSuaChuaModal(@item.Id, @item.TrangThai, '@Html.Raw(HttpUtility.JavaScriptStringEncode(item.TrieuChungLoi))', '@Html.Raw(HttpUtility.JavaScriptStringEncode(item.TinhTrangTiepNhan ?? ""))', '@(item.NgayHenTra.HasValue ? item.NgayHenTra.Value.ToString("yyyy-MM-dd") : "")', @item.ChiPhiPhatSinh, '@Html.Raw(HttpUtility.JavaScriptStringEncode(item.GiaiPhapXuLy ?? ""))', '@Html.Raw(HttpUtility.JavaScriptStringEncode(item.LinhKienThayThe ?? ""))', '@Html.Raw(HttpUtility.JavaScriptStringEncode(item.KyThuatVien ?? ""))', '@Html.Raw(HttpUtility.JavaScriptStringEncode(item.GhiChu ?? ""))')">
+                                                        <i class="fas fa-tasks"></i>
+                                                    </button>
+                                                }
+                                                @if (item.TrangThai < 4 && Session["Role"] != null && (Convert.ToInt32(Session["Role"]) == 1 || Convert.ToInt32(Session["Role"]) == 5))
+                                                {
+                                                    <button class="btn btn-success text-white" title="Xác nhận đã sửa xong" onclick="capNhatNhanhTrangThaiSuaChua(@item.Id, 4)">
+                                                        <i class="fas fa-check-circle"></i>
+                                                    </button>
+                                                }
+                                                <button class="btn btn-outline-dark" title="In biên nhận tiếp nhận máy" onclick="inPhieuTiepNhan(@item.Id)">
+                                                    <i class="fas fa-print"></i>
+                                                </button>
+                                                @if (Session["Role"] != null && Convert.ToInt32(Session["Role"]) == 1)
+                                                {
+                                                    <button class="btn btn-danger" title="Xóa" onclick="xoaPhieuSuaChua(@item.Id, '@item.MaPhieu')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="11" class="text-center py-4 text-muted">
+                                        <i class="fas fa-tools fa-2x mb-2 d-block"></i>
+                                        Chưa có phiếu tiếp nhận sửa chữa nào.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Repair Pagination -->
+                @if (repairTotalPages > 1)
+                {
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="text-muted">Trang @repairCurrentPage / @repairTotalPages</span>
+                        <ul class="pagination mb-0">
+                            <li class="page-item @(repairCurrentPage == 1 ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("BaoHanh", "Admin", new { repairPage = repairCurrentPage - 1, search = tuKhoa, repairStatus = repairStatus, tab = "suachua" })">Trước</a>
+                            </li>
+                            @for (int i = 1; i <= repairTotalPages; i++)
+                            {
+                                <li class="page-item @(repairCurrentPage == i ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("BaoHanh", "Admin", new { repairPage = i, search = tuKhoa, repairStatus = repairStatus, tab = "suachua" })">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(repairCurrentPage == repairTotalPages ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("BaoHanh", "Admin", new { repairPage = repairCurrentPage + 1, search = tuKhoa, repairStatus = repairStatus, tab = "suachua" })">Sau</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- Modal 1: Thêm/Sửa Phiếu Bảo Hành -->
+<div class="modal fade" id="modalBaoHanh" tabindex="-1" aria-labelledby="modalBaoHanhLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalBaoHanhLabel"><i class="fas fa-shield-alt me-2"></i>Thêm phiếu bảo hành mới</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formBaoHanh" onsubmit="submitFormBaoHanh(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="bh_Id" name="Id" value="0" />
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Sản phẩm <span class="text-danger">*</span></label>
+                            <select class="form-select" id="bh_SanPhamId" name="SanPhamId" required onchange="onSelectSanPham(this)">
+                                <option value="">-- Chọn sản phẩm --</option>
+                                @if (Model.DanhSachSanPhamDropdown != null)
+                                {
+                                    foreach (var sp in Model.DanhSachSanPhamDropdown)
+                                    {
+                                        <option value="@sp.Id" data-thoihan="@sp.ThoiGianBaoHanh" data-masp="@sp.MaSanPham">@sp.TenSanPham (@sp.MaSanPham)</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Mã Serial / IMEI</label>
+                            <input type="text" class="form-control" id="bh_MaSeri" name="MaSeri" placeholder="Ví dụ: IP15PM-240901-01 hoặc IMEI 15 số" />
+                            <small class="text-muted">Để trống hệ thống sẽ tự sinh theo mã sản phẩm</small>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tên khách hàng <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="bh_TenKhachHang" name="TenKhachHang" required placeholder="Họ và tên khách hàng" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Số điện thoại <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="bh_SoDienThoai" name="SoDienThoai" required placeholder="09xxxxxxx" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="bh_Email" name="Email" placeholder="example@gmail.com" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" id="bh_DiaChi" name="DiaChi" placeholder="Địa chỉ khách hàng" />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Ngày kích hoạt / Mua</label>
+                            <input type="date" class="form-control" id="bh_NgayKichHoat" name="NgayKichHoat" value="@DateTime.Now.ToString("yyyy-MM-dd")" onchange="calculateExpiryDate()" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Thời hạn bảo hành (Tháng)</label>
+                            <input type="number" class="form-control" id="bh_ThoiHanBaoHanh" name="ThoiHanBaoHanh" value="12" min="1" max="120" oninput="calculateExpiryDate()" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Ngày hết hạn dự kiến</label>
+                            <input type="text" class="form-control bg-light fw-bold text-success" id="bh_NgayHetHanPreview" readonly />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Ghi chú</label>
+                            <textarea class="form-control" id="bh_GhiChu" name="GhiChu" rows="2" placeholder="Ghi chú về tình trạng bán, chính sách bảo hành riêng..."></textarea>
+                        </div>
+
+                        <!-- Thuộc tính bổ sung động NoSQL MongoDB -->
+                        <div class="col-12 mt-3">
+                            <div class="card p-3 bg-light border-0 rounded-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-primary"><i class="fas fa-layer-group me-2"></i>Thông tin bổ sung (Đặc trưng mở rộng NoSQL MongoDB)</h6>
+                                        <small class="text-muted">Thêm các trường linh hoạt (Gói BH VIP, Phụ kiện kèm theo, TTBH ủy quyền, IMEI 2, Tình trạng ngoại quan...).</small>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-primary fw-bold" onclick="addBhCustomFieldRow()">
+                                        <i class="fas fa-plus me-1"></i> Thêm thông tin
+                                    </button>
+                                </div>
+                                <div id="bhCustomFieldsContainer">
+                                    <!-- Dynamic custom field rows -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveBaoHanh"><i class="fas fa-save me-1"></i> Lưu phiếu bảo hành</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2: Xem Chi Tiết Bảo Hành & Timeline Sửa Chữa -->
+<div class="modal fade" id="modalChiTietBaoHanh" tabindex="-1" aria-labelledby="modalChiTietBaoHanhLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="modalChiTietBaoHanhLabel"><i class="fas fa-info-circle me-2"></i>Chi tiết thẻ bảo hành điện tử</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4" id="chiTietBaoHanhContent">
+                <!-- Sẽ được fill bằng JavaScript -->
+                <div class="text-center py-4"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-outline-dark" id="btnPrintChiTiet"><i class="fas fa-print me-1"></i> In thẻ bảo hành</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 3: Lập Phiếu Tiếp Nhận Bảo Hành / Sửa Chữa -->
+<div class="modal fade" id="modalTiepNhan" tabindex="-1" aria-labelledby="modalTiepNhanLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="modalTiepNhanLabel"><i class="fas fa-wrench me-2"></i>Lập phiếu tiếp nhận máy bảo hành / Sửa chữa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formTiepNhan" onsubmit="submitFormTiepNhan(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="tn_BaoHanhId" name="BaoHanhId" value="0" />
+
+                    <!-- Tìm kiếm nhanh thẻ bảo hành -->
+                    <div class="card bg-light mb-3 p-3 border-0">
+                        <label class="form-label fw-bold"><i class="fas fa-search me-1"></i>Tra cứu thẻ bảo hành theo SĐT / IMEI / Mã BH:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="tn_SearchKeyword" placeholder="Nhập SĐT khách hoặc số IMEI / Mã BH..." oninput="onSearchBaoHanhAjax(this.value)" />
+                            <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                        <!-- Dropdown kết quả tìm kiếm -->
+                        <div id="searchBaoHanhResults" class="list-group mt-2" style="max-height: 180px; overflow-y: auto; display: none;"></div>
+
+                        <div id="selectedBaoHanhBox" class="mt-3 p-3 bg-white rounded border" style="display: none;">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-primary mb-1" id="box_TenSP">Tên sản phẩm</h6>
+                                    <div class="small">Mã BH: <strong id="box_MaBH"></strong> | IMEI: <code id="box_IMEI"></code></div>
+                                    <div class="small">Khách hàng: <strong id="box_KhachHang"></strong> - SĐT: <span id="box_SDT"></span></div>
+                                </div>
+                                <div class="text-end">
+                                    <div id="box_BadgeHanthuc"></div>
+                                    <small class="text-muted d-block mt-1">Hạn BH: <span id="box_HanBH"></span></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-danger">Triệu chứng lỗi (Khách báo) <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="tn_TrieuChungLoi" name="TrieuChungLoi" rows="2" required placeholder="Ví dụ: Màn hình bị sọc xanh, máy nóng sập nguồn, không nhận sạc..."></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tình trạng ngoại quan khi nhận máy</label>
+                            <input type="text" class="form-control" id="tn_TinhTrangTiepNhan" name="TinhTrangTiepNhan" placeholder="Ví dụ: Máy mới 99%, nắp lưng xước nhẹ, viền cấn góc..." />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Ngày hẹn trả dự kiến</label>
+                            <input type="date" class="form-control" id="tn_NgayHenTra" name="NgayHenTra" value="@DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Phân công kỹ thuật viên</label>
+                            <input type="text" class="form-control" id="tn_KyThuatVien" name="KyThuatVien" placeholder="Tên kỹ thuật viên phụ trách" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Chi phí phát sinh dự kiến (VNĐ)</label>
+                            <input type="number" class="form-control" id="tn_ChiPhiPhatSinh" name="ChiPhiPhatSinh" value="0" min="0" step="1000" />
+                            <small class="text-muted">Nhập 0 nếu lỗi thuộc diện bảo hành miễn phí</small>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Ghi chú tiếp nhận</label>
+                            <textarea class="form-control" id="tn_GhiChu" name="GhiChu" rows="2" placeholder="Ghi chú thêm về phụ kiện kèm theo (sạc, cáp, hộp, sim...)..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-warning text-dark"><i class="fas fa-check-circle me-1"></i> Tiếp nhận máy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 4: Cập Nhật Tiến Độ Kỹ Thuật / Sửa Chữa -->
+<div class="modal fade" id="modalCapNhatSuaChua" tabindex="-1" aria-labelledby="modalCapNhatSuaChuaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalCapNhatSuaChuaLabel"><i class="fas fa-edit me-2"></i>Cập nhật tiến độ xử lý sửa chữa</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formCapNhatSuaChua" onsubmit="submitFormCapNhatSuaChua(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="cn_Id" name="Id" value="0" />
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Trạng thái xử lý <span class="text-danger">*</span></label>
+                            <select class="form-select fw-bold" id="cn_TrangThai" name="TrangThai" required>
+                                <option value="1">1. Tiếp nhận (Chờ kiểm tra)</option>
+                                <option value="2">2. Đang kiểm tra / Sửa chữa</option>
+                                <option value="3">3. Chờ linh kiện / Chuyển hãng</option>
+                                <option value="4">4. Đã sửa xong (Chờ khách nhận)</option>
+                                <option value="5">5. Đã trả khách (Bàn giao thành công)</option>
+                                <option value="6">6. Đổi máy mới / Đổi linh kiện</option>
+                                <option value="7">7. Từ chối bảo hành (Do vào nước/rơi vỡ...)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Kỹ thuật viên thực hiện</label>
+                            <input type="text" class="form-control" id="cn_KyThuatVien" name="KyThuatVien" placeholder="Tên kỹ thuật viên" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Giải pháp kỹ thuật / Thao tác đã xử lý</label>
+                            <textarea class="form-control" id="cn_GiaiPhapXuLy" name="GiaiPhapXuLy" rows="2" placeholder="Ví dụ: Thay IC nguồn, ép lại kính cảm ứng, cài lại firmware gốc..."></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Linh kiện thay thế (nếu có)</label>
+                            <input type="text" class="form-control" id="cn_LinhKienThayThe" name="LinhKienThayThe" placeholder="Màn hình OLED, Pin dung lượng cao..." />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Chi phí phát sinh (VNĐ)</label>
+                            <input type="number" class="form-control" id="cn_ChiPhiPhatSinh" name="ChiPhiPhatSinh" value="0" min="0" step="1000" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Ngày hẹn trả</label>
+                            <input type="date" class="form-control" id="cn_NgayHenTra" name="NgayHenTra" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tình trạng ngoại quan</label>
+                            <input type="text" class="form-control" id="cn_TinhTrangTiepNhan" name="TinhTrangTiepNhan" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Ghi chú thêm</label>
+                            <textarea class="form-control" id="cn_GhiChu" name="GhiChu" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i> Cập nhật tiến độ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== JAVASCRIPT LOGIC ==================== -->
+@section Scripts {
+<script>
+    // Tính toán ngày hết hạn tự động khi nhập ngày kích hoạt + số tháng
+    function calculateExpiryDate() {
+        const startVal = document.getElementById('bh_NgayKichHoat').value;
+        const months = parseInt(document.getElementById('bh_ThoiHanBaoHanh').value) || 12;
+        if (!startVal) return;
+
+        const d = new Date(startVal);
+        d.setMonth(d.getMonth() + months);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        document.getElementById('bh_NgayHetHanPreview').value = `${dd}/${mm}/${yyyy}`;
+    }
+
+    // Khi chọn sản phẩm trong dropdown Thêm Bảo Hành -> tự gán thời hạn bảo hành mặc định
+    function onSelectSanPham(selectElem) {
+        const selectedOption = selectElem.options[selectElem.selectedIndex];
+        if (selectedOption && selectedOption.dataset.thoihan) {
+            document.getElementById('bh_ThoiHanBaoHanh').value = selectedOption.dataset.thoihan;
+            const masp = selectedOption.dataset.masp || "SP";
+            if (!document.getElementById('bh_MaSeri').value) {
+                const now = new Date();
+                const yy = String(now.getFullYear()).slice(-2);
+                const mm = String(now.getMonth() + 1).padStart(2, '0');
+                const dd = String(now.getDate()).padStart(2, '0');
+                const hh = String(now.getHours()).padStart(2, '0');
+                const min = String(now.getMinutes()).padStart(2, '0');
+                document.getElementById('bh_MaSeri').value = `${masp}-${yy}${mm}${dd}${hh}${min}`;
+            }
+            calculateExpiryDate();
+        }
+    }
+
+    // Hàm thêm dòng thông tin bổ sung tùy chỉnh linh hoạt NoSQL
+    function addBhCustomFieldRow(name, val) {
+        name = name || '';
+        val = val || '';
+        const container = document.getElementById('bhCustomFieldsContainer');
+        const div = document.createElement('div');
+        div.className = 'row g-2 mb-2 align-items-center bh-custom-field-row';
+        div.innerHTML = `
+            <div class="col-md-5">
+                <input type="text" name="CustomFieldName" class="form-control" placeholder="Tên thông tin (VD: Gói BH VIP, TTBH...)" value="${name}">
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="CustomFieldValue" class="form-control" placeholder="Nội dung giá trị..." value="${val}">
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.bh-custom-field-row').remove()" title="Xóa dòng này">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    // Mở modal Thêm mới Bảo hành
+    function openModalThemBaoHanh() {
+        document.getElementById('formBaoHanh').reset();
+        document.getElementById('bh_Id').value = "0";
+        document.getElementById('bhCustomFieldsContainer').innerHTML = '';
+        document.getElementById('modalBaoHanhLabel').innerHTML = '<i class="fas fa-shield-alt me-2"></i>Tạo phiếu bảo hành mới';
+        
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        document.getElementById('bh_NgayKichHoat').value = `${yyyy}-${mm}-${dd}`;
+        document.getElementById('bh_ThoiHanBaoHanh').value = "12";
+        calculateExpiryDate();
+
+        var modalEl = document.getElementById('modalBaoHanh');
+        (bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl)).show();
+    }
+
+    // Mở modal Sửa phiếu bảo hành
+    function suaBaoHanhModal(id) {
+        fetch('@Url.Action("ChiTietBaoHanh", "Admin")/' + id)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('bh_Id').value = data.Id;
+                    document.getElementById('bh_SanPhamId').value = data.SanPhamId;
+                    document.getElementById('bh_MaSeri').value = data.MaSeri || '';
+                    document.getElementById('bh_TenKhachHang').value = data.TenKhachHang || '';
+                    document.getElementById('bh_SoDienThoai').value = data.SoDienThoai || '';
+                    document.getElementById('bh_Email').value = data.Email || '';
+                    document.getElementById('bh_DiaChi').value = data.DiaChi || '';
+                    document.getElementById('bh_NgayKichHoat').value = data.NgayKichHoatVal;
+                    document.getElementById('bh_ThoiHanBaoHanh').value = data.ThoiHanBaoHanh;
+                    document.getElementById('bh_GhiChu').value = data.GhiChu || '';
+                    document.getElementById('modalBaoHanhLabel').innerHTML = '<i class="fas fa-edit me-2"></i>Chỉnh sửa phiếu bảo hành: ' + data.MaBaoHanh;
+                    
+                    // Đổ lại các thông tin bổ sung động NoSQL
+                    const customContainer = document.getElementById('bhCustomFieldsContainer');
+                    customContainer.innerHTML = '';
+                    if (data.ThongTinBoSung && data.ThongTinBoSung.length > 0) {
+                        data.ThongTinBoSung.forEach(item => {
+                            addBhCustomFieldRow(item.TenTruong, item.GiaTri);
+                        });
+                    }
+
+                    calculateExpiryDate();
+                    var modalEl = document.getElementById('modalBaoHanh');
+                    (bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl)).show();
+                } else {
+                    Swal.fire('Lỗi', data.message, 'error');
+                }
+            })
+            .catch(err => Swal.fire('Lỗi', err.message, 'error'));
+    }
+
+    // Submit form thêm/sửa Bảo Hành
+    function submitFormBaoHanh(e) {
+        e.preventDefault();
+        const id = parseInt(document.getElementById('bh_Id').value) || 0;
+        const url = id > 0 ? '@Url.Action("SuaBaoHanh", "Admin")' : '@Url.Action("ThemBaoHanh", "Admin")';
+
+        const thongTinBoSung = [];
+        document.querySelectorAll('.bh-custom-field-row').forEach(row => {
+            const nameInput = row.querySelector('input[name="CustomFieldName"]');
+            const valInput = row.querySelector('input[name="CustomFieldValue"]');
+            const name = nameInput ? nameInput.value.trim() : '';
+            const val = valInput ? valInput.value.trim() : '';
+            if (name && val) {
+                thongTinBoSung.push({ TenTruong: name, GiaTri: val });
+            }
+        });
+
+        const formData = {
+            Id: id,
+            SanPhamId: parseInt(document.getElementById('bh_SanPhamId').value),
+            MaSeri: document.getElementById('bh_MaSeri').value,
+            TenKhachHang: document.getElementById('bh_TenKhachHang').value,
+            SoDienThoai: document.getElementById('bh_SoDienThoai').value,
+            Email: document.getElementById('bh_Email').value,
+            DiaChi: document.getElementById('bh_DiaChi').value,
+            NgayKichHoat: document.getElementById('bh_NgayKichHoat').value,
+            ThoiHanBaoHanh: parseInt(document.getElementById('bh_ThoiHanBaoHanh').value),
+            GhiChu: document.getElementById('bh_GhiChu').value,
+            ThongTinBoSung: thongTinBoSung
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (res.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: res.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => location.reload());
+            } else {
+                Swal.fire('Lỗi', res.message, 'error');
+            }
+        })
+        .catch(err => Swal.fire('Lỗi', err.message, 'error'));
+    }
+
+    // Xóa phiếu bảo hành
+    function xoaBaoHanh(id, maBH) {
+        Swal.fire({
+            title: 'Xác nhận xóa?',
+            text: `Bạn có chắc chắn muốn xóa phiếu bảo hành ${maBH} không?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Đồng ý xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('@Url.Action("XoaBaoHanh", "Admin")', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        Swal.fire('Thành công', res.message, 'success').then(() => location.reload());
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    // Xem chi tiết bảo hành + timeline sửa chữa
+    function xemChiTietBaoHanh(id) {
+        var modalEl = document.getElementById('modalChiTietBaoHanh');
+        const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        modal.show();
+
+        const content = document.getElementById('chiTietBaoHanhContent');
+        content.innerHTML = '<div class="text-center py-4"><i class="fas fa-spinner fa-spin fa-2x"></i> Đang tải thông tin...</div>';
+
+        fetch('@Url.Action("ChiTietBaoHanh", "Admin")/' + id)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) {
+                    content.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+                    return;
+                }
+
+                document.getElementById('btnPrintChiTiet').onclick = () => inPhieuBaoHanh(data.Id);
+
+                let repairsHtml = '';
+                if (data.LichSuSuaChua && data.LichSuSuaChua.length > 0) {
+                    data.LichSuSuaChua.forEach(s => {
+                        repairsHtml += `
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="card border p-3 shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-bold text-primary">${s.MaPhieu}</span>
+                                        <span class="badge ${s.TrangThaiBadgeClass}">${s.TrangThaiText}</span>
+                                    </div>
+                                    <div class="small mb-1"><strong>Lỗi:</strong> <span class="text-danger">${s.TrieuChungLoi}</span></div>
+                                    ${s.TinhTrangTiepNhan ? `<div class="small mb-1 text-muted"><strong>Ngoại quan:</strong> ${s.TinhTrangTiepNhan}</div>` : ''}
+                                    ${s.GiaiPhapXuLy ? `<div class="small mb-1 text-success"><strong>Xử lý:</strong> ${s.GiaiPhapXuLy}</div>` : ''}
+                                    ${s.LinhKienThayThe ? `<div class="small mb-1"><strong>Linh kiện thay:</strong> ${s.LinhKienThayThe}</div>` : ''}
+                                    <div class="d-flex justify-content-between small text-muted mt-2 pt-2 border-top">
+                                        <span><i class="fas fa-calendar-alt"></i> Tiếp nhận: ${s.NgayTiepNhan}</span>
+                                        <span><i class="fas fa-user-cog"></i> KT: ${s.KyThuatVien || 'Chưa giao'}</span>
+                                        <span><i class="fas fa-dollar-sign"></i> Phí: ${s.ChiPhiPhatSinh > 0 ? s.ChiPhiPhatSinh.toLocaleString() + ' đ' : 'Miễn phí'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    repairsHtml = '<div class="text-muted py-2"><i class="fas fa-check-circle text-success me-1"></i> Thiết bị chưa từng bảo hành / sửa chữa lần nào.</div>';
+                }
+
+                let customFieldsHtml = '';
+                if (data.ThongTinBoSung && data.ThongTinBoSung.length > 0) {
+                    customFieldsHtml = '<div class="col-12 mt-2 pt-2 border-top"><div class="fw-bold text-primary mb-1"><i class="fas fa-layer-group me-1"></i> Thông tin bổ sung (Đặc trưng mở rộng NoSQL MongoDB):</div><div class="row g-2">';
+                    data.ThongTinBoSung.forEach(tt => {
+                        customFieldsHtml += `<div class="col-6"><strong>${tt.TenTruong}:</strong> ${tt.GiaTri}</div>`;
+                    });
+                    customFieldsHtml += '</div></div>';
+                }
+
+                content.innerHTML = `
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-3 text-center">
+                            <img src="/Content/Images/${data.HinhAnh}" alt="" class="img-fluid rounded border p-1" style="max-height: 140px; object-fit: contain;" onerror="this.src='/Content/images/logo.png';" />
+                            <div class="mt-2"><span class="badge ${data.TrangThaiBadgeClass} badge-status">${data.TrangThaiText}</span></div>
+                        </div>
+                        <div class="col-md-9">
+                            <h5 class="text-primary fw-bold mb-1">${data.TenSanPham}</h5>
+                            <div class="text-muted small mb-2">Mã sản phẩm: <strong>${data.MaSanPham}</strong></div>
+                            
+                            <div class="row g-2 small">
+                                <div class="col-6"><strong>Mã bảo hành:</strong> <span class="badge bg-light text-dark border">${data.MaBaoHanh}</span></div>
+                                <div class="col-6"><strong>Số IMEI / Serial:</strong> <code>${data.MaSeri || 'N/A'}</code></div>
+                                <div class="col-6"><strong>Khách hàng:</strong> ${data.TenKhachHang}</div>
+                                <div class="col-6"><strong>Số điện thoại:</strong> ${data.SoDienThoai}</div>
+                                <div class="col-6"><strong>Email:</strong> ${data.Email || 'N/A'}</div>
+                                <div class="col-6"><strong>Địa chỉ:</strong> ${data.DiaChi || 'N/A'}</div>
+                                <div class="col-6"><strong>Ngày kích hoạt:</strong> ${data.NgayKichHoat}</div>
+                                <div class="col-6"><strong>Hạn bảo hành:</strong> <strong class="text-danger">${data.NgayHetHan}</strong> (${data.ThoiHanBaoHanh} tháng)</div>
+                                <div class="col-6"><strong>Đơn hàng:</strong> ${data.MaDonHang}</div>
+                                <div class="col-6"><strong>Ghi chú:</strong> ${data.GhiChu || 'Không có'}</div>
+                                ${customFieldsHtml}
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <h6 class="fw-bold mb-3"><i class="fas fa-history text-primary me-2"></i>Lịch sử các lần tiếp nhận & Sửa chữa</h6>
+                    <div>${repairsHtml}</div>
+                `;
+            });
+    }
+
+    // Mở modal Tiếp nhận nhanh
+    function openModalTiepNhanNhanh() {
+        document.getElementById('formTiepNhan').reset();
+        document.getElementById('tn_BaoHanhId').value = "0";
+        document.getElementById('selectedBaoHanhBox').style.display = "none";
+        document.getElementById('searchBaoHanhResults').style.display = "none";
+        var modalEl = document.getElementById('modalTiepNhan');
+        (bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl)).show();
+    }
+
+    // Tiếp nhận trực tiếp từ 1 dòng phiếu bảo hành
+    function tiepNhanTuBaoHanh(bhId, maBH, tenKH, sdt, tenSP) {
+        document.getElementById('formTiepNhan').reset();
+        document.getElementById('tn_BaoHanhId').value = bhId;
+        document.getElementById('box_TenSP').innerText = tenSP;
+        document.getElementById('box_MaBH').innerText = maBH;
+        document.getElementById('box_KhachHang').innerText = tenKH;
+        document.getElementById('box_SDT').innerText = sdt;
+        document.getElementById('selectedBaoHanhBox').style.display = "block";
+        document.getElementById('searchBaoHanhResults').style.display = "none";
+        var modalEl = document.getElementById('modalTiepNhan');
+        (bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl)).show();
+    }
+
+    // Tìm kiếm Ajax phiếu bảo hành khi nhập ở modal Tiếp nhận
+    let searchTimeout = null;
+    function onSearchBaoHanhAjax(val) {
+        clearTimeout(searchTimeout);
+        const resultsBox = document.getElementById('searchBaoHanhResults');
+        if (!val || val.trim().length < 2) {
+            resultsBox.style.display = 'none';
+            return;
+        }
+
+        searchTimeout = setTimeout(() => {
+            fetch('@Url.Action("TraCuuBaoHanhAjax", "Admin")?keyword=' + encodeURIComponent(val))
+                .then(res => res.json())
+                .then(items => {
+                    if (items && items.length > 0) {
+                        let html = '';
+                        items.forEach(it => {
+                            const maBH = (it.MaBaoHanh || '').replace(/'/g, "\\'");
+                            const tenKH = (it.TenKhachHang || '').replace(/'/g, "\\'");
+                            const sdt = (it.SoDienThoai || '').replace(/'/g, "\\'");
+                            const tenSP = (it.TenSanPham || '').replace(/'/g, "\\'");
+                            const maSeri = (it.MaSeri || '').replace(/'/g, "\\'");
+                            
+                            html += `
+                                <a href="javascript:void(0)" class="list-group-item list-group-item-action" onclick="selectBaoHanhForTiepNhan(${it.Id}, '${maBH}', '${tenKH}', '${sdt}', '${tenSP}', '${maSeri}', '${it.NgayHetHan}', ${it.IsConHan})">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>${it.TenSanPham}</strong>
+                                        <span class="badge ${it.IsConHan ? 'bg-success' : 'bg-secondary'}">${it.IsConHan ? 'Còn hạn' : 'Hết hạn'}</span>
+                                    </div>
+                                    <small class="text-muted">Mã: ${it.MaBaoHanh} | IMEI: ${it.MaSeri || 'N/A'} | KH: ${it.TenKhachHang} - ${it.SoDienThoai}</small>
+                                </a>
+                            `;
+                        });
+                        resultsBox.innerHTML = html;
+                        resultsBox.style.display = 'block';
+                    } else {
+                        resultsBox.innerHTML = '<div class="p-2 text-muted small">Không tìm thấy thẻ bảo hành phù hợp</div>';
+                        resultsBox.style.display = 'block';
+                    }
+                });
+        }, 300);
+    }
+
+    function selectBaoHanhForTiepNhan(id, maBH, tenKH, sdt, tenSP, imei, hanBH, isConHan) {
+        document.getElementById('tn_BaoHanhId').value = id;
+        document.getElementById('box_TenSP').innerText = tenSP;
+        document.getElementById('box_MaBH').innerText = maBH;
+        document.getElementById('box_IMEI').innerText = imei || 'N/A';
+        document.getElementById('box_KhachHang').innerText = tenKH;
+        document.getElementById('box_SDT').innerText = sdt;
+        document.getElementById('box_HanBH').innerText = hanBH;
+        document.getElementById('box_BadgeHanthuc').innerHTML = `<span class="badge ${isConHan ? 'bg-success' : 'bg-danger'}">${isConHan ? 'Còn hạn bảo hành' : 'Hết hạn bảo hành'}</span>`;
+        document.getElementById('selectedBaoHanhBox').style.display = 'block';
+        document.getElementById('searchBaoHanhResults').style.display = 'none';
+    }
+
+    // Submit Tiếp nhận máy
+    function submitFormTiepNhan(e) {
+        e.preventDefault();
+        const bhId = parseInt(document.getElementById('tn_BaoHanhId').value) || 0;
+        if (bhId <= 0) {
+            Swal.fire('Chú ý', 'Vui lòng tra cứu và chọn một thẻ bảo hành trước khi tiếp nhận.', 'warning');
+            return;
+        }
+
+        const data = {
+            BaoHanhId: bhId,
+            TrieuChungLoi: document.getElementById('tn_TrieuChungLoi').value,
+            TinhTrangTiepNhan: document.getElementById('tn_TinhTrangTiepNhan').value,
+            NgayHenTra: document.getElementById('tn_NgayHenTra').value,
+            KyThuatVien: document.getElementById('tn_KyThuatVien').value,
+            ChiPhiPhatSinh: parseFloat(document.getElementById('tn_ChiPhiPhatSinh').value) || 0,
+            GhiChu: document.getElementById('tn_GhiChu').value
+        };
+
+        fetch('@Url.Action("TaoPhieuSuaChua", "Admin")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (res.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đã lập phiếu tiếp nhận',
+                    text: res.message,
+                    showCancelButton: true,
+                    confirmButtonText: '<i class="fas fa-print"></i> In phiếu biên nhận',
+                    cancelButtonText: 'Đóng'
+                }).then((r) => {
+                    if (r.isConfirmed) {
+                        inPhieuTiepNhan(res.id);
+                    }
+                    window.location.href = '@Url.Action("BaoHanh", "Admin", new { tab = "suachua" })';
+                });
+            } else {
+                Swal.fire('Lỗi', res.message, 'error');
+            }
+        });
+    }
+
+    // Mở modal Cập nhật tiến độ sửa chữa
+    function capNhatSuaChuaModal(id, trangThai, trieuChung, tinhTrang, ngayHen, chiPhi, giaiPhap, linhKien, kyThuat, ghiChu) {
+        document.getElementById('cn_Id').value = id;
+        document.getElementById('cn_TrangThai').value = trangThai;
+        document.getElementById('cn_KyThuatVien').value = kyThuat;
+        document.getElementById('cn_GiaiPhapXuLy').value = giaiPhap;
+        document.getElementById('cn_LinhKienThayThe').value = linhKien;
+        document.getElementById('cn_ChiPhiPhatSinh').value = chiPhi;
+        document.getElementById('cn_NgayHenTra').value = ngayHen;
+        document.getElementById('cn_TinhTrangTiepNhan').value = tinhTrang;
+        document.getElementById('cn_GhiChu').value = ghiChu;
+
+        var modalEl = document.getElementById('modalCapNhatSuaChua');
+        (bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl)).show();
+    }
+
+    // Submit Cập nhật tiến độ sửa chữa
+    function submitFormCapNhatSuaChua(e) {
+        e.preventDefault();
+        const data = {
+            Id: parseInt(document.getElementById('cn_Id').value),
+            TrangThai: parseInt(document.getElementById('cn_TrangThai').value),
+            KyThuatVien: document.getElementById('cn_KyThuatVien').value,
+            GiaiPhapXuLy: document.getElementById('cn_GiaiPhapXuLy').value,
+            LinhKienThayThe: document.getElementById('cn_LinhKienThayThe').value,
+            ChiPhiPhatSinh: parseFloat(document.getElementById('cn_ChiPhiPhatSinh').value) || 0,
+            NgayHenTra: document.getElementById('cn_NgayHenTra').value || null,
+            TinhTrangTiepNhan: document.getElementById('cn_TinhTrangTiepNhan').value,
+            GhiChu: document.getElementById('cn_GhiChu').value
+        };
+
+        fetch('@Url.Action("CapNhatPhieuSuaChua", "Admin")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (res.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: res.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => location.reload());
+            } else {
+                Swal.fire('Lỗi', res.message, 'error');
+            }
+        });
+    }
+
+    // Cập nhật nhanh trạng thái sửa chữa
+    function capNhatNhanhTrangThaiSuaChua(id, trangThai) {
+        let textTrangThai = trangThai === 4 ? "ĐÃ SỬA XONG" : "ĐÃ GIAO KHÁCH";
+        Swal.fire({
+            title: 'Xác nhận trạng thái?',
+            text: `Bạn muốn cập nhật trạng thái phiếu này thành: ${textTrangThai}?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('@Url.Action("CapNhatNhanhTrangThaiSuaChua", "Admin")', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, trangThai: trangThai })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: res.message,
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => location.reload());
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    // Xóa phiếu sửa chữa
+    function xoaPhieuSuaChua(id, maPhieu) {
+        Swal.fire({
+            title: 'Xác nhận xóa?',
+            text: `Bạn có chắc muốn xóa phiếu sửa chữa ${maPhieu} không?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý xóa',
+            cancelButtonText: 'Hủy'
+        }).then((r) => {
+            if (r.isConfirmed) {
+                fetch('@Url.Action("XoaPhieuSuaChua", "Admin")', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        Swal.fire('Thành công', res.message, 'success').then(() => location.reload());
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    // In Thẻ Bảo Hành
+    function inPhieuBaoHanh(id) {
+        fetch('@Url.Action("LayThongTinInBaoHanh", "Admin")/' + id)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) return;
+                const win = window.open('', '_blank');
+                win.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Thẻ Bảo Hành - ${data.MaBaoHanh}</title>
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                        <style>
+                            body { padding: 30px; font-family: Arial, sans-serif; }
+                            .warranty-card { border: 2px solid #0d6efd; border-radius: 12px; padding: 25px; max-width: 650px; margin: 0 auto; }
+                            .header { text-align: center; border-bottom: 2px dashed #ccc; padding-bottom: 15px; margin-bottom: 15px; }
+                            @@media print { .no-print { display: none; } }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="warranty-card">
+                            <div class="header">
+                                <h4 class="text-primary text-uppercase fw-bold mb-1">@DoAnNoSQL.Helpers.SettingsHelper.GetValue("TenCuaHang", "CỬA HÀNG THIẾT BỊ ĐIỆN TỬ - TTT")</h4>
+                                <p class="small text-muted mb-1">@DoAnNoSQL.Helpers.SettingsHelper.GetValue("DiaChiCuaHang", "140 Lê Trọng Tấn, P. Tây Thạnh, Q. Tân Phú, TP. HCM") | Hotline: @DoAnNoSQL.Helpers.SettingsHelper.GetValue("Hotline", "028 3816 3318")</p>
+                                <h3 class="fw-bold mt-2 text-dark">PHIẾU BẢO HÀNH ĐIỆN TỬ</h3>
+                                <div class="badge bg-primary fs-6">${data.MaBaoHanh}</div>
+                            </div>
+                            <table class="table table-borderless">
+                                <tr><td width="35%"><strong>Tên khách hàng:</strong></td><td>${data.TenKhachHang}</td></tr>
+                                <tr><td><strong>Số điện thoại:</strong></td><td>${data.SoDienThoai}</td></tr>
+                                <tr><td><strong>Tên sản phẩm:</strong></td><td><strong>${data.TenSanPham}</strong> (${data.MaSanPham})</td></tr>
+                                <tr><td><strong>Mã IMEI / Serial:</strong></td><td><code>${data.MaSeri || 'N/A'}</code></td></tr>
+                                <tr><td><strong>Ngày kích hoạt:</strong></td><td>${data.NgayKichHoat}</td></tr>
+                                <tr><td><strong>Thời hạn bảo hành:</strong></td><td><strong>${data.ThoiHanBaoHanh} tháng</strong></td></tr>
+                                <tr><td><strong>Ngày hết hạn:</strong></td><td><strong class="text-danger">${data.NgayHetHan}</strong></td></tr>
+                                ${data.GhiChu ? `<tr><td><strong>Ghi chú:</strong></td><td>${data.GhiChu}</td></tr>` : ''}
+                                ${(() => {
+                                    if (data.ThongTinBoSung && data.ThongTinBoSung.length > 0) {
+                                        return data.ThongTinBoSung.map(tt => `<tr><td><strong>${tt.TenTruong}:</strong></td><td>${tt.GiaTri}</td></tr>`).join('');
+                                    }
+                                    return '';
+                                })()}
+                            </table>
+                            <div class="mt-4 pt-3 border-top d-flex justify-content-between text-center">
+                                <div><small>Khách hàng ký</small><div style="height: 60px;"></div><strong>${data.TenKhachHang}</strong></div>
+                                <div><small>Đại diện cửa hàng</small><div style="height: 60px;"></div><strong>TTT Electronics</strong></div>
+                            </div>
+                            <div class="text-center mt-3 text-muted small">Quý khách vui lòng giữ phiếu hoặc cung cấp SĐT / IMEI khi đến bảo hành.</div>
+                        </div>
+                    </body>
+                    </html>
+                `);
+                win.document.close();
+                win.focus();
+                setTimeout(() => { win.print(); win.close(); }, 300);
+            });
+    }
+
+    // In Phiếu Tiếp Nhận Máy Sửa Chữa
+    function inPhieuTiepNhan(id) {
+        fetch('@Url.Action("LayThongTinInPhieuSua", "Admin")/' + id)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) return;
+                const win = window.open('', '_blank');
+                win.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Phiếu Tiếp Nhận - ${data.MaPhieu}</title>
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                        <style>
+                            body { padding: 30px; font-family: Arial, sans-serif; }
+                            .ticket-card { border: 2px solid #212529; border-radius: 8px; padding: 25px; max-width: 700px; margin: 0 auto; }
+                            .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 15px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="ticket-card">
+                            <div class="header">
+                                <h4 class="text-uppercase fw-bold mb-1">@DoAnNoSQL.Helpers.SettingsHelper.GetValue("TenCuaHang", "CỬA HÀNG THIẾT BỊ ĐIỆN TỬ - TTT")</h4>
+                                <p class="small text-muted mb-1">@DoAnNoSQL.Helpers.SettingsHelper.GetValue("DiaChiCuaHang", "140 Lê Trọng Tấn, P. Tây Thạnh, Q. Tân Phú, TP. HCM") | Hotline: @DoAnNoSQL.Helpers.SettingsHelper.GetValue("Hotline", "028 3816 3318")</p>
+                                <h3 class="fw-bold mt-2">PHIẾU TIẾP NHẬN BẢO HÀNH & SỬA CHỮA</h3>
+                                <span class="badge bg-dark fs-6">${data.MaPhieu}</span>
+                            </div>
+                            <table class="table table-bordered">
+                                <tr><th width="30%">Khách hàng:</th><td><strong>${data.TenKhachHang}</strong> - ${data.SoDienThoai}</td></tr>
+                                <tr><th>Sản phẩm:</th><td>${data.TenSanPham} (IMEI: ${data.MaSeri || 'N/A'})</td></tr>
+                                <tr><th>Mã bảo hành:</th><td>${data.MaBaoHanh}</td></tr>
+                                <tr><th>Triệu chứng lỗi:</th><td><strong class="text-danger">${data.TrieuChungLoi}</strong></td></tr>
+                                <tr><th>Tình trạng ngoại quan:</th><td>${data.TinhTrangTiepNhan || 'Bình thường'}</td></tr>
+                                <tr><th>Ngày tiếp nhận:</th><td>${data.NgayTiepNhan}</td></tr>
+                                <tr><th>Hẹn trả dự kiến:</th><td><strong>${data.NgayHenTra}</strong></td></tr>
+                                <tr><th>Chi phí dự kiến:</th><td>${data.ChiPhiPhatSinh > 0 ? data.ChiPhiPhatSinh.toLocaleString() + ' VNĐ' : 'Bảo hành miễn phí'}</td></tr>
+                                <tr><th>Người tiếp nhận:</th><td>${data.NguoiTiepNhan || 'Nhân viên'}</td></tr>
+                            </table>
+                            <div class="mt-4 pt-3 d-flex justify-content-between text-center">
+                                <div><small>Khách hàng bàn giao máy</small><div style="height: 60px;"></div><strong>${data.TenKhachHang}</strong></div>
+                                <div><small>Nhân viên tiếp nhận</small><div style="height: 60px;"></div><strong>${data.NguoiTiepNhan || 'TTT Staff'}</strong></div>
+                            </div>
+                            <div class="text-center mt-3 text-muted small">Vui lòng mang theo phiếu này khi đến nhận máy. Xin cảm ơn!</div>
+                        </div>
+                    </body>
+                    </html>
+                `);
+                win.document.close();
+                win.focus();
+                setTimeout(() => { win.print(); win.close(); }, 300);
+            });
+    }
+</script>
+}
+
+
+

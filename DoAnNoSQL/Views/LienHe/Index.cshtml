@@ -1,0 +1,915 @@
+@{
+    ViewBag.Title = "Liên Hệ & Hỗ Trợ Khách Hàng";
+    string hotline = ViewBag.HotlineText as string ?? "1800.1060";
+    string email = ViewBag.EmailText as string ?? "support@laptopstore.vn";
+    string address = ViewBag.AddressText as string ?? "140 Lê Trọng Tấn, Phường Tây Thạnh, Quận Tân Phú, TP.HCM";
+    string workingHours = ViewBag.WorkingHours as string ?? "Thứ 2 - Thứ 7: 8:00 - 21:00 | Chủ nhật: 9:00 - 18:00";
+}
+
+<div class="max-w-7xl mx-auto pb-12">
+    <!-- Breadcrumb tiêu chuẩn đồng bộ -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                    <i class="fas fa-home mr-2"></i>
+                    Trang chủ
+                </a>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                    <span class="text-sm font-medium text-gray-500">Liên hệ</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Success / Error Alert Messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between shadow-xs animate-fade-in" role="alert">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+                    <i class="fas fa-check-circle text-lg"></i>
+                </div>
+                <div>
+                    <strong class="font-bold text-sm block">Gửi liên hệ thành công!</strong>
+                    <span class="text-xs text-emerald-700">@TempData["SuccessMessage"]</span>
+                </div>
+            </div>
+            <button type="button" class="text-emerald-500 hover:text-emerald-700 p-1.5 rounded-lg hover:bg-emerald-100 transition" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 flex items-center justify-between shadow-xs animate-fade-in" role="alert">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 shrink-0">
+                    <i class="fas fa-exclamation-circle text-lg"></i>
+                </div>
+                <div>
+                    <strong class="font-bold text-sm block">Có lỗi xảy ra!</strong>
+                    <span class="text-xs text-rose-700">@TempData["ErrorMessage"]</span>
+                </div>
+            </div>
+            <button type="button" class="text-rose-500 hover:text-rose-700 p-1.5 rounded-lg hover:bg-rose-100 transition" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    }
+
+    <!-- 3D Hero Header Liên Hệ -->
+    <div class="page-header-3d border-beam-3d mb-8" data-aos="fade-down">
+        <div class="relative z-10 max-w-3xl">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-400/20 text-teal-200 border border-teal-400/30 mb-3 backdrop-blur-md">
+                <i class="fas fa-headset text-amber-300"></i>
+                Trung tâm hỗ trợ khách hàng 24/7
+            </span>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black font-heading text-white leading-tight mb-2">
+                LIÊN HỆ VỚI CHÚNG TÔI
+            </h1>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                Chúng tôi luôn sẵn sàng lắng nghe mọi ý kiến đóng góp, giải đáp thắc mắc và tư vấn giải pháp công nghệ phù hợp nhất cho bạn.
+            </p>
+        </div>
+    </div>
+
+    <!-- Layout Grid 12 Cột: Thông tin liên hệ (5 cột) + Form liên hệ (7 cột) cân đối chiều cao -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Cột trái (5 cột): Các kênh liên hệ trực tiếp 3D -->
+        <div class="lg:col-span-5 flex flex-col justify-between gap-5">
+            
+            <!-- Hotline Card -->
+            <div class="card-glass-3d p-6 group hover:-translate-y-1 transition-all" data-aos="fade-up">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-teal-500/15 border border-teal-400/30 flex items-center justify-center text-teal-600 shrink-0 group-hover:scale-110 transition-transform shadow-md">
+                        <i class="fas fa-phone-alt text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-black text-slate-900 font-heading uppercase tracking-wider">Tổng đài hỗ trợ</h3>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-50 text-teal-700 border border-teal-200">Miễn cước gọi</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-0.5">Tư vấn bán hàng &amp; khiếu nại</p>
+                        <a href="tel:@hotline.Replace(".", "").Replace(" ", "")" class="inline-block text-xl font-black font-heading text-teal-600 hover:text-teal-700 transition mt-2">
+                            @hotline
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Card -->
+            <div class="card-glass-3d p-6 group hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-400/30 flex items-center justify-center text-sky-600 shrink-0 group-hover:scale-110 transition-transform shadow-md">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-black text-slate-900 font-heading uppercase tracking-wider">Hòm thư điện tử</h3>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200">24/7</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-0.5">Phản hồi trong 24 giờ</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <a href="mailto:@email" class="text-sm font-bold text-sky-600 hover:text-sky-700 transition truncate">
+                                @email
+                            </a>
+                            <button type="button" onclick="copyText('@email')" class="text-slate-400 hover:text-sky-600 text-xs p-1" title="Sao chép email">
+                                <i class="far fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Showroom Address Card -->
+            <div class="card-glass-3d p-6 group hover:-translate-y-1 transition-all" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-400/30 flex items-center justify-center text-rose-600 shrink-0 group-hover:scale-110 transition-transform shadow-md">
+                        <i class="fas fa-map-marker-alt text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-black text-slate-900 font-heading uppercase tracking-wider">Showroom chính</h3>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Đang mở cửa
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed font-medium mt-2">
+                            @address
+                        </p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-center gap-2">
+                            <i class="far fa-clock text-teal-500"></i>
+                            <span>@workingHours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Connections -->
+            <div class="card-glass-3d p-6" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-sm font-black text-slate-900 font-heading mb-3 flex items-center gap-2 uppercase tracking-wider">
+                    <i class="fas fa-share-nodes text-teal-600"></i>
+                    Mạng xã hội &amp; Cộng đồng
+                </h3>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <a href="https://www.facebook.com/share/1DaaiE7daC/" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-2xl bg-[#1877F2]/10 hover:bg-[#1877F2] text-[#1877F2] hover:text-white font-bold text-xs transition-all shadow-xs">
+                        <i class="fab fa-facebook-f text-sm"></i> Facebook
+                    </a>
+                    <a href="https://youtube.com/&#64;dhcongthuong?si=5OOWI8E4RG9mT-bR" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-2xl bg-[#FF0000]/10 hover:bg-[#FF0000] text-[#FF0000] hover:text-white font-bold text-xs transition-all shadow-xs">
+                        <i class="fab fa-youtube text-sm"></i> YouTube
+                    </a>
+                    <a href="https://www.instagram.com/dh_congthuong?igsi=emRzMG94Y2xlb3Ux" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-2xl bg-[#E4405F]/10 hover:bg-[#E4405F] text-[#E4405F] hover:text-white font-bold text-xs transition-all shadow-xs">
+                        <i class="fab fa-instagram text-sm"></i> Instagram
+                    </a>
+                    <a href="https://www.tiktok.com/&#64;huit_media?_r=1&_t=ZS-99GC2bHlp7Q" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-2xl bg-slate-100 hover:bg-slate-900 text-slate-900 hover:text-white font-bold text-xs transition-all shadow-xs">
+                        <i class="fab fa-tiktok text-sm"></i> TikTok
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Cột phải (7 cột): Form gửi tin nhắn 3D -->
+        <div class="lg:col-span-7 flex flex-col">
+            
+            <!-- Contact Form Card 3D -->
+            <div class="card-glass-3d border-beam-3d p-6 sm:p-8 h-full flex flex-col justify-between" data-aos="fade-left">
+                <div>
+                    <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+                        <div>
+                            <h2 class="text-lg sm:text-xl font-black font-heading text-slate-900 flex items-center gap-2.5">
+                                <i class="fas fa-paper-plane text-teal-600"></i>
+                                Gửi tin nhắn trực tuyến
+                            </h2>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Để lại yêu cầu hỗ trợ, bộ phận CSKH sẽ phản hồi bạn qua điện thoại hoặc email.
+                            </p>
+                        </div>
+                        @if (ViewBag.UserHoTen != null)
+                        {
+                            <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-teal-50 text-teal-700 border border-teal-200">
+                                <i class="fas fa-user-check text-teal-600"></i> Đã đăng nhập
+                            </span>
+                        }
+                    </div>
+
+                    <form id="contactForm" action="@Url.Action("GuiLienHe", "LienHe")" method="post" class="space-y-4">
+                        @Html.AntiForgeryToken()
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Họ tên -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                    Họ và tên <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
+                                        <i class="far fa-user"></i>
+                                    </span>
+                                    <input type="text"
+                                           name="hoTen"
+                                           required
+                                           value="@ViewBag.UserHoTen"
+                                           style="padding-left: 2.5rem !important;"
+                                           class="w-full input-3d text-xs font-semibold @(ViewBag.UserHoTen != null ? "bg-slate-100 text-slate-600 cursor-not-allowed" : "")"
+                                           placeholder="Nhập họ và tên..."
+                                           @(ViewBag.UserHoTen != null ? "readonly" : "") />
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                    Email tiếp nhận phản hồi <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
+                                        <i class="far fa-envelope"></i>
+                                    </span>
+                                    <input type="email"
+                                           name="email"
+                                           required
+                                           value="@ViewBag.UserEmail"
+                                           style="padding-left: 2.5rem !important;"
+                                           class="w-full input-3d text-xs font-semibold @(ViewBag.UserEmail != null ? "bg-slate-100 text-slate-600 cursor-not-allowed" : "")"
+                                           placeholder="email@example.com"
+                                           @(ViewBag.UserEmail != null ? "readonly" : "") />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Số điện thoại -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                    Số điện thoại
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </span>
+                                    <input type="tel"
+                                           name="soDienThoai"
+                                           value="@ViewBag.UserSoDienThoai"
+                                           style="padding-left: 2.5rem !important;"
+                                           class="w-full input-3d text-xs font-semibold @(ViewBag.UserSoDienThoai != null ? "bg-slate-100 text-slate-600 cursor-not-allowed" : "")"
+                                           placeholder="0912 345 678"
+                                           @(ViewBag.UserSoDienThoai != null ? "readonly" : "") />
+                                </div>
+                            </div>
+
+                            <!-- Chủ đề liên hệ -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                    Chủ đề cần hỗ trợ
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
+                                        <i class="fas fa-tag"></i>
+                                    </span>
+                                    <select name="chuDe"
+                                            style="padding-left: 2.5rem !important;"
+                                            class="w-full input-3d text-xs font-semibold cursor-pointer">
+                                        <option value="">-- Chọn chủ đề hỗ trợ --</option>
+                                        <option value="Tư vấn mua sản phẩm">Tư vấn mua sản phẩm</option>
+                                        <option value="Hỗ trợ kỹ thuật &amp; cài đặt">Hỗ trợ kỹ thuật &amp; cài đặt</option>
+                                        <option value="Bảo hành &amp; đổi trả">Bảo hành &amp; đổi trả</option>
+                                        <option value="Theo dõi đơn hàng">Theo dõi đơn hàng</option>
+                                        <option value="Góp ý &amp; khiếu nại">Góp ý &amp; khiếu nại</option>
+                                        <option value="Hợp tác doanh nghiệp">Hợp tác doanh nghiệp</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung (Tự động kéo giãn để lấp đầy khung bằng bên trái) -->
+                        <div class="flex-1 flex flex-col">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                Nội dung chi tiết <span class="text-rose-500">*</span>
+                            </label>
+                            <textarea name="noiDung"
+                                      rows="5"
+                                      required
+                                      class="w-full input-3d text-xs font-semibold resize-none leading-relaxed flex-1 min-h-[140px]"
+                                      placeholder="Mô tả cụ thể yêu cầu hoặc vấn đề của bạn để được hỗ trợ tốt nhất..."></textarea>
+                        </div>
+
+                        <!-- Submit Button Toolbar -->
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3">
+                            <div class="text-xs text-slate-400 flex items-center gap-1">
+                                <i class="fas fa-shield-alt text-teal-600"></i> Thông tin được mã hóa an toàn.
+                            </div>
+                            <button type="submit"
+                                    class="btn-3d btn-3d-primary w-full sm:w-auto px-7 py-3 text-xs font-black uppercase rounded-xl flex items-center justify-center gap-2">
+                                <i class="fas fa-paper-plane"></i>
+                                Gửi tin nhắn ngay
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bản đồ Không Gian 3D (WebGL MapLibre GL) -->
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+    <style>
+        #map3d-container {
+            width: 100%;
+            height: 100%;
+            min-height: 440px;
+            position: relative;
+            outline: none;
+        }
+        .showroom-marker-3d {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .marker-radar-ring {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 2px solid #0d9488;
+            background: rgba(13, 148, 136, 0.2);
+            animation: radarPulse 2.4s infinite ease-out;
+            pointer-events: none;
+        }
+        .marker-radar-ring.ring-delayed {
+            animation-delay: 1.2s;
+        }
+        @@keyframes radarPulse {
+            0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.9); opacity: 0; }
+        }
+        .marker-core {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d9488, #0f766e);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            box-shadow: 0 0 25px rgba(13, 148, 136, 0.8), 0 8px 16px rgba(15, 23, 42, 0.35);
+            border: 3px solid #ffffff;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2;
+        }
+        .showroom-marker-3d:hover .marker-core {
+            transform: scale(1.15) translateY(-4px);
+        }
+        .marker-badge {
+            margin-top: 6px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.25);
+            letter-spacing: 0.3px;
+            pointer-events: none;
+        }
+        .map-hud-btn {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+            transition: all 0.2s ease;
+        }
+        .map-hud-btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
+        }
+        .maplibregl-popup-content {
+            padding: 0 !important;
+            border-radius: 1rem !important;
+            overflow: hidden !important;
+            box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.25) !important;
+            border: 1px solid rgba(226, 232, 240, 0.9) !important;
+        }
+        .maplibregl-popup-close-button {
+            font-size: 18px !important;
+            padding: 6px 10px !important;
+            color: #64748b !important;
+            right: 4px !important;
+            top: 4px !important;
+        }
+    </style>
+
+    <div class="mt-8 card-glass-3d p-6 sm:p-8" data-aos="fade-up">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 mb-4 border-b border-slate-100">
+            <div>
+                <h3 class="text-base font-black text-slate-900 font-heading flex items-center gap-2 uppercase tracking-wider">
+                    <i class="fas fa-cube text-teal-600 animate-pulse"></i>
+                    Vị trí showroom trên bản đồ 
+                </h3>
+            </div>
+            
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                <!-- Chuyển đổi chế độ -->
+                <div class="inline-flex rounded-xl p-1 bg-slate-100 border border-slate-200 text-xs font-bold">
+                    <button type="button" id="btnSwitch3D" class="px-3 py-1.5 rounded-lg bg-teal-600 text-white shadow-xs transition-all flex items-center gap-1.5">
+                        <i class="fas fa-cubes"></i> Bản đồ 3D
+                    </button>
+                    <button type="button" id="btnSwitch2D" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all flex items-center gap-1.5">
+                        <i class="fas fa-map"></i> Google Maps
+                    </button>
+                </div>
+
+                <a href="https://maps.google.com/?q=@HttpUtility.UrlEncode(address)" target="_blank" rel="noopener noreferrer" 
+                   class="text-xs font-bold text-teal-600 hover:text-teal-700 hidden lg:inline-flex items-center gap-1 transition">
+                    Chỉ đường <i class="fas fa-external-link-alt text-[10px]"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Khung hiển thị bản đồ -->
+        <div class="relative w-full h-96 sm:h-[460px] rounded-2xl overflow-hidden border border-slate-200/90 shadow-inner bg-slate-900">
+            
+            <!-- Chế độ 1: 3D WebGL MapLibre Container -->
+            <div id="view3dWrapper" class="w-full h-full relative">
+                <!-- MapLibre Map DOM Target -->
+                <div id="map3d-container"></div>
+
+                <!-- HUD Floating Controls -->
+                <div class="absolute top-3 left-3 z-10 flex flex-wrap gap-2 pointer-events-auto">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-slate-900/80 backdrop-blur-md text-teal-400 border border-teal-500/30 shadow-md">
+                        <span class="w-2 h-2 rounded-full bg-teal-400 animate-ping"></span>
+                        Bản đồ không gian (60°)
+                    </span>
+
+                    <button type="button" id="btnAutoRotate" class="map-hud-btn px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5" title="Bật/Tắt tự động xoay quanh showroom">
+                        <i class="fas fa-arrows-rotate text-teal-600"></i>
+                        <span>Tự động xoay</span>
+                    </button>
+
+                    <button type="button" id="btnTogglePitch" class="map-hud-btn px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5" title="Đổi giữa góc nhìn nghiêng 3D và góc nhìn thẳng">
+                        <i class="fas fa-layer-group text-teal-600"></i>
+                        <span id="pitchLabel">Góc 3D (60°)</span>
+                    </button>
+
+                    <button type="button" id="btnResetView" class="map-hud-btn px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5" title="Đưa góc nhìn về trung tâm Showroom HUIT">
+                        <i class="fas fa-crosshairs text-teal-600"></i>
+                        <span>Về tâm Showroom</span>
+                    </button>
+                </div>
+
+                <!-- Loading State Overlay -->
+                <div id="map3dLoading" class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-white transition-opacity duration-500">
+                    <div class="w-12 h-12 border-4 border-teal-500/20 border-t-teal-400 rounded-full animate-spin mb-3"></div>
+                    <div class="text-sm font-extrabold tracking-wide font-heading">Đang tải bản đồ...</div>
+                    <div class="text-xs text-slate-400 mt-1">Đang tải góc nhìn không gian &amp; khối nhà HUIT</div>
+                </div>
+            </div>
+
+            <!-- Chế độ 2: Google Maps Embed (Ẩn mặc định) -->
+            <div id="view2dWrapper" class="w-full h-full hidden">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.6305546302195!2d106.62524631533422!3d10.762622162279946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27d8b4f4d%3A0x92dcba2950430867!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBUaMawxqFuZyBUUC4gSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1642584765431!5m2!1svi!2s"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+        </div>
+
+        <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+            <div class="flex items-center gap-1.5">
+                <i class="fas fa-mouse text-teal-600"></i>
+                <span>Giữ chuột phải + rê để xoay • Cuộn chuột để phóng to/thu nhỏ • Kéo chuột trái để di chuyển</span>
+            </div>
+            <div>
+                <span class="font-bold text-slate-700">Tọa độ:</span> 10.8070° N, 106.6287° E (HUIT, 140 Lê Trọng Tấn)
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section (Câu hỏi thường gặp) -->
+    <div class="mt-12 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-soft">
+        <div class="text-center max-w-xl mx-auto mb-8">
+            <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">Hỗ trợ nhanh</span>
+            <h2 class="text-2xl font-bold font-heading text-slate-900 mt-1">Câu hỏi thường gặp</h2>
+            <p class="text-xs text-slate-500 mt-1">Các thắc mắc phổ biến của khách hàng khi mua sắm tại cửa hàng</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 hover:border-teal-300 transition-colors">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 text-xs font-bold">
+                        01
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">Thời gian giao hàng mất bao lâu?</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Nội thành TP.HCM: Giao hỏa tốc 2 - 4 giờ. Các tỉnh thành khác: Từ 1 - 3 ngày làm việc thông qua đơn vị vận chuyển uy tín.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 hover:border-teal-300 transition-colors">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 text-xs font-bold">
+                        02
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">Chính sách bảo hành như thế nào?</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Tất cả sản phẩm chính hãng được bảo hành từ 12 - 24 tháng theo tiêu chuẩn nhà sản xuất, hỗ trợ 1 đổi 1 trong 30 ngày nếu có lỗi phần cứng.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 hover:border-teal-300 transition-colors">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 text-xs font-bold">
+                        03
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">Cửa hàng hỗ trợ những phương thức thanh toán nào?</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Hỗ trợ nhận hàng thanh toán tiền mặt (COD), Chuyển khoản ngân hàng trực tuyến, Ví MoMo, ZaloPay và thẻ tín dụng qua cổng VNPAY.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 hover:border-teal-300 transition-colors">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 text-xs font-bold">
+                        04
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">Quy trình đổi trả hàng ra sao?</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Đổi trả miễn phí trong 7 ngày đầu nếu sản phẩm không đúng quy cách hoặc gặp sự cố kỹ thuật. Bạn chỉ cần liên hệ Hotline để được nhân viên hỗ trợ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>
+    // ========================================================
+    // BẢN ĐỒ KHÔNG GIAN 3D WEBGL (MAPLIBRE GL 3D)
+    // ========================================================
+    const SHOWROOM_LNG = 106.62870;
+    const SHOWROOM_LAT = 10.80703;
+    const SHOWROOM_ZOOM = 16.8;
+    const SHOWROOM_PITCH = 60;
+    const SHOWROOM_BEARING = -25;
+
+    let map3D = null;
+    let isAutoRotating = false;
+    let rotateReqId = null;
+    let isPitch3D = true;
+
+    try {
+        map3D = new maplibregl.Map({
+            container: 'map3d-container',
+            style: 'https://tiles.openfreemap.org/styles/liberty',
+            center: [SHOWROOM_LNG, SHOWROOM_LAT],
+            zoom: SHOWROOM_ZOOM,
+            pitch: SHOWROOM_PITCH,
+            bearing: SHOWROOM_BEARING,
+            antialias: true,
+            maxPitch: 85
+        });
+
+        // Bổ sung nút điều hướng La bàn & Phóng to của MapLibre
+        map3D.addControl(new maplibregl.NavigationControl({
+            visualizePitch: true,
+            showZoom: true,
+            showCompass: true
+        }), 'bottom-right');
+
+        // Ghim vị trí 3D phát sáng nhấp nháy (3D Pulse Marker)
+        const markerEl = document.createElement('div');
+        markerEl.className = 'showroom-marker-3d';
+        markerEl.innerHTML = `
+            <div class="marker-radar-ring"></div>
+            <div class="marker-radar-ring ring-delayed"></div>
+            <div class="marker-core">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="marker-badge">
+                <i class="fas fa-circle text-emerald-400 text-[8px] mr-1 animate-pulse"></i> SHOWROOM HUIT
+            </div>
+        `;
+
+        const popupContent = `
+            <div class="p-3 text-slate-800" style="min-width: 250px; font-family: Inter, sans-serif;">
+                <div class="flex items-center gap-2 mb-2 pb-2 border-b border-slate-100">
+                    <div class="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-extrabold text-xs text-slate-900 leading-tight">Showroom Công Nghệ HUIT</h4>
+                        <span class="text-[10px] text-teal-600 font-bold uppercase tracking-wider">Trụ sở chính &amp; Showroom</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-600 mb-2 leading-relaxed">
+                    <i class="fas fa-location-dot text-rose-500 mr-1"></i> @address
+                </p>
+                <div class="text-[11px] text-slate-500 mb-3 space-y-1 bg-slate-50 p-2 rounded-lg">
+                    <div><i class="far fa-clock text-teal-600 mr-1.5"></i> @workingHours</div>
+                    <div><i class="fas fa-phone text-teal-600 mr-1.5"></i> Hotline: <strong class="text-slate-700">@hotline</strong></div>
+                </div>
+                <a href="https://maps.google.com/?q=@HttpUtility.UrlEncode(address)" target="_blank"
+                   class="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-xs">
+                    <i class="fas fa-diamond-turn-right"></i> Chỉ đường qua Google Maps
+                </a>
+            </div>
+        `;
+
+        const popup = new maplibregl.Popup({ offset: 25, closeButton: true, closeOnClick: false })
+            .setHTML(popupContent);
+
+        const showroomMarker = new maplibregl.Marker({ element: markerEl, anchor: 'bottom' })
+            .setLngLat([SHOWROOM_LNG, SHOWROOM_LAT])
+            .setPopup(popup)
+            .addTo(map3D);
+
+        map3D.on('load', function () {
+            // Tắt màn hình loading
+            $('#map3dLoading').addClass('opacity-0 pointer-events-none');
+            setTimeout(function () { $('#map3dLoading').remove(); }, 500);
+
+            // Mở sẵn Popup thông tin Showroom
+            showroomMarker.togglePopup();
+
+            // 1. Dựng khối nhà 3D nổi (3D Extruded Buildings) từ dữ liệu bản đồ nền
+            const layers = map3D.getStyle().layers;
+            let labelLayerId;
+            for (let i = 0; i < layers.length; i++) {
+                if (layers[i].type === 'symbol' && layers[i].layout && layers[i].layout['text-field']) {
+                    labelLayerId = layers[i].id;
+                    break;
+                }
+            }
+
+            if (!map3D.getLayer('3d-buildings')) {
+                map3D.addLayer({
+                    'id': '3d-buildings',
+                    'source': 'openmaptiles',
+                    'source-layer': 'building',
+                    'type': 'fill-extrusion',
+                    'minzoom': 14,
+                    'paint': {
+                        'fill-extrusion-color': [
+                            'interpolate',
+                            ['linear'],
+                            ['get', 'render_height'],
+                            0, '#cbd5e1',
+                            15, '#0d9488',
+                            40, '#0f766e'
+                        ],
+                        'fill-extrusion-height': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            14, 0,
+                            14.5, ['case', ['has', 'render_height'], ['get', 'render_height'], 14]
+                        ],
+                        'fill-extrusion-base': [
+                            'case',
+                            ['has', 'render_min_height'],
+                            ['get', 'render_min_height'],
+                            0
+                        ],
+                        'fill-extrusion-opacity': 0.85
+                    }
+                }, labelLayerId);
+            }
+
+            // 2. Mô hình hóa khuôn viên ĐH Công Thương HUIT dạng 3D kiến trúc nổi bật
+            const huitCampusGeoJSON = {
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                        'type': 'Feature',
+                        'properties': { 'name': 'Tòa nhà Trung tâm & Showroom HUIT', 'height': 50, 'color': '#0d9488' },
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates': [[
+                                [106.62838, 10.80678], [106.62878, 10.80678],
+                                [106.62878, 10.80718], [106.62838, 10.80718],
+                                [106.62838, 10.80678]
+                            ]]
+                        }
+                    },
+                    {
+                        'type': 'Feature',
+                        'properties': { 'name': 'Khối Giảng đường A-B', 'height': 36, 'color': '#14b8a6' },
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates': [[
+                                [106.62888, 10.80678], [106.62924, 10.80678],
+                                [106.62924, 10.80718], [106.62888, 10.80718],
+                                [106.62888, 10.80678]
+                            ]]
+                        }
+                    },
+                    {
+                        'type': 'Feature',
+                        'properties': { 'name': 'Hội trường & Thư viện HUIT', 'height': 30, 'color': '#2dd4bf' },
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates': [[
+                                [106.62842, 10.80726], [106.62880, 10.80726],
+                                [106.62880, 10.80758], [106.62842, 10.80758],
+                                [106.62842, 10.80726]
+                            ]]
+                        }
+                    },
+                    {
+                        'type': 'Feature',
+                        'properties': { 'name': 'Khu Công nghệ & Thực hành', 'height': 24, 'color': '#38bdf8' },
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates': [[
+                                [106.62888, 10.80726], [106.62924, 10.80726],
+                                [106.62924, 10.80758], [106.62888, 10.80758],
+                                [106.62888, 10.80726]
+                            ]]
+                        }
+                    }
+                ]
+            };
+
+            map3D.addSource('huit-campus-3d', {
+                'type': 'geojson',
+                'data': huitCampusGeoJSON
+            });
+
+            map3D.addLayer({
+                'id': 'huit-campus-3d-layer',
+                'type': 'fill-extrusion',
+                'source': 'huit-campus-3d',
+                'paint': {
+                    'fill-extrusion-color': ['get', 'color'],
+                    'fill-extrusion-height': ['get', 'height'],
+                    'fill-extrusion-base': 0,
+                    'fill-extrusion-opacity': 0.92
+                }
+            });
+        });
+
+        // Xử lý xoay 360 độ tự động
+        function animateOrbit() {
+            if (!isAutoRotating) return;
+            map3D.setBearing((map3D.getBearing() + 0.25) % 360);
+            rotateReqId = requestAnimationFrame(animateOrbit);
+        }
+
+        $('#btnAutoRotate').on('click', function () {
+            isAutoRotating = !isAutoRotating;
+            if (isAutoRotating) {
+                $(this).addClass('bg-teal-600 text-white').removeClass('text-slate-700');
+                $(this).find('i').addClass('animate-spin');
+                animateOrbit();
+            } else {
+                $(this).removeClass('bg-teal-600 text-white').addClass('text-slate-700');
+                $(this).find('i').removeClass('animate-spin');
+                cancelAnimationFrame(rotateReqId);
+            }
+        });
+
+        // Xử lý chuyển đổi góc nhìn 3D (60 độ) và 2D (0 độ)
+        $('#btnTogglePitch').on('click', function () {
+            isPitch3D = !isPitch3D;
+            map3D.easeTo({
+                pitch: isPitch3D ? 60 : 0,
+                duration: 1000
+            });
+            $('#pitchLabel').text(isPitch3D ? 'Góc 3D (60°)' : 'Góc 2D (0°)');
+        });
+
+        // Về tâm Showroom
+        $('#btnResetView').on('click', function () {
+            map3D.flyTo({
+                center: [SHOWROOM_LNG, SHOWROOM_LAT],
+                zoom: SHOWROOM_ZOOM,
+                pitch: SHOWROOM_PITCH,
+                bearing: SHOWROOM_BEARING,
+                essential: true,
+                duration: 1500
+            });
+        });
+
+    } catch (err) {
+        console.warn('MapLibre GL 3D initialization error, falling back to 2D view:', err);
+        $('#btnSwitch2D').trigger('click');
+    }
+
+    // Chuyển đổi giữa chế độ Bản đồ 3D Không Gian và Google Maps 2D
+    $('#btnSwitch3D').on('click', function () {
+        $('#btnSwitch3D').addClass('bg-teal-600 text-white').removeClass('text-slate-600');
+        $('#btnSwitch2D').removeClass('bg-teal-600 text-white').addClass('text-slate-600');
+        $('#view3dWrapper').removeClass('hidden');
+        $('#view2dWrapper').addClass('hidden');
+        if (map3D) {
+            setTimeout(function () { map3D.resize(); }, 150);
+        }
+    });
+
+    $('#btnSwitch2D').on('click', function () {
+        $('#btnSwitch2D').addClass('bg-teal-600 text-white').removeClass('text-slate-600');
+        $('#btnSwitch3D').removeClass('bg-teal-600 text-white').addClass('text-slate-600');
+        $('#view2dWrapper').removeClass('hidden');
+        $('#view3dWrapper').addClass('hidden');
+        if (isAutoRotating) {
+            isAutoRotating = false;
+            $('#btnAutoRotate').removeClass('bg-teal-600 text-white').addClass('text-slate-700');
+            $('#btnAutoRotate').find('i').removeClass('animate-spin');
+            cancelAnimationFrame(rotateReqId);
+        }
+    });
+
+    // Copy Text to Clipboard
+    function copyText(text) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(function() {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đã sao chép!',
+                        text: text,
+                        timer: 1500,
+                        showConfirmButton: false,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                } else {
+                    alert('Đã sao chép: ' + text);
+                }
+            });
+        }
+    }
+
+    // Phone number format
+    $('input[type="tel"]').on('input', function () {
+        var value = $(this).val().replace(/\D/g, '');
+        $(this).val(value);
+    });
+
+    // Form submit validation
+    $('#contactForm').on('submit', function (e) {
+        var isValid = true;
+        var firstError = null;
+
+        $(this).find('[required]').each(function () {
+            if (!$(this).val().trim()) {
+                isValid = false;
+                if (!firstError) firstError = $(this);
+                $(this).addClass('border-rose-500 bg-rose-50/30');
+            } else {
+                $(this).removeClass('border-rose-500 bg-rose-50/30');
+            }
+        });
+
+        if (!isValid) {
+            e.preventDefault();
+            if (firstError) {
+                firstError.focus();
+            }
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Chưa đủ thông tin',
+                    text: 'Vui lòng điền đầy đủ các mục có dấu sao đỏ (*)',
+                    confirmButtonColor: '#0d9488'
+                });
+            } else {
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc (*)');
+            }
+        }
+    });
+</script>
+}

@@ -1,0 +1,72 @@
+@{
+    ViewBag.Title = "Access Denied - 403";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="min-h-[75vh] flex items-center justify-center py-12 px-4" data-aos="zoom-in">
+    <div class="w-full max-w-xl">
+        <div class="card-glass-3d border-beam-3d p-8 sm:p-12 text-center relative overflow-hidden">
+            <!-- Ambient Glow -->
+            <div class="absolute -top-20 -right-20 w-44 h-44 bg-rose-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -left-20 w-44 h-44 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- 3D Lock/Shield Hologram Icon -->
+            <div class="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-3xl bg-rose-500/10 border border-rose-500/30 animate-pulse"></div>
+                <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-rose-600 to-amber-500 text-white flex items-center justify-center shadow-xl shadow-rose-500/30 transform hover:rotate-6 hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-shield-halved text-4xl"></i>
+                </div>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-500/10 text-rose-600 border border-rose-500/20 text-xs font-bold uppercase tracking-wider mb-3">
+                <i class="fas fa-lock"></i>
+                <span>MÃ LỖI BẢO MẬT: 403</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black font-heading text-slate-900 mb-3">
+                Truy Cập Bị Từ Chối
+            </h1>
+
+            <p class="text-sm text-slate-500 mb-6 max-w-md mx-auto leading-relaxed">
+                Tài khoản của bạn không có quyền truy cập vào phân vùng quản trị này. Nếu bạn cho rằng đây là một sự nhầm lẫn, vui lòng liên hệ Ban quản trị hệ thống.
+            </p>
+
+            <!-- Chi tiết phân quyền 3D -->
+            <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-4 sm:p-5 text-left mb-8 space-y-2 text-xs text-slate-600">
+                <div class="flex items-center gap-2 font-bold text-slate-800 pb-2 border-b border-slate-200/60">
+                    <i class="fas fa-info-circle text-amber-500"></i>
+                    <span>Nguyên nhân khả thi:</span>
+                </div>
+                <div class="flex items-start gap-2 pt-1">
+                    <i class="fas fa-check-circle text-rose-500 mt-0.5 text-[11px]"></i>
+                    <span>Yêu cầu đặc quyền Administrator hoặc Quản lý cấp cao.</span>
+                </div>
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-rose-500 mt-0.5 text-[11px]"></i>
+                    <span>Phiên đăng nhập đã hết hạn hoặc chưa kích hoạt quyền.</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons 3D -->
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <button onclick="history.back()" 
+                        class="px-6 py-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs inline-flex items-center gap-2 transition-all shadow-sm hover:scale-105 active:scale-95">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay lại trang trước
+                </button>
+                <a href="@Url.Action("Index", "Home")" 
+                   class="btn-3d px-6 py-3 rounded-xl font-bold text-xs inline-flex items-center gap-2 shadow-md shadow-teal-600/30">
+                    <i class="fas fa-home"></i>
+                    Về trang chủ
+                </a>
+            </div>
+
+            @if (Session["UserName"] != null)
+            {
+                <div class="mt-8 pt-5 border-t border-slate-100 text-[11px] text-slate-400">
+                    <span>Đang đăng nhập: <strong class="text-slate-600">@Session["UserName"]</strong> &bull; User ID: @Session["UserId"]</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>

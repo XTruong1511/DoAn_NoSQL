@@ -1,0 +1,38 @@
+@{
+    ViewBag.Title = "Thanh toán thất bại";
+}
+
+<div class="min-h-[70vh] flex items-center justify-center py-12 px-4" data-aos="zoom-in">
+    <div class="max-w-md w-full card-glass-3d border-beam-3d p-8 text-center relative overflow-hidden">
+        <div class="w-20 h-20 mx-auto rounded-3xl bg-rose-500/15 border border-rose-500/30 text-rose-500 flex items-center justify-center mb-6 shadow-xl shadow-rose-500/20 animate-pulse">
+            <i class="fas fa-triangle-exclamation text-4xl"></i>
+        </div>
+        
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 text-rose-600 border border-rose-200 text-xs font-bold uppercase tracking-wider mb-3">
+            <span>Giao dịch không thành công</span>
+        </div>
+
+        <h2 class="text-2xl font-black text-slate-900 mb-2">Thanh toán gián đoạn</h2>
+        <p class="text-slate-600 text-sm mb-6">
+            @if (TempData["PaymentError"] != null)
+            {
+                <span class="text-rose-600 font-bold block bg-rose-50 p-3 rounded-xl border border-rose-100">Lỗi hệ thống: @TempData["PaymentError"]</span>
+            }
+            else
+            {
+                <span>Đã có sự cố kết nối hoặc giao dịch bị hủy từ cổng thanh toán. Đừng lo lắng, giỏ hàng của bạn vẫn được lưu giữ an toàn.</span>
+            }
+        </p>
+
+        <div class="space-y-3">
+            <a href="@Url.Action("Index", "ThanhToan")" class="btn-3d btn-3d-primary w-full py-3.5 text-xs font-black tracking-wider uppercase rounded-xl flex items-center justify-center gap-2">
+                <i class="fas fa-rotate-right"></i>
+                Thử thanh toán lại
+            </a>
+            <a href="@Url.Action("Index", "Home")" class="btn-3d btn-3d-secondary w-full py-3.5 text-xs font-black tracking-wider uppercase rounded-xl flex items-center justify-center gap-2">
+                <i class="fas fa-house"></i>
+                Về trang chủ
+            </a>
+        </div>
+    </div>
+</div>

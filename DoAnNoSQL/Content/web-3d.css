@@ -1,0 +1,983 @@
+/**
+ * ===================================================================
+ * WEB 3D EXPERIENCE & CYBER-PHYSICAL INTERACTION ENGINE
+ * DoAnNoSQL E-Commerce Platform
+ * Features:
+ *  - Perspective 3D Spaces & Hardware Accelerated Card Tilting
+ *  - Dynamic Specular Glare & Hologram Lighting Effects
+ *  - Interactive 3D Orbit Product Studio (Three.js integration)
+ *  - 3D Floating Badges, Buttons, and Cyber Holographic Meshes
+ *  - Ambient Starlight & Depth Gradients
+ * ===================================================================
+ */
+
+:root {
+    --perspective-viewport: 1200px;
+    --card-tilt-max: 14deg;
+    --glow-cyan: rgba(20, 184, 166, 0.45);
+    --glow-indigo: rgba(99, 102, 241, 0.45);
+    --glow-amber: rgba(245, 158, 11, 0.35);
+    --holo-gradient: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(59, 130, 246, 0.15), rgba(168, 85, 247, 0.15));
+}
+
+/* ===================================================================
+   1. 3D CARD PERSPECTIVE & TILT ENGINE
+   =================================================================== */
+.perspective-container {
+    perspective: var(--perspective-viewport);
+    transform-style: preserve-3d;
+}
+
+/* Biến mọi thẻ product-card thành Card 3D siêu thực */
+.product-card,
+.product-card-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                box-shadow 0.3s ease, 
+                border-color 0.3s ease;
+    will-change: transform;
+    overflow: visible !important;
+}
+
+/* Lớp chiều sâu trục Z cho các phần tử con */
+.product-card .product-img-wrap,
+.product-card-3d .product-img-wrap,
+.product-card img.object-cover,
+.product-card img.object-contain {
+    transform: translateZ(35px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+    filter: drop-shadow(0 10px 12px rgba(15, 23, 42, 0.12));
+}
+
+.product-card:hover .product-img-wrap,
+.product-card:hover img.object-cover,
+.product-card:hover img.object-contain {
+    transform: translateZ(52px) scale(1.06);
+    filter: drop-shadow(0 18px 24px rgba(20, 184, 166, 0.25));
+}
+
+.product-card .product-title,
+.product-card-3d .product-title,
+.product-card h3 {
+    transform: translateZ(24px);
+    transition: transform 0.3s ease;
+}
+
+.product-card .product-price,
+.product-card-3d .product-price {
+    transform: translateZ(28px);
+    transition: transform 0.3s ease;
+}
+
+.product-card .badge-3d,
+.product-card-3d .badge-3d,
+.product-card .absolute.top-2,
+.product-card .absolute.top-3 {
+    transform: translateZ(42px);
+    box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Lớp bóng kính phản xạ ánh sáng Specular Glare 3D */
+.glare-3d-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 15;
+    background: radial-gradient(
+        circle 220px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.38) 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 80%
+    );
+    opacity: 0;
+    mix-blend-mode: overlay;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .glare-3d-layer,
+.product-card-3d:hover .glare-3d-layer {
+    opacity: 1;
+}
+
+/* Viền phát sáng 3D đa hướng khi hover */
+.product-card:hover,
+.product-card-3d:hover {
+    border-color: rgba(20, 184, 166, 0.6) !important;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.2), 
+                0 0 30px -5px rgba(20, 184, 166, 0.35) !important;
+}
+
+/* ===================================================================
+   2. 3D HERO SHOWCASE & INTERACTIVE CANVAS
+   =================================================================== */
+.hero-3d-stage {
+    position: relative;
+    border-radius: 32px !important;
+    background: radial-gradient(circle at 70% 30%, #0d2838 0%, #0b1329 55%, #050814 100%);
+    overflow: hidden !important;
+    box-shadow: 0 25px 60px -15px rgba(5, 8, 20, 0.6),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                0 0 40px rgba(20, 184, 166, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-3d-stage::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(45, 212, 191, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    animation: rotateAmbient3D 24s linear infinite;
+}
+
+@keyframes rotateAmbient3D {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hero-3d-canvas-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    z-index: 2;
+}
+
+.hero-3d-canvas-wrap:active {
+    cursor: grabbing;
+}
+
+.hero-3d-canvas-wrap canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+/* HUD 3D Overlay Controls */
+.hero-3d-hud {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 6px 12px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.hero-3d-hud-btn {
+    background: transparent;
+    color: #94a3b8;
+    border: none;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hero-3d-hud-btn:hover,
+.hero-3d-hud-btn.active {
+    background: rgba(20, 184, 166, 0.25);
+    color: #2dd4bf;
+    box-shadow: 0 0 12px rgba(45, 212, 191, 0.3);
+}
+
+/* ===================================================================
+   3. 3D FLOATING BADGES & CYBER ELEMENTS
+   =================================================================== */
+.floating-3d-badge {
+    animation: floatVertical3D 4s ease-in-out infinite;
+    transform-style: preserve-3d;
+    box-shadow: 0 12px 25px -4px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.floating-3d-badge.delay-1 {
+    animation-delay: -1.3s;
+}
+
+.floating-3d-badge.delay-2 {
+    animation-delay: -2.6s;
+}
+
+@keyframes floatVertical3D {
+    0%, 100% {
+        transform: translateY(0px) rotateZ(0deg) translateZ(30px);
+    }
+    50% {
+        transform: translateY(-8px) rotateZ(1.5deg) translateZ(45px);
+    }
+}
+
+/* ===================================================================
+   4. 3D BUTTONS & INTERACTIVE DEPTH
+   =================================================================== */
+.btn-3d {
+    position: relative;
+    border-radius: 14px !important;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+    box-shadow: 0 6px 0 rgba(15, 118, 110, 0.9), 
+                0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.btn-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 rgba(15, 118, 110, 0.9), 
+                0 14px 25px rgba(20, 184, 166, 0.3);
+}
+
+.btn-3d:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 rgba(15, 118, 110, 0.9), 
+                0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-3d-primary {
+    background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.btn-3d-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    box-shadow: 0 5px 0 #cbd5e1, 0 8px 15px rgba(0, 0, 0, 0.06);
+    font-weight: 700;
+}
+
+.btn-3d-secondary:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+    box-shadow: 0 7px 0 #cbd5e1, 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-3d-secondary:active {
+    box-shadow: 0 2px 0 #cbd5e1, 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.btn-3d-indigo {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 0 rgba(67, 56, 202, 0.9), 0 10px 20px rgba(79, 70, 229, 0.25);
+}
+
+.btn-3d-indigo:hover {
+    box-shadow: 0 8px 0 rgba(67, 56, 202, 0.9), 0 14px 25px rgba(79, 70, 229, 0.4);
+}
+
+.btn-3d-indigo:active {
+    box-shadow: 0 2px 0 rgba(67, 56, 202, 0.9), 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ===================================================================
+   5. 3D PRODUCT ORBIT STUDIO (MODAL & EMBEDDED VIEWER)
+   =================================================================== */
+.studio-3d-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(8, 12, 22, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.studio-3d-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.studio-3d-container {
+    width: 100%;
+    max-width: 1080px;
+    height: 85vh;
+    max-height: 740px;
+    background: radial-gradient(circle at 50% 40%, #17243c 0%, #0d1527 60%, #070b15 100%);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 35px 80px -20px rgba(0, 0, 0, 0.75),
+                0 0 50px rgba(20, 184, 166, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.94);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.studio-3d-modal.active .studio-3d-container {
+    transform: scale(1);
+}
+
+.studio-3d-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(13, 21, 39, 0.5);
+    z-index: 10;
+}
+
+.studio-3d-body {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.studio-3d-canvas-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+.studio-3d-canvas-wrap:active {
+    cursor: grabbing;
+}
+
+.studio-3d-toolbar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 8px 16px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.studio-tool-btn {
+    background: rgba(255, 255, 255, 0.06);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.studio-tool-btn:hover,
+.studio-tool-btn.active {
+    background: rgba(20, 184, 166, 0.35);
+    border-color: #2dd4bf;
+    color: #5eead4;
+    box-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
+}
+
+/* Bộ chọn màu sắc Titanium kim loại 3D */
+.studio-color-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 8px;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.color-dot-3d {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.color-dot-3d:hover {
+    transform: scale(1.2);
+}
+
+.color-dot-3d.active {
+    border-color: #ffffff;
+    box-shadow: 0 0 12px currentColor;
+    transform: scale(1.15);
+}
+
+/* Nút kích hoạt 3D Studio trên trang sản phẩm */
+.btn-launch-3d {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #042f2e 100%);
+    border: 1px solid rgba(45, 212, 191, 0.4);
+    box-shadow: 0 8px 25px -4px rgba(20, 184, 166, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-launch-3d::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 65%
+    );
+    transform: rotate(25deg);
+    animation: shineSweep 4s ease-in-out infinite;
+}
+
+@keyframes shineSweep {
+    0% { transform: translateX(-150%) rotate(25deg); }
+    30%, 100% { transform: translateX(150%) rotate(25deg); }
+}
+
+.btn-launch-3d:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: #2dd4bf;
+    box-shadow: 0 14px 35px -4px rgba(20, 184, 166, 0.55), 0 0 25px rgba(45, 212, 191, 0.45);
+}
+
+/* ===================================================================
+   6. 3D AMBIENT GRID & PARTICLES BACKGROUND
+   =================================================================== */
+#bg-3d-particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+    mix-blend-mode: screen;
+}
+
+/* Cyber Floating Quick Toggler Switch */
+.switch-3d-toggle {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9990;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    border-radius: 9999px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e2e8f0;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.switch-3d-toggle:hover {
+    transform: translateY(-2px);
+    border-color: #2dd4bf;
+    box-shadow: 0 12px 30px rgba(20, 184, 166, 0.3);
+    color: #5eead4;
+}
+
+.switch-3d-toggle .toggle-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: pulse3D 2s infinite;
+}
+
+@keyframes pulse3D {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .studio-3d-container {
+        height: 92vh;
+        border-radius: 20px;
+    }
+    
+    .studio-3d-toolbar {
+        bottom: 12px;
+        padding: 6px 12px;
+        gap: 6px;
+    }
+    
+    .studio-tool-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+    
+    .switch-3d-toggle {
+        bottom: 80px;
+        left: 12px;
+    }
+}
+
+/* ===================================================================
+   7. ADVANCED 3D BEAM BORDERS & CYBER-GLASS EFFECTS
+   =================================================================== */
+.border-beam-3d {
+    position: relative;
+    border-radius: inherit;
+}
+
+.border-beam-3d::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(45, 212, 191, 0.8) 50%,
+        transparent 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    background-size: 200% 100%;
+    animation: beamMove3D 5s linear infinite;
+}
+
+@keyframes beamMove3D {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* 3D Interactive Cursor Follower Halo */
+#cyber-cursor-halo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, rgba(59, 130, 246, 0.05) 45%, transparent 70%);
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+}
+
+/* 3D Tactile Push Button */
+.btn-tactile-3d {
+    position: relative;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #0d9488, 0 8px 16px rgba(13, 148, 136, 0.25);
+    transition: all 0.12s ease;
+    transform: translateY(0);
+}
+
+.btn-tactile-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #0d9488, 0 12px 20px rgba(13, 148, 136, 0.35);
+}
+
+.btn-tactile-3d:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #0d9488, 0 4px 8px rgba(13, 148, 136, 0.2);
+}
+
+/* 3D Trust Card Neumorphic Depth */
+.trust-card-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+
+.trust-card-3d:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 35px -8px rgba(15, 23, 42, 0.12), 0 0 20px rgba(20, 184, 166, 0.18);
+    border-color: rgba(45, 212, 191, 0.5) !important;
+}
+
+.trust-card-3d .trust-icon-box {
+    transform: translateZ(28px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.trust-card-3d:hover .trust-icon-box {
+    transform: translateZ(42px) scale(1.12);
+}
+
+/* 3D Section Heading Badge */
+.heading-3d-badge {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(99, 102, 241, 0.15));
+    border: 1px solid rgba(45, 212, 191, 0.4);
+    box-shadow: 0 4px 15px rgba(20, 184, 166, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* 3D Floor Shadow under featured products */
+.floor-shadow-3d {
+    filter: drop-shadow(0 15px 12px rgba(15, 23, 42, 0.15));
+}
+
+/* ===================================================================
+   8. ALL-PAGES 3D DESIGN SYSTEM (CARTS, CHECKOUT, NEWS, PROMOS, USER)
+   =================================================================== */
+
+/* 3D Sub-page Header Banner (Giỏ hàng, Thanh toán, Tin tức, Khuyến mãi...) */
+.page-header-3d {
+    position: relative;
+    border-radius: 24px;
+    background: radial-gradient(circle at 80% 20%, #0d2838 0%, #0b1329 60%, #060913 100%);
+    overflow: hidden;
+    padding: 32px 28px;
+    box-shadow: 0 20px 45px -12px rgba(5, 8, 20, 0.45), 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                0 0 30px rgba(20, 184, 166, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    margin-bottom: 28px;
+}
+
+.page-header-3d::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+    animation: pulse3D 4s ease-in-out infinite;
+}
+
+/* 3D Glass Card Container (Thẻ đơn hàng, bảng tóm tắt, giỏ hàng) */
+.card-glass-3d {
+    position: relative;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 20px;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 12px 30px -6px rgba(15, 23, 42, 0.08), 
+                0 4px 10px -2px rgba(15, 23, 42, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-glass-3d:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.12),
+                0 0 25px rgba(20, 184, 166, 0.15);
+    border-color: rgba(45, 212, 191, 0.6);
+}
+
+/* 3D Interactive Form Inputs */
+.input-3d {
+    width: 100% !important;
+    display: block;
+    box-sizing: border-box !important;
+    background: rgba(248, 250, 252, 0.9) !important;
+    border: 1.5px solid rgba(203, 213, 225, 0.8) !important;
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+}
+
+.input-3d:focus {
+    background: #ffffff !important;
+    border-color: #14b8a6 !important;
+    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15), 
+                inset 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+    outline: none !important;
+    transform: translateY(-1px);
+}
+
+/* 3D Voucher / Coupon Ticket */
+.ticket-voucher-3d {
+    position: relative;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+    border: 1px dashed rgba(20, 184, 166, 0.6);
+    box-shadow: 0 10px 25px -4px rgba(20, 184, 166, 0.12);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ticket-voucher-3d:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 18px 35px -6px rgba(20, 184, 166, 0.25);
+    border-style: solid;
+    border-color: #14b8a6;
+}
+
+/* 3D Timeline / Progress Stepper (Thanh toán & Đơn hàng) */
+.timeline-step-3d {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.timeline-step-3d .step-node {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    background: #e2e8f0;
+    color: #64748b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.timeline-step-3d.active .step-node {
+    background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.5), 0 4px 10px rgba(13, 148, 136, 0.3);
+    transform: scale(1.1);
+}
+
+/* 3D Floating Sticky Summary (Giỏ hàng & Thanh toán) */
+.summary-sticky-3d {
+    position: sticky;
+    top: 90px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1),
+                0 0 25px rgba(20, 184, 166, 0.08);
+}
+
+/* ===================================================================
+   8. 3D AUTH CYBER PORTAL & GLASSMORPHIC INTERACTIVE SUITE
+   =================================================================== */
+.auth-3d-portal {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #020617;
+    overflow-x: hidden;
+    perspective: 1200px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.auth-3d-portal::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+        radial-gradient(ellipse 90% 70% at 50% -25%, rgba(13, 148, 136, 0.4), transparent 70%),
+        radial-gradient(circle at 10% 85%, rgba(99, 102, 241, 0.25), transparent 50%),
+        radial-gradient(circle at 90% 85%, rgba(16, 185, 129, 0.2), transparent 50%),
+        linear-gradient(to bottom, #090d16 0%, #020617 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.auth-3d-portal::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(20, 184, 166, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 184, 166, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.auth-3d-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 28px;
+    box-shadow: 
+        0 30px 60px -15px rgba(0, 0, 0, 0.45),
+        0 0 50px rgba(20, 184, 166, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.auth-3d-card.dark-theme {
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        0 30px 60px -15px rgba(0, 0, 0, 0.7),
+        0 0 50px rgba(45, 212, 191, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.auth-tab-pill-wrap {
+    display: flex;
+    background: rgba(15, 23, 42, 0.06);
+    padding: 5px;
+    border-radius: 16px;
+    position: relative;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.auth-tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.auth-tab-btn.active {
+    background: #ffffff;
+    color: #0f766e;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), 0 0 20px rgba(20, 184, 166, 0.15);
+    font-weight: 800;
+}
+
+.auth-3d-stage-box {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    background: radial-gradient(circle at 60% 40%, rgba(13, 148, 136, 0.18) 0%, rgba(15, 23, 42, 0.85) 60%, rgba(2, 6, 23, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), inset 0 0 60px rgba(20, 184, 166, 0.1);
+}
+
+.auth-3d-stage-box .stage-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+.auth-3d-stage-box .stage-canvas:active {
+    cursor: grabbing;
+}
+
+.pulse-glow-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(45, 212, 191, 0.4);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.3);
+    pointer-events: none;
+    animation: pulseRing3D 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseRing3D {
+    0% { transform: scale(0.9) rotate(0deg); opacity: 0.3; }
+    50% { transform: scale(1.05) rotate(180deg); opacity: 0.8; }
+    100% { transform: scale(0.9) rotate(360deg); opacity: 0.3; }
+}
+
+/* ===================================================================
+   9. PRODUCT DETAIL 3D IMAGE STAGE & PAYMENT SELECTION 3D
+   =================================================================== */
+.product-image-3d-stage {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    position: relative;
+    cursor: grab;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.product-image-3d-stage:hover {
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15), 0 0 35px rgba(20, 184, 166, 0.2);
+    border-color: rgba(20, 184, 166, 0.5) !important;
+}
+
+.payment-method-option {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+    will-change: transform;
+}
+
+.payment-method-option:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.1), 0 0 20px rgba(20, 184, 166, 0.18);
+    border-color: #14b8a6 !important;
+}
+
+.payment-method-option:has(input:checked) {
+    border-color: #0d9488 !important;
+    background: linear-gradient(135deg, rgba(240, 253, 250, 0.95) 0%, rgba(204, 251, 241, 0.5) 100%) !important;
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2), 0 10px 25px -4px rgba(20, 184, 166, 0.25) !important;
+    transform: translateY(-2px);
+}
+
+.cart-item {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cart-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.12), 0 0 25px rgba(20, 184, 166, 0.15) !important;
+    border-color: rgba(45, 212, 191, 0.6) !important;
+}
+
+
+

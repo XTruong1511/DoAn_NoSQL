@@ -1,0 +1,130 @@
+@model DoAnNoSQL.tb_MaGiamGia
+@{
+    ViewBag.Title = "Chỉnh Sửa Khuyến Mãi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string formattedDate = Model?.NgayKetThuc?.ToString("yyyy-MM-dd") ?? "";
+}
+
+<style>
+    .form-section-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 1.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .sticky-actions {
+        padding: 1rem 0;
+        margin-top: 1rem;
+    }
+    .code-input {
+        font-family: 'Consolas', 'Courier New', monospace;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+</style>
+
+@using (Html.BeginForm("SuaKM", "Admin", FormMethod.Post, new { id = "formEditKM" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3 mb-0 text-gray-800 fw-bold">
+            <i class="fas fa-ticket-alt text-primary me-2"></i>Sửa Khuyến Mãi: <span class="text-primary font-monospace">@Model.MaCode</span>
+        </h2>
+        <div class="d-flex align-items-center gap-2">
+            <a href="@Url.Action("KhuyenMai", "Admin")" class="btn btn-outline-secondary rounded-pill px-4 py-2 d-inline-flex align-items-center shadow-sm">
+                <i class="fas fa-arrow-left me-2"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center shadow-sm fw-bold">
+                <i class="fas fa-save me-2"></i> Cập nhật khuyến mãi
+            </button>
+        </div>
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger rounded-3 shadow-sm" })
+
+    <div class="row g-4">
+        <!-- Cột trái: Mã code & Mức giảm -->
+        <div class="col-lg-7">
+            <!-- Mã khuyến mãi -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-barcode text-primary me-2"></i>Mã định danh Voucher</h5>
+                    
+                    <div class="form-floating mb-2">
+                        @Html.EditorFor(model => model.MaCode, new { htmlAttributes = new { @class = "form-control rounded-3 code-input fs-5 text-primary", placeholder = "Mã...", id = "MaCode", required = "required" } })
+                        @Html.Label("MaCode", "Mã khuyến mãi (Code) *")
+                        @Html.ValidationMessageFor(model => model.MaCode, "", new { @class = "text-danger small" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mức giảm -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-percent text-primary me-2"></i>Giá trị chiết khấu</h5>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.SoTienGiam, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Số tiền...", type = "number", min = "0", step = "1000" } })
+                                @Html.Label("SoTienGiam", "Số tiền giảm trực tiếp (VNĐ)")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.SoTienGiam, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.PhanTramGiam, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Phần trăm...", type = "number", min = "0", max = "100", step = "0.5" } })
+                                @Html.Label("PhanTramGiam", "Phần trăm giảm (%)")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PhanTramGiam, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Số lượng & Hạn dùng -->
+        <div class="col-lg-5">
+            <!-- Giới hạn & Thời hạn -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-calendar-alt text-primary me-2"></i>Giới hạn & Hiệu lực</h5>
+                    
+                    <div class="form-floating mb-3">
+                        @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control rounded-3", placeholder = "Số lượng...", type = "number", min = "0" } })
+                        @Html.Label("SoLuong", "Số lượng mã khả dụng")
+                        @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input type="date" name="NgayKetThuc" id="NgayKetThuc" class="form-control rounded-3" value="@formattedDate" />
+                        <label for="NgayKetThuc">Ngày hết hạn ưu đãi</label>
+                        @Html.ValidationMessageFor(model => model.NgayKetThuc, "", new { @class = "text-danger small" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trạng thái -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="form-section-title"><i class="fas fa-toggle-on text-primary me-2"></i>Kích hoạt sử dụng</h5>
+                    
+                    <div class="form-check form-switch p-0 d-flex align-items-center justify-content-between">
+                        <div>
+                            <label class="form-check-label fw-bold text-dark d-block mb-1" for="HienThiSwitch">Đang kích hoạt</label>
+                            <small class="text-muted">Cho phép khách hàng áp dụng mã này khi đặt hàng</small>
+                        </div>
+                        @Html.CheckBox("HienThi", Model?.HienThi ?? false, new { @class = "form-check-input ms-0 fs-4", id = "HienThiSwitch", role = "switch" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.HienThi, "", new { @class = "text-danger small" })
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,83 @@
+﻿@model DoAnNoSQL.Models.MenuDanhMucViewModel
+
+@* Partial View: Menu Phụ kiện - Theo loại sản phẩm thay vì thương hiệu *@
+
+@{
+    var danhMuc = Model.DanhMuc;
+}
+
+<!-- Danh mục Phụ kiện -->
+<a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })" class="toggle-category">
+    <i class="fas fa-headphones"></i> @danhMuc.TenDanhMuc
+    @if (Model.SoLuongSanPham > 0)
+    {
+        <span class="text-xs text-gray-400 ml-1">(@Model.SoLuongSanPham)</span>
+    }
+</a>
+
+<ul class="category-list">
+    <li>
+      <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })">
+    <i class="fas fa-list mr-2"></i> Tất cả phụ kiện
+        </a>
+    </li>
+    
+    @* Submenu theo loại phụ kiện *@
+    <li class="submenu-divider">
+        <span class="text-xs text-gray-500 font-semibold px-3 py-1 block">Loại phụ kiện</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, loai = "tainghe" })">
+            <i class="fas fa-headphones text-purple-500 mr-2"></i> Tai nghe
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, loai = "sacduphong" })">
+            <i class="fas fa-battery-full text-red-500 mr-2"></i> Pin dự phòng
+        </a>
+    </li>
+    
+    @* Hiển thị thương hiệu nếu có *@
+    @if (Model.DanhSachThuongHieu != null && Model.DanhSachThuongHieu.Any())
+    {
+        <li class="submenu-divider">
+            <span class="text-xs text-gray-500 font-semibold px-3 py-1 block">Thương hiệu</span>
+        </li>
+        
+        foreach (var thuongHieu in Model.DanhSachThuongHieu.Take(5))
+        {
+            <li>
+                <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, thuongHieuId = thuongHieu.Id })">
+                    @if (!string.IsNullOrEmpty(thuongHieu.HinhAnh))
+                    {
+                        <img src="@Url.Content("~/Content/Images/" + thuongHieu.HinhAnh)" 
+                             alt="@thuongHieu.TenThuongHieu" 
+                             class="inline-block w-4 h-4 mr-2 object-contain" />
+                    }
+                    @thuongHieu.TenThuongHieu
+                    <span class="text-xs text-gray-400">(@thuongHieu.SoLuongSanPham)</span>
+                </a>
+            </li>
+        }
+    }
+    
+    @* Filter theo giá *@
+    <li class="submenu-divider">
+        <span class="text-xs text-gray-500 font-semibold px-3 py-1 block">Mức giá</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMax = 500000 })">
+            <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> Dưới 500k
+    </a>
+</li>
+  <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMin = 500000, giaMax = 1000000 })">
+            <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> 500k - 1 triệu
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMin = 1000000 })">
+            <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> Trên 1 triệu
+        </a>
+    </li>
+</ul>

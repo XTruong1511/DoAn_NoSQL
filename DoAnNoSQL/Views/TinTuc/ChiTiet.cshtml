@@ -1,0 +1,565 @@
+@model DoAnNoSQL.tb_TinTuc
+
+@{
+    ViewBag.Title = Model.TieuDe;
+    var tinLienQuan = ViewBag.TinLienQuan as List<DoAnNoSQL.tb_TinTuc> ?? new List<DoAnNoSQL.tb_TinTuc>();
+    var tinMoiNhat = ViewBag.TinMoiNhat as List<DoAnNoSQL.tb_TinTuc> ?? new List<DoAnNoSQL.tb_TinTuc>();
+    var tenDanhMuc = Model.tb_DanhMucTin?.TenDanhMuc ?? Model.DanhMucTin?.TenDanhMuc ?? "Tin công nghệ";
+    var danhMucId = Model.tb_DanhMucTin?.Id ?? Model.DanhMucTin?.Id ?? 0;
+    
+    // Ước tính thời gian đọc dựa trên độ dài nội dung
+    int wordCount = string.IsNullOrEmpty(Model.ChiTiet) ? 100 : Model.ChiTiet.Split(new[] { ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+    int readTime = Math.Max(2, (int)Math.Ceiling(wordCount / 200.0));
+}
+
+<div class="max-w-7xl mx-auto pb-12">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="@Url.Action("Index", "Home")" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                    <i class="fas fa-home mr-2"></i>
+                    Trang chủ
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                    <a href="@Url.Action("Index", "TinTuc")" class="text-sm font-medium text-gray-700 hover:text-blue-600">
+                        Tin tức
+                    </a>
+                </div>
+            </li>
+            @if (!string.IsNullOrEmpty(tenDanhMuc) && danhMucId > 0)
+            {
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="@Url.Action("Index", "TinTuc", new { danhMucId = danhMucId })" class="text-sm font-medium text-gray-700 hover:text-blue-600">
+                            @tenDanhMuc
+                        </a>
+                    </div>
+                </li>
+            }
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                    <span class="text-sm font-medium text-gray-500 line-clamp-1 max-w-xs sm:max-w-md md:max-w-lg" title="@Model.TieuDe">@Model.TieuDe</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Layout Grid: Nội dung chính (8 cột) + Sidebar (4 cột) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Main Content Area -->
+        <main class="lg:col-span-8">
+            <article class="card-glass-3d overflow-hidden" data-aos="fade-up">
+                
+                <!-- Header bài viết -->
+                <div class="p-6 sm:p-8 lg:p-10 pb-4 border-b border-slate-100">
+                    <!-- Badge chuyên mục & Thời gian đọc -->
+                    <div class="flex flex-wrap items-center gap-3 mb-4">
+                        @if (!string.IsNullOrEmpty(tenDanhMuc))
+                        {
+                            <a href="@Url.Action("Index", "TinTuc", new { danhMucId = danhMucId })" 
+                               class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100 transition-all">
+                                <i class="fas fa-tag mr-1.5 text-teal-500"></i>
+                                @tenDanhMuc
+                            </a>
+                        }
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
+                            <i class="far fa-clock mr-1.5 text-slate-400"></i>
+                            Khoảng @readTime phút đọc
+                        </span>
+                        @if (Model.LuotXem.HasValue && Model.LuotXem > 0)
+                        {
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200/60">
+                                <i class="far fa-eye mr-1.5 text-amber-500"></i>
+                                @Model.LuotXem.Value.ToString("N0") lượt xem
+                            </span>
+                        }
+                    </div>
+
+                    <!-- Tiêu đề chính -->
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 font-heading leading-snug sm:leading-tight mb-6">
+                        @Model.TieuDe
+                    </h1>
+
+                    <!-- Thông tin tác giả, ngày đăng & Quick Action Toolbar -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-100 text-sm text-slate-500">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-white font-bold shadow-sm">
+                                <i class="fas fa-user-edit text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-800 leading-tight">@(string.IsNullOrEmpty(Model.NguoiTao) ? "Ban Biên Tập" : Model.NguoiTao)</p>
+                                <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                                    <span><i class="far fa-calendar-alt mr-1"></i>@(Model.NgayTao?.ToString("dd/MM/yyyy HH:mm") ?? DateTime.Now.ToString("dd/MM/yyyy"))</span>
+                                    @if (Model.NgayCapNhat.HasValue && Model.NgayCapNhat != Model.NgayTao)
+                                    {
+                                        <span class="text-slate-300">•</span>
+                                        <span>Cập nhật: @Model.NgayCapNhat.Value.ToString("dd/MM/yyyy")</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Toolbar: Copy, Share, Font Size -->
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="btnDecreaseFont" class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="Giảm cỡ chữ">
+                                <span class="font-bold text-xs">A-</span>
+                            </button>
+                            <button type="button" id="btnIncreaseFont" class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="Tăng cỡ chữ">
+                                <span class="font-bold text-sm">A+</span>
+                            </button>
+                            <button type="button" onclick="copyArticleUrl()" class="px-3 py-1.5 flex items-center gap-1.5 rounded-xl bg-teal-50 text-teal-700 hover:bg-teal-100 border border-teal-200/70 transition font-medium text-xs shadow-xs" title="Sao chép liên kết">
+                                <i class="fas fa-link"></i>
+                                <span class="hidden sm:inline">Sao chép link</span>
+                            </button>
+                            <button type="button" onclick="window.print()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="In bài viết">
+                                <i class="fas fa-print text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ảnh đại diện nổi bật (Featured Image) -->
+                @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                {
+                    <div class="px-6 sm:px-8 lg:px-10 pt-6">
+                        <div class="relative overflow-hidden rounded-2xl bg-slate-100 shadow-md group">
+                            <img src="@Url.Content("~/Content/Images/" + Model.HinhAnh)" 
+                                 alt="@Model.TieuDe" 
+                                 class="w-full max-h-[460px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80';" />
+                        </div>
+                    </div>
+                }
+
+                <!-- Nội dung bài viết -->
+                <div class="p-6 sm:p-8 lg:p-10">
+                    
+                    <!-- Mô tả / Sapo tóm tắt -->
+                    @if (!string.IsNullOrEmpty(Model.MoTa))
+                    {
+                        <div class="relative bg-gradient-to-r from-teal-50/80 via-emerald-50/50 to-slate-50 border-l-4 border-teal-500 rounded-r-2xl p-5 sm:p-6 mb-8 shadow-xs">
+                            <div class="absolute top-4 right-4 text-teal-200 text-3xl select-none pointer-events-none">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                            <p class="text-base sm:text-lg text-slate-800 font-medium italic leading-relaxed relative z-10">
+                                @Model.MoTa
+                            </p>
+                        </div>
+                    }
+
+                    <!-- Nội dung HTML chi tiết -->
+                    <div id="articleBody" class="article-rich-text text-slate-700 leading-relaxed text-base sm:text-lg space-y-5">
+                        @if (!string.IsNullOrEmpty(Model.ChiTiet))
+                        {
+                            @Html.Raw(Model.ChiTiet)
+                        }
+                        else
+                        {
+                            <div class="p-8 text-center text-slate-400 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                                <i class="fas fa-file-alt text-4xl mb-3 text-slate-300"></i>
+                                <p>Nội dung chi tiết đang được ban biên tập cập nhật...</p>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Tương tác: Đánh giá bài viết & Chia sẻ -->
+                    <div class="mt-10 pt-6 border-t border-slate-200">
+                        <div class="bg-slate-50 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-base mb-1 flex items-center gap-2">
+                                    <i class="far fa-thumbs-up text-teal-600"></i>
+                                    Bạn thấy bài viết này hữu ích chứ?
+                                </h4>
+                                <p class="text-xs text-slate-500">Phản hồi của bạn giúp chúng tôi nâng cao chất lượng nội dung.</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="btnHelpfulYes" onclick="reactHelpful(true)" class="px-4 py-2 rounded-xl bg-white hover:bg-teal-50 text-slate-700 hover:text-teal-700 border border-slate-200 transition font-medium text-sm shadow-xs flex items-center gap-1.5">
+                                    <i class="far fa-smile text-teal-600"></i> Có, rất hay!
+                                </button>
+                                <button type="button" id="btnHelpfulNo" onclick="reactHelpful(false)" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition font-medium text-sm shadow-xs flex items-center gap-1.5">
+                                    <i class="far fa-meh text-slate-500"></i> Cần cải thiện
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Chia sẻ bài viết mạng xã hội -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 mt-6">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Chia sẻ:</span>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=@Request.Url.AbsoluteUri" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center hover:opacity-90 transition shadow-sm" title="Chia sẻ Facebook">
+                                    <i class="fab fa-facebook-f text-sm"></i>
+                                </a>
+                                <a href="https://twitter.com/intent/tweet?url=@Request.Url.AbsoluteUri&text=@HttpUtility.UrlEncode(Model.TieuDe)" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-sky-500 text-white flex items-center justify-center hover:opacity-90 transition shadow-sm" title="Chia sẻ Twitter/X">
+                                    <i class="fab fa-twitter text-sm"></i>
+                                </a>
+                                <a href="https://zalo.me/share?url=@Request.Url.AbsoluteUri" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-blue-500 text-white flex items-center justify-center hover:opacity-90 transition shadow-sm font-bold text-xs" title="Chia sẻ Zalo">
+                                    Z
+                                </a>
+                                <button type="button" onclick="copyArticleUrl()" class="w-9 h-9 rounded-full bg-slate-700 text-white flex items-center justify-center hover:bg-slate-800 transition shadow-sm" title="Sao chép đường link">
+                                    <i class="fas fa-link text-xs"></i>
+                                </button>
+                            </div>
+
+                            <a href="@Url.Action("Index", "TinTuc")" class="inline-flex items-center text-teal-600 hover:text-teal-700 font-semibold text-sm group">
+                                <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                                Quay lại danh sách tin
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+
+            <!-- Khối bài viết liên quan phía dưới (Dạng lưới 2 cột) -->
+            @if (tinLienQuan.Any())
+            {
+                <div class="mt-10">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 font-heading flex items-center gap-2.5">
+                            <span class="w-2.5 h-6 rounded-full bg-teal-600 inline-block"></span>
+                            Bài viết liên quan
+                        </h3>
+                        <a href="@Url.Action("Index", "TinTuc", new { danhMucId = danhMucId })" class="text-xs sm:text-sm font-semibold text-teal-600 hover:text-teal-700 flex items-center gap-1">
+                            Xem tất cả <i class="fas fa-chevron-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        @foreach (var item in tinLienQuan)
+                        {
+                            <a href="@Url.Action("ChiTiet", "TinTuc", new { id = item.Id })" class="group bg-white rounded-2xl p-4 border border-slate-200/80 shadow-soft hover:shadow-md hover:border-teal-300 transition-all flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div class="relative overflow-hidden rounded-xl aspect-[16/9] bg-slate-100">
+                                        @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                        {
+                                            <img src="@Url.Content("~/Content/Images/" + item.HinhAnh)" 
+                                                 alt="@item.TieuDe" 
+                                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80';" />
+                                        }
+                                        else
+                                        {
+                                            <div class="w-full h-full flex items-center justify-center text-slate-300">
+                                                <i class="fas fa-newspaper text-3xl"></i>
+                                            </div>
+                                        }
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 group-hover:text-teal-600 transition-colors line-clamp-2 leading-snug text-base">
+                                        @item.TieuDe
+                                    </h4>
+                                    @if (!string.IsNullOrEmpty(item.MoTa))
+                                    {
+                                        <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                                            @item.MoTa
+                                        </p>
+                                    }
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100 mt-3">
+                                    <span><i class="far fa-calendar mr-1"></i>@(item.NgayTao?.ToString("dd/MM/yyyy") ?? "")</span>
+                                    <span class="text-teal-600 font-semibold group-hover:translate-x-1 transition-transform flex items-center">
+                                        Đọc tiếp <i class="fas fa-arrow-right ml-1 text-[10px]"></i>
+                                    </span>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </main>
+
+        <!-- Sidebar Area -->
+        <aside class="lg:col-span-4 space-y-8 sticky top-4">
+            <!-- Box tìm kiếm 3D -->
+            <div class="card-glass-3d p-6">
+                <h3 class="text-sm font-black uppercase tracking-wider text-slate-800 font-heading mb-3 flex items-center gap-2">
+                    <i class="fas fa-search text-teal-600"></i>
+                    Tìm kiếm tin tức
+                </h3>
+                <form action="@Url.Action("Index", "TinTuc")" method="get" class="relative">
+                    <input type="text" 
+                           name="q" 
+                           placeholder="Nhập từ khóa tìm kiếm..." 
+                           class="w-full input-3d text-xs font-semibold pr-12" />
+                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-500 text-white flex items-center justify-center hover:opacity-90 transition shadow-md" title="Tìm kiếm">
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Widget: Tin mới nhất (Ranked Top List) 3D -->
+            @if (tinMoiNhat.Any())
+            {
+                <div class="card-glass-3d p-6">
+                    <h3 class="text-sm font-black uppercase tracking-wider text-slate-800 font-heading pb-3 mb-4 border-b border-slate-100 flex items-center justify-between">
+                        <span class="flex items-center gap-2">
+                            <i class="fas fa-bolt text-amber-500"></i>
+                            Tin mới cập nhật
+                        </span>
+                        <span class="text-[10px] uppercase font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">Mới nhất</span>
+                    </h3>
+
+                    <div class="space-y-3.5">
+                        @{ int rank = 1; }
+                        @foreach (var tin in tinMoiNhat)
+                        {
+                            <a href="@Url.Action("ChiTiet", "TinTuc", new { id = tin.Id })" class="group flex items-start gap-3 pb-3 border-b border-slate-100 last:border-0 last:pb-0">
+                                <span class="w-6 h-6 rounded-lg @(rank <= 3 ? "bg-teal-50 text-teal-700 font-black border border-teal-200" : "bg-slate-100 text-slate-500 font-bold") flex-shrink-0 flex items-center justify-center text-[11px] shadow-xs">
+                                    0@(rank++)
+                                </span>
+                                @if (!string.IsNullOrEmpty(tin.HinhAnh))
+                                {
+                                    <div class="w-16 h-16 rounded-xl overflow-hidden bg-slate-100 flex-shrink-0">
+                                        <img src="@Url.Content("~/Content/Images/" + tin.HinhAnh)" 
+                                             alt="@tin.TieuDe" 
+                                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=200&q=80';" />
+                                    </div>
+                                }
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-xs font-bold text-slate-800 group-hover:text-teal-600 transition-colors line-clamp-2 leading-snug">
+                                        @tin.TieuDe
+                                    </h4>
+                                    <p class="text-[10px] text-slate-400 mt-1 flex items-center gap-1">
+                                        <i class="far fa-clock text-teal-500"></i>
+                                        @(tin.NgayTao?.ToString("dd/MM/yyyy") ?? "")
+                                    </p>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- Banner Hỗ trợ / Mua hàng 3D -->
+            <div class="page-header-3d p-6 relative overflow-hidden" data-aos="fade-up">
+                <div class="relative z-10">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-teal-400/20 text-teal-200 border border-teal-400/30 mb-3">
+                        <i class="fas fa-headset mr-1.5 text-amber-300"></i> Hỗ trợ kỹ thuật 24/7
+                    </span>
+                    <h4 class="text-base font-black font-heading text-white leading-snug mb-2">
+                        Cần tư vấn thiết bị hoặc trải nghiệm sản phẩm?
+                    </h4>
+                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+                        Đội ngũ kỹ thuật viên luôn sẵn sàng giải đáp và demo trực quan các tính năng cho bạn.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <a href="tel:19001234" class="btn-3d btn-3d-primary flex-1 py-2.5 text-xs font-black uppercase rounded-xl flex items-center justify-center gap-2">
+                            <i class="fas fa-phone-alt"></i> 1900 1234
+                        </a>
+                        <a href="@Url.Action("Index", "SanPham")" class="btn-3d btn-3d-secondary flex-1 py-2.5 text-xs font-black uppercase rounded-xl flex items-center justify-center">
+                            Khám phá SP
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+</div>
+
+<!-- Custom Scoped Styling cho Nội dung bài viết (article-rich-text) -->
+<style>
+    .article-rich-text {
+        font-family: inherit;
+        line-height: 1.8;
+    }
+    .article-rich-text p {
+        margin-bottom: 1.25rem;
+        color: #334155;
+    }
+    .article-rich-text h2 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.625rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #f1f5f9;
+        position: relative;
+    }
+    .article-rich-text h2::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background: #0d9488;
+    }
+    .article-rich-text h3 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    .article-rich-text h4 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #334155;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    .article-rich-text ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1.25rem;
+        color: #334155;
+    }
+    .article-rich-text ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+        margin-bottom: 1.25rem;
+        color: #334155;
+    }
+    .article-rich-text li {
+        margin-bottom: 0.5rem;
+    }
+    .article-rich-text img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        margin: 1.5rem auto;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+        display: block;
+    }
+    .article-rich-text blockquote {
+        border-left: 4px solid #0d9488;
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        background-color: #f8fafc;
+        border-radius: 0 1rem 1rem 0;
+        font-style: italic;
+        color: #475569;
+    }
+    .article-rich-text table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+    }
+    .article-rich-text th, 
+    .article-rich-text td {
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+    }
+    .article-rich-text th {
+        background-color: #f8fafc;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .article-rich-text strong {
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .article-rich-text a {
+        color: #0d9488;
+        text-decoration: underline;
+        font-weight: 500;
+    }
+    .article-rich-text a:hover {
+        color: #0f766e;
+    }
+</style>
+
+@section scripts {
+<script>
+    // Copy Article URL to Clipboard
+    function copyArticleUrl() {
+        var url = window.location.href;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(function() {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đã sao chép link!',
+                        text: 'Liên kết bài viết đã được lưu vào bộ nhớ tạm.',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                } else {
+                    alert('Đã sao chép liên kết bài viết vào bộ nhớ tạm!');
+                }
+            });
+        } else {
+            var tempInput = document.createElement("input");
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert('Đã sao chép liên kết bài viết!');
+        }
+    }
+
+    // Điều chỉnh kích thước chữ bài viết (A- / A+)
+    var currentFontSize = 18;
+    $(document).ready(function() {
+        $('#btnDecreaseFont').click(function() {
+            changeFontSize(-2);
+        });
+        
+        $('#btnIncreaseFont').click(function() {
+            changeFontSize(2);
+        });
+        
+        function changeFontSize(delta) {
+            var article = $('#articleBody');
+            if (article.length === 0) return;
+            
+            currentFontSize += delta;
+            if (currentFontSize < 14) currentFontSize = 14;
+            if (currentFontSize > 32) currentFontSize = 32;
+            
+            // Áp dụng CSS trực tiếp lên toàn bộ các phần tử bên trong (trừ các thẻ tiêu đề nếu không muốn)
+            article.css('font-size', currentFontSize + 'px');
+            article.find('p, span, div:not(#articleBody), li, a, td, th').css({
+                'font-size': currentFontSize + 'px',
+                'line-height': '1.8'
+            });
+        }
+    });
+
+    // Reaction bài viết hữu ích
+    function reactHelpful(isYes) {
+        var btnYes = document.getElementById('btnHelpfulYes');
+        var btnNo = document.getElementById('btnHelpfulNo');
+        
+        if (isYes) {
+            btnYes.classList.add('bg-teal-600', 'text-white');
+            btnYes.classList.remove('bg-white', 'text-slate-700');
+            btnNo.disabled = true;
+            btnNo.classList.add('opacity-50');
+        } else {
+            btnNo.classList.add('bg-slate-700', 'text-white');
+            btnNo.classList.remove('bg-white', 'text-slate-700');
+            btnYes.disabled = true;
+            btnYes.classList.add('opacity-50');
+        }
+
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Cảm ơn bạn!',
+                text: 'Ý kiến phản hồi của bạn đã được ghi nhận.',
+                timer: 2000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
+        }
+    }
+</script>
+}

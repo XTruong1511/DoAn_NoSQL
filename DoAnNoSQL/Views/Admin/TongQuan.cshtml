@@ -1,0 +1,570 @@
+﻿
+@{
+    ViewBag.Title = "Tổng Quan";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
+    var totalRevenue = ViewBag.TotalRevenue ?? 0;
+    var totalOrders = ViewBag.TotalOrders ?? 0;
+    var totalCustomers = ViewBag.TotalCustomers ?? 0;
+    var totalProducts = ViewBag.TotalProducts ?? 0;
+}
+
+<div id="dashboard" class="tab-content active">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0 fw-bold" style="font-size: 2.2rem; font-weight: 800 !important;">
+            <i class="fas fa-tachometer-alt text-primary me-2"></i>
+            Bảng điều khiển
+        </h1>
+        <div class="text-muted">
+            <i class="far fa-clock me-1"></i>
+            Cập nhật: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")
+        </div>
+    </div>
+    
+    <!-- Thống kê tổng quan -->
+    <div class="row g-3">
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-card bg-gradient-primary shadow h-100">
+                <div class="icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="info">
+                    <h3 id="totalRevenue">@String.Format("{0:N0}", totalRevenue) đ</h3>
+                    <p>Tổng doanh thu</p>
+                    <small class="text-white-50">
+                        <i class="fas fa-chart-line me-1"></i>
+                        Đơn đã giao/hoàn thành
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-card bg-gradient-success shadow h-100">
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="info">
+                    <h3 id="totalOrders">@totalOrders</h3>
+                    <p>Tổng đơn hàng</p>
+                    <small class="text-white-50">
+                        <i class="fas fa-box me-1"></i>
+                        Tất cả trạng thái
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-card bg-gradient-info shadow h-100">
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="info">
+                    <h3 id="totalCustomers">@totalCustomers</h3>
+                    <p>Tổng khách hàng</p>
+                    <small class="text-white-50">
+                        <i class="fas fa-user-check me-1"></i>
+                        Tài khoản đã đăng ký
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-3">
+            <div class="stat-card bg-gradient-warning shadow h-100">
+                <div class="icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <div class="info">
+                    <h3 id="totalProducts">@totalProducts</h3>
+                    <p>Sản phẩm trong kho</p>
+                    <small class="text-white-50">
+                        <i class="fas fa-warehouse me-1"></i>
+                        Tổng số lượng
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Biểu đồ -->
+    <div class="row">
+        <div class="col-lg-7 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-chart-area me-2"></i>
+                        Doanh thu 6 tháng gần nhất
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="dashboardRevenueChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-success">
+                        <i class="fas fa-chart-pie me-2"></i>
+                        Top 5 sản phẩm bán chạy
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="dashboardTopProductsChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Đơn hàng gần đây -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-info">
+                        <i class="fas fa-list me-2"></i>
+                        Đơn hàng gần đây
+                    </h6>
+                    <a href="@Url.Action("DonHang", "Admin")" class="btn btn-sm btn-outline-primary">
+                        Xem tất cả <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Khách hàng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày đặt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.RecentOrders != null)
+                                {
+                                    var orders = (List<DoAnNoSQL.Models.RecentOrderViewModel>)ViewBag.RecentOrders;
+                                    foreach (var order in orders)
+                                    {
+                                        int trangThai = order.TrangThai ?? 0;
+                                        var statusClass = "";
+                                        var statusText = "";
+                                        switch (trangThai)
+                                        {
+                                            case 1: statusClass = "warning"; statusText = "Chờ xử lý"; break;
+                                            case 2: statusClass = "info"; statusText = "Đã xác nhận"; break;
+                                            case 3: statusClass = "primary"; statusText = "Đang giao"; break;
+                                            case 4: statusClass = "success"; statusText = "Đã giao"; break;
+                                            case 5: statusClass = "success"; statusText = "Hoàn thành"; break;
+                                            case -1: statusClass = "danger"; statusText = "Đã hủy"; break;
+                                            default: statusClass = "secondary"; statusText = "Không rõ"; break;
+                                        }
+                                        
+                                        <tr>
+                                            <td>
+                                                <strong class="text-primary">@order.MaDonHang</strong>
+                                            </td>
+                                            <td>@order.TenKhachHang</td>
+                                            <td>
+                                                <strong>@String.Format("{0:N0}", order.TongTien ?? 0) đ</strong>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-@statusClass">@statusText</span>
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">
+                                                    @(order.NgayTao.HasValue ? order.NgayTao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">
+                                            <i class="fas fa-inbox fa-3x mb-3"></i>
+                                            <p>Chưa có đơn hàng nào</p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* ==================== STAT CARD STYLES (COMPACT VERSION) ==================== */
+.stat-card {
+    /* Layout & Dimensions */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 110px; /* Reduced from 140px - More compact */
+    height: 100%; /* Fill parent container */
+        
+    /* Spacing & Appearance */
+    padding: 16px 18px; /* Reduced from 24px 20px */
+    border-radius: 10px; /* Slightly smaller radius */
+    color: white;
+        
+    /* Effects */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+}
+    
+.stat-card:hover {
+    transform: translateY(-3px); /* Reduced from -5px */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+    
+/* Icon Container */
+.stat-card .icon {
+    /* Dimensions */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    width: 50px; /* Reduced from 65px - Much smaller */
+    height: 50px; /* Reduced from 65px - Much smaller */
+        
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        
+    /* Appearance */
+    font-size: 1.5rem; /* Reduced from 2rem - Smaller icon */
+    opacity: 0.9;
+    margin-right: 14px; /* Reduced from 16px */
+        
+    /* Background circle */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+        
+    /* Effects */
+    transition: all 0.3s ease;
+}
+    
+.stat-card:hover .icon {
+    opacity: 1;
+    transform: scale(1.08); /* Reduced from 1.1 */
+}
+    
+/* Info Container */
+.stat-card .info {
+    /* Layout */
+    flex: 1; /* Take remaining space */
+    min-width: 0; /* Allow text truncation */
+        
+    /* Vertical alignment */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+        
+    /* Spacing */
+    padding-right: 8px; /* Reduced from 10px */
+}
+    
+/* Info Text Elements */
+.stat-card .info h3 {
+    /* Typography */
+    font-size: 1.75rem; /* Tăng kích thước số liệu */
+    font-weight: 800;
+    line-height: 1.2;
+        
+    /* Spacing */
+    margin: 0 0 5px 0; /* Reduced from 8px */
+        
+    /* Text handling - PREVENT line wrapping */
+    white-space: nowrap; /* Keep number on one line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+        
+    /* Effects */
+    transition: font-size 0.3s ease;
+    letter-spacing: -0.5px;
+}
+    
+.stat-card .info p {
+    /* Typography */
+    font-size: 0.875rem; /* Reduced from 0.95rem */
+    font-weight: 500;
+    line-height: 1.3;
+        
+    /* Spacing */
+    margin: 0 0 4px 0; /* Reduced from 6px */
+        
+    /* Appearance */
+    opacity: 0.95;
+        
+    /* Text handling */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal; /* Allow wrapping */
+}
+    
+.stat-card .info small {
+    /* Typography */
+    font-size: 0.7rem; /* Reduced from 0.75rem */
+    line-height: 1.2;
+        
+    /* Spacing */
+    margin: 0;
+        
+    /* Text handling */
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+    
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+    
+/* Large screens (desktops) */
+@@media (min-width: 1200px) {
+    .stat-card {
+        min-height: 120px;
+        padding: 18px 20px;
+    }
+        
+    .stat-card .icon {
+        width: 55px; /* Reduced from 70px - Smaller icon */
+        height: 55px; /* Reduced from 70px - Smaller icon */
+        font-size: 1.75rem; /* Reduced from 2.25rem */
+        margin-right: 16px; /* Reduced from 18px */
+    }
+        
+    .stat-card .info h3 {
+        font-size: 1.5rem; /* Slightly larger for desktop */
+    }
+        
+    .stat-card .info p {
+        font-size: 0.9rem;
+    }
+}
+    
+/* Medium screens (tablets) */
+@@media (max-width: 991px) {
+    .stat-card {
+        min-height: 105px;
+        padding: 14px 16px;
+    }
+        
+    .stat-card .icon {
+        width: 48px; /* Reduced from 60px - Smaller icon */
+        height: 48px; /* Reduced from 60px - Smaller icon */
+        font-size: 1.5rem; /* Reduced from 1.9rem */
+        margin-right: 12px; /* Reduced from 14px */
+    }
+        
+    .stat-card .info h3 {
+        font-size: 1.2rem; /* Smaller to fit long numbers */
+    }
+        
+    .stat-card .info p {
+        font-size: 0.8rem;
+    }
+        
+    .stat-card .info small {
+        font-size: 0.65rem;
+    }
+}
+    
+/* Small screens (mobile) */
+@@media (max-width: 767px) {
+    .stat-card {
+        min-height: 100px;
+        padding: 12px 14px;
+    }
+        
+    .stat-card .icon {
+        width: 45px; /* Reduced from 55px - Smaller icon */
+        height: 45px; /* Reduced from 55px - Smaller icon */
+        font-size: 1.35rem; /* Reduced from 1.75rem */
+        margin-right: 10px; /* Reduced from 12px */
+    }
+        
+    .stat-card .info h3 {
+        font-size: 1.1rem; /* Smaller to fit long numbers */
+    }
+        
+    .stat-card .info p {
+        font-size: 0.75rem;
+    }
+        
+    .stat-card .info small {
+        font-size: 0.6rem;
+    }
+}
+    
+/* Extra small screens */
+@@media (max-width: 575px) {
+    .stat-card {
+        min-height: 95px;
+        padding: 12px 10px;
+        flex-direction: row; /* Keep horizontal layout */
+    }
+        
+    .stat-card .icon {
+        width: 42px; /* Reduced from 50px - Smaller icon */
+        height: 42px; /* Reduced from 50px - Smaller icon */
+        font-size: 1.25rem; /* Reduced from 1.5rem */
+        margin-right: 8px; /* Reduced from 10px */
+    }
+        
+    .stat-card .info h3 {
+        font-size: 1rem; /* Smaller to fit long numbers */
+    }
+        
+    .stat-card .info p {
+        font-size: 0.7rem;
+    }
+        
+    .stat-card .info small {
+        font-size: 0.55rem;
+    }
+}
+    
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    }
+    
+    .bg-gradient-info {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    }
+    
+    .bg-gradient-warning {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    }
+    
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+
+@section scripts {
+<script>
+    // Dữ liệu doanh thu 6 tháng
+    var revenueData = @Html.Raw(Json.Encode(ViewBag.RevenueByMonth ?? new List<object>()));
+    
+    // Dữ liệu sản phẩm bán chạy
+    var topProductsData = @Html.Raw(Json.Encode(ViewBag.TopProducts ?? new List<object>()));
+    
+    // Biểu đồ doanh thu
+    if (revenueData.length > 0) {
+        var revenueLabels = revenueData.map(function(item) {
+            return 'Tháng ' + item.Month + '/' + item.Year;
+        });
+        
+        var revenueValues = revenueData.map(function(item) {
+            return item.Revenue;
+        });
+        
+        var revenueCtx = document.getElementById('dashboardRevenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: revenueLabels,
+                datasets: [{
+                    label: 'Doanh thu (đ)',
+                    data: revenueValues,
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Doanh thu: ' + context.parsed.y.toLocaleString('vi-VN') + ' đ';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString('vi-VN') + ' đ';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    // Biểu đồ sản phẩm bán chạy
+    if (topProductsData.length > 0) {
+        var productLabels = topProductsData.map(function(item) {
+            return item.ProductName;
+        });
+        
+        var productValues = topProductsData.map(function(item) {
+            return item.TotalQuantity;
+        });
+        
+        var productCtx = document.getElementById('dashboardTopProductsChart').getContext('2d');
+        new Chart(productCtx, {
+            type: 'doughnut',
+            data: {
+                labels: productLabels,
+                datasets: [{
+                    data: productValues,
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(132, 250, 176, 0.8)',
+                        'rgba(168, 237, 234, 0.8)',
+                        'rgba(255, 236, 210, 0.8)',
+                        'rgba(252, 182, 159, 0.8)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + ' sản phẩm';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+</script>
+}
+
+
+

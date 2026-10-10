@@ -1,0 +1,142 @@
+[
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330870"
+    },
+    "SqlId": 1,
+    "MaBaoHanh": "BH202608150001",
+    "SanPham": {
+      "Id": 22,
+      "TenSanPham": "iPhone 17 Pro Max"
+    },
+    "DonHangId": null,
+    "TaiKhoanId": null,
+    "KhachHang": {
+      "TenKhachHang": "Nguyễn Văn An",
+      "SoDienThoai": "0912345678",
+      "Email": "an.nguyen@gmail.com",
+      "DiaChi": "Quận 1, TP. HCM"
+    },
+    "MaSeri": "IP17PM-VN-8839210",
+    "NgayKichHoat": {
+      "$date": "2026-08-15T00:00:00Z"
+    },
+    "ThoiHanBaoHanh": 12,
+    "NgayHetHan": {
+      "$date": "2027-08-15T00:00:00Z"
+    },
+    "TrangThai": 1,
+    "GhiChu": "Bảo hành chính hãng 12 tháng",
+    "LichSuSuaChua": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330871"
+    },
+    "SqlId": 2,
+    "MaBaoHanh": "BH202607100002",
+    "SanPham": {
+      "Id": 21,
+      "TenSanPham": "iPhone 17 Pro"
+    },
+    "DonHangId": null,
+    "TaiKhoanId": null,
+    "KhachHang": {
+      "TenKhachHang": "Trần Thị Bích",
+      "SoDienThoai": "0987654321",
+      "Email": "bich.tran@gmail.com",
+      "DiaChi": "Tân Bình, TP. HCM"
+    },
+    "MaSeri": "IP17P-VN-7729104",
+    "NgayKichHoat": {
+      "$date": "2026-07-10T00:00:00Z"
+    },
+    "ThoiHanBaoHanh": 12,
+    "NgayHetHan": {
+      "$date": "2027-07-10T00:00:00Z"
+    },
+    "TrangThai": 3,
+    "GhiChu": "Đang tiếp nhận kiểm tra màn hình",
+    "LichSuSuaChua": [
+      {
+        "MaPhieu": "SC20260830001",
+        "TrieuChungLoi": "Màn hình chớp nháy khi mở độ sáng cao",
+        "TinhTrangTiepNhan": "Máy mới 99%, nắp lưng không trầy",
+        "NgayTiepNhan": {
+          "$date": "2026-08-30T00:00:00Z"
+        },
+        "NgayHenTra": {
+          "$date": "2026-09-05T00:00:00Z"
+        },
+        "NgayTraThucTe": null,
+        "TrangThai": 2,
+        "ChiPhiPhatSinh": 0.0,
+        "GiaiPhapXuLy": "Đang kiểm tra cable màn hình",
+        "LinhKienThayThe": null,
+        "NguoiTiepNhan": "Admin",
+        "KyThuatVien": "Nguyễn Kỹ Thuật",
+        "GhiChu": "Nhận kèm hộp và cáp sạc"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330872"
+    },
+    "SqlId": 3,
+    "MaBaoHanh": "BH202509150003",
+    "SanPham": {
+      "Id": 20,
+      "TenSanPham": "iPhone 17"
+    },
+    "DonHangId": null,
+    "TaiKhoanId": null,
+    "KhachHang": {
+      "TenKhachHang": "Lê Hoàng Long",
+      "SoDienThoai": "0909123456",
+      "Email": "long.le@gmail.com",
+      "DiaChi": "Bình Thạnh, TP. HCM"
+    },
+    "MaSeri": "IP17-VN-1294820",
+    "NgayKichHoat": {
+      "$date": "2025-09-15T00:00:00Z"
+    },
+    "ThoiHanBaoHanh": 12,
+    "NgayHetHan": {
+      "$date": "2026-09-15T00:00:00Z"
+    },
+    "TrangThai": 1,
+    "GhiChu": "Sắp hết hạn trong tháng này",
+    "LichSuSuaChua": []
+  },
+  {
+    "_id": {
+      "$oid": "6a9a1d2a0b065f9d05330873"
+    },
+    "SqlId": 4,
+    "MaBaoHanh": "BH202401010004",
+    "SanPham": {
+      "Id": 24,
+      "TenSanPham": "OPPO Find N5"
+    },
+    "DonHangId": null,
+    "TaiKhoanId": null,
+    "KhachHang": {
+      "TenKhachHang": "Phạm Minh Tuấn",
+      "SoDienThoai": "0933888999",
+      "Email": "tuan.pham@gmail.com",
+      "DiaChi": "Gò Vấp, TP. HCM"
+    },
+    "MaSeri": "OPN5-VN-9948201",
+    "NgayKichHoat": {
+      "$date": "2024-01-01T00:00:00Z"
+    },
+    "ThoiHanBaoHanh": 12,
+    "NgayHetHan": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "TrangThai": 2,
+    "GhiChu": "Đã hết hạn bảo hành",
+    "LichSuSuaChua": []
+  }
+]

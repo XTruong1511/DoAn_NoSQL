@@ -1,0 +1,87 @@
+﻿@model DoAnNoSQL.Models.MenuDanhMucViewModel
+
+@* 
+ Partial View: Template chung cho 1 menu item danh mục
+ Hiển thị danh mục với submenu thương hiệu động từ database
+*@
+
+@{
+ var danhMuc = Model.DanhMuc;
+}
+
+<!-- Danh mục: @danhMuc.TenDanhMuc -->
+<a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })" class="toggle-category">
+    @* Hiển thị icon nếu có *@
+    @if (!string.IsNullOrEmpty(danhMuc.Icon))
+    {
+  <i class="@danhMuc.Icon"></i>
+ }
+    else
+{
+        <i class="fas fa-tags"></i>
+    }
+    @danhMuc.TenDanhMuc
+    
+    @* Hiển thị số lượng sản phẩm *@
+    @if (Model.SoLuongSanPham > 0)
+    {
+   <span class="text-xs text-gray-400 ml-1">(@Model.SoLuongSanPham)</span>
+    }
+</a>
+
+<ul class="category-list">
+    <!-- Link xem tất cả -->
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })">
+   <i class="fas fa-list mr-2"></i> Tất cả @danhMuc.TenDanhMuc
+        </a>
+    </li>
+    
+    @* Hiển thị danh sách thương hiệu động *@
+    @if (Model.DanhSachThuongHieu != null && Model.DanhSachThuongHieu.Any())
+{
+        <li class="submenu-divider">
+      <span class="text-xs text-gray-500 font-semibold px-3 py-1">Thương hiệu</span>
+        </li>
+        
+        foreach (var thuongHieu in Model.DanhSachThuongHieu)
+     {
+          <li>
+ <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, thuongHieuId = thuongHieu.Id })">
+       @thuongHieu.TenThuongHieu
+     <span class="text-xs text-gray-400">(@thuongHieu.SoLuongSanPham)</span>
+                </a>
+     </li>
+        }
+ }
+    
+ @* Các filter khác *@
+  <li class="submenu-divider">
+        <span class="text-xs text-gray-500 font-semibold px-3 py-1">Lọc nhanh</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, loc = "moi" })">
+     <i class="fas fa-star text-yellow-500 mr-2"></i> Sản phẩm mới
+ </a>
+    </li>
+    <li>
+    <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, loc = "banchay" })">
+   <i class="fas fa-fire text-red-500 mr-2"></i> Bán chạy nhất
+ </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, loc = "khuyenmai" })">
+            <i class="fas fa-tag text-green-500 mr-2"></i> Khuyến mãi
+   </a>
+    </li>
+    <li>
+ <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMax = 5000000 })">
+   <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> Dưới 5 triệu
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id, giaMax = 10000000 })">
+   <i class="fas fa-dollar-sign text-blue-500 mr-2"></i> Dưới 10 triệu
+  </a>
+    </li>
+</ul>

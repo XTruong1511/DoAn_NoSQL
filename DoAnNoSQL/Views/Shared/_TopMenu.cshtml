@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DoAnNoSQL.Models.TopMenuItemViewModel>
+
+@* 
+    Partial View: Top Menu Navigation Bar (Blue Bar)
+    Hiển thị danh mục chính từ database
+*@
+
+<nav class="bg-blue-600 text-white">
+    <div class="container mx-auto px-4">
+        <ul class="flex overflow-x-auto py-3 space-x-6">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var danhMuc in Model)
+                {
+                    // Xác định icon dựa trên tên danh mục hoặc sử dụng icon từ database
+                    string iconClass = "fas fa-folder";
+                    
+                    if (!string.IsNullOrEmpty(danhMuc.Icon))
+                    {
+                        iconClass = danhMuc.Icon;
+                    }
+                    else
+                    {
+                        // Fallback: Map icon dựa trên tên danh mục
+                        string tenDanhMuc = (danhMuc.TenDanhMuc ?? "").ToLower();
+                        
+                        if (tenDanhMuc.Contains("tablet") || tenDanhMuc.Contains("máy tính bảng"))
+                        {
+                            iconClass = "fas fa-tablet-alt";
+                        }
+                        else if (tenDanhMuc.Contains("điện thoại") || tenDanhMuc.Contains("phone"))
+                        {
+                            iconClass = "fas fa-mobile-alt";
+                        }
+                        else if (tenDanhMuc.Contains("laptop"))
+                        {
+                            iconClass = "fas fa-laptop";
+                        }
+                        else if (tenDanhMuc.Contains("watch") || tenDanhMuc.Contains("đồng hồ"))
+                        {
+                            iconClass = "fas fa-watch";
+                        }
+                        else if (tenDanhMuc.Contains("phụ kiện") || tenDanhMuc.Contains("accessory"))
+                        {
+                            iconClass = "fas fa-tools";
+                        }
+                    }
+                    
+                    <li class="dropdown relative">
+                        <a href="@Url.Action("Index", "SanPham", new { danhMucId = danhMuc.Id })" 
+                           class="flex items-center text-white hover:text-yellow-300 hover:bg-blue-700 px-3 py-2 rounded whitespace-nowrap transition-colors duration-200">
+                            <i class="@iconClass mr-2"></i> @danhMuc.TenDanhMuc
+                        </a>
+                    </li>
+                }
+            }
+            else
+            {
+                @* Fallback: Menu mặc định nếu không load được từ database *@
+                <li class="dropdown relative">
+                    <a href="@Url.Action("Index", "SanPham")" class="flex items-center text-white hover:text-yellow-300 hover:bg-blue-700 px-3 py-2 rounded whitespace-nowrap transition-colors duration-200">
+                        <i class="fas fa-list mr-2"></i> Tất cả sản phẩm
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</nav>

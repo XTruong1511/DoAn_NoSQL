@@ -1,0 +1,319 @@
+﻿<!-- Side Cart Drawer (1/4 screen on right) -->
+<div id="sideCartOverlay" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[99998] transition-opacity duration-300 opacity-0 pointer-events-none" onclick="closeSideCart()"></div>
+
+<div id="sideCartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-[380px] lg:w-1/4 min-w-[320px] max-w-[460px] bg-white shadow-2xl z-[99999] transform translate-x-full transition-transform duration-300 ease-out flex flex-col border-l border-slate-200">
+    <!-- Drawer Header -->
+    <div class="p-4 bg-gradient-to-r from-teal-900 via-slate-900 to-blue-950 text-white flex items-center justify-between shadow-md flex-shrink-0">
+        <div class="flex items-center space-x-2.5">
+            <div class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-teal-300 border border-white/20">
+                <i class="fas fa-shopping-bag text-base"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-base font-heading flex items-center gap-2">
+                    Giỏ hàng của bạn
+                    <span id="sideCartBadgeCount" class="bg-teal-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+                </h3>
+                <p class="text-[11px] text-slate-300">Sản phẩm công nghệ chính hãng</p>
+            </div>
+        </div>
+        <button type="button" onclick="closeSideCart()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors" aria-label="Đóng giỏ hàng">
+            <i class="fas fa-times text-sm"></i>
+        </button>
+    </div>
+
+    <!-- Free Shipping Progress Tracker -->
+    <div class="p-3 bg-teal-50 border-b border-teal-100 flex-shrink-0">
+        <div class="flex items-center justify-between text-xs mb-1.5 font-medium text-teal-800">
+            <span class="flex items-center gap-1.5"><i class="fas fa-truck-fast text-teal-600"></i> Miễn phí giao hàng:</span>
+            <span id="freeShippingNotice" class="font-bold text-teal-700">Đơn từ 500.000đ</span>
+        </div>
+        <div class="w-full bg-teal-200 rounded-full h-2 overflow-hidden">
+            <div id="freeShippingBar" class="bg-gradient-to-r from-teal-500 to-emerald-500 h-2 rounded-full transition-all duration-500" style="width: 0%;"></div>
+        </div>
+    </div>
+
+    <!-- Drawer Body: Cart Items List -->
+    <div id="sideCartBody" class="flex-1 overflow-y-auto p-4 space-y-3 divide-y divide-slate-100">
+        <!-- Items will be populated here via AJAX -->
+        <div id="sideCartLoading" class="py-16 text-center text-slate-400">
+            <i class="fas fa-spinner fa-spin text-3xl text-teal-600 mb-3"></i>
+            <p class="text-sm">Đang tải giỏ hàng của bạn...</p>
+        </div>
+    </div>
+
+    <!-- Drawer Footer: Totals & Actions -->
+    <div id="sideCartFooter" class="p-4 bg-slate-50 border-t border-slate-200 shadow-inner flex-shrink-0 space-y-3">
+        <!-- Subtotal Row -->
+        <div class="flex items-center justify-between text-sm text-slate-600">
+            <span>Tạm tính:</span>
+            <span id="sideCartSubtotal" class="font-bold text-slate-800">0đ</span>
+        </div>
+
+        <!-- Total Row -->
+        <div class="flex items-center justify-between pt-1 border-t border-slate-200">
+            <span class="font-bold text-slate-900 text-base">Tổng tiền:</span>
+            <span id="sideCartTotal" class="font-extrabold text-xl text-rose-600 font-heading">0đ</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 gap-2 pt-1">
+            <a href="@Url.Action("Index", "ThanhToan")" id="sideCartCheckoutBtn" class="w-full py-3 px-4 rounded-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white font-bold text-center text-sm shadow-lg shadow-teal-500/25 transition-all duration-200 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
+                <i class="fas fa-credit-card"></i> Tiến hành thanh toán
+            </a>
+            <a href="@Url.Action("Index", "GioHang")" class="w-full py-2.5 px-4 rounded-full bg-white hover:bg-slate-100 text-slate-700 font-semibold text-center text-xs border border-slate-300 transition-all duration-200 flex items-center justify-center gap-1.5">
+                <i class="fas fa-cart-shopping"></i> Xem giỏ hàng đầy đủ
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // SIDE CART CONTROLLER & EVENT LISTENERS
+    // ==========================================
+
+    function formatVND(amount) {
+        return new Intl.NumberFormat('vi-VN').format(amount) + 'đ';
+    }
+
+    function openSideCart() {
+        const overlay = document.getElementById('sideCartOverlay');
+        const drawer = document.getElementById('sideCartDrawer');
+        if (!overlay || !drawer) return;
+
+        // Show drawer and overlay
+        overlay.classList.remove('pointer-events-none', 'opacity-0');
+        overlay.classList.add('opacity-100');
+
+        drawer.classList.remove('translate-x-full');
+        drawer.classList.add('translate-x-0');
+
+        // Prevent body scrolling
+        document.body.style.overflow = 'hidden';
+
+        // Load data from server
+        loadSideCartData();
+    }
+
+    function closeSideCart() {
+        const overlay = document.getElementById('sideCartOverlay');
+        const drawer = document.getElementById('sideCartDrawer');
+        if (!overlay || !drawer) return;
+
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        overlay.classList.remove('opacity-100');
+
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('translate-x-full');
+
+        document.body.style.overflow = '';
+    }
+
+    function loadSideCartData() {
+        const sideCartBody = document.getElementById('sideCartBody');
+        const footer = document.getElementById('sideCartFooter');
+        if (!sideCartBody) return;
+
+        sideCartBody.innerHTML = `
+            <div class="py-16 text-center text-slate-400">
+                <i class="fas fa-spinner fa-spin text-3xl text-teal-600 mb-3"></i>
+                <p class="text-sm">Đang tải giỏ hàng của bạn...</p>
+            </div>
+        `;
+
+        $.ajax({
+            url: '@Url.Action("GetCartData", "GioHang")',
+            type: 'GET',
+            cache: false,
+            success: function (res) {
+                if (!res.success) {
+                    sideCartBody.innerHTML = `
+                        <div class="py-12 text-center text-slate-500">
+                            <i class="fas fa-exclamation-circle text-3xl text-amber-500 mb-2"></i>
+                            <p class="text-sm">${res.message || 'Không thể tải giỏ hàng'}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                renderSideCart(res.items || [], res.cartCount || 0, res.cartTotal || 0);
+            },
+            error: function () {
+                sideCartBody.innerHTML = `
+                    <div class="py-12 text-center text-slate-500">
+                        <i class="fas fa-wifi text-3xl text-red-400 mb-2"></i>
+                        <p class="text-sm">Mất kết nối mạng. Vui lòng thử lại.</p>
+                    </div>
+                `;
+            }
+        });
+    }
+
+    function renderSideCart(items, count, total) {
+        const sideCartBody = document.getElementById('sideCartBody');
+        const badgeCount = document.getElementById('sideCartBadgeCount');
+        const subtotalEl = document.getElementById('sideCartSubtotal');
+        const totalEl = document.getElementById('sideCartTotal');
+        const footer = document.getElementById('sideCartFooter');
+        const freeShippingBar = document.getElementById('freeShippingBar');
+        const freeShippingNotice = document.getElementById('freeShippingNotice');
+
+        // Update global cart badge count in Header
+        $('.cart-count').text(count);
+        $('#cart-count').text(count);
+        if (count > 0) {
+            $('.cart-count').show();
+            $('#cart-count').show();
+        }
+
+        if (badgeCount) badgeCount.textContent = count;
+        if (subtotalEl) subtotalEl.textContent = formatVND(total);
+        if (totalEl) totalEl.textContent = formatVND(total);
+
+        // Calculate free shipping progress (Threshold: 500,000 VND)
+        const freeShipLimit = 500000;
+        if (freeShippingBar && freeShippingNotice) {
+            if (total >= freeShipLimit) {
+                freeShippingBar.style.width = '100%';
+                freeShippingBar.className = 'bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-500';
+                freeShippingNotice.innerHTML = '<span class="text-emerald-700 font-bold"><i class="fas fa-check-circle"></i> Bạn đã được Miễn phí vận chuyển!</span>';
+            } else {
+                const percent = Math.min(100, Math.round((total / freeShipLimit) * 100));
+                freeShippingBar.style.width = percent + '%';
+                const remain = freeShipLimit - total;
+                freeShippingNotice.innerHTML = `Mua thêm <strong class="text-rose-600">${formatVND(remain)}</strong> để được FreeShip`;
+            }
+        }
+
+        // Handle Empty Cart
+        if (items.length === 0) {
+            sideCartBody.innerHTML = `
+                <div class="py-16 text-center text-slate-400 flex flex-col items-center justify-center">
+                    <div class="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center text-slate-300 text-3xl mb-4">
+                        <i class="fas fa-basket-shopping"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-700 text-base font-heading mb-1">Giỏ hàng của bạn đang trống</h4>
+                    <p class="text-xs text-slate-400 max-w-xs mb-6">Hãy khám phá hàng ngàn sản phẩm công nghệ giá tốt hôm nay!</p>
+                    <button type="button" onclick="closeSideCart()" class="px-6 py-2.5 bg-gradient-to-r from-teal-600 to-blue-600 text-white rounded-full font-semibold text-xs shadow-md hover:scale-105 transition-all">
+                        Khám phá sản phẩm ngay
+                    </button>
+                </div>
+            `;
+            if (footer) {
+                footer.classList.add('opacity-50', 'pointer-events-none');
+            }
+            return;
+        }
+
+        if (footer) {
+            footer.classList.remove('opacity-50', 'pointer-events-none');
+        }
+
+        // Render Cart Items List
+        let html = '';
+        items.forEach(function (item) {
+            const imgSrc = item.productImage
+                ? '/Content/Images/' + item.productImage
+                : 'https://placehold.co/100x100?text=No+Image';
+
+            html += `
+                <div class="pt-3 pb-3 flex gap-3 items-center group">
+                    <div class="w-16 h-16 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 bg-slate-50 flex items-center justify-center p-1 relative">
+                        <img src="${imgSrc}" alt="${item.productName}" class="w-full h-full object-contain group-hover:scale-105 transition-transform" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-slate-800 text-xs truncate leading-tight mb-1" title="${item.productName}">
+                            ${item.productName}
+                        </h4>
+                        ${item.color ? `<span class="inline-block text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded mb-1">Màu: ${item.color}</span>` : ''}
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="font-bold text-rose-600 text-xs font-heading">${formatVND(item.price)}</span>
+                            
+                            <!-- Quantity Controls -->
+                            <div class="flex items-center border border-slate-200 rounded-full bg-slate-50 overflow-hidden">
+                                <button type="button" onclick="changeSideCartQty(${item.productId}, ${item.quantity - 1}, '${item.color || ''}')" class="w-6 h-6 flex items-center justify-center text-slate-600 hover:bg-slate-200 hover:text-slate-900 text-[10px] transition-colors">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="w-7 text-center text-xs font-bold text-slate-800">${item.quantity}</span>
+                                <button type="button" onclick="changeSideCartQty(${item.productId}, ${item.quantity + 1}, '${item.color || ''}')" class="w-6 h-6 flex items-center justify-center text-slate-600 hover:bg-slate-200 hover:text-slate-900 text-[10px] transition-colors">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeSideCartItem(${item.productId}, '${item.color || ''}')" class="w-7 h-7 rounded-full text-slate-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors flex-shrink-0" title="Xóa khỏi giỏ hàng">
+                        <i class="fas fa-trash-alt text-xs"></i>
+                    </button>
+                </div>
+            `;
+        });
+
+        sideCartBody.innerHTML = html;
+    }
+
+    function changeSideCartQty(productId, newQty, color) {
+        if (newQty <= 0) {
+            removeSideCartItem(productId, color);
+            return;
+        }
+
+        $.ajax({
+            url: '@Url.Action("UpdateQuantity", "GioHang")',
+            type: 'POST',
+            data: {
+                productId: productId,
+                quantity: newQty,
+                color: color
+            },
+            success: function (res) {
+                if (res.success) {
+                    loadSideCartData();
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Thông báo',
+                        text: res.message,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            }
+        });
+    }
+
+    function removeSideCartItem(productId, color) {
+        $.ajax({
+            url: '@Url.Action("Remove", "GioHang")',
+            type: 'POST',
+            data: {
+                productId: productId,
+                color: color
+            },
+            success: function (res) {
+                if (res.success) {
+                    loadSideCartData();
+                }
+            }
+        });
+    }
+
+    // Attach click triggers to all cart buttons across desktop, mobile and floating bar
+    document.addEventListener('DOMContentLoaded', function () {
+        // Intercept all cart triggers and links pointing to GioHang
+        $(document).on('click', '.open-cart-trigger, a[href$="/GioHang"], a[href$="/GioHang/"], a[href$="/GioHang/Index"]', function (e) {
+            // If it's the full cart page itself, allow normal navigation if needed; otherwise open drawer
+            if (window.location.pathname.toLowerCase().indexOf('/giohang') === -1) {
+                e.preventDefault();
+                e.stopPropagation();
+                openSideCart();
+            }
+        });
+
+        // Close on ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeSideCart();
+            }
+        });
+    });
+</script>
